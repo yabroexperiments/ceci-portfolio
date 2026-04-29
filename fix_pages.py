@@ -49,12 +49,9 @@ def main():
   height: 20px !important;
   max-width: none !important;
 }
-/* Hide IM Creator's native footer-box — we inject our own consistent footer instead */
-.master > #children > .footer-box,
-.master > .footer-box,
-#children > .footer-box {
-  display: none !important;
-}
+/* Hide IM Creator's native footer-box — we inject our own consistent footer instead.
+   Use a broad selector since the footer-box can be nested at varying depths. */
+.footer-box, .item-content.footer { display: none !important; }
 """
 
     width_fix = """
@@ -116,7 +113,7 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
         'display:flex;justify-content:space-between;align-items:center;gap:24px;'
         'flex-wrap:wrap;font-family:\'Montserrat\',-apple-system,sans-serif;'
         'color:#666;font-size:14px;border-top:1px solid #eee;">'
-        '<p style="margin:0;">Copyright © 2023 Ceci Chang. All rights reserved.</p>'
+        '<p style="margin:0;">Copyright © 2026 Ceci Chang. All rights reserved.</p>'
         '<div style="display:flex;gap:16px;align-items:center;">'
         f'<a href="mailto:changhsiju@gmail.com" aria-label="Email" style="display:block;line-height:0;">'
         f'<img src="{EMAIL_ICON}" alt="Email" style="width:24px;height:24px;display:block;opacity:0.85;">'
@@ -166,23 +163,17 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
 
         # Inject Ceci Chang floating logo on every page EXCEPT the homepage
         # (homepage already has the image in its IM Creator-rendered nav).
+        # Use bs4 for clean, idempotent stripping + insertion.
         if slug is not None:
-            # idempotent: strip any prior inject before re-adding
-            new_html = re.sub(
-                r'<a class="ceci-logo-inject"[^>]*>.*?</a>',
-                '', new_html, flags=re.DOTALL
-            )
-            new_html = new_html.replace(
-                "<body", LOGO_INJECT_HTML + "\n<body", 1
-            ) if "<body" in new_html else new_html
-            # Above injection puts logo BEFORE <body> tag — we actually want it INSIDE body.
-            # Fix: move it just AFTER opening <body ...>
-            new_html = re.sub(
-                r'(<body[^>]*>)',
-                lambda m: m.group(1) + "\n" + LOGO_INJECT_HTML,
-                new_html.replace(LOGO_INJECT_HTML + "\n<body", "<body", 1),
-                count=1
-            )
+            soup_logo = BeautifulSoup(new_html, "lxml")
+            # Strip all prior injects (any number of them)
+            for old in soup_logo.find_all(class_="ceci-logo-inject"):
+                old.decompose()
+            # Insert fresh logo as the very first child of <body>
+            if soup_logo.body:
+                logo_tag = BeautifulSoup(LOGO_INJECT_HTML, "lxml").a
+                soup_logo.body.insert(0, logo_tag)
+                new_html = str(soup_logo)
 
         # --- Replace <title> and inject SEO/OG meta tags ---
         # Get current title for derivation

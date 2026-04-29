@@ -4943,12 +4943,9 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
   height: 20px !important;
   max-width: none !important;
 }
-/* Hide IM Creator's native footer-box — we inject our own consistent footer instead */
-.master > #children > .footer-box,
-.master > .footer-box,
-#children > .footer-box {
-  display: none !important;
-}
+/* Hide IM Creator's native footer-box — we inject our own consistent footer instead.
+   Use a broad selector since the footer-box can be nested at varying depths. */
+.footer-box, .item-content.footer { display: none !important; }
 
 </style>
 <!--portfolio-meta-->
@@ -6914,5 +6911,5 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
 	</script>
 <script src="//www.imcreator.com/js/lightbox.js?v=1.6.0f2-noimos" type="text/javascript"></script>
 <script src="//www.imcreator.com/js/spimeengine.js?v=1.6.0f2-noimos" type="text/javascript"></script>
-<footer class="ceci-footer-inject" style="max-width:1100px;margin:80px auto 0;padding:32px 56px 64px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;font-family:'Montserrat',-apple-system,sans-serif;color:#666;font-size:14px;border-top:1px solid #eee;"><p style="margin:0;">Copyright © 2023 Ceci Chang. All rights reserved.</p><div style="display:flex;gap:16px;align-items:center;"><a aria-label="Email" href="mailto:changhsiju@gmail.com" style="display:block;line-height:0;"><img alt="Email" src="https://lh3.googleusercontent.com/lXDKZBXBa_mQ0A-IrOjHdi9s79RAhEe7zhdTEuKpKGLXGde6iL2n46n2Zi4TVA9Daag9Z13s1dGTbsnAXg=s100" style="width:24px;height:24px;display:block;opacity:0.85;"/></a><a aria-label="LinkedIn" href="https://www.linkedin.com/in/changhsiju/" rel="noopener" style="display:block;line-height:0;" target="_blank"><img alt="LinkedIn" src="https://lh3.googleusercontent.com/nJ0IsRDlfNRwXaO-ySLjDaIGgTW24qj6x5j0csqCgvEpaQGBPJJtU4qP83pmkOkcorVnLWAbkyJ_fELF=s100" style="width:24px;height:24px;display:block;opacity:0.85;"/></a></div></footer></body>
+<footer class="ceci-footer-inject" style="max-width:1100px;margin:80px auto 0;padding:32px 56px 64px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;font-family:'Montserrat',-apple-system,sans-serif;color:#666;font-size:14px;border-top:1px solid #eee;"><p style="margin:0;">Copyright © 2026 Ceci Chang. All rights reserved.</p><div style="display:flex;gap:16px;align-items:center;"><a aria-label="Email" href="mailto:changhsiju@gmail.com" style="display:block;line-height:0;"><img alt="Email" src="https://lh3.googleusercontent.com/lXDKZBXBa_mQ0A-IrOjHdi9s79RAhEe7zhdTEuKpKGLXGde6iL2n46n2Zi4TVA9Daag9Z13s1dGTbsnAXg=s100" style="width:24px;height:24px;display:block;opacity:0.85;"/></a><a aria-label="LinkedIn" href="https://www.linkedin.com/in/changhsiju/" rel="noopener" style="display:block;line-height:0;" target="_blank"><img alt="LinkedIn" src="https://lh3.googleusercontent.com/nJ0IsRDlfNRwXaO-ySLjDaIGgTW24qj6x5j0csqCgvEpaQGBPJJtU4qP83pmkOkcorVnLWAbkyJ_fELF=s100" style="width:24px;height:24px;display:block;opacity:0.85;"/></a></div></footer></body>
 </html>
