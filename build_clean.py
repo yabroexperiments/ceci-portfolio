@@ -140,6 +140,25 @@ a { color: inherit; }
   max-width: var(--max); margin: 64px auto;
   padding: 0 56px;
 }
+
+/* Each "image + caption" block within a section */
+.image-block {
+  margin: 40px 0;
+}
+.image-block:first-child { margin-top: 24px; }
+.image-block:last-child { margin-bottom: 0; }
+.image-block .images { margin-bottom: 12px; }
+.image-block .caption {
+  font-size: 14px; font-weight: 400;
+  color: var(--muted); line-height: 1.6;
+  margin: 12px 0 0;
+  white-space: pre-wrap;
+}
+.image-block p:not(.caption) {
+  font-size: 18px; font-weight: 400;
+  color: #333; line-height: 1.7;
+  margin: 12px 0 0;
+}
 .content-section .images {
   display: grid; gap: 16px; margin-top: 24px;
 }
@@ -266,21 +285,78 @@ def filter_real_content_images(image_pairs, stem_freq):
 
 
 def parse_section(section, stem_freq):
+    """Parse a section. Two shapes possible:
+
+    1. Block-based (has nested page-box children):
+       returns {'kind': 'blocks', 'heading': str, 'blocks': [{'caption', 'body', 'images'}, ...]}
+
+    2. Simple intro/text section (no nested page-boxes):
+       returns {'kind': 'simple', 'title': str, 'subtitle': str, 'paragraphs': [...], 'images': [...]}
+    """
+    page_boxes = [
+        el for el in section.find_all(recursive=True)
+        if el.get("class") and "page-box" in (el.get("class") or [])
+        and "stripe-header" not in (el.get("class") or [])
+    ]
+
+    # Section heading from stripe-header, if any
+    heading = ""
+    sh = section.find(class_=lambda c: c and "stripe-header" in (c if isinstance(c, str) else c))
+    if sh:
+        for cls in ("blocks-preview-title", "preview-title"):
+            el = sh.find(class_=cls)
+            if el and el.get_text(strip=True):
+                heading = el.get_text(strip=True); break
+
+    if page_boxes:
+        # Build blocks from each page-box
+        blocks = []
+        for pb in page_boxes:
+            caption = ""
+            for cls in ("preview-title", "preview-subtitle"):
+                el = pb.find(class_=cls)
+                if el and el.get_text(strip=True):
+                    caption = el.get_text("\n", strip=True); break
+            body_parts = []
+            for el in pb.find_all():
+                if has_class(el, "preview-body"):
+                    t = el.get_text("\n", strip=True)
+                    if t and len(t) > 2:
+                        body_parts.append(t)
+            images = filter_real_content_images(list(extract_all_image_urls(pb)), stem_freq)
+            if not (caption or body_parts or images):
+                continue
+            blocks.append({"caption": caption, "body": body_parts, "images": images})
+
+        # If exactly 1 block with no images but with body text, this is an intro-style
+        # simple section (e.g. "BINANCE Copy Trading" + paragraph). Return as simple.
+        if len(blocks) == 1 and not blocks[0]["images"] and blocks[0]["body"]:
+            return {
+                "kind": "simple",
+                "title": blocks[0]["caption"] or heading,
+                "subtitle": "",
+                "paragraphs": blocks[0]["body"],
+                "images": [],
+            }
+
+        return {"kind": "blocks", "heading": heading, "blocks": blocks}
+
+    # Simple section — title + body + no nested blocks
     titles = [el for el in section.find_all() if has_class(el, "preview-title")]
     subtitles = [el for el in section.find_all() if has_class(el, "preview-subtitle")]
     paragraphs = []
     for el in section.find_all():
         if has_class(el, "preview-body"):
-            text = el.get_text("\n", strip=True)
-            if text and len(text) > 2:
-                paragraphs.append(text)
+            t = el.get_text("\n", strip=True)
+            if t and len(t) > 2:
+                paragraphs.append(t)
 
     title_text = titles[0].get_text(" ", strip=True) if titles else ""
     subtitle_text = subtitles[0].get_text("\n", strip=True) if subtitles else ""
-
     images = filter_real_content_images(list(extract_all_image_urls(section)), stem_freq)
 
     return {
+        "kind": "simple",
         "title": title_text,
         "subtitle": subtitle_text,
         "paragraphs": paragraphs,
@@ -294,52 +370,65 @@ def escape_html(s):
 
 
 def render_page(slug, project_title, brand, sections, hero_url):
-    # Build content section blocks (skip empty)
     blocks = []
     intro_used = False
     intro_title = ""
     intro_description = ""
 
-    triggers = SINGLE_COLUMN_TRIGGERS.get(slug, [])
-    force_single_col = False
-
     for sec in sections:
-        if not (sec["title"] or sec["subtitle"] or sec["paragraphs"] or sec["images"]):
-            continue
+        kind = sec.get("kind")
 
-        # Use the first section that has BOTH title AND paragraph as the intro
-        # (typically section 1 of the captured page: project name + tagline)
-        if not intro_used and sec["title"] and sec["paragraphs"]:
-            intro_title = sec["title"]
-            intro_description = sec["paragraphs"][0]
-            intro_used = True
-            continue
+        if kind == "simple":
+            if not (sec["title"] or sec["subtitle"] or sec["paragraphs"] or sec["images"]):
+                continue
+            # First simple section with title+body becomes the intro after the hero
+            if not intro_used and sec["title"] and sec["paragraphs"]:
+                intro_title = sec["title"]
+                intro_description = sec["paragraphs"][0]
+                intro_used = True
+                continue
 
-        # Activate single-column mode when a trigger phrase appears in this section
-        if not force_single_col and triggers:
-            sec_text = " ".join([sec["title"], sec["subtitle"]] + sec["paragraphs"])
-            if any(t.lower() in sec_text.lower() for t in triggers):
-                force_single_col = True
-
-        out = ['<section class="content-section">']
-        if sec["title"]:
-            out.append(f'  <h2>{escape_html(sec["title"])}</h2>')
-        if sec["subtitle"]:
-            out.append(f'  <h3>{escape_html(sec["subtitle"])}</h3>')
-        for p in sec["paragraphs"]:
-            out.append(f'  <p>{escape_html(p)}</p>')
-        if sec["images"]:
-            n = len(sec["images"])
-            if force_single_col:
-                cols = 1
-            else:
+            out = ['<section class="content-section">']
+            if sec["title"]:
+                out.append(f'  <h2>{escape_html(sec["title"])}</h2>')
+            if sec["subtitle"]:
+                out.append(f'  <h3>{escape_html(sec["subtitle"])}</h3>')
+            for p in sec["paragraphs"]:
+                out.append(f'  <p>{escape_html(p)}</p>')
+            if sec["images"]:
+                n = len(sec["images"])
                 cols = 1 if n == 1 else (2 if n in (2, 4) else 3)
-            out.append(f'  <div class="images cols-{cols}">')
-            for u in sec["images"]:
-                out.append(f'    <img src="{u}" loading="lazy" alt="">')
-            out.append('  </div>')
-        out.append('</section>')
-        blocks.append("\n".join(out))
+                out.append(f'  <div class="images cols-{cols}">')
+                for u in sec["images"]:
+                    out.append(f'    <img src="{u}" loading="lazy" alt="">')
+                out.append('  </div>')
+            out.append('</section>')
+            blocks.append("\n".join(out))
+
+        elif kind == "blocks":
+            if not sec.get("blocks"):
+                continue
+            out = ['<section class="content-section">']
+            if sec.get("heading"):
+                out.append(f'  <h2>{escape_html(sec["heading"])}</h2>')
+            for b in sec["blocks"]:
+                if not (b["caption"] or b["body"] or b["images"]):
+                    continue
+                out.append('  <div class="image-block">')
+                if b["images"]:
+                    n = len(b["images"])
+                    cols = 1 if n <= 1 else (2 if n in (2, 4) else 3)
+                    out.append(f'    <div class="images cols-{cols}">')
+                    for u in b["images"]:
+                        out.append(f'      <img src="{u}" loading="lazy" alt="">')
+                    out.append('    </div>')
+                if b["caption"]:
+                    out.append(f'    <p class="caption">{escape_html(b["caption"])}</p>')
+                for p in b["body"]:
+                    out.append(f'    <p>{escape_html(p)}</p>')
+                out.append('  </div>')
+            out.append('</section>')
+            blocks.append("\n".join(out))
 
     # Fallback intro if no section had title+paragraph
     if not intro_used:
@@ -414,15 +503,13 @@ def render_page(slug, project_title, brand, sections, hero_url):
 """
 
 
-def find_hero(sections, stem_freq):
-    """Pick the first big content image across all sections — preferring =s1600 or larger originals."""
-    # Pass 1: find a =s1600+ image
-    for sec in sections:
+def find_hero(raw_sections, stem_freq):
+    """Pick the first big content image across raw section DOM trees."""
+    for sec in raw_sections:
         for u, sz in extract_all_image_urls(sec):
             if sz >= 1000 and stem_freq[url_stem(u)] < 3:
                 return best_url(u)
-    # Pass 2: any non-decorative image >= 200
-    for sec in sections:
+    for sec in raw_sections:
         for u, sz in extract_all_image_urls(sec):
             if sz >= 200 and stem_freq[url_stem(u)] < 3:
                 return best_url(u)
@@ -444,36 +531,41 @@ def main():
         if not children_div:
             print(f"  ✗ NO CONTENT: {slug}"); continue
 
-        sections = list(children_div.find_all(recursive=False))
+        raw_sections = list(children_div.find_all(recursive=False))
 
         # Build stem-frequency map across the whole page (for decorative-image filter)
         all_pairs = []
-        for sec in sections:
+        for sec in raw_sections:
             all_pairs.extend(extract_all_image_urls(sec))
         stem_freq = Counter(url_stem(u) for u, _ in all_pairs)
 
-        # Pick hero before stripping header/footer
-        hero = find_hero(sections, stem_freq)
+        # Pick hero from raw DOM
+        hero = find_hero(raw_sections, stem_freq)
 
         parsed = []
-        for sec in sections:
+        for sec in raw_sections:
             cls_str = " ".join(sec.get("class") or [])
             if "header-box" in cls_str or "footer-box" in cls_str:
                 continue
             parsed.append(parse_section(sec, stem_freq))
 
-        # Drop the hero image from any section that references it (so it's not duplicated)
+        # Drop the hero image from any block/section that references it
         if hero:
             hero_stem = url_stem(re.sub(r"=s\d+(?:-c)?$", "", hero))
             for sec in parsed:
-                sec["images"] = [u for u in sec["images"] if url_stem(u) != hero_stem]
+                if sec.get("kind") == "simple":
+                    sec["images"] = [u for u in sec["images"] if url_stem(u) != hero_stem]
+                elif sec.get("kind") == "blocks":
+                    for b in sec["blocks"]:
+                        b["images"] = [u for u in b["images"] if url_stem(u) != hero_stem]
 
         html = render_page(slug, title, brand, parsed, hero)
         out_file = SITE / slug / "index.html"
         out_file.parent.mkdir(parents=True, exist_ok=True)
         out_file.write_text(html)
-        n_imgs = sum(len(s["images"]) for s in parsed)
-        print(f"  ✓ {slug:<40} hero={'Y' if hero else 'N'}, {n_imgs} content images")
+        n_blocks = sum(len(s.get("blocks", [])) for s in parsed if s.get("kind") == "blocks")
+        n_simple = sum(1 for s in parsed if s.get("kind") == "simple")
+        print(f"  ✓ {slug:<40} hero={'Y' if hero else 'N'}, blocks={n_blocks}, simple-sections={n_simple}")
 
 
 if __name__ == "__main__":

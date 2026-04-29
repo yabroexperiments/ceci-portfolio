@@ -103,6 +103,25 @@ a { color: inherit; }
   max-width: var(--max); margin: 64px auto;
   padding: 0 56px;
 }
+
+/* Each "image + caption" block within a section */
+.image-block {
+  margin: 40px 0;
+}
+.image-block:first-child { margin-top: 24px; }
+.image-block:last-child { margin-bottom: 0; }
+.image-block .images { margin-bottom: 12px; }
+.image-block .caption {
+  font-size: 14px; font-weight: 400;
+  color: var(--muted); line-height: 1.6;
+  margin: 12px 0 0;
+  white-space: pre-wrap;
+}
+.image-block p:not(.caption) {
+  font-size: 18px; font-weight: 400;
+  color: #333; line-height: 1.7;
+  margin: 12px 0 0;
+}
 .content-section .images {
   display: grid; gap: 16px; margin-top: 24px;
 }
