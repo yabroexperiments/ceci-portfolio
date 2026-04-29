@@ -65,31 +65,37 @@ a { color: inherit; }
   color: var(--text); letter-spacing: 0.2em;
   margin: 0 0 16px;
 }
-.project-intro .title {
-  font-size: clamp(32px, 4.5vw, 56px); font-weight: 600;
-  margin: 0 0 24px; letter-spacing: -0.01em; line-height: 1.15;
+
+/* === UNIFIED TYPOGRAPHY (3 levels) === */
+/* Level 1: Heading — used for project title + every section title */
+.project-intro .title,
+.content-section h2 {
+  font-size: 36px; font-weight: 600;
+  color: var(--text); line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 24px;
 }
-.project-intro .description {
-  font-size: 18px; line-height: 1.7;
-  max-width: 720px; margin: 0 auto;
-  color: #333;
+/* Level 2: Body — used for project description + section paragraphs */
+.project-intro .description,
+.content-section p {
+  font-size: 18px; font-weight: 400;
+  color: #333; line-height: 1.7;
+  margin: 0 0 16px;
+  max-width: 760px;
+  white-space: pre-wrap;
+}
+.project-intro .description { max-width: 720px; margin: 0 auto; }
+/* Level 3: Description — used for image captions / subtitles */
+.content-section h3,
+.content-section .description {
+  font-size: 15px; font-weight: 400;
+  color: var(--muted); line-height: 1.6;
+  margin: 0 0 16px;
 }
 
 .content-section {
   max-width: var(--max); margin: 64px auto;
   padding: 0 56px;
-}
-.content-section h2 {
-  font-size: 28px; font-weight: 600; margin: 0 0 12px;
-  letter-spacing: -0.01em;
-}
-.content-section h3 {
-  font-size: 18px; font-weight: 500; color: var(--muted);
-  margin: 0 0 16px; line-height: 1.5;
-}
-.content-section p {
-  font-size: 16px; margin: 0 0 16px; max-width: 760px;
-  white-space: pre-wrap; line-height: 1.7;
 }
 .content-section .images {
   display: grid; gap: 16px; margin-top: 24px;
