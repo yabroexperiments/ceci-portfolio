@@ -9,6 +9,7 @@ post-render form. The 8 captured pages are handled by build_clean.py instead.
 """
 import re
 from pathlib import Path
+from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).parent
 SITE = ROOT / "site"
@@ -186,6 +187,37 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
 <link rel="canonical" href="{page_url}">
 <!--/portfolio-meta-->'''
         new_html = new_html.replace("</head>", meta_block + "\n</head>", 1)
+
+        # On project pages (not homepage): remove the bottom HOME page-box,
+        # add a "← Back to portfolio" link before the footer.
+        if slug is not None:
+            soup = BeautifulSoup(new_html, "lxml")
+
+            # Remove last .page-box that contains only a single HOME link
+            children_div = soup.find("div", id="children")
+            if children_div:
+                # iterate from the last direct child upward
+                for child in reversed(list(children_div.find_all(recursive=False))):
+                    cls = " ".join(child.get("class") or [])
+                    if "page-box" not in cls:
+                        continue
+                    links = child.find_all("a")
+                    text = child.get_text(strip=True).upper()
+                    if links and text == "HOME":
+                        child.decompose()
+                    break  # stop after the first page-box we examined
+
+            # Inject "Back to portfolio" link as a fixed/absolute element near bottom-left
+            # but only if not already present
+            if not soup.find(class_="back-to-portfolio-inject"):
+                back_link = soup.new_tag("a", href="../",
+                                          attrs={"class": "back-to-portfolio-inject",
+                                                 "style": "display:block;max-width:1100px;margin:64px auto 32px;padding:0 56px;color:#111;text-decoration:none;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:500;"})
+                back_link.string = "← Back to portfolio"
+                if soup.body:
+                    soup.body.append(back_link)
+
+            new_html = str(soup)
 
         if new_html != html:
             f.write_text(new_html)

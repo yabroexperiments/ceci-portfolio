@@ -182,18 +182,19 @@ a { color: inherit; }
 .page-footer {
   max-width: var(--max); margin: 32px auto 0;
   padding: 24px 56px 64px;
-  color: var(--muted); font-size: 13px;
+  color: var(--muted); font-size: 14px;
   display: flex; justify-content: space-between; align-items: center;
   gap: 24px; flex-wrap: wrap;
 }
 .page-footer .socials {
-  display: flex; gap: 20px;
+  display: flex; gap: 16px; align-items: center;
 }
-.page-footer .socials a {
-  text-decoration: none; color: var(--text);
-  font-weight: 500;
+.page-footer .socials a { display: block; line-height: 0; }
+.page-footer .socials a img {
+  width: 24px; height: 24px; display: block;
+  opacity: 0.85; transition: opacity 0.2s;
 }
-.page-footer .socials a:hover { opacity: 0.6; }
+.page-footer .socials a:hover img { opacity: 1; }
 .page-footer .copyright { margin: 0; }
 
 @media (max-width: 768px) {
@@ -492,8 +493,12 @@ def render_page(slug, project_title, brand, sections, hero_url):
   <footer class="page-footer">
     <p class="copyright">Copyright © 2023 Ceci Chang. All rights reserved.</p>
     <div class="socials">
-      <a href="https://www.linkedin.com/in/changhsiju/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="mailto:changhsiju@gmail.com">Email</a>
+      <a href="mailto:changhsiju@gmail.com" aria-label="Email">
+        <img src="https://lh3.googleusercontent.com/lXDKZBXBa_mQ0A-IrOjHdi9s79RAhEe7zhdTEuKpKGLXGde6iL2n46n2Zi4TVA9Daag9Z13s1dGTbsnAXg=s100" alt="Email">
+      </a>
+      <a href="https://www.linkedin.com/in/changhsiju/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <img src="https://lh3.googleusercontent.com/nJ0IsRDlfNRwXaO-ySLjDaIGgTW24qj6x5j0csqCgvEpaQGBPJJtU4qP83pmkOkcorVnLWAbkyJ_fELF=s100" alt="LinkedIn">
+      </a>
     </div>
   </footer>
 
