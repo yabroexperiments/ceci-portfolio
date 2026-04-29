@@ -101,10 +101,10 @@ a { color: inherit; }
 /* Level 1: Heading — used for project title + every section title */
 .project-intro .title,
 .content-section h2 {
-  font-size: 36px; font-weight: 600;
-  color: var(--text); line-height: 1.2;
+  font-size: 26px; font-weight: 600;
+  color: var(--text); line-height: 1.3;
   letter-spacing: -0.01em;
-  margin: 0 0 24px;
+  margin: 0 0 20px;
 }
 /* Level 2: Body — used for project description + section paragraphs */
 .project-intro .description,
@@ -119,7 +119,7 @@ a { color: inherit; }
 /* Level 3: Description — used for image captions / subtitles */
 .content-section h3,
 .content-section .description {
-  font-size: 15px; font-weight: 400;
+  font-size: 14px; font-weight: 400;
   color: var(--muted); line-height: 1.6;
   margin: 0 0 16px;
 }
