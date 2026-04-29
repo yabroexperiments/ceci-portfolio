@@ -490,14 +490,14 @@ def render_page(slug, project_title, brand, sections, hero_url):
     <a href="../">← Back to portfolio</a>
   </div>
 
-  <footer class="page-footer">
-    <p class="copyright">Copyright © 2023 Ceci Chang. All rights reserved.</p>
-    <div class="socials">
-      <a href="mailto:changhsiju@gmail.com" aria-label="Email">
-        <img src="https://lh3.googleusercontent.com/lXDKZBXBa_mQ0A-IrOjHdi9s79RAhEe7zhdTEuKpKGLXGde6iL2n46n2Zi4TVA9Daag9Z13s1dGTbsnAXg=s100" alt="Email">
+  <footer class="ceci-footer-inject" style="max-width:1100px;margin:80px auto 0;padding:32px 56px 64px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;font-family:'Montserrat',-apple-system,sans-serif;color:#666;font-size:14px;border-top:1px solid #eee;">
+    <p style="margin:0;">Copyright © 2023 Ceci Chang. All rights reserved.</p>
+    <div style="display:flex;gap:16px;align-items:center;">
+      <a href="mailto:changhsiju@gmail.com" aria-label="Email" style="display:block;line-height:0;">
+        <img src="https://lh3.googleusercontent.com/lXDKZBXBa_mQ0A-IrOjHdi9s79RAhEe7zhdTEuKpKGLXGde6iL2n46n2Zi4TVA9Daag9Z13s1dGTbsnAXg=s100" alt="Email" style="width:24px;height:24px;display:block;opacity:0.85;">
       </a>
-      <a href="https://www.linkedin.com/in/changhsiju/" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <img src="https://lh3.googleusercontent.com/nJ0IsRDlfNRwXaO-ySLjDaIGgTW24qj6x5j0csqCgvEpaQGBPJJtU4qP83pmkOkcorVnLWAbkyJ_fELF=s100" alt="LinkedIn">
+      <a href="https://www.linkedin.com/in/changhsiju/" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:block;line-height:0;">
+        <img src="https://lh3.googleusercontent.com/nJ0IsRDlfNRwXaO-ySLjDaIGgTW24qj6x5j0csqCgvEpaQGBPJJtU4qP83pmkOkcorVnLWAbkyJ_fELF=s100" alt="LinkedIn" style="width:24px;height:24px;display:block;opacity:0.85;">
       </a>
     </div>
   </footer>

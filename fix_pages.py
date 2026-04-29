@@ -49,6 +49,12 @@ def main():
   height: 20px !important;
   max-width: none !important;
 }
+/* Hide IM Creator's native footer-box — we inject our own consistent footer instead */
+.master > #children > .footer-box,
+.master > .footer-box,
+#children > .footer-box {
+  display: none !important;
+}
 """
 
     width_fix = """
@@ -97,6 +103,29 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
         f'<img src="{LOGO_URL}" alt="Ceci Chang" '
         f'style="width:97px;height:20px;display:block;">'
         f'</a>'
+    )
+
+    EMAIL_ICON = "https://lh3.googleusercontent.com/lXDKZBXBa_mQ0A-IrOjHdi9s79RAhEe7zhdTEuKpKGLXGde6iL2n46n2Zi4TVA9Daag9Z13s1dGTbsnAXg=s100"
+    LINKEDIN_ICON = "https://lh3.googleusercontent.com/nJ0IsRDlfNRwXaO-ySLjDaIGgTW24qj6x5j0csqCgvEpaQGBPJJtU4qP83pmkOkcorVnLWAbkyJ_fELF=s100"
+
+    # Standard footer HTML (used on homepage + all Wayback project pages — captured
+    # pages have the same footer baked in by build_clean.py).
+    FOOTER_HTML = (
+        '<footer class="ceci-footer-inject" '
+        'style="max-width:1100px;margin:80px auto 0;padding:32px 56px 64px;'
+        'display:flex;justify-content:space-between;align-items:center;gap:24px;'
+        'flex-wrap:wrap;font-family:\'Montserrat\',-apple-system,sans-serif;'
+        'color:#666;font-size:14px;border-top:1px solid #eee;">'
+        '<p style="margin:0;">Copyright © 2023 Ceci Chang. All rights reserved.</p>'
+        '<div style="display:flex;gap:16px;align-items:center;">'
+        f'<a href="mailto:changhsiju@gmail.com" aria-label="Email" style="display:block;line-height:0;">'
+        f'<img src="{EMAIL_ICON}" alt="Email" style="width:24px;height:24px;display:block;opacity:0.85;">'
+        '</a>'
+        f'<a href="https://www.linkedin.com/in/changhsiju/" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:block;line-height:0;">'
+        f'<img src="{LINKEDIN_ICON}" alt="LinkedIn" style="width:24px;height:24px;display:block;opacity:0.85;">'
+        '</a>'
+        '</div>'
+        '</footer>'
     )
 
     def page_meta(slug, current_title):
@@ -217,6 +246,16 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
                 if soup.body:
                     soup.body.append(back_link)
 
+            new_html = str(soup)
+
+        # Inject the standard custom footer on EVERY page (homepage + Wayback project pages).
+        # Re-parse with bs4 to drop any prior inject and append fresh.
+        soup = BeautifulSoup(new_html, "lxml")
+        for old_footer in soup.find_all(class_="ceci-footer-inject"):
+            old_footer.decompose()
+        if soup.body:
+            footer_tag = BeautifulSoup(FOOTER_HTML, "lxml").footer
+            soup.body.append(footer_tag)
             new_html = str(soup)
 
         if new_html != html:
