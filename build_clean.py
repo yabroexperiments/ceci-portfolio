@@ -29,6 +29,12 @@ PAGES = [
     ("vbid-3c197782-0lvtbbbh.html", "xxyz", "X.xyz", "X.XYZ"),
 ]
 
+# Per-slug: starting from the section whose title/subtitle/paragraph contains
+# any of these substrings, render images as a single full-width column (one per row).
+SINGLE_COLUMN_TRIGGERS = {
+    "bnct": ["The homepage design is clearly categorized"],
+}
+
 SHARED_CSS = """
 :root {
   --max: 1100px;
@@ -294,6 +300,9 @@ def render_page(slug, project_title, brand, sections, hero_url):
     intro_title = ""
     intro_description = ""
 
+    triggers = SINGLE_COLUMN_TRIGGERS.get(slug, [])
+    force_single_col = False
+
     for sec in sections:
         if not (sec["title"] or sec["subtitle"] or sec["paragraphs"] or sec["images"]):
             continue
@@ -306,6 +315,12 @@ def render_page(slug, project_title, brand, sections, hero_url):
             intro_used = True
             continue
 
+        # Activate single-column mode when a trigger phrase appears in this section
+        if not force_single_col and triggers:
+            sec_text = " ".join([sec["title"], sec["subtitle"]] + sec["paragraphs"])
+            if any(t.lower() in sec_text.lower() for t in triggers):
+                force_single_col = True
+
         out = ['<section class="content-section">']
         if sec["title"]:
             out.append(f'  <h2>{escape_html(sec["title"])}</h2>')
@@ -315,7 +330,10 @@ def render_page(slug, project_title, brand, sections, hero_url):
             out.append(f'  <p>{escape_html(p)}</p>')
         if sec["images"]:
             n = len(sec["images"])
-            cols = 1 if n == 1 else (2 if n in (2, 4) else 3)
+            if force_single_col:
+                cols = 1
+            else:
+                cols = 1 if n == 1 else (2 if n in (2, 4) else 3)
             out.append(f'  <div class="images cols-{cols}">')
             for u in sec["images"]:
                 out.append(f'    <img src="{u}" loading="lazy" alt="">')
