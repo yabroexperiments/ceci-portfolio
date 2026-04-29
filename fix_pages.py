@@ -52,6 +52,18 @@ def main():
 /* Hide IM Creator's native footer-box — we inject our own consistent footer instead.
    Use a broad selector since the footer-box can be nested at varying depths. */
 .footer-box, .item-content.footer { display: none !important; }
+
+/* Style HOME / ABOUT nav links consistently with the captured pages */
+.menu_layout a, .links-menu a, .header-box a, .stripe-header a {
+  color: #111 !important;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+}
+.menu_layout a:hover, .links-menu a:hover, .header-box a:hover { opacity: 0.6; }
 """
 
     width_fix = """
