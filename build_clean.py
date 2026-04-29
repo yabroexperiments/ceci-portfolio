@@ -45,13 +45,16 @@ body {
 }
 a { color: inherit; }
 
-.floating-logo {
+.ceci-logo {
   position: absolute;
-  top: 28px; left: 56px;
+  top: 39px; left: 68px;
   z-index: 5;
-  font-size: 22px; font-weight: 600;
+  display: block;
+  text-decoration: none;
 }
-.floating-logo a { text-decoration: none; }
+.ceci-logo img {
+  height: 27px; width: auto; display: block;
+}
 
 .page-nav {
   position: fixed;
@@ -68,7 +71,10 @@ a { color: inherit; }
 }
 .page-nav.visible { transform: translateY(0); }
 .page-nav .logo {
-  font-size: 22px; font-weight: 600; text-decoration: none;
+  display: flex; align-items: center; text-decoration: none;
+}
+.page-nav .logo img {
+  height: 24px; width: auto; display: block;
 }
 .page-nav nav a {
   margin-left: 32px; text-decoration: none; text-transform: uppercase;
@@ -166,7 +172,8 @@ a { color: inherit; }
 .page-footer .copyright { margin: 0; }
 
 @media (max-width: 768px) {
-  .floating-logo { top: 20px; left: 24px; }
+  .ceci-logo { top: 24px; left: 24px; }
+  .ceci-logo img { height: 22px; }
   .page-nav { padding: 14px 24px; }
   .page-nav nav a { margin-left: 16px; }
   .project-intro, .content-section, .next-project, .page-footer {
@@ -351,10 +358,10 @@ def render_page(slug, project_title, brand, sections, hero_url):
   <link rel="stylesheet" href="../assets/project.css">
 </head>
 <body>
-  <div class="floating-logo"><a href="../">Ceci Chang</a></div>
+  <a class="ceci-logo" href="../" aria-label="Ceci Chang home"><img src="https://lh3.googleusercontent.com/LpF5FkXmIWcEsH77dZ6Z_kV7Y3wLf3y3JQnx7r6TOuVkeypK_jDauMNjgFC-zLhwzd5dlRv82i7ifxBfaw=s260" alt="Ceci Chang"></a>
 
   <header class="page-nav">
-    <a href="../" class="logo">Ceci Chang</a>
+    <a href="../" class="logo" aria-label="Ceci Chang home"><img src="https://lh3.googleusercontent.com/LpF5FkXmIWcEsH77dZ6Z_kV7Y3wLf3y3JQnx7r6TOuVkeypK_jDauMNjgFC-zLhwzd5dlRv82i7ifxBfaw=s260" alt="Ceci Chang"></a>
     <nav>
       <a href="../">HOME</a>
       <a href="../about-me/">ABOUT</a>

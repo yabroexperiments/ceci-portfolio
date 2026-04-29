@@ -78,6 +78,17 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
 
     SITE_URL = "https://changhsiju.xyz"
     DEFAULT_DESC = "Ceci Chang - Senior Product Designer / Design Lead"
+    LOGO_URL = "https://lh3.googleusercontent.com/LpF5FkXmIWcEsH77dZ6Z_kV7Y3wLf3y3JQnx7r6TOuVkeypK_jDauMNjgFC-zLhwzd5dlRv82i7ifxBfaw=s260"
+
+    # Floating Ceci Chang logo at top-left, links to homepage. Skipped on the homepage
+    # (already has the image natively in IM Creator's nav).
+    LOGO_INJECT_HTML = (
+        f'<a class="ceci-logo-inject" href="../" aria-label="Ceci Chang home" '
+        f'style="position:absolute;top:39px;left:68px;z-index:50;display:block;text-decoration:none;">'
+        f'<img src="{LOGO_URL}" alt="Ceci Chang" '
+        f'style="height:27px;width:auto;display:block;">'
+        f'</a>'
+    )
 
     def page_meta(slug, current_title):
         """Return (title, description) for a page slug."""
@@ -114,6 +125,26 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
                 HOMEPAGE_OVERRIDES + "\n</style>"
             )
         new_html = new_html.replace("</head>", css_to_inject + "\n</head>", 1)
+
+        # Inject Ceci Chang floating logo on every page EXCEPT the homepage
+        # (homepage already has the image in its IM Creator-rendered nav).
+        if slug is not None:
+            # idempotent: strip any prior inject before re-adding
+            new_html = re.sub(
+                r'<a class="ceci-logo-inject"[^>]*>.*?</a>',
+                '', new_html, flags=re.DOTALL
+            )
+            new_html = new_html.replace(
+                "<body", LOGO_INJECT_HTML + "\n<body", 1
+            ) if "<body" in new_html else new_html
+            # Above injection puts logo BEFORE <body> tag — we actually want it INSIDE body.
+            # Fix: move it just AFTER opening <body ...>
+            new_html = re.sub(
+                r'(<body[^>]*>)',
+                lambda m: m.group(1) + "\n" + LOGO_INJECT_HTML,
+                new_html.replace(LOGO_INJECT_HTML + "\n<body", "<body", 1),
+                count=1
+            )
 
         # --- Replace <title> and inject SEO/OG meta tags ---
         # Get current title for derivation
