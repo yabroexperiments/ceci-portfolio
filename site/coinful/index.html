@@ -10,7 +10,9 @@
   <link rel="stylesheet" href="../assets/project.css">
 </head>
 <body>
-  <header class="page-header">
+  <div class="floating-logo"><a href="../">Ceci Chang</a></div>
+
+  <header class="page-nav">
     <a href="../" class="logo">Ceci Chang</a>
     <nav>
       <a href="../">HOME</a>
@@ -18,17 +20,14 @@
     </nav>
   </header>
 
-  <div class="project-hero">
-    <h1>Coinful</h1>
-  </div>
+  <div class="hero"><img src="https://lh3.googleusercontent.com/gQn4kKo8ak7qIKYlz_6x6_h3YuNgmyxHoihZnAetHFCgixsDaP2jLYilbyHby8jf1QvW9X1fewVmFaN4Ww=s2000" alt="" loading="eager"></div>
 
-<section class="content-section">
-  <h2>Coinful Trading Platform</h2>
-  <p>UI / UX Study Case</p>
-  <div class="images cols-1">
-    <img src="https://lh3.googleusercontent.com/gQn4kKo8ak7qIKYlz_6x6_h3YuNgmyxHoihZnAetHFCgixsDaP2jLYilbyHby8jf1QvW9X1fewVmFaN4Ww=s2000" loading="lazy" alt="">
-  </div>
-</section>
+  <section class="project-intro">
+    <p class="brand">COINFUL</p>
+    <h1 class="title">Coinful Trading Platform</h1>
+    <p class="description">UI / UX Study Case</p>
+  </section>
+
 <section class="content-section">
   <p>Coinful is one of the fastest growing Nogle ventures focusing on blockchain and cryptocurrency. It is an automated trading platform deploying algorithmic trading strategies and connecting to all the major cryptocurrency exchanges.</p>
   <div class="images cols-1">
@@ -114,5 +113,20 @@ Research related platforms, Design review, Wireframe, Define UI style</p>
   <footer class="page-footer">
     <p>Copyright © 2023 Ceci Chang. All rights reserved.</p>
   </footer>
+
+  <script>
+(function() {
+  var nav = document.querySelector('.page-nav');
+  var hero = document.querySelector('.hero');
+  if (!nav || !hero) return;
+  var threshold = function() { return hero.offsetHeight * 0.6; };
+  var onScroll = function() {
+    if (window.scrollY > threshold()) nav.classList.add('visible');
+    else nav.classList.remove('visible');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
 </body>
 </html>

@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Binance Future Trading Platform - Ceci's Portfolio 2023</title>
+  <title>Future Trading Platform - Ceci's Portfolio 2023</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="../assets/project.css">
 </head>
 <body>
-  <header class="page-header">
+  <div class="floating-logo"><a href="../">Ceci Chang</a></div>
+
+  <header class="page-nav">
     <a href="../" class="logo">Ceci Chang</a>
     <nav>
       <a href="../">HOME</a>
@@ -18,19 +20,14 @@
     </nav>
   </header>
 
-  <div class="project-hero">
-    <h1>Binance Future Trading Platform</h1>
-  </div>
+  <div class="hero"><img src="https://lh3.googleusercontent.com/5g7osTxGFj_JfxfE3cgebsce6jsHpOEyZyYO_XsvcWm2X2bKVH8G-9-fzThQ3sOA_E245plDgqKo2VmLlV4ltMwtmYqPz3g=s2000" alt="" loading="eager"></div>
 
-<section class="content-section">
-  <div class="images cols-1">
-    <img src="https://lh3.googleusercontent.com/5g7osTxGFj_JfxfE3cgebsce6jsHpOEyZyYO_XsvcWm2X2bKVH8G-9-fzThQ3sOA_E245plDgqKo2VmLlV4ltMwtmYqPz3g=s2000" loading="lazy" alt="">
-  </div>
-</section>
-<section class="content-section">
-  <h2>BINANCE Derivatives - Futures Trading</h2>
-  <p>My portfolio also includes designing the Binance Future Trading Platform, which is the world’s largest crypto derivatives exchange and the No. 1 derivatives trading platform.</p>
-</section>
+  <section class="project-intro">
+    <p class="brand">BINANCE</p>
+    <h1 class="title">BINANCE Derivatives - Futures Trading</h1>
+    <p class="description">My portfolio also includes designing the Binance Future Trading Platform, which is the world’s largest crypto derivatives exchange and the No. 1 derivatives trading platform.</p>
+  </section>
+
 <section class="content-section">
   <h2>My Role</h2>
   <p>Product Designer
@@ -135,5 +132,20 @@ Click Here →</h3>
   <footer class="page-footer">
     <p>Copyright © 2023 Ceci Chang. All rights reserved.</p>
   </footer>
+
+  <script>
+(function() {
+  var nav = document.querySelector('.page-nav');
+  var hero = document.querySelector('.hero');
+  if (!nav || !hero) return;
+  var threshold = function() { return hero.offsetHeight * 0.6; };
+  var onScroll = function() {
+    if (window.scrollY > threshold()) nav.classList.add('visible');
+    else nav.classList.remove('visible');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
 </body>
 </html>

@@ -10,7 +10,9 @@
   <link rel="stylesheet" href="../assets/project.css">
 </head>
 <body>
-  <header class="page-header">
+  <div class="floating-logo"><a href="../">Ceci Chang</a></div>
+
+  <header class="page-nav">
     <a href="../" class="logo">Ceci Chang</a>
     <nav>
       <a href="../">HOME</a>
@@ -18,19 +20,14 @@
     </nav>
   </header>
 
-  <div class="project-hero">
-    <h1>iCard.Ai</h1>
-  </div>
+  <div class="hero"><img src="https://lh3.googleusercontent.com/9dY8F8G1vfxiP88kf09GhUj83lAuPBH7N25q7GV6_YaBP4Rp3brnw6ebYCl8r7uym_WesrBRHUXHa1gV=s2000" alt="" loading="eager"></div>
 
-<section class="content-section">
-  <div class="images cols-1">
-    <img src="https://lh3.googleusercontent.com/9dY8F8G1vfxiP88kf09GhUj83lAuPBH7N25q7GV6_YaBP4Rp3brnw6ebYCl8r7uym_WesrBRHUXHa1gV=s2000" loading="lazy" alt="">
-  </div>
-</section>
-<section class="content-section">
-  <h2>About iCard.AI</h2>
-  <p>Card.AI is a Taiwanese online credit card recommendation and comparison service. iCard.AI wants to provide a solution for consumers who have too many credit cards but don’t know how and when to use them to take advantage of the cards’ perks and benefits.</p>
-</section>
+  <section class="project-intro">
+    <p class="brand">ICARD.AI</p>
+    <h1 class="title">About iCard.AI</h1>
+    <p class="description">Card.AI is a Taiwanese online credit card recommendation and comparison service. iCard.AI wants to provide a solution for consumers who have too many credit cards but don’t know how and when to use them to take advantage of the cards’ perks and benefits.</p>
+  </section>
+
 <section class="content-section">
   <h2>My Role</h2>
   <p>I joined the team in Oct, 2019 as a remote UI Design Consultant. In addition to delivering its UI design, I also acted as a consultant for its branding and user experience. The team and I worked towards a 3-month schedule to deliver a beta version of the service.</p>
@@ -81,5 +78,20 @@ https://icard.ai/</h3>
   <footer class="page-footer">
     <p>Copyright © 2023 Ceci Chang. All rights reserved.</p>
   </footer>
+
+  <script>
+(function() {
+  var nav = document.querySelector('.page-nav');
+  var hero = document.querySelector('.hero');
+  if (!nav || !hero) return;
+  var threshold = function() { return hero.offsetHeight * 0.6; };
+  var onScroll = function() {
+    if (window.scrollY > threshold()) nav.classList.add('visible');
+    else nav.classList.remove('visible');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
 </body>
 </html>

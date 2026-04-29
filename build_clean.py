@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 """Extract content from each captured editor HTML and render via a clean template.
 
-Output: site/<slug>/index.html — a simple, working case-study page.
+Layout per page:
+  - Top-left floating "Ceci Chang" logo
+  - Full-width hero image (first real big content image)
+  - Brand + title + description intro section
+  - Body sections (subtitles, paragraphs, image grids)
+  - "Back to portfolio" + footer
+  - Sticky nav that slides in on scroll past the hero
 """
 import re
 from collections import Counter
@@ -13,61 +19,96 @@ CAPTURED = ROOT / "captured"
 SITE = ROOT / "site"
 
 PAGES = [
-    ("vbid-3c96d052-qreqb1jd.html", "binance-leaderboard", "Binance Leaderboard"),
-    ("vbid-cec78374-qreqb1jd.html", "binance-future-trading-platform", "Binance Future Trading Platform"),
-    ("vbid-ddd17111-qreqb1jd.html", "traderwagon_platform", "TraderWagon Platform"),
-    ("vbid-4e15ac70-e41s75dj.html", "traderwagon_mkt", "TraderWagon MKT"),
-    ("vbid-39ecf264-lok1anrm.html", "icardai", "iCard.Ai"),
-    ("vbid-fc78c7a5-pkv7u8oy.html", "bnct", "BNCT"),
-    ("vbid-ac5cd3be-lok1anrm.html", "coinful", "Coinful"),
-    ("vbid-3c197782-0lvtbbbh.html", "xxyz", "X.xyz"),
+    ("vbid-3c96d052-qreqb1jd.html", "binance-leaderboard", "Social Trading Leaderboard Design", "BINANCE"),
+    ("vbid-cec78374-qreqb1jd.html", "binance-future-trading-platform", "Future Trading Platform", "BINANCE"),
+    ("vbid-ddd17111-qreqb1jd.html", "traderwagon_platform", "TraderWagon Platform", "TRADERWAGON"),
+    ("vbid-4e15ac70-e41s75dj.html", "traderwagon_mkt", "Social Trading Marketing Design", "TRADERWAGON"),
+    ("vbid-39ecf264-lok1anrm.html", "icardai", "iCard.Ai", "ICARD.AI"),
+    ("vbid-fc78c7a5-pkv7u8oy.html", "bnct", "Copy Trading App & Web Design", "BINANCE"),
+    ("vbid-ac5cd3be-lok1anrm.html", "coinful", "Coinful", "COINFUL"),
+    ("vbid-3c197782-0lvtbbbh.html", "xxyz", "X.xyz", "X.XYZ"),
 ]
 
-# CSS shared across project pages
 SHARED_CSS = """
 :root {
   --max: 1100px;
   --text: #111;
   --muted: #666;
   --bg: #fff;
-  --accent: #f0c93c;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {
   font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: var(--text);
-  background: var(--bg);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+  color: var(--text); background: var(--bg);
+  line-height: 1.6; -webkit-font-smoothing: antialiased;
 }
 a { color: inherit; }
 
-.page-header {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 28px 56px; max-width: var(--max); margin: 0 auto; width: 100%;
-  font-size: 14px; letter-spacing: 0.5px;
+.floating-logo {
+  position: absolute;
+  top: 28px; left: 56px;
+  z-index: 5;
+  font-size: 22px; font-weight: 600;
 }
-.page-header .logo {
+.floating-logo a { text-decoration: none; }
+
+.page-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 18px 56px;
+  display: flex; justify-content: space-between; align-items: center;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+  z-index: 100;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.page-nav.visible { transform: translateY(0); }
+.page-nav .logo {
   font-size: 22px; font-weight: 600; text-decoration: none;
 }
-.page-header nav a {
+.page-nav nav a {
   margin-left: 32px; text-decoration: none; text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 500; font-size: 14px; letter-spacing: 0.5px;
 }
-.page-header nav a:hover { opacity: 0.6; }
+.page-nav nav a:hover { opacity: 0.6; }
 
-.project-hero {
-  max-width: var(--max); margin: 64px auto 32px; padding: 0 56px;
+.hero {
+  width: 100%;
+  height: 100vh;
+  background: #f8f8f8;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
 }
-.project-hero h1 {
-  font-size: clamp(36px, 5vw, 64px); font-weight: 700; margin: 0 0 16px;
-  letter-spacing: -0.02em;
+.hero img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
 }
-.project-hero .meta { color: var(--muted); font-size: 14px; }
+
+.project-intro {
+  max-width: var(--max); margin: 96px auto 64px;
+  padding: 0 56px; text-align: center;
+}
+.project-intro .brand {
+  font-size: 14px; font-weight: 700;
+  color: var(--text); letter-spacing: 0.2em;
+  margin: 0 0 16px;
+}
+.project-intro .title {
+  font-size: clamp(32px, 4.5vw, 56px); font-weight: 600;
+  margin: 0 0 24px; letter-spacing: -0.01em; line-height: 1.15;
+}
+.project-intro .description {
+  font-size: 18px; line-height: 1.7;
+  max-width: 720px; margin: 0 auto;
+  color: #333;
+}
 
 .content-section {
-  max-width: var(--max); margin: 64px auto; padding: 0 56px;
+  max-width: var(--max); margin: 64px auto;
+  padding: 0 56px;
 }
 .content-section h2 {
   font-size: 28px; font-weight: 600; margin: 0 0 12px;
@@ -75,11 +116,11 @@ a { color: inherit; }
 }
 .content-section h3 {
   font-size: 18px; font-weight: 500; color: var(--muted);
-  margin: 0 0 16px;
+  margin: 0 0 16px; line-height: 1.5;
 }
 .content-section p {
   font-size: 16px; margin: 0 0 16px; max-width: 760px;
-  white-space: pre-wrap;
+  white-space: pre-wrap; line-height: 1.7;
 }
 .content-section .images {
   display: grid; gap: 16px; margin-top: 24px;
@@ -93,75 +134,110 @@ a { color: inherit; }
 }
 
 .next-project {
-  max-width: var(--max); margin: 96px auto 0; padding: 48px 56px;
+  max-width: var(--max); margin: 96px auto 0;
+  padding: 48px 56px;
   border-top: 1px solid #eee;
   display: flex; justify-content: space-between; align-items: center;
 }
-.next-project a {
-  text-decoration: none; font-weight: 500;
-}
+.next-project a { text-decoration: none; font-weight: 500; }
 .next-project a:hover { opacity: 0.6; }
 
 .page-footer {
-  max-width: var(--max); margin: 32px auto 0; padding: 24px 56px 64px;
+  max-width: var(--max); margin: 32px auto 0;
+  padding: 24px 56px 64px;
   color: var(--muted); font-size: 13px;
 }
 
 @media (max-width: 768px) {
-  .page-header, .project-hero, .content-section, .next-project, .page-footer {
+  .floating-logo { top: 20px; left: 24px; }
+  .page-nav { padding: 14px 24px; }
+  .page-nav nav a { margin-left: 16px; }
+  .project-intro, .content-section, .next-project, .page-footer {
     padding-left: 24px; padding-right: 24px;
   }
+  .hero { height: 70vh; }
   .content-section .images.cols-2,
   .content-section .images.cols-3 { grid-template-columns: 1fr; }
 }
 """
 
+NAV_SCRIPT = """
+(function() {
+  var nav = document.querySelector('.page-nav');
+  var hero = document.querySelector('.hero');
+  if (!nav || !hero) return;
+  var threshold = function() { return hero.offsetHeight * 0.6; };
+  var onScroll = function() {
+    if (window.scrollY > threshold()) nav.classList.add('visible');
+    else nav.classList.remove('visible');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+"""
+
+
+def has_class(el, name):
+    cls = el.get("class") or []
+    return name in cls if isinstance(cls, list) else name == cls
+
 
 def extract_text(el):
-    """Get text content with preserved line breaks."""
     if el is None: return ""
     text = el.get_text("\n", strip=True)
-    text = re.sub(r"\n{3,}", "\n\n", text)
-    return text
+    return re.sub(r"\n{3,}", "\n\n", text)
 
 
-def extract_image_urls(section):
-    """Yield Google CDN image URLs from <img src> and background-image styles."""
-    seen = set()
-    # img tags
+def url_size_hint(u):
+    """Return Google CDN size hint as int (=s300 → 300, full → 9999)."""
+    m = re.search(r"=s(\d+)(?:-c)?$", u)
+    return int(m.group(1)) if m else 9999
+
+
+def url_stem(u):
+    return re.sub(r"=s\d+(?:-c)?$", "", u)
+
+
+def best_url(u):
+    """Strip size suffix and request large version."""
+    return re.sub(r"=s\d+(?:-c)?$", "=s2000", u)
+
+
+def extract_all_image_urls(section):
+    """Yield (url, size_hint) tuples from <img src>, data-src, and background-image."""
     for img in section.find_all("img"):
         src = img.get("src") or img.get("data-src") or ""
-        if "googleusercontent" in src and src not in seen:
-            seen.add(src); yield src
-    # background-image styles
+        if "googleusercontent" in src:
+            yield src, url_size_hint(src)
     for el in section.find_all(style=True):
         st = el.get("style", "")
         if "background-image" in st:
             for m in re.finditer(r'url\([\'"]?([^\'")]+)[\'"]?\)', st):
                 u = m.group(1)
-                if "googleusercontent" in u and u not in seen:
-                    seen.add(u); yield u
+                if "googleusercontent" in u:
+                    yield u, url_size_hint(u)
 
 
-def best_url(url):
-    """Strip Google CDN size suffix (=s50, =s300) to get the highest-resolution version."""
-    return re.sub(r"=s\d+(?:-c)?$", "=s2000", url)
+def filter_real_content_images(image_pairs, stem_freq):
+    """Drop icons (size <100), drop URLs that repeat 3+ times across page (decorative)."""
+    out = []
+    seen = set()
+    for u, sz in image_pairs:
+        if sz < 100:  # icons / social media buttons
+            continue
+        s = url_stem(u)
+        if stem_freq[s] >= 3:  # repeated decoration
+            continue
+        if s in seen:
+            continue
+        seen.add(s)
+        out.append(best_url(u))
+    return out
 
 
-def filter_decorative(image_urls, freq):
-    """Drop URLs that appear 4+ times across the whole page (likely decorative bg)."""
-    return [u for u in image_urls if freq[u] < 4]
-
-
-def parse_section(section, all_image_freq):
-    """Extract structured content from one IM Creator section div."""
-    def has_class(el, name):
-        cls = el.get("class") or []
-        return name in cls if isinstance(cls, list) else name == cls
-
+def parse_section(section, stem_freq):
     titles = [el for el in section.find_all() if has_class(el, "preview-title")]
     subtitles = [el for el in section.find_all() if has_class(el, "preview-subtitle")]
-    # Body text: preview-body class (NOT preview-body-holder)
     paragraphs = []
     for el in section.find_all():
         if has_class(el, "preview-body"):
@@ -169,24 +245,10 @@ def parse_section(section, all_image_freq):
             if text and len(text) > 2:
                 paragraphs.append(text)
 
-    # Fallback: any text directly inside the section that's not in a heading/title
-    if not paragraphs and not titles and not subtitles:
-        # Skip pure-image sections
-        pass
-
     title_text = titles[0].get_text(" ", strip=True) if titles else ""
     subtitle_text = subtitles[0].get_text("\n", strip=True) if subtitles else ""
 
-    # Images
-    raw = list(extract_image_urls(section))
-    images = filter_decorative(raw, all_image_freq)
-    images = [best_url(u) for u in images]
-    # Dedup keep order
-    seen = set(); images_dedup = []
-    for u in images:
-        if u not in seen:
-            seen.add(u); images_dedup.append(u)
-    images = images_dedup
+    images = filter_real_content_images(list(extract_all_image_urls(section)), stem_freq)
 
     return {
         "title": title_text,
@@ -196,11 +258,30 @@ def parse_section(section, all_image_freq):
     }
 
 
-def render_page(slug, project_title, sections):
+def escape_html(s):
+    return (s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+             .replace('"', "&quot;").replace("'", "&#39;"))
+
+
+def render_page(slug, project_title, brand, sections, hero_url):
+    # Build content section blocks (skip empty)
     blocks = []
+    intro_used = False
+    intro_title = ""
+    intro_description = ""
+
     for sec in sections:
         if not (sec["title"] or sec["subtitle"] or sec["paragraphs"] or sec["images"]):
             continue
+
+        # Use the first section that has BOTH title AND paragraph as the intro
+        # (typically section 1 of the captured page: project name + tagline)
+        if not intro_used and sec["title"] and sec["paragraphs"]:
+            intro_title = sec["title"]
+            intro_description = sec["paragraphs"][0]
+            intro_used = True
+            continue
+
         out = ['<section class="content-section">']
         if sec["title"]:
             out.append(f'  <h2>{escape_html(sec["title"])}</h2>')
@@ -218,6 +299,12 @@ def render_page(slug, project_title, sections):
         out.append('</section>')
         blocks.append("\n".join(out))
 
+    # Fallback intro if no section had title+paragraph
+    if not intro_used:
+        intro_title = project_title
+
+    hero_html = f'<div class="hero"><img src="{hero_url}" alt="" loading="eager"></div>' if hero_url else ""
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -230,7 +317,9 @@ def render_page(slug, project_title, sections):
   <link rel="stylesheet" href="../assets/project.css">
 </head>
 <body>
-  <header class="page-header">
+  <div class="floating-logo"><a href="../">Ceci Chang</a></div>
+
+  <header class="page-nav">
     <a href="../" class="logo">Ceci Chang</a>
     <nav>
       <a href="../">HOME</a>
@@ -238,9 +327,13 @@ def render_page(slug, project_title, sections):
     </nav>
   </header>
 
-  <div class="project-hero">
-    <h1>{escape_html(project_title)}</h1>
-  </div>
+  {hero_html}
+
+  <section class="project-intro">
+    <p class="brand">{escape_html(brand)}</p>
+    <h1 class="title">{escape_html(intro_title)}</h1>
+    {('<p class="description">' + escape_html(intro_description) + '</p>') if intro_description else ''}
+  </section>
 
 {chr(10).join(blocks)}
 
@@ -251,60 +344,73 @@ def render_page(slug, project_title, sections):
   <footer class="page-footer">
     <p>Copyright © 2023 Ceci Chang. All rights reserved.</p>
   </footer>
+
+  <script>{NAV_SCRIPT}</script>
 </body>
 </html>
 """
 
 
-def escape_html(s):
-    return (s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-             .replace('"', "&quot;").replace("'", "&#39;"))
+def find_hero(sections, stem_freq):
+    """Pick the first big content image across all sections — preferring =s1600 or larger originals."""
+    # Pass 1: find a =s1600+ image
+    for sec in sections:
+        for u, sz in extract_all_image_urls(sec):
+            if sz >= 1000 and stem_freq[url_stem(u)] < 3:
+                return best_url(u)
+    # Pass 2: any non-decorative image >= 200
+    for sec in sections:
+        for u, sz in extract_all_image_urls(sec):
+            if sz >= 200 and stem_freq[url_stem(u)] < 3:
+                return best_url(u)
+    return None
 
 
 def main():
-    # Write shared CSS
     assets = SITE / "assets"
     assets.mkdir(exist_ok=True)
     (assets / "project.css").write_text(SHARED_CSS)
 
-    for fname, slug, title in PAGES:
+    for fname, slug, title, brand in PAGES:
         src_file = CAPTURED / fname
         if not src_file.exists():
             print(f"  ✗ MISSING: {fname}"); continue
         soup = BeautifulSoup(src_file.read_text(errors="replace"), "lxml")
 
-        # Walk top-level sections
-        children_div = soup.find("div", id="children")
+        children_div = soup.find("div", id="children") or soup.find("div", class_="master")
         if not children_div:
-            # fallback: look for .master directly
-            master = soup.find("div", class_="master")
-            children_div = master if master else None
-        if not children_div:
-            print(f"  ✗ NO CONTENT FOUND: {slug}"); continue
+            print(f"  ✗ NO CONTENT: {slug}"); continue
 
         sections = list(children_div.find_all(recursive=False))
 
-        # Compute image-URL frequency across whole page (for decorative-image filter)
-        all_imgs = []
+        # Build stem-frequency map across the whole page (for decorative-image filter)
+        all_pairs = []
         for sec in sections:
-            all_imgs.extend(extract_image_urls(sec))
-        freq = Counter(all_imgs)
+            all_pairs.extend(extract_all_image_urls(sec))
+        stem_freq = Counter(url_stem(u) for u, _ in all_pairs)
+
+        # Pick hero before stripping header/footer
+        hero = find_hero(sections, stem_freq)
 
         parsed = []
         for sec in sections:
             cls_str = " ".join(sec.get("class") or [])
             if "header-box" in cls_str or "footer-box" in cls_str:
                 continue
-            data = parse_section(sec, freq)
-            parsed.append(data)
+            parsed.append(parse_section(sec, stem_freq))
 
-        html = render_page(slug, title, parsed)
+        # Drop the hero image from any section that references it (so it's not duplicated)
+        if hero:
+            hero_stem = url_stem(re.sub(r"=s\d+(?:-c)?$", "", hero))
+            for sec in parsed:
+                sec["images"] = [u for u in sec["images"] if url_stem(u) != hero_stem]
+
+        html = render_page(slug, title, brand, parsed, hero)
         out_file = SITE / slug / "index.html"
         out_file.parent.mkdir(parents=True, exist_ok=True)
         out_file.write_text(html)
-        n_sections_real = sum(1 for s in parsed if s["title"] or s["subtitle"] or s["paragraphs"] or s["images"])
         n_imgs = sum(len(s["images"]) for s in parsed)
-        print(f"  ✓ {slug:<40} {n_sections_real} sections, {n_imgs} images, {len(html)//1024}KB")
+        print(f"  ✓ {slug:<40} hero={'Y' if hero else 'N'}, {n_imgs} content images")
 
 
 if __name__ == "__main__":

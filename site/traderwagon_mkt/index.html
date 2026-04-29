@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TraderWagon MKT - Ceci's Portfolio 2023</title>
+  <title>Social Trading Marketing Design - Ceci's Portfolio 2023</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="../assets/project.css">
 </head>
 <body>
-  <header class="page-header">
+  <div class="floating-logo"><a href="../">Ceci Chang</a></div>
+
+  <header class="page-nav">
     <a href="../" class="logo">Ceci Chang</a>
     <nav>
       <a href="../">HOME</a>
@@ -18,29 +20,18 @@
     </nav>
   </header>
 
-  <div class="project-hero">
-    <h1>TraderWagon MKT</h1>
-  </div>
+  <div class="hero"><img src="https://lh3.googleusercontent.com/rIDMdXFb8DhLsb_7BZx7AyjoN9MfWYcTBaSo13bMzVtSQsdEVlRuOwvUBezTbgAj0VdFf7xrCQ4ZoxjqidC6vQ5RZhl48A=s2000" alt="" loading="eager"></div>
 
-<section class="content-section">
-  <h2>TraderWagon Social Trading - Marketing Design</h2>
-  <p>Branding Design &amp; Marketing Design Guideline</p>
-  <div class="images cols-1">
-    <img src="https://lh3.googleusercontent.com/ZMARmveTg1geksYKXZKdh71KW09XrhDLg8N-XrfXCGsDBEHnuKwhmYpHd55Y2-NwuwLX8qsyx26JNyJWtr1jEcxD=s2000" loading="lazy" alt="">
-  </div>
-</section>
+  <section class="project-intro">
+    <p class="brand">TRADERWAGON</p>
+    <h1 class="title">TraderWagon Social Trading - Marketing Design</h1>
+    <p class="description">Branding Design &amp; Marketing Design Guideline</p>
+  </section>
+
 <section class="content-section">
   <h2>My Role</h2>
   <p>Design Lead &amp; Product Designer
 I am the Design Lead for TraderWagon and led 2-4 designers to develop the product including the social media and platform experience. We are also responsible for all branding and marketing assets including logo design, branding guidelines and promotion material designs.</p>
-  <div class="images cols-1">
-    <img src="https://lh3.googleusercontent.com/ZMARmveTg1geksYKXZKdh71KW09XrhDLg8N-XrfXCGsDBEHnuKwhmYpHd55Y2-NwuwLX8qsyx26JNyJWtr1jEcxD=s2000" loading="lazy" alt="">
-  </div>
-</section>
-<section class="content-section">
-  <div class="images cols-1">
-    <img src="https://lh3.googleusercontent.com/rIDMdXFb8DhLsb_7BZx7AyjoN9MfWYcTBaSo13bMzVtSQsdEVlRuOwvUBezTbgAj0VdFf7xrCQ4ZoxjqidC6vQ5RZhl48A=s2000" loading="lazy" alt="">
-  </div>
 </section>
 <section class="content-section">
   <h3>Defined colors, fonts and complete design specifications to unify all banner design styles</h3>
@@ -60,11 +51,6 @@ I am the Design Lead for TraderWagon and led 2-4 designers to develop the produc
     <img src="https://lh3.googleusercontent.com/NlOILkth0AYQsl9Cn498nfm6OPFFC5KVnfriMUCZCZPGh3Ic7xLWxQipLoWJRdJijd073ehDCps0SlsrQFAYyEBAnI2O=s2000" loading="lazy" alt="">
   </div>
 </section>
-<section class="content-section">
-  <div class="images cols-1">
-    <img src="https://lh3.googleusercontent.com/ZMARmveTg1geksYKXZKdh71KW09XrhDLg8N-XrfXCGsDBEHnuKwhmYpHd55Y2-NwuwLX8qsyx26JNyJWtr1jEcxD=s2000" loading="lazy" alt="">
-  </div>
-</section>
 
   <div class="next-project">
     <a href="../">← Back to portfolio</a>
@@ -73,5 +59,20 @@ I am the Design Lead for TraderWagon and led 2-4 designers to develop the produc
   <footer class="page-footer">
     <p>Copyright © 2023 Ceci Chang. All rights reserved.</p>
   </footer>
+
+  <script>
+(function() {
+  var nav = document.querySelector('.page-nav');
+  var hero = document.querySelector('.hero');
+  if (!nav || !hero) return;
+  var threshold = function() { return hero.offsetHeight * 0.6; };
+  var onScroll = function() {
+    if (window.scrollY > threshold()) nav.classList.add('visible');
+    else nav.classList.remove('visible');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
 </body>
 </html>

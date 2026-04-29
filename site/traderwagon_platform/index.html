@@ -10,7 +10,9 @@
   <link rel="stylesheet" href="../assets/project.css">
 </head>
 <body>
-  <header class="page-header">
+  <div class="floating-logo"><a href="../">Ceci Chang</a></div>
+
+  <header class="page-nav">
     <a href="../" class="logo">Ceci Chang</a>
     <nav>
       <a href="../">HOME</a>
@@ -18,19 +20,14 @@
     </nav>
   </header>
 
-  <div class="project-hero">
-    <h1>TraderWagon Platform</h1>
-  </div>
+  <div class="hero"><img src="https://lh3.googleusercontent.com/7b-tqZKUiYtxzMYbf7WM-sdYwR2-afYa3CvTAakWuV4nEVkTxWu7A_Yz0i4Aaqmv3SnARJYyAgxU9mGNimDSK0kq1jif6IY=s2000" alt="" loading="eager"></div>
 
-<section class="content-section">
-  <div class="images cols-1">
-    <img src="https://lh3.googleusercontent.com/7b-tqZKUiYtxzMYbf7WM-sdYwR2-afYa3CvTAakWuV4nEVkTxWu7A_Yz0i4Aaqmv3SnARJYyAgxU9mGNimDSK0kq1jif6IY=s2000" loading="lazy" alt="">
-  </div>
-</section>
-<section class="content-section">
-  <h2>TraderWagon Social Trading - Binance 3rd Party Tool</h2>
-  <p>TraderWagon is a social crypto trading platform which helps beginners find experienced traders and copy their trades. Users can quickly log in using their Binance credentials on TraderWagon, and use third-party app on Binance.</p>
-</section>
+  <section class="project-intro">
+    <p class="brand">TRADERWAGON</p>
+    <h1 class="title">TraderWagon Social Trading - Binance 3rd Party Tool</h1>
+    <p class="description">TraderWagon is a social crypto trading platform which helps beginners find experienced traders and copy their trades. Users can quickly log in using their Binance credentials on TraderWagon, and use third-party app on Binance.</p>
+  </section>
+
 <section class="content-section">
   <h2>My Role</h2>
   <p>Design Lead and Product Designer
@@ -114,5 +111,20 @@ Users can sign up with Binance wallet to start investing</h3>
   <footer class="page-footer">
     <p>Copyright © 2023 Ceci Chang. All rights reserved.</p>
   </footer>
+
+  <script>
+(function() {
+  var nav = document.querySelector('.page-nav');
+  var hero = document.querySelector('.hero');
+  if (!nav || !hero) return;
+  var threshold = function() { return hero.offsetHeight * 0.6; };
+  var onScroll = function() {
+    if (window.scrollY > threshold()) nav.classList.add('visible');
+    else nav.classList.remove('visible');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
 </body>
 </html>

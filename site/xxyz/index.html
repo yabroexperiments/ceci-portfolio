@@ -10,7 +10,9 @@
   <link rel="stylesheet" href="../assets/project.css">
 </head>
 <body>
-  <header class="page-header">
+  <div class="floating-logo"><a href="../">Ceci Chang</a></div>
+
+  <header class="page-nav">
     <a href="../" class="logo">Ceci Chang</a>
     <nav>
       <a href="../">HOME</a>
@@ -18,19 +20,14 @@
     </nav>
   </header>
 
-  <div class="project-hero">
-    <h1>X.xyz</h1>
-  </div>
+  <div class="hero"><img src="https://lh3.googleusercontent.com/OiNc-9-WUpeCrKRJSYPs4OFNjN3nna4O4uwQqGsYBZl3_-fFEhrdYrtGXsqKhvQ_563gHUnLxVJxKQUjnxQfuU2v-1J4kt4=s2000" alt="" loading="eager"></div>
 
-<section class="content-section">
-  <div class="images cols-1">
-    <img src="https://lh3.googleusercontent.com/OiNc-9-WUpeCrKRJSYPs4OFNjN3nna4O4uwQqGsYBZl3_-fFEhrdYrtGXsqKhvQ_563gHUnLxVJxKQUjnxQfuU2v-1J4kt4=s2000" loading="lazy" alt="">
-  </div>
-</section>
-<section class="content-section">
-  <h2>X.xyz</h2>
-  <p>X is a multi-chain decentralized NFT marketplace owned and operated by the X community, which is supported by the BAYC community.</p>
-</section>
+  <section class="project-intro">
+    <p class="brand">X.XYZ</p>
+    <h1 class="title">X.xyz</h1>
+    <p class="description">X is a multi-chain decentralized NFT marketplace owned and operated by the X community, which is supported by the BAYC community.</p>
+  </section>
+
 <section class="content-section">
   <h2>My Role</h2>
   <p>Product Designer
@@ -86,5 +83,20 @@ I reviewed the entire UI/UX of the X NFT marketplace website and worked with the
   <footer class="page-footer">
     <p>Copyright © 2023 Ceci Chang. All rights reserved.</p>
   </footer>
+
+  <script>
+(function() {
+  var nav = document.querySelector('.page-nav');
+  var hero = document.querySelector('.hero');
+  if (!nav || !hero) return;
+  var threshold = function() { return hero.offsetHeight * 0.6; };
+  var onScroll = function() {
+    if (window.scrollY > threshold()) nav.classList.add('visible');
+    else nav.classList.remove('visible');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
 </body>
 </html>
