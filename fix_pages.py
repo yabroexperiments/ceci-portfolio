@@ -231,15 +231,20 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
         new_html = new_html.replace("</head>", meta_block + "\n</head>", 1)
 
         # On about-me only: remove the broken inner-pic placeholder div
-        # (it's an IM Creator empty image holder that renders as a gray block)
+        # AND remove spimeengine.js which causes infinite layout re-runs
+        # (the page is from a Wayback POST-RENDER snapshot — static HTML already baked).
         if slug == "about-me":
             soup_apx = BeautifulSoup(new_html, "lxml")
             for el in soup_apx.find_all("div", id="no-image", class_="inner-pic"):
                 el.decompose()
-            # Also catch by class match alone in case id varies
             for el in soup_apx.find_all("div", class_="inner-pic"):
                 if "preview-element" in (el.get("class") or []):
                     el.decompose()
+            # Remove the runtime layout engine to stop margin-flickering
+            for s in soup_apx.find_all("script", src=True):
+                src = s.get("src", "") or ""
+                if "spimeengine" in src or "all_js.js" in src:
+                    s.decompose()
             new_html = str(soup_apx)
 
         # On project pages (not homepage): remove the bottom HOME page-box,
