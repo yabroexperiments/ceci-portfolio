@@ -322,12 +322,29 @@ def render_page(slug, project_title, brand, sections, hero_url):
 
     hero_html = f'<div class="hero"><img src="{hero_url}" alt="" loading="eager"></div>' if hero_url else ""
 
+    page_title = f"{project_title} - Ceci Chang Portfolio"
+    description = "Ceci Chang - Senior Product Designer / Design Lead"
+    page_url = f"https://changhsiju.xyz/{slug}/"
+    og_image = hero_url or ""
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{escape_html(project_title)} - Ceci's Portfolio 2023</title>
+  <title>{escape_html(page_title)}</title>
+  <meta name="description" content="{escape_html(description)}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{escape_html(page_title)}">
+  <meta property="og:description" content="{escape_html(description)}">
+  <meta property="og:url" content="{page_url}">
+  <meta property="og:site_name" content="Ceci Chang Portfolio">
+  <meta property="og:image" content="{og_image}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{escape_html(page_title)}">
+  <meta name="twitter:description" content="{escape_html(description)}">
+  <meta name="twitter:image" content="{og_image}">
+  <link rel="canonical" href="{page_url}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">

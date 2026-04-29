@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Light fix pass for Wayback-fetched pages only:
   - Replace dead //xprs.imcreator.com with //www.imcreator.com (older Wayback pages)
+  - Inject width/typography override CSS
+  - Inject SEO/OG meta tags for proper link previews on social/chat apps
 
 That's it. Don't touch anything else — Wayback pages are already in working
 post-render form. The 8 captured pages are handled by build_clean.py instead.
@@ -59,6 +61,21 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
 </style>
 """.strip()
 
+    SITE_URL = "https://changhsiju.xyz"
+    DEFAULT_DESC = "Ceci Chang - Senior Product Designer / Design Lead"
+
+    def page_meta(slug, current_title):
+        """Return (title, description) for a page slug."""
+        if slug is None:  # homepage
+            return ("Ceci Chang - Portfolio", DEFAULT_DESC)
+        # For project pages, derive a clean title from the existing <title>
+        # (e.g. "About me - Ceci's Portfolio 2023" → "About me - Ceci Chang Portfolio")
+        clean = re.sub(r"\s*-?\s*Ceci(?:'s| Chang)? Portfolio.*$", "", current_title, flags=re.I).strip()
+        clean = re.sub(r"\s*-?\s*Ceci\.Chang Portfolio\s*$", "", clean, flags=re.I).strip()
+        if not clean:
+            clean = slug.replace("_", " ").replace("-", " ").title()
+        return (f"{clean} - Ceci Chang Portfolio", DEFAULT_DESC)
+
     for f in sorted(files):
         rel = f.relative_to(SITE)
         slug = rel.parts[0] if len(rel.parts) > 1 else None
@@ -68,17 +85,50 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
         html = f.read_text(errors="replace")
         new_html = html.replace("//xprs.imcreator.com/", "//www.imcreator.com/")
         new_html = new_html.replace("xprs.imcreator.com/", "www.imcreator.com/")
-        # Inject portfolio-fix CSS into <head> if not already present (idempotent)
-        # Always strip old fix block first so updates take effect
+
+        # Inject portfolio-fix CSS into <head> (idempotent — strip old block first)
         new_html = re.sub(
             r'<style data-portfolio-fix=[^>]*>.*?</style>',
             '', new_html, flags=re.DOTALL
         )
         new_html = new_html.replace("</head>", width_fix + "\n</head>", 1)
 
+        # --- Replace <title> and inject SEO/OG meta tags ---
+        # Get current title for derivation
+        title_m = re.search(r"<title[^>]*>(.*?)</title>", new_html, re.S | re.I)
+        current_title = (title_m.group(1).strip() if title_m else "")
+        new_title, new_desc = page_meta(slug, current_title)
+        page_url = SITE_URL + ("/" if slug is None else f"/{slug}/")
+
+        # Replace <title>
+        new_html = re.sub(
+            r"<title[^>]*>.*?</title>",
+            f"<title>{new_title}</title>",
+            new_html, count=1, flags=re.S | re.I
+        )
+
+        # Strip any existing portfolio-meta block, then inject fresh one
+        new_html = re.sub(
+            r'<!--portfolio-meta-->.*?<!--/portfolio-meta-->',
+            '', new_html, flags=re.DOTALL
+        )
+        meta_block = f'''<!--portfolio-meta-->
+<meta name="description" content="{new_desc}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{new_title}">
+<meta property="og:description" content="{new_desc}">
+<meta property="og:url" content="{page_url}">
+<meta property="og:site_name" content="Ceci Chang Portfolio">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{new_title}">
+<meta name="twitter:description" content="{new_desc}">
+<link rel="canonical" href="{page_url}">
+<!--/portfolio-meta-->'''
+        new_html = new_html.replace("</head>", meta_block + "\n</head>", 1)
+
         if new_html != html:
             f.write_text(new_html)
-            print(f"  ✓ {rel}")
+            print(f"  ✓ {rel}  →  '{new_title}'")
         else:
             print(f"  · {rel} (unchanged)")
 
