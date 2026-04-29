@@ -40,6 +40,14 @@ def main():
 }
 /* Copyright line at the bottom — rendered as a preview-title; show at description size */
 #vbid-739d6300-rqzcld5a { font-size: 14px !important; font-weight: 400 !important; color: #666 !important; }
+/* Shrink IM Creator's logo image to match the smaller logo we use on other pages */
+.left-div .preview-icon-holder img,
+.logo-holder img,
+#element-e325df23660bd16 {
+  height: 20px !important;
+  width: auto !important;
+  max-width: none !important;
+}
 """
 
     width_fix = """
@@ -84,9 +92,9 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
     # (already has the image natively in IM Creator's nav).
     LOGO_INJECT_HTML = (
         f'<a class="ceci-logo-inject" href="../" aria-label="Ceci Chang home" '
-        f'style="position:absolute;top:39px;left:68px;z-index:50;display:block;text-decoration:none;">'
+        f'style="position:absolute;top:32px;left:56px;z-index:50;display:block;text-decoration:none;">'
         f'<img src="{LOGO_URL}" alt="Ceci Chang" '
-        f'style="height:27px;width:auto;display:block;">'
+        f'style="height:20px;width:auto;display:block;">'
         f'</a>'
     )
 
