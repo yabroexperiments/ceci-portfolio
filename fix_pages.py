@@ -173,10 +173,10 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
             )
         new_html = new_html.replace("</head>", css_to_inject + "\n</head>", 1)
 
-        # Inject Ceci Chang floating logo on every page EXCEPT the homepage
-        # (homepage already has the image in its IM Creator-rendered nav).
-        # Use bs4 for clean, idempotent stripping + insertion.
-        if slug is not None:
+        # Inject Ceci Chang floating logo on every page EXCEPT the homepage and about-me
+        # (homepage already has the image in its native IM Creator nav; about-me is
+        # explicitly suppressed by user request).
+        if slug is not None and slug != "about-me":
             soup_logo = BeautifulSoup(new_html, "lxml")
             # Strip all prior injects (any number of them)
             for old in soup_logo.find_all(class_="ceci-logo-inject"):
@@ -185,6 +185,14 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
             if soup_logo.body:
                 logo_tag = BeautifulSoup(LOGO_INJECT_HTML, "lxml").a
                 soup_logo.body.insert(0, logo_tag)
+                new_html = str(soup_logo)
+        elif slug == "about-me":
+            # Strip any prior injection (don't add a new one)
+            soup_logo = BeautifulSoup(new_html, "lxml")
+            removed = False
+            for old in soup_logo.find_all(class_="ceci-logo-inject"):
+                old.decompose(); removed = True
+            if removed:
                 new_html = str(soup_logo)
 
         # --- Replace <title> and inject SEO/OG meta tags ---
@@ -219,6 +227,18 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
 <link rel="canonical" href="{page_url}">
 <!--/portfolio-meta-->'''
         new_html = new_html.replace("</head>", meta_block + "\n</head>", 1)
+
+        # On about-me only: remove the broken inner-pic placeholder div
+        # (it's an IM Creator empty image holder that renders as a gray block)
+        if slug == "about-me":
+            soup_apx = BeautifulSoup(new_html, "lxml")
+            for el in soup_apx.find_all("div", id="no-image", class_="inner-pic"):
+                el.decompose()
+            # Also catch by class match alone in case id varies
+            for el in soup_apx.find_all("div", class_="inner-pic"):
+                if "preview-element" in (el.get("class") or []):
+                    el.decompose()
+            new_html = str(soup_apx)
 
         # On project pages (not homepage): remove the bottom HOME page-box,
         # add a "← Back to portfolio" link before the footer.
