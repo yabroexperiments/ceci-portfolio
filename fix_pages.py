@@ -27,6 +27,21 @@ def main():
     #   - body inline-block → block (so it fills viewport width)
     #   - unified typography across all old pages
     #     (3 levels: heading / body / description, mapped to IM Creator's preview-* classes)
+    # Homepage-only overrides (selected by element id from the captured DOM)
+    HOMEPAGE_OVERRIDES = """
+/* Homepage: every preview-title shrunk to 20px */
+.master .preview-title, .master .blocks-preview-title { font-size: 20px !important; }
+/* Binance Leaderboard + Coinful sections: dark background, force white text */
+#vbid-f2da5321-sfstatxx, #vbid-f2da5321-sfstatxx *,
+#vbid-f2da5321-b9qvfnxw, #vbid-f2da5321-b9qvfnxw *,
+#element-15ba1119c75b3ae, #element-15ba1119c75b3ae *,
+#vbid-5512a7b7-b5hr0axu, #vbid-5512a7b7-b5hr0axu * {
+  color: #fff !important;
+}
+/* Copyright line at the bottom — rendered as a preview-title; show at description size */
+#vbid-739d6300-rqzcld5a { font-size: 14px !important; font-weight: 400 !important; color: #666 !important; }
+"""
+
     width_fix = """
 <style data-portfolio-fix="1">
 html, body { display: block !important; width: 100% !important; }
@@ -68,13 +83,13 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
         """Return (title, description) for a page slug."""
         if slug is None:  # homepage
             return ("Ceci Chang - Portfolio", DEFAULT_DESC)
-        # For project pages, derive a clean title from the existing <title>
-        # (e.g. "About me - Ceci's Portfolio 2023" → "About me - Ceci Chang Portfolio")
-        clean = re.sub(r"\s*-?\s*Ceci(?:'s| Chang)? Portfolio.*$", "", current_title, flags=re.I).strip()
-        clean = re.sub(r"\s*-?\s*Ceci\.Chang Portfolio\s*$", "", clean, flags=re.I).strip()
-        if not clean:
-            clean = slug.replace("_", " ").replace("-", " ").title()
-        return (f"{clean} - Ceci Chang Portfolio", DEFAULT_DESC)
+        # Decode common HTML entities so the regex can strip the trailing site name
+        t = current_title.replace("&#39;", "'").replace("&apos;", "'").replace("&amp;", "&")
+        # Strip "Ceci's Portfolio 2023" / "Ceci.Chang Portfolio" / "Ceci Chang Portfolio" suffixes
+        t = re.sub(r"\s*-?\s*Ceci(?:'s|\.Chang| Chang)?\s+Portfolio.*$", "", t, flags=re.I).strip()
+        if not t:
+            t = slug.replace("_", " ").replace("-", " ").title()
+        return (f"{t} - Ceci Chang Portfolio", DEFAULT_DESC)
 
     for f in sorted(files):
         rel = f.relative_to(SITE)
@@ -91,7 +106,14 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
             r'<style data-portfolio-fix=[^>]*>.*?</style>',
             '', new_html, flags=re.DOTALL
         )
-        new_html = new_html.replace("</head>", width_fix + "\n</head>", 1)
+        # Homepage gets extra overrides
+        css_to_inject = width_fix
+        if slug is None:
+            css_to_inject = width_fix.replace(
+                "</style>",
+                HOMEPAGE_OVERRIDES + "\n</style>"
+            )
+        new_html = new_html.replace("</head>", css_to_inject + "\n</head>", 1)
 
         # --- Replace <title> and inject SEO/OG meta tags ---
         # Get current title for derivation
