@@ -59,7 +59,7 @@ a { color: inherit; }
   text-decoration: none;
 }
 .ceci-logo img {
-  height: 20px; width: auto; display: block;
+  width: 97px; height: 20px; display: block;
 }
 
 .page-nav {
@@ -80,7 +80,7 @@ a { color: inherit; }
   display: flex; align-items: center; text-decoration: none;
 }
 .page-nav .logo img {
-  height: 18px; width: auto; display: block;
+  width: 87px; height: 18px; display: block;
 }
 .page-nav nav a {
   margin-left: 32px; text-decoration: none; text-transform: uppercase;
@@ -179,7 +179,7 @@ a { color: inherit; }
 
 @media (max-width: 768px) {
   .ceci-logo { top: 20px; left: 24px; }
-  .ceci-logo img { height: 18px; }
+  .ceci-logo img { width: 87px; height: 18px; }
   .page-nav { padding: 14px 24px; }
   .page-nav nav a { margin-left: 16px; }
   .project-intro, .content-section, .next-project, .page-footer {
