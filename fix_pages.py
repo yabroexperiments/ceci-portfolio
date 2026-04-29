@@ -29,6 +29,7 @@ def main():
     #   - unified typography across all old pages
     #     (3 levels: heading / body / description, mapped to IM Creator's preview-* classes)
     # Homepage-only overrides (selected by element id from the captured DOM)
+    # Rules that ONLY apply to the homepage (specific to the homepage's elements)
     HOMEPAGE_OVERRIDES = """
 /* Homepage: every preview-title shrunk to 20px */
 .master .preview-title, .master .blocks-preview-title { font-size: 20px !important; }
@@ -41,29 +42,6 @@ def main():
 }
 /* Copyright line at the bottom — rendered as a preview-title; show at description size */
 #vbid-739d6300-rqzcld5a { font-size: 14px !important; font-weight: 400 !important; color: #666 !important; }
-/* Shrink IM Creator's logo image to exact 97x20 to match all other pages */
-.left-div .preview-icon-holder img,
-.logo-holder img,
-#element-e325df23660bd16 {
-  width: 97px !important;
-  height: 20px !important;
-  max-width: none !important;
-}
-/* Hide IM Creator's native footer-box — we inject our own consistent footer instead.
-   Use a broad selector since the footer-box can be nested at varying depths. */
-.footer-box, .item-content.footer { display: none !important; }
-
-/* Style HOME / ABOUT nav links consistently with the captured pages */
-.menu_layout a, .links-menu a, .header-box a, .stripe-header a {
-  color: #111 !important;
-  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-  font-size: 14px !important;
-  font-weight: 500 !important;
-  text-decoration: none !important;
-  letter-spacing: 0.5px !important;
-  text-transform: uppercase !important;
-}
-.menu_layout a:hover, .links-menu a:hover, .header-box a:hover { opacity: 0.6; }
 """
 
     width_fix = """
@@ -97,6 +75,30 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
   font-size: 14px !important; font-weight: 400 !important;
   color: #666 !important; line-height: 1.6 !important;
 }
+
+/* Hide IM Creator's native footer-box (covers homepage + about-me + project pages) */
+.footer-box, .item-content.footer { display: none !important; }
+
+/* Shrink IM Creator's logo image to exact 97x20 across all pages */
+.left-div .preview-icon-holder img,
+.logo-holder img,
+#element-e325df23660bd16 {
+  width: 97px !important;
+  height: 20px !important;
+  max-width: none !important;
+}
+
+/* Style HOME / ABOUT nav links consistently with the captured pages */
+.menu_layout a, .links-menu a, .header-box a, .stripe-header a {
+  color: #111 !important;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+}
+.menu_layout a:hover, .links-menu a:hover, .header-box a:hover { opacity: 0.6; }
 </style>
 """.strip()
 

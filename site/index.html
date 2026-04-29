@@ -4924,18 +4924,10 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
   color: #666 !important; line-height: 1.6 !important;
 }
 
-/* Homepage: every preview-title shrunk to 20px */
-.master .preview-title, .master .blocks-preview-title { font-size: 20px !important; }
-/* Binance Leaderboard + Coinful sections: dark background, force white text */
-#vbid-f2da5321-sfstatxx, #vbid-f2da5321-sfstatxx *,
-#vbid-f2da5321-b9qvfnxw, #vbid-f2da5321-b9qvfnxw *,
-#element-15ba1119c75b3ae, #element-15ba1119c75b3ae *,
-#vbid-5512a7b7-b5hr0axu, #vbid-5512a7b7-b5hr0axu * {
-  color: #fff !important;
-}
-/* Copyright line at the bottom — rendered as a preview-title; show at description size */
-#vbid-739d6300-rqzcld5a { font-size: 14px !important; font-weight: 400 !important; color: #666 !important; }
-/* Shrink IM Creator's logo image to exact 97x20 to match all other pages */
+/* Hide IM Creator's native footer-box (covers homepage + about-me + project pages) */
+.footer-box, .item-content.footer { display: none !important; }
+
+/* Shrink IM Creator's logo image to exact 97x20 across all pages */
 .left-div .preview-icon-holder img,
 .logo-holder img,
 #element-e325df23660bd16 {
@@ -4943,9 +4935,6 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
   height: 20px !important;
   max-width: none !important;
 }
-/* Hide IM Creator's native footer-box — we inject our own consistent footer instead.
-   Use a broad selector since the footer-box can be nested at varying depths. */
-.footer-box, .item-content.footer { display: none !important; }
 
 /* Style HOME / ABOUT nav links consistently with the captured pages */
 .menu_layout a, .links-menu a, .header-box a, .stripe-header a {
@@ -4958,6 +4947,18 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
   text-transform: uppercase !important;
 }
 .menu_layout a:hover, .links-menu a:hover, .header-box a:hover { opacity: 0.6; }
+
+/* Homepage: every preview-title shrunk to 20px */
+.master .preview-title, .master .blocks-preview-title { font-size: 20px !important; }
+/* Binance Leaderboard + Coinful sections: dark background, force white text */
+#vbid-f2da5321-sfstatxx, #vbid-f2da5321-sfstatxx *,
+#vbid-f2da5321-b9qvfnxw, #vbid-f2da5321-b9qvfnxw *,
+#element-15ba1119c75b3ae, #element-15ba1119c75b3ae *,
+#vbid-5512a7b7-b5hr0axu, #vbid-5512a7b7-b5hr0axu * {
+  color: #fff !important;
+}
+/* Copyright line at the bottom — rendered as a preview-title; show at description size */
+#vbid-739d6300-rqzcld5a { font-size: 14px !important; font-weight: 400 !important; color: #666 !important; }
 
 </style>
 <!--portfolio-meta-->
