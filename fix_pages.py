@@ -20,6 +20,14 @@ CAPTURED_SLUGS = {
 def main():
     files = list(SITE.rglob("*.html"))
     print(f"Fixing {len(files)} HTML files…")
+    # Inline override CSS to fix body inline-block (which makes the body content-width)
+    width_fix = """
+<style data-portfolio-fix="width">
+html, body { display: block !important; width: 100% !important; }
+.master.container { width: auto !important; max-width: none !important; margin: 0 auto !important; }
+</style>
+""".strip()
+
     for f in sorted(files):
         rel = f.relative_to(SITE)
         slug = rel.parts[0] if len(rel.parts) > 1 else None
@@ -29,9 +37,13 @@ def main():
         html = f.read_text(errors="replace")
         new_html = html.replace("//xprs.imcreator.com/", "//www.imcreator.com/")
         new_html = new_html.replace("xprs.imcreator.com/", "www.imcreator.com/")
+        # Inject width fix into <head> if not already present
+        if 'data-portfolio-fix="width"' not in new_html:
+            new_html = new_html.replace("</head>", width_fix + "\n</head>", 1)
+
         if new_html != html:
             f.write_text(new_html)
-            print(f"  ✓ {rel} (host fixed)")
+            print(f"  ✓ {rel}")
         else:
             print(f"  · {rel} (unchanged)")
 
