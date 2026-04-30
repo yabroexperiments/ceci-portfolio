@@ -4853,10 +4853,35 @@ h1.preview-title, h2.preview-title, h2.blocks-preview-title {
   max-width: none !important;
 }
 
-/* about-me: profile photo circular */
+/* about-me: hero profile photo — force out of broken IM Creator
+   table-cell layout, render as a centered block image above the text. */
+#vbid-686774fa-s3ky2kja,
+#vbid-686774fa-s3ky2kja .item-content,
+#vbid-686774fa-s3ky2kja .multi-container,
+#vbid-686774fa-s3ky2kja .Picture,
+#vbid-686774fa-s3ky2kja .preview-image-holder,
+#vbid-686774fa-s3ky2kja .helper-div,
+#vbid-686774fa-s3ky2kja .text-side,
+#vbid-686774fa-s3ky2kja .vertical-aligner,
+#vbid-686774fa-s3ky2kja .preview-content-wrapper,
+#vbid-686774fa-s3ky2kja .preview-content-holder,
+#vbid-686774fa-s3ky2kja .preview-icon-holder {
+  display: block !important;
+  width: auto !important;
+  max-width: none !important;
+  text-align: center !important;
+  table-layout: auto !important;
+}
+#vbid-686774fa-s3ky2kja .pic-side { display: none !important; }
 #vbid-686774fa-nvkm78sz {
+  display: block !important;
+  width: 200px !important;
+  height: 200px !important;
+  margin: 80px auto 32px !important;
   border-radius: 50% !important;
   object-fit: cover !important;
+  position: relative !important;
+  z-index: 1 !important;
 }
 
 /* Style HOME / ABOUT nav links consistently with the captured pages */
