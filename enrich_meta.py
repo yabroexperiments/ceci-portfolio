@@ -145,6 +145,19 @@ def enrich(path: Path, slug: str) -> bool:
     head.append(canon)
     head.append(Comment("portfolio-meta-end"))
 
+    # Body-level fixup: bump the footer copyright year from 2023 → 2026.
+    # IM Creator's rendered HTML hard-codes the year in the social-preview
+    # block at the bottom of every page. Replace any "© 20YY Ceci Chang"
+    # → "© 2026 Ceci Chang" so the deployed site reflects the current year.
+    if soup.body:
+        for el in soup.body.find_all(string=re.compile(r"©\s*20\d\d\s+Ceci\s+Chang")):
+            new_text = re.sub(
+                r"©\s*20\d\d\s+Ceci\s+Chang",
+                "© 2026 Ceci Chang",
+                el.string,
+            )
+            el.replace_with(new_text)
+
     new_html = str(soup)
     if new_html != html:
         path.write_text(new_html, encoding="utf-8")
