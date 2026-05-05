@@ -1,6 +1,6 @@
 # Ceci Chang Portfolio — Project Memory
 
-Static migration of [Ceci Chang's UX/UI design portfolio](https://changhsiju.xyz) off the failing IM Creator platform. Deployed as a static site via GitHub Pages.
+Static replica of [Ceci Chang's UX/UI design portfolio](https://changhsiju.xyz) — a 1:1 mirror of the live IM Creator site at www.changhsiju.com, hosted on GitHub Pages.
 
 ## Architecture at a glance
 
@@ -8,80 +8,106 @@ Static migration of [Ceci Chang's UX/UI design portfolio](https://changhsiju.xyz
 - **Custom domain**: `changhsiju.xyz` (Namecheap) → GitHub Pages IPs.
 - **Repo**: [yabroexperiments/ceci-portfolio](https://github.com/yabroexperiments/ceci-portfolio) (public).
 - **GitHub user/email** for git: `yabroexperiments` / `yabroexperiments@gmail.com`.
+- **Source of truth**: `http://www.changhsiju.com/` (Ceci's IM Creator site). When IM Creator publishes content updates, re-run the ripper.
 
-## The 25 pages — three sources
+## v2 (current) — fresh rip from live IM Creator
 
-| Source | Pages | Style era |
-|--------|-------|-----------|
-| **Wayback 2025-07** | `index.html`, `about-me/` | 2023 redesign — IM Creator post-render snapshots |
-| **Wayback 2019** | 15 HTC/Mozilla/Acadine project pages | older portfolio era — IM Creator post-render |
-| **User-captured editor HTML** | 8 newer projects (Binance, TraderWagon, iCardAi, BNCT, Coinful, X.xyz) | rendered through a custom Python template |
+Replaces the v1 stop-gap (Wayback + JS-console hack + custom build template) which was deployed when the IM Creator site was unreachable. Now that IM Creator is online again, we mirror the live site directly.
 
-The 8 captured pages came from Ceci pasting a JS console snippet into IM Creator's editor that does `document.documentElement.outerHTML` → download. Files live in `captured/` (gitignored — they're inputs to the build, not source of truth).
-
-## Build pipeline (run in this order)
+### Build pipeline (two steps)
 
 ```bash
-python3 rip2.py        # Only re-run if Wayback content needs re-fetch (uses .rip-cache/)
-python3 build_clean.py # Renders 8 captured pages from captured/ via clean template
-python3 fix_pages.py   # Post-processes ALL Wayback pages: host rewrite + CSS overrides + footer/logo inject
-python3 fix_links.py   # Rewrites root-relative href="/foo" → "./foo/" so site works under any base path
+python3 rip_live.py        # Mirror live www.changhsiju.com → mirror_v2/
+rm -rf site && mv mirror_v2 site
+python3 enrich_meta.py     # Inject SEO/OG/Twitter meta tags into site/*.html
 ```
 
-`rip2.py` should rarely need re-running — its outputs are committed in `site/`. The cache makes re-runs cheap if needed (`.rip-cache/` is 3MB of Wayback responses, gitignored).
+`enrich_meta.py` is the ONE intentional deviation from "100% identical to live": IM Creator HTML has no `<meta name="description">`, so chat-app crawlers (LINE, WhatsApp, iMessage, Slack) fall back to scraping the first big text block — which is the Gem Spot project description. The enricher injects per-page title/description/og:image/twitter tags. Idempotent.
 
-## Where to make changes
+`rip_live.py`:
+1. Fetches all 25 pages (homepage + about-me + 23 project pages — slug list is hardcoded inside).
+2. Discovers every `<link rel=stylesheet>` and `<script src>` per page.
+3. Downloads imcreator.com CSS/JS into `mirror_v2/_imc/`.
+4. Recursively walks `url(...)` references in CSS, downloads referenced fonts/images.
+5. Rewrites HTML attributes to local relative paths.
+6. Per-page `static_style?vbid=X` URLs become `_imc/static_style/{vbid}.css`.
 
-| Change | File to edit |
-|--------|-------------|
-| Universal CSS (typography, footer hide, logo size, nav links) | `fix_pages.py` → `width_fix` variable |
-| Homepage-specific tweaks (e.g. white text on dark sections) | `fix_pages.py` → `HOMEPAGE_OVERRIDES` variable |
-| About-me-specific tweaks (e.g. circular profile photo) | `fix_pages.py` → inside the `width_fix` block targeting `#vbid-686774fa-nvkm78sz` |
-| 8 captured pages template/CSS | `build_clean.py` → `SHARED_CSS` variable + `render_page()` |
-| Captured-page section/block classification | `build_clean.py` → `parse_section()` |
-| Bottom HOME button removal / Back-to-portfolio inject | `fix_pages.py` → loop body |
-| Footer markup (used everywhere) | `build_clean.py` page template AND `fix_pages.py` `FOOTER_HTML` — keep them byte-identical |
+What it does NOT do:
+- Download Google CDN images (`lh3.googleusercontent.com`) — they're stable and cross-origin-safe; left remote.
+- Inject any custom logo, footer, CSS, or back-link. The whole point of v2 is **100% identical to live**.
 
-## Critical rule: CSS scope
+Output is `mirror_v2/` (gitignored). To deploy, copy contents into `site/`.
 
-`HOMEPAGE_OVERRIDES` is injected ONLY on the homepage. Universal rules (apply to all Wayback pages including `about-me/` + project pages) MUST go in `width_fix`. **Misclassifying scope is the #1 bug we hit** (footer-box was visible on about-me because the hide-rule was misplaced in `HOMEPAGE_OVERRIDES`).
+### Re-mirroring after Ceci updates IM Creator
 
-## Design system standards
+```bash
+rm -rf .ripcache_live mirror_v2   # clear cache so we re-fetch fresh
+python3 rip_live.py
+rm -rf site && mv mirror_v2 site
+python3 enrich_meta.py
+git add site/ && git commit -m "Re-mirror live changhsiju.com" && git push
+```
 
-- **Logo**: 97×20 px (Google CDN: `https://lh3.googleusercontent.com/LpF5FkXmIWcEsH77dZ6Z_kV7Y3wLf3y3JQnx7r6TOuVkeypK_jDauMNjgFC-zLhwzd5dlRv82i7ifxBfaw=s260`)
-- **Typography (3 levels)**:
-  - Heading — 26px Montserrat 600 / `#111` / line-height 1.3
-  - Body — 18px Montserrat 400 / `#333` / line-height 1.7
-  - Description — 14px Montserrat 400 / `#666` / line-height 1.6
-- **Footer (uniform across all pages)**: Custom `<footer class="ceci-footer-inject">` — left = `Copyright © 2026 Ceci Chang. All rights reserved.`; right = Email + LinkedIn 24×24 icons; thin top border (`#eee`).
-- **Footer icon URLs** (Google CDN, hardcoded in two places):
-  - Email: `https://lh3.googleusercontent.com/lXDKZBXBa_mQ0A-IrOjHdi9s79RAhEe7zhdTEuKpKGLXGde6iL2n46n2Zi4TVA9Daag9Z13s1dGTbsnAXg=s100`
-  - LinkedIn: `https://lh3.googleusercontent.com/nJ0IsRDlfNRwXaO-ySLjDaIGgTW24qj6x5j0csqCgvEpaQGBPJJtU4qP83pmkOkcorVnLWAbkyJ_fELF=s100`
+Auto-deploys via `.github/workflows/pages.yml` (~30–60s).
 
-## Image-extraction rules (build_clean.py)
+## Backups
 
-When parsing a captured page's images, always:
-- Drop images with `=s50` size suffix or smaller (they're icons / social buttons)
-- Drop image URLs whose stem appears 3+ times on the same page (page background / repeated decoration)
-- Rewrite size suffix to `=s2000` for the highest-res available
+| Tag / Branch | Commit | What it is |
+|--------------|--------|------------|
+| `v2-current-deployed` (tag) | `429f319` | v1 state right before fresh rip — fully deployable |
+| `archive/v2-current-deployed` (branch) | `429f319` | Same — branch form for easy GitHub navigation |
+| `v1-pre-bnct-restructure` (tag) | `2a3ae6f` | Older v1 state pre-captured-restructure |
 
-## IM Creator-specific gotchas (HARD-WON)
+To roll back to v1 (DESTRUCTIVE — confirm with user):
+```bash
+git reset --hard v2-current-deployed && git push --force origin main
+```
 
-These will bite again if forgotten:
+## v1 (legacy) — preserved for reference
 
-1. **`xprs.imcreator.com` is DEAD** — older Wayback HTML references it for CSS/JS. `fix_pages.py` rewrites it to `www.imcreator.com` (which still serves old version strings like `?v=1.5.1g`).
-2. **Captured pages had `data-app-version` ending in `-no-viewer`** — that suffix loads the editor build of `all_js.js` which disables the rendering engine. Strip it.
-3. **`spimeengine.js` causes infinite layout re-runs on `about-me`** — it keeps oscillating an element's margin between 0 and 20px, producing visible flicker. We strip both `spimeengine.js` and `all_js.js` from `about-me` only. Without those scripts the post-render Wayback HTML still displays correctly, but you must explicitly set `border-radius: 50%` on the profile photo (`#vbid-686774fa-nvkm78sz`) since the engine no longer applies it at runtime.
-4. **`body { display: inline-block }`** is set by IM Creator's CSS — must override to `block` or the page won't fill viewport width.
-5. **IM Creator's native footer-box (`.footer-box`)** must be hidden via `display: none !important` because we replace it with our own consistent footer. The class is on every Wayback page including the homepage.
-6. **Triple-injection bug** — if you re-run `fix_pages.py` and use regex to strip prior injections, it may miss some and stack duplicates. ALWAYS use bs4 (`soup.find_all(class_=...).decompose()`) for idempotent inject/strip operations.
-7. **Captured pages have nested `page-box` blocks inside `gallery-box` sections** — each `page-box` is one image+caption pair. Collapsing them into a single section per `gallery-box` loses the per-image captions. `parse_section()` handles this.
-8. **The IM Creator editor's HTML uses `blocks-preview-title`** (1.5.x) vs `preview-title` (1.6.x) for headings — CSS rules need to target both.
-9. **Image URLs are mostly Google CDN** (`lh3.googleusercontent.com/...`) — they're independent of IM Creator and stable. Don't try to download them locally; reference directly.
+The v1 pipeline is still in the repo but no longer part of the build:
+
+| File | What it did in v1 | Status |
+|------|-------------------|--------|
+| `rip2.py` | Wayback-Machine fetcher (CDX API + `id_/` raw form) | Kept for reference |
+| `build_clean.py` | Rendered 8 captured editor-HTML files via custom template | Kept for reference |
+| `fix_pages.py` | Wayback post-processor: dead-host rewrite, footer hide, logo inject | Kept for reference |
+| `fix_links.py` | Rewrites root-relative href="/foo" → "./foo/" | Kept for reference |
+| `clean_captured.py` | Earlier failed attempt to clean captured HTML in place | Kept for reference |
+| `captured/` (gitignored) | Editor-HTML dumps Ceci downloaded via JS-console snippet | Possibly empty — was the v1 fallback when IM Creator was unreachable |
+
+If IM Creator goes back down, v1 is the fallback strategy: Wayback + JS-console capture.
+
+## v2 visual fidelity vs. v1
+
+What v2 fixed by re-ripping:
+
+- **Captured pages now show original IM Creator design**: bnct (yellow hero, 4 device mockups composed side-by-side), binance-leaderboard (dark composition), traderwagon, icardai, coinful, xxyz, binance-future-trading-platform — all now match live exactly. v1 had simpler `build_clean.py` template-rendered versions.
+- **about-me profile photo** natively centered above heading (no CSS workaround needed). v1 had hand-coded `display:block; width:200px; margin:auto` rule.
+- **Original IM Creator footer + social icons** rendered as IM Creator does it — no custom Ceci-Chang-logo, no unified-footer injection, no back-link.
+- **No spimeengine flicker** because v2 uses the actual published HTML which is post-render and stable.
+
+## Pages (25 URLs total)
+
+Homepage + about-me + 23 project pages, mirrored from live changhsiju.com:
+
+- `/` (homepage with all project links)
+- `/about-me/`
+- Captured-page slugs: `bnct`, `binance-future-trading-platform`, `binance-leaderboard`, `traderwagon_platform`, `traderwagon_mkt`, `xxyz`, `coinful`, `icardai`
+- Older-portfolio slugs: `acadine_watch`, `acadine_smart-home`, `acadine_feature-phone`, `mozilla_smart-tv`, `mozilla_feature-phone`, `mozilla_car-ui`, `htc_phone-app`, `htc_dot-view`, `htc_cos-wallpaper`, `htc_message`, `htc_clock`, `htc_scribble`, `htc_lifeme`, `htc_mini`, `htc_tablet`
+
+The 2 `/vbid-3b46eede-...` URLs that appear in the homepage `<a>` scan are IM Creator placeholders for "More" buttons Ceci never filled in. They return "No index" on the live site too. Not real content; ignore them.
+
+## Ceci's contact info (for reference — not used in any custom injection in v2)
+
+- Email: `changhsiju@gmail.com`
+- LinkedIn: `https://www.linkedin.com/in/changhsiju/`
 
 ## GitHub Pages deploy
 
-Workflow: `.github/workflows/pages.yml` — uploads `site/` as a Pages artifact on every push to `main`. Auto-deploys (~30s after push completes). DNS:
+Workflow: `.github/workflows/pages.yml` — uploads `site/` as a Pages artifact on every push to `main`. Auto-deploys (~30–60s after push).
+
+DNS:
 - `changhsiju.xyz` → 4 A records pointing at GitHub IPs (`185.199.108-111.153`)
 - `www.changhsiju.xyz` → CNAME to `yabroexperiments.github.io`
 - HTTPS via Let's Encrypt (auto-provisioned by GitHub Pages)
@@ -89,31 +115,22 @@ Workflow: `.github/workflows/pages.yml` — uploads `site/` as a Pages artifact 
 ## Local preview
 
 ```bash
-cd site && python3 -m http.server 8765
+python3 -m http.server 8765 --directory site
 # open http://localhost:8765/
 ```
 
-The build scripts edit `site/` in place — don't add intermediate output dirs.
-
 ## Dependencies
 
-Python 3 with `beautifulsoup4` and `lxml` (`pip3 install beautifulsoup4 lxml`). Stdlib for everything else (urllib, ssl, etc.). No npm/node, no JS toolchain.
+Python 3 with `beautifulsoup4` and `lxml` (`pip3 install beautifulsoup4 lxml`). No npm/node.
 
 `gh` CLI required for repo ops, authenticated as `yabroexperiments`.
 
-## Ceci's contact info (used in footer everywhere)
+## Long-term direction
 
-- Email: `changhsiju@gmail.com`
-- LinkedIn: `https://www.linkedin.com/in/changhsiju/` (limited public visibility — looks like a 404 to logged-out users in some regions, but profile exists)
+The static rip captures the site as it exists today, but Ceci can't easily edit it (10K+ lines of IM Creator HTML per page with cryptic `vbid-...` IDs). The paths forward, in rough order of designer-friendliness vs. cost:
 
-## Backup snapshots
+1. **Framer** ($15–25/mo) — true freeform per-page layouts, designer-favorite, Figma import. Best fit for a portfolio that needs new case studies with distinct layouts.
+2. **Astro/Eleventy rebuild** (free) — Markdown-driven; layouts come from a small set of templates. Free forever, but layout flexibility is constrained to whatever Claude builds upfront.
+3. **Once-a-year Framer subscription** ($15–30/year) — subscribe only the month she's building, then cancel. Custom domain works while subscribed.
 
-Tag `v1-pre-bnct-restructure` at commit `2a3ae6f`: state before the captured-page nested-block restructure. To roll back:
-```bash
-git reset --hard v1-pre-bnct-restructure && git push --force origin main
-```
-(Confirm with user before force-pushing.)
-
-## Long-term direction (acknowledged but deferred)
-
-Static rip is a stop-gap. Long-term, Ceci should rebuild on **Framer** (designer-friendly visual editor, $15/mo) or have Claude maintain a custom Astro/Next.js site (free, requires Markdown editing or asking Claude). User chose to stick with static rip "for now" but is aware of the maintainability trade-off.
+For Ceci's actual cadence (~once a year, between jobs), the static rip + occasional Claude session for layout updates is genuinely viable. See the editing strategy doc when she next wants to update.
