@@ -1,0 +1,50 @@
+---
+// Footer mirrors the live IM Creator footer: copyright + email/linkedin icons.
+// Icons reference the same Google CDN URLs the live site uses (stable).
+const EMAIL_ICON = "https://lh3.googleusercontent.com/lXDKZBXBa_mQ0A-IrOjHdi9s79RAhEe7zhdTEuKpKGLXGde6iL2n46n2Zi4TVA9Daag9Z13s1dGTbsnAXg=s100";
+const LINKEDIN_ICON = "https://lh3.googleusercontent.com/nJ0IsRDlfNRwXaO-ySLjDaIGgTW24qj6x5j0csqCgvEpaQGBPJJtU4qP83pmkOkcorVnLWAbkyJ_fELF=s100";
+---
+<footer class="site-footer">
+  <div class="socials">
+    <a href="mailto:changhsiju@gmail.com" aria-label="Email Ceci">
+      <img src={EMAIL_ICON} alt="Email" width="24" height="24" />
+    </a>
+    <a href="https://www.linkedin.com/in/changhsiju/" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+      <img src={LINKEDIN_ICON} alt="LinkedIn" width="24" height="24" />
+    </a>
+  </div>
+  <p class="copyright">Copyright © 2026 Ceci Chang. All rights reserved.</p>
+</footer>
+
+<style>
+  .site-footer {
+    text-align: center;
+    padding: 80px 24px 64px;
+    border-top: 1px solid #eee;
+    margin-top: 80px;
+  }
+  .socials {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 16px;
+  }
+  .socials a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #f7f7f7;
+    transition: background 0.15s ease;
+  }
+  .socials a:hover { background: #eee; }
+  .socials img { width: 20px; height: 20px; opacity: 0.7; }
+  .copyright {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: #999;
+    margin: 0;
+  }
+</style>

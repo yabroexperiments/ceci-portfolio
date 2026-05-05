@@ -1,0 +1,46 @@
+---
+// Dynamic route: every Markdown file under src/content/projects/ becomes a
+// page at /projects/<slug>/. The `layout` field in the file's frontmatter
+// determines which Astro layout component renders it.
+//
+// To add a NEW case study with any of the existing layouts:
+//   1. Drop a new .md file into src/content/projects/
+//   2. Set `template:` to one of: hero-composition / image-grid / profile / dark-hero
+//   3. Fill in title / description / images
+//   4. Commit on GitHub.com → auto-deploys
+//
+// To add a NEW layout (a totally new look not covered above):
+//   1. Create src/layouts/MyNewLayout.astro
+//   2. Add its name to the template enum in src/content/config.ts
+//   3. Register it in the `templates` map below
+//   4. New case studies can now reference it by name
+import { getCollection, type CollectionEntry } from 'astro:content';
+import HeroComposition from '../../layouts/HeroComposition.astro';
+import ImageGrid from '../../layouts/ImageGrid.astro';
+import ProfilePage from '../../layouts/ProfilePage.astro';
+import DarkHero from '../../layouts/DarkHero.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((p) => ({
+    params: { slug: p.slug },
+    props: { project: p },
+  }));
+}
+
+interface Props { project: CollectionEntry<'projects'> }
+const { project } = Astro.props;
+const { Content } = await project.render();
+
+const templates = {
+  'hero-composition': HeroComposition,
+  'image-grid': ImageGrid,
+  'profile': ProfilePage,
+  'dark-hero': DarkHero,
+} as const;
+
+const Layout = templates[project.data.template];
+---
+<Layout {...project.data}>
+  <Content />
+</Layout>

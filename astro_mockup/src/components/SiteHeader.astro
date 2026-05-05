@@ -1,0 +1,55 @@
+---
+// Top nav: Ceci Chang logo at left, HOME / ABOUT links at right.
+// Sticky so it follows the user as they scroll.
+const { current = '' } = Astro.props;
+---
+<header class="site-header">
+  <a href="/" class="logo" aria-label="Ceci Chang home">Ceci Chang</a>
+  <nav>
+    <a href="/" class:list={[{ active: current === 'home' }]}>HOME</a>
+    <a href="/about/" class:list={[{ active: current === 'about' }]}>ABOUT</a>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 56px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .logo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #111;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  nav {
+    display: flex;
+    gap: 40px;
+  }
+  nav a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #111;
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+  }
+  nav a:hover { opacity: 0.6; }
+  nav a.active { opacity: 0.4; }
+  @media (max-width: 600px) {
+    .site-header { padding: 16px 24px; }
+    nav { gap: 20px; }
+  }
+</style>

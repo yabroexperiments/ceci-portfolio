@@ -1,0 +1,14 @@
+{
+  "name": "ceci-portfolio-astro-mockup",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Astro mockup of Ceci's portfolio — proof that Markdown-driven self-editing is viable. Demonstrates 4 distinct layouts (gallery / profile / hero-composition / image-grid) so any future case study can pick its own design.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview --port 8768"
+  },
+  "dependencies": {
+    "astro": "^4.16.18"
+  }
+}

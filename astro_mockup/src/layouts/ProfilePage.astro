@@ -1,0 +1,71 @@
+---
+// Layout 3: PROFILE
+// Centered circular photo + heading + horizontal divider + body text.
+// Used for the about-me page. Could also be used for a "thanks" or
+// "contact" page — anywhere you want a personal, intimate feel.
+// Frontmatter drives:
+//   - profile_image: avatar URL
+import BaseLayout from './BaseLayout.astro';
+
+const { title, subtitle, profile_image, description, ...rest } = Astro.props;
+---
+<BaseLayout title={title} description={description} {...rest}>
+  <section class="profile">
+    {profile_image && <img class="photo" src={profile_image} alt={title} />}
+    {subtitle && <p class="subtitle">{subtitle}</p>}
+    <h1>{title}</h1>
+    <hr class="divider" />
+  </section>
+
+  <section class="body">
+    <slot />
+  </section>
+</BaseLayout>
+
+<style>
+  .profile {
+    text-align: center;
+    padding: 80px 24px 0;
+  }
+  .photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 32px;
+    display: block;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  }
+  .subtitle {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #999;
+    margin: 0 0 8px;
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0 0 24px;
+    color: #111;
+  }
+  .divider {
+    width: 60px;
+    border: none;
+    border-top: 2px solid #ccc;
+    margin: 0 auto;
+  }
+  .body {
+    max-width: 760px;
+    margin: 60px auto 80px;
+    padding: 0 24px;
+  }
+  .body :global(p) {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #333;
+    margin: 0 0 1.5em;
+  }
+  .body :global(p:last-child) { margin-bottom: 0; }
+</style>
