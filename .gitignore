@@ -1,5 +1,7 @@
 .rip-cache/
+.ripcache_live/
 captured/
+mirror_v2/
 *.log
 .DS_Store
 __pycache__/

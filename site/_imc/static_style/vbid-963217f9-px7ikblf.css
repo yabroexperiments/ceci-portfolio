@@ -1,0 +1,1307 @@
+/******************************************************************************************************
+ *            DYNAMIC STYLE FOR style-739d6300-e8ryvwwj version 1.0
+ *                                 	 
+ ******************************************************************************************************/
+	 .style-963217f9-nlsnaarf .style-739d6300-e8ryvwwj .Body  {
+		font-size:calc( 10px + ( 12rem - 10rem ) );
+						max-width: 650px;
+						
+						margin-right: 20px;
+						
+						margin-left: 20px;
+						
+						margin-bottom: 10px;
+						
+						line-height: 1.4em;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-e8ryvwwj .Subtitle  ,  .style-963217f9-nlsnaarf .style-739d6300-e8ryvwwj .Body h2  { font-size:calc( 10px + ( 15rem - 10rem ) );
+						color: rgb(110, 110, 110);
+						
+						max-width: 650px;
+						
+						letter-spacing: 0.1em;
+						
+						margin-right: 20px;
+						
+						margin-top: 15px;
+						
+						margin-left: 20px;
+						
+						margin-bottom: 15px;
+						
+						font-family: Arial;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-e8ryvwwj .quote-holder  {
+		
+						margin-bottom: 45px;
+						
+						margin-top: 35px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-e8ryvwwj .subtitle-wrapper  {
+		
+						max-width: 1180px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-e8ryvwwj .Title  ,  .style-963217f9-nlsnaarf .style-739d6300-e8ryvwwj .Body h1  { font-size:calc( 10px + ( 22rem - 10rem ) );
+						color: rgb(0, 0, 0);
+						
+						max-width: 650px;
+						
+						letter-spacing: 0.05em;
+						
+						margin-right: 20px;
+						
+						margin-top: 30px;
+						
+						margin-left: 20px;
+						
+						font-family: Montserrat;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-e8ryvwwj .link-wrapper  {
+		
+						max-width: 1058px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-e8ryvwwj .Quote  {
+		
+						margin-right: 50px;
+						
+						font-family: 'Times New Roman';
+						font-size:calc( 10px + ( 19rem - 10rem ) );
+						margin-left: 50px;
+						
+						font-style: italic;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-e8ryvwwj .quote-author  {
+		
+						font-style: italic;
+						font-size:calc( 10px + ( 19rem - 10rem ) );
+						color: rgb(124, 124, 124);
+						
+						margin-right: 50px;
+						
+						margin-top: 10px;
+						
+						margin-left: 50px;
+						
+						font-family: 'Times New Roman';
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-e8ryvwwj .title-wrapper  {
+		
+						max-width: 1180px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-e8ryvwwj .item-links span  {
+		
+						font-family: Arial;
+						font-size:calc( 10px + ( 13rem - 10rem ) );
+						color: rgb(0, 0, 0);
+						
+						padding-bottom: 10px;
+						
+						letter-spacing: 0.1em;
+						
+						padding-right: 15px;
+						
+						margin-top: 20px;
+						
+						padding-left: 15px;
+						
+						padding-top: 10px;
+						
+						margin-bottom: 20px;
+						
+						border-width: 1px;
+						
+						background-color: rgba(66, 117, 83, 0);
+						
+						margin-left: 50px;
+							
+		}
+	
+	 .style-963217f9-nlsnaarf .style-739d6300-e8ryvwwj .body-wrapper  {
+		
+						max-width: 1032px;
+							
+		}
+	 .style-739d6300-e8ryvwwj.master.container > #children  {
+		
+						background-color: rgb(255, 255, 255);
+							
+		}
+
+/******************************************************************************************************
+ *            UNIQUE STYLE
+ *                                 	 
+ ******************************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/******************************************************************************************************
+ *            WEBSITE STYLE
+ *                                 	 
+ ******************************************************************************************************/
+
+	
+	
+	
+			.master.container.website-style .master.item-box:not(.custom) .preview-title:not(.custom) , 
+			.master.container.website-style .master.item-box:not(.custom) .blocks-preview-title:not(.custom) { 
+						color: rgb(0, 0, 0);
+				
+						font-family: Montserrat;
+				
+						letter-spacing: 0.0em;
+				
+						direction: ltr;
+				
+						line-height: 1.2em;
+					
+		}
+	
+	
+	
+			.master.container.website-style .master.item-box:not(.custom) .preview-element.Link:not(.custom)  {
+		
+						border-width: 1px;
+				
+						line-height: 1.0em;
+				
+						letter-spacing: 0.1em;
+				
+						border-radius: 0px;
+				
+						font-family: Montserrat;
+				
+						direction: rtl;
+					
+		}
+	
+	
+	
+			.master.container.website-style .master.item-box:not(.custom) .preview-subtitle:not(.custom) , 
+			.master.container.website-style .master.item-box:not(.custom) .blocks-preview-subtitle:not(.custom) { 
+						font-family: Montserrat;
+				
+						letter-spacing: -0.0em;
+				
+						line-height: 1.5em;
+					
+		}
+	
+	
+	
+			.master.container.website-style .master.item-box:not(.custom) .preview-body:not(.custom) , 
+			.master.container.website-style .master.item-box:not(.custom) .blocks-preview-body:not(.custom) { 
+						color: rgb(0, 0, 0);
+				
+						font-family: Montserrat;
+				
+						letter-spacing: 0.0em;
+				
+						direction: ltr;
+				
+						line-height: 1.36em;
+					
+		}
+	
+	
+	
+			  .header-box + .master.item-box.fill-height , 
+			  #menu-placeholder + .master.item-box.fill-height { 
+						min-height: calc(100vh - 0px)!important;
+					
+		}
+	
+	
+	
+			body    {
+		
+						background-color: rgba(0, 0, 0, 0);
+					
+		}
+	
+	
+	
+			#xprs.in-editor  .header-box + .control-handle + .master.item-box.fill-height , 
+			#xprs.in-editor  #menu-placeholder + .control-handle + .master.item-box.fill-height { 
+						min-height: calc(100vh - 50px)!important;
+					
+		}/******************************************************************************************************
+ *            DYNAMIC STYLE FOR style-739d6300-tcmaukq7 version 1.0
+ *                                 	 
+ ******************************************************************************************************/
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7.master.item-box   {
+		
+						background-color: rgb(255, 255, 255);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .preview-title  ,  .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .preview-body h1  { font-size:calc( 10px + ( 12rem - 10rem ) );
+						color: rgb(68, 68, 68);
+						
+						letter-spacing: 0.0em;
+						
+						margin-right: 20px;
+						
+						margin-top: 5px;
+						
+						margin-left: 20px;
+						
+						margin-bottom: 5px;
+						
+						font-family: Arial;
+						
+						background-color: rgba(11, 11, 11, 0);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .preview-link-img  {
+		
+						width: 30px;
+						
+						margin: 30px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .inner-pic-holder  {
+		
+						background-color: rgba(0, 0, 0, 0.13);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7  .preview-content-holder  {
+		
+						text-align: center;
+						
+						margin-right: 20px;
+						
+						margin-top: 35px;
+						
+						margin-left: 20px;
+						
+						margin-bottom: 35px;
+						
+						background-color: rgba(246, 239, 217, 0);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .preview-item-links span  ,  .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 #sr-basket-widget *  { 
+						color: #ffffff;
+						
+						font-family: Arial;
+						font-size:calc( 10px + ( 13rem - 10rem ) );	
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .background-image-div  {
+		
+						color: rgb(255, 255, 255);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .preview-social-holder  {
+		
+						margin-bottom: 10px;
+						
+						margin-top: 25px;
+						
+						margin-left: 5px;
+						
+						margin-right: 5px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .preview-title-holder  {
+		
+						text-align: left;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .preview-divider  {
+		
+						border-color: rgb(255, 255, 255);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .item-content:not(.blocks_layout)  {
+		
+						background-color: rgb(255, 255, 255);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .preview-subtitle-holder  {
+		
+						text-align: center;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .inner-pic  {
+		
+						color: rgb(255, 255, 255);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .preview-body  {
+		
+						color: rgb(104, 104, 104);
+						
+						margin-bottom: 40px;
+						font-size:calc( 10px + ( 14rem - 10rem ) );
+						background-color: rgba(255, 255, 255, 0);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .preview-element.icon-source  {
+		
+						color: rgb(255, 255, 255);
+						
+						padding-right: 20px;
+						
+						padding-left: 20px;
+						
+						width: 80px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7  .preview-content-wrapper  {
+		
+						text-align: center;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .preview-body-holder  {
+		
+						text-align: left;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .preview-subtitle  ,  .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .preview-body h2  { 
+						font-family: Arial;
+						font-size:calc( 10px + ( 12rem - 10rem ) );
+						color: rgb(160, 160, 160);
+						
+						letter-spacing: 0.2em;
+						
+						margin-right: 20px;
+						
+						margin-left: 20px;
+						
+						line-height: 1.2em;
+						
+						background-color: rgba(0, 0, 0, 0);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .middle_layout .helper-div  ,  .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .multi_layout .helper-div.middle-center .text-side  { 
+						max-width: 1050px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-tcmaukq7 .background-div  {
+		
+						color: rgb(0, 0, 0);
+							
+		}
+
+/******************************************************************************************************
+ *            UNIQUE STYLE
+ *                                 	 
+ ******************************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/******************************************************************************************************
+ *            WEBSITE STYLE
+ *                                 	 
+ ******************************************************************************************************/
+/******************************************************************************************************
+ *            DYNAMIC STYLE FOR style-963217f9-nlsnaarf version 1.0
+ *                                 	 
+ ******************************************************************************************************/
+	 .master .style-963217f9-nlsnaarf.master.item-box   {
+		
+						background-color: rgba(0, 0, 0, 0);
+							
+		}
+	 .master .style-963217f9-nlsnaarf .preview-title  ,  .master .style-963217f9-nlsnaarf .preview-body h1  { 
+						line-height: 1.1em;
+						font-size:calc( 10px + ( 32rem - 10rem ) );
+						color: rgb(255, 255, 255);
+						
+						letter-spacing: 0em;
+						
+						margin-bottom: 5px;
+						
+						font-family: Raleway;
+						
+						background-color: rgba(0, 0, 0, 0);
+							
+		}
+	 .master .style-963217f9-nlsnaarf  .preview-content-holder  {
+		
+						text-align: center;
+						
+						max-width: 700px;
+						
+						margin-right: 20px;
+						
+						margin-top: 30px;
+						
+						margin-left: 20px;
+						
+						margin-bottom: 30px;
+						
+						background-color: rgba(0, 0, 0, 0);
+							
+		}
+	 .master .style-963217f9-nlsnaarf .preview-item-links span  ,  .master .style-963217f9-nlsnaarf #sr-basket-widget *  { 
+						border-width: 1px;
+						font-size:calc( 10px + ( 14rem - 10rem ) );
+						color: rgb(255, 255, 255);
+						
+						padding-bottom: 10px;
+						
+						border-color: rgb(255, 255, 255);
+						
+						letter-spacing: 0.1em;
+						
+						padding-right: 20px;
+						
+						margin-top: 35px;
+						
+						padding-left: 20px;
+						
+						padding-top: 10px;
+						
+						font-family: Arial;
+						
+						background-color: rgba(0, 0, 0, 0);
+							
+		}
+	 .master .style-963217f9-nlsnaarf .preview-item-links span:hover  ,  .master .style-963217f9-nlsnaarf .preview-element.Link.hover-tester  { 
+						color: rgb(255, 255, 255);
+						
+						background-color: rgba(0, 0, 0, 0);
+							
+		}
+	 .master .style-963217f9-nlsnaarf .item-content:not(.blocks_layout)  {
+		
+						background-color: rgb(30, 30, 30);
+							
+		}
+	 .master .style-963217f9-nlsnaarf .preview-body  {
+		
+						font-family: Arial;
+						font-size:calc( 10px + ( 12rem - 10rem ) );
+						color: rgb(207, 207, 207);
+						
+						letter-spacing: 0em;
+						
+						max-width: 650px;
+						
+						margin-top: 15px;
+						
+						line-height: 1.6em;
+							
+		}
+	 .master .style-963217f9-nlsnaarf .preview-element.icon-source  {
+		
+						margin-bottom: 25px;
+						
+						width: 50px;
+							
+		}
+	 .master .style-963217f9-nlsnaarf  .preview-content-wrapper  {
+		
+						text-align: center;
+							
+		}
+	 .master .style-963217f9-nlsnaarf .background-div  {
+			
+		}
+	 .master .style-963217f9-nlsnaarf .middle_layout .helper-div  ,  .master .style-963217f9-nlsnaarf .multi_layout .helper-div.middle-center .text-side  { 
+						max-width: 1000px;
+							
+		}
+	 .master .style-963217f9-nlsnaarf .preview-subtitle  ,  .master .style-963217f9-nlsnaarf .preview-body h2  { 
+						font-family: Raleway;
+						font-size:calc( 10px + ( 14rem - 10rem ) );
+						color: rgb(255, 255, 255);
+						
+						letter-spacing: 0em;
+						
+						margin-right: 0px;
+						
+						margin-top: 15px;
+						
+						margin-left: 0px;
+						
+						line-height: 1.4em;
+							
+		}
+
+/******************************************************************************************************
+ *            UNIQUE STYLE
+ *                                 	 
+ ******************************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/******************************************************************************************************
+ *            WEBSITE STYLE
+ *                                 	 
+ ******************************************************************************************************/
+/******************************************************************************************************
+ *            DYNAMIC STYLE FOR style-739d6300-jwwtqlph version 1.0
+ *                                 	 
+ ******************************************************************************************************/
+	 .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .preview-title-holder  {
+		
+						text-align: left;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph.master.item-box   {
+		
+						position: absolute;
+						
+						background-color: rgb(255, 255, 255);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .preview-item-links span:hover  ,  .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .preview-element.Link.hover-tester  { 
+						color: rgb(0, 0, 0);
+						
+						background-color: rgba(0, 0, 0, 0);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph.master.item-box   {
+		
+						padding-left: 3%;
+						
+						padding-right: 3%;
+						
+						width: 94%;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .preview-item-links  {
+		
+						text-align: center;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph  .preview-content-holder  {
+		
+						border-color: rgb(214, 214, 214);
+						
+						max-width: 2000px;
+						
+						margin-right: 0px;
+						
+						margin-top: 10px;
+						
+						background-color: rgba(0, 0, 0, 0);
+						
+						text-align: right;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .preview-item-links span  ,  .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph #sr-basket-widget *  { 
+						font-family: Arial;
+						font-size:calc( 10px + ( 14rem - 10rem ) );
+						text-transform: uppercase;
+						
+						color: rgb(0, 0, 0);
+						
+						padding-bottom: 7px;
+						
+						border-color: rgb(0, 0, 0);
+						
+						letter-spacing: 0.15em;
+						
+						max-width: 1150px;
+						
+						padding-right: 10px;
+						
+						padding-left: 10px;
+						
+						border-radius: 0px;
+						
+						padding-top: 7px;
+						
+						border-width: 0px;
+						
+						background-color: rgba(0, 0, 0, 0);
+						
+						margin-left: 5px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .preview-title  ,  .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .preview-body h1  { 
+						font-family: Montserrat;
+						font-size:calc( 10px + ( 17rem - 10rem ) );
+						margin-right: 10px;
+						
+						color: rgb(0, 0, 0);
+						
+						letter-spacing: 0.05em;
+						
+						font-weight: bold;
+						
+						margin-top: 15px;
+						
+						margin-left: 10px;
+						
+						line-height: 1.5em;
+						
+						background-color: rgba(255, 255, 255, 0);
+						
+						direction: ltr;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .preview-item-links.allow-bg-color  ,  .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .submenu  { 
+						background-color: rgb(0, 0, 0);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .item-content:not(.blocks_layout)  {
+		
+						background-color: rgba(244, 203, 74, 0);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .preview-item-links span:before  ,  .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .effect-tester  { 
+						background-color: rgb(0, 0, 0);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .preview-subtitle-holder  {
+		
+						text-align: left;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .stripe-background  {
+		
+						margin-left: -3%;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .preview-element.icon-source  {
+		
+						color: rgb(0, 0, 0);
+						
+						margin-right: 10px;
+						
+						margin-top: 0px;
+						
+						margin-left: 10px;
+						
+						margin-bottom: 0px;
+						
+						width: 130px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph  .preview-content-wrapper  {
+		
+						vertical-align: bottom;
+						
+						text-align: right;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .middle_layout .helper-div  ,  .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .multi_layout .helper-div.middle-center .text-side  { 
+						max-width: 1000px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .preview-subtitle  ,  .style-963217f9-nlsnaarf .style-739d6300-jwwtqlph .preview-body h2  { font-size:calc( 10px + ( 12rem - 10rem ) );
+						color: rgb(152, 152, 152);
+						
+						letter-spacing: 0.0em;
+						
+						margin-right: 10px;
+						
+						margin-top: 5px;
+						
+						margin-left: 10px;
+						
+						margin-bottom: 5px;
+						
+						font-family: Raleway;
+							
+		}
+
+/******************************************************************************************************
+ *            UNIQUE STYLE
+ *                                 	 
+ ******************************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/******************************************************************************************************
+ *            WEBSITE STYLE
+ *                                 	 
+ ******************************************************************************************************/
+/******************************************************************************************************
+ *            DYNAMIC STYLE FOR style-686774fa-u9vdzevw version 1.0
+ *                                 	 
+ ******************************************************************************************************/
+	 .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw.master.item-box   {
+		
+						background-color: rgb(255, 255, 255);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .preview-title  ,  .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .preview-body h1  { font-size:calc( 10px + ( 22rem - 10rem ) );
+						color: rgb(0, 0, 0);
+						
+						letter-spacing: 0.05em;
+						
+						margin-bottom: 5px;
+						
+						font-family: Raleway;
+						
+						background-color: rgba(255, 255, 255, 0);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .inner-pic-holder  {
+		
+						background-color: rgb(255, 255, 255);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw  .preview-content-holder  {
+		
+						margin-right: 0px;
+						
+						padding-bottom: 0px;
+						
+						text-align: center;
+						
+						max-width: 750px;
+						
+						padding-right: 0px;
+						
+						margin-top: 50px;
+						
+						margin-left: 0px;
+						
+						padding-top: 0px;
+						
+						margin-bottom: 50px;
+						
+						background-color: rgba(255, 255, 255, 0);
+						
+						padding-left: 0px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .preview-item-links span  ,  .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw #sr-basket-widget *  { font-size:calc( 10px + ( 10rem - 10rem ) );
+						text-transform: uppercase;
+						
+						color: rgb(237, 237, 237);
+						
+						padding-bottom: 15px;
+						
+						border-color: rgb(99, 99, 99);
+						
+						letter-spacing: 0.1em;
+						
+						margin-right: 5px;
+						
+						margin-top: 10px;
+						
+						margin-left: 5px;
+						
+						padding-top: 15px;
+						
+						font-family: Arial;
+						
+						background-color: rgba(56, 110, 166, 0.77);
+						
+						padding-right: 20px;
+						
+						padding-left: 20px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .preview-item-links span:hover  ,  .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .preview-element.Link.hover-tester  { 
+						color: rgb(255, 255, 255);
+						
+						background-color: rgb(0, 0, 0);
+							
+		}
+	
+	 .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .item-content:not(.blocks_layout)  {
+		
+						background-color: rgba(0, 0, 0, 0);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .preview-divider  {
+		
+						width: 20%;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .preview-icon-holder  {
+		
+						margin-bottom: 40px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .multi_layout .helper-div.middle-center .pic-side  {
+		
+						margin-left: -6%;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .preview-body  {
+		
+						line-height: 1.4em;
+						font-size:calc( 10px + ( 12rem - 10rem ) );
+						color: rgb(142, 142, 142);
+						
+						letter-spacing: 0em;
+						
+						max-width: 600px;
+						
+						margin-top: 10px;
+						
+						margin-bottom: 10px;
+						
+						font-family: Arial;
+						
+						background-color: rgba(255, 248, 0, 0);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .preview-element.icon-source  {
+		
+						margin-bottom: 25px;
+						
+						width: 140px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw  .preview-content-wrapper  {
+		
+						vertical-align: middle;
+						
+						text-align: center;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .stripe-background  {
+		
+						margin-top: -40px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .middle_layout .helper-div  ,  .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .multi_layout .helper-div.middle-center .text-side  { 
+						max-width: 1000px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .multi_layout .helper-div.middle-center  {
+		
+						padding-left: 6%;
+						
+						width: 88%;
+						
+						padding-right: 6%;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .preview-subtitle  ,  .style-963217f9-nlsnaarf .style-686774fa-u9vdzevw .preview-body h2  { 
+						font-family: Raleway;
+						font-size:calc( 10px + ( 13rem - 10rem ) );
+						color: rgb(142, 142, 142);
+						
+						letter-spacing: 0em;
+						
+						margin-right: 0px;
+						
+						margin-top: 10px;
+						
+						margin-left: 0px;
+						
+						margin-bottom: 10px;
+						
+						line-height: 1.2em;
+							
+		}
+
+/******************************************************************************************************
+ *            UNIQUE STYLE
+ *                                 	 
+ ******************************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/******************************************************************************************************
+ *            WEBSITE STYLE
+ *                                 	 
+ ******************************************************************************************************/
+/******************************************************************************************************
+ *            DYNAMIC STYLE FOR style-71e20476-ilnue9pe version 1.0
+ *                                 	 
+ ******************************************************************************************************/
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe  .preview-content-holder  {
+		
+						margin-right: 0px;
+						
+						padding-bottom: 0px;
+						
+						text-align: left;
+						
+						max-width: 1000px;
+						
+						padding-right: 0px;
+						
+						margin-top: 15px;
+						
+						margin-left: 0px;
+						
+						padding-top: 0px;
+						
+						margin-bottom: 15px;
+						
+						background-color: rgba(0, 0, 0, 0);
+						
+						padding-left: 0px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .item-content:not(.blocks_layout)  {
+		
+						background-color: rgba(0, 0, 0, 0);
+							
+		}
+	
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .blocks-preview-icon-holder .icon-source  {
+		
+						width: 60px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe #pagination-holder  {
+		
+						border-width: 1px;
+						font-size:calc( 10px + ( 18rem - 10rem ) );
+						color: rgb(131, 131, 131);
+						
+						padding-bottom: 10px;
+						
+						border-color: rgb(131, 131, 131);
+						
+						padding-right: 20px;
+						
+						margin-top: 30px;
+						
+						padding-left: 20px;
+						
+						padding-top: 10px;
+						
+						margin-bottom: 50px;
+						
+						font-family: Times New Roman;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .multi_layout .helper-div.middle-center .pic-side  {
+		
+						margin-left: -6%;
+							
+		}
+	
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .blocks-preview-item-links .Link:hover  {
+		
+						background-color: rgb(83, 83, 83);
+						
+						color: rgb(255, 255, 255);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .multi_layout .helper-div.middle-center  {
+		
+						padding-left: 6%;
+						
+						padding-right: 6%;
+						
+						width: 88%;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .background-div  {
+			
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe.master.item-box   {
+		
+						background-color: rgb(255, 255, 255);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .preview-title  ,  .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .preview-body h1  { 
+						font-family: Montserrat;
+						font-size:calc( 10px + ( 12rem - 10rem ) );
+						color: rgb(0, 0, 0);
+						
+						letter-spacing: 0.05em;
+						
+						font-weight: bold;
+						
+						margin-top: 5px;
+						
+						margin-bottom: 0px;
+						
+						line-height: 1.3em;
+						
+						background-color: rgba(0, 0, 0, 0);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe.master.item-box   {
+		
+						padding-left: 6%;
+						
+						width: 88%;
+						
+						padding-right: 6%;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .preview-item-links span  ,  .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe #sr-basket-widget *  { 
+						font-family: Arial;
+						font-size:calc( 10px + ( 12rem - 10rem ) );
+						padding-bottom: 10px;
+						
+						letter-spacing: 0.1em;
+						
+						padding-right: 15px;
+						
+						margin-top: 20px;
+						
+						padding-left: 15px;
+						
+						border-radius: 20px;
+						
+						padding-top: 10px;
+						
+						border-width: 2px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .blocks-preview-body  {
+		
+						margin-bottom: 10px;
+						
+						line-height: 1.5em;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .stripe-background  {
+		
+						margin-left: -6%;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .blocks-preview-content-holder  {
+		
+						margin-bottom: 10px;
+						
+						text-align: left;
+						
+						margin-top: 30px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .blocks-preview-subtitle  {
+		
+						margin-bottom: 10px;
+						font-size:calc( 10px + ( 14rem - 10rem ) );
+						margin-top: 10px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .preview-item-links span:before  ,  .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .effect-tester  { 
+						background-color: rgb(0, 0, 0);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe  .preview-content-wrapper  {
+		
+						text-align: left;
+						
+						vertical-align: bottom;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .preview-price  {
+		
+						font-family: Arial;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .preview-item-links span:hover  ,  .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .preview-element.Link.hover-tester  { 
+						color: rgb(214, 214, 214);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .inner-pic-holder  {
+		
+						background-color: rgba(0, 0, 0, 0);
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .inner-pic  {
+		
+						opacity: 1;
+						
+						background-size: cover;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .blocks-preview-content-wrapper  {
+		
+						text-align: left;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .blocks-preview-title  {
+		
+						margin-bottom: 10px;
+						
+						font-family: Montserrat;
+						font-size:calc( 10px + ( 24rem - 10rem ) );
+						font-weight: bold;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .preview-body  {
+		
+						line-height: 1.4em;
+						font-size:calc( 10px + ( 18rem - 10rem ) );
+						color: rgb(25, 25, 25);
+						
+						margin-top: 10px;
+						
+						margin-bottom: 10px;
+						
+						font-family: Arial;
+							
+		}
+	
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .blocks-preview-item-links .Link  {
+		font-size:calc( 10px + ( 14rem - 10rem ) );
+						margin-right: 0px;
+						
+						color: rgb(255, 255, 255);
+						
+						padding-bottom: 5px;
+						
+						padding-right: 10px;
+						
+						margin-top: 0px;
+						
+						padding-left: 10px;
+						
+						border-radius: 10px;
+						
+						padding-top: 5px;
+						
+						margin-bottom: 0px;
+						
+						background-color: rgb(0, 0, 0);
+						
+						margin-left: 0px;
+							
+		}
+	 .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .preview-subtitle  ,  .style-963217f9-nlsnaarf .style-71e20476-ilnue9pe .preview-body h2  { 
+						line-height: 1.4em;
+						font-size:calc( 10px + ( 12rem - 10rem ) );
+						color: rgb(147, 147, 147);
+						
+						letter-spacing: 0.05em;
+						
+						margin-right: 0px;
+						
+						margin-top: 5px;
+						
+						margin-left: 0px;
+						
+						margin-bottom: 5px;
+						
+						font-family: Arial;
+						
+						background-color: rgba(255, 255, 255, 0);
+							
+		}
+
+/******************************************************************************************************
+ *            UNIQUE STYLE
+ *                                 	 
+ ******************************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/******************************************************************************************************
+ *            WEBSITE STYLE
+ *                                 	 
+ ******************************************************************************************************/
