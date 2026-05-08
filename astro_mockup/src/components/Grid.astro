@@ -1,0 +1,49 @@
+---
+// <Grid> — N-column responsive grid for image-heavy case studies (e.g.
+// HTC Clock with 2-col gallery of phone mockups). Each child becomes a
+// grid cell.
+//
+// Usage in MDX:
+//   <Grid cols={2}>
+//     ![Clock widget](url1)
+//     ![Calculator widget](url2)
+//     ![Clock dark](url3)
+//     ![Calc dark](url4)
+//   </Grid>
+//
+// Props:
+//   - cols: number of columns (defaults to 2)
+//   - gap: spacing between cells (defaults to 16px)
+const { cols = 2, gap = '16px', tint = '#d9d9d9' } = Astro.props;
+---
+<div
+  class="grid"
+  style={`--cols: ${cols}; --gap: ${gap}; --tint: ${tint};`}
+>
+  <slot />
+</div>
+
+<style>
+  .grid {
+    max-width: 1200px;
+    margin: 24px auto;
+    padding: 0 56px;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    gap: var(--gap);
+  }
+  .grid :global(p) { margin: 0; }
+  .grid :global(p > img),
+  .grid :global(img) {
+    background: var(--tint);
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .grid :global(figure) {
+    margin: 0;
+  }
+  @media (max-width: 700px) {
+    .grid { padding: 0 24px; grid-template-columns: 1fr; }
+  }
+</style>

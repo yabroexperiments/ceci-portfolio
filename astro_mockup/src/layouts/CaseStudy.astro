@@ -1,0 +1,208 @@
+---
+// CaseStudy layout — replaces the old HeroComposition / DarkHero / ImageGrid
+// layouts with a single flexible wrapper that gets out of the way of the
+// MDX body. The body itself decides what sections, mockup rows, grids, etc.
+// to use via components (<Mockups>, <Section>, <Grid>).
+//
+// What this layout owns:
+//   - Page chrome (header / footer)
+//   - Optional full-bleed colored hero with composed mockup images at the
+//     top (driven by frontmatter for the most common pattern, but can be
+//     omitted entirely — body MDX handles its own hero if it wants)
+//   - Title + subtitle + lead description below the hero
+//   - Wrapped <slot/> for the MDX body
+//
+// Frontmatter:
+//   title, subtitle, description (rendered as the page header below hero)
+//   hero_images: optional array of URLs — composes a yellow/colored hero.
+//                Omit if the case study is text-first.
+//   background_color: bg color for the hero. Defaults to "transparent" if no
+//                     hero_images are provided.
+import BaseLayout from './BaseLayout.astro';
+
+const {
+  title,
+  subtitle,
+  description,
+  hero_images = [],
+  background_color = '#F2D851',
+  ...rest
+} = Astro.props;
+
+const hasHero = hero_images.length > 0;
+const isSingleHero = hero_images.length === 1;
+const heroStyle = isSingleHero
+  ? `background-color: ${background_color}; background-image: url("${hero_images[0]}"); background-size: cover; background-position: center bottom; background-repeat: no-repeat;`
+  : `background-color: ${background_color};`;
+---
+<BaseLayout title={title} description={description} {...rest}>
+  {hasHero && (
+    <section class={`hero ${isSingleHero ? 'hero-cover' : ''}`} style={heroStyle}>
+      {!isSingleHero && (
+        <div class="hero-inner">
+          {hero_images.map((src) => <img src={src} alt="" loading="eager" />)}
+        </div>
+      )}
+    </section>
+  )}
+
+  <header class="page-head">
+    {subtitle && <span class="kicker">{subtitle}</span>}
+    <h1>{title}</h1>
+    <p class="lead">{description}</p>
+  </header>
+
+  <article class="body">
+    <slot />
+  </article>
+
+  <nav class="back-link">
+    <a href="/">← Back to portfolio</a>
+  </nav>
+</BaseLayout>
+
+<style>
+  /* Hero with composed mockup images */
+  .hero {
+    width: 100%;
+    padding: 100px 24px 80px;
+    overflow: hidden;
+    /* Pull hero up under the sticky header so the bg color extends behind it */
+    margin-top: -80px;
+    padding-top: 80px;
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .hero-inner img {
+    max-height: 480px;
+    width: auto;
+    object-fit: contain;
+    flex: 0 1 auto;
+  }
+  /* Single-image hero: full-bleed cover composition (matches IM Creator's
+     "fixed-bg" hero on case studies like BNCT). No <img> children — the
+     image is a CSS background on .hero itself. */
+  .hero-cover {
+    height: 570px;
+    padding: 0;
+  }
+  @media (max-width: 900px) {
+    .hero-cover { height: 420px; }
+  }
+  @media (max-width: 700px) {
+    .hero { padding: 40px 16px 32px; margin-top: -72px; padding-top: 72px; }
+    .hero-inner img { max-height: 320px; }
+    .hero-cover { height: 320px; padding: 0; }
+  }
+
+  /* Page header — title + lead below hero */
+  .page-head {
+    max-width: 1200px;
+    margin: 80px auto 0;
+    padding: 0 56px;
+  }
+  .kicker {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #999;
+    display: block;
+    margin-bottom: 12px;
+  }
+  .page-head h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #111;
+    margin: 0 0 16px;
+    letter-spacing: -0.01em;
+  }
+  .page-head .lead {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #444;
+    margin: 0;
+    max-width: 760px;
+  }
+  @media (max-width: 700px) {
+    .page-head { padding: 0 24px; margin-top: 40px; }
+    .page-head h1 { font-size: 24px; }
+  }
+
+  /* MDX body — controls the typography / image styling for any free-form
+     content under the page header. <Section>, <Mockups>, <Grid> components
+     bring their own styling and are nested children, so this :global() only
+     needs to handle the basics that come straight from Markdown. */
+  .body {
+    margin: 24px 0 64px;
+  }
+  /* Top-level headings only — h2/h3 inside <Section> are styled by Section
+     itself. Without `> ` we'd double-pad anything <Section> wrapped. */
+  .body :global(> h2) {
+    max-width: 1200px;
+    margin: 64px auto 16px;
+    padding: 0 56px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #111;
+  }
+  .body :global(> h3) {
+    max-width: 1200px;
+    margin: 32px auto 12px;
+    padding: 0 56px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #111;
+  }
+  .body :global(> p) {
+    max-width: 1200px;
+    margin: 0 auto 1em;
+    padding: 0 56px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #444;
+  }
+  .body :global(> ul) {
+    max-width: 1200px;
+    margin: 16px auto 24px;
+    padding: 0 56px 0 80px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #555;
+  }
+  .body :global(> p > img) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 32px auto;
+  }
+  @media (max-width: 700px) {
+    .body :global(h2),
+    .body :global(h3),
+    .body :global(> p),
+    .body :global(> ul) {
+      padding-left: 24px; padding-right: 24px;
+    }
+  }
+
+  /* Back link */
+  .back-link {
+    text-align: center;
+    margin: 40px auto 80px;
+  }
+  .back-link a {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+  .back-link a:hover { text-decoration: underline; }
+</style>

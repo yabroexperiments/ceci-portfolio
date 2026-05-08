@@ -9,6 +9,7 @@
     "preview": "astro preview --port 8768"
   },
   "dependencies": {
+    "@astrojs/mdx": "^3.1.9",
     "astro": "^4.16.18"
   }
 }

@@ -1,0 +1,69 @@
+---
+// <Mockups> — composes 1-N device mockup images side-by-side with consistent
+// spacing. Used for the recurring "device row" pattern in case studies
+// (BNCT, Binance Leaderboard, etc.). Children are <img> elements (Markdown
+// `![](url)` works directly inside MDX).
+//
+// Usage in MDX:
+//   <Mockups>
+//     ![](https://...)
+//     ![](https://...)
+//     ![](https://...)
+//   </Mockups>
+//
+// Props:
+//   - background: optional background color for the mockup row
+//   - max-height: cap mockup height; defaults to a sensible value
+const { background = 'transparent', maxHeight = '620px' } = Astro.props;
+---
+<div
+  class="mockups"
+  style={`--mockup-bg: ${background}; --mockup-max-h: ${maxHeight};`}
+>
+  <slot />
+</div>
+
+<style>
+  .mockups {
+    background: var(--mockup-bg);
+    max-width: 1200px;
+    margin: 32px auto;
+    padding: 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  /* MDX wraps every `![](url)` in a <p>. Using display: contents here lets
+     the <img> become the direct flex child of .mockups, so the row
+     correctly contains the image rather than the full-width <p> block. */
+  .mockups :global(> p) {
+    display: contents;
+    margin: 0;
+  }
+  .mockups :global(img) {
+    margin: 0;
+    max-height: var(--mockup-max-h);
+    /* Cap width so 2-3 mockups fit in one row even when source images are
+       wide (desktop screenshots). Browser keeps aspect via height: auto. */
+    max-width: min(360px, 30%);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    flex: 0 1 auto;
+  }
+  /* Single mockup gets to be larger. Only triggers when the wrapper
+     <p> is the sole child of .mockups — DON'T use img:only-child, since
+     every MDX image is the only child of its own <p> parent and that
+     would promote multi-image rows to the 900px cap. */
+  .mockups :global(p:only-child > img) {
+    max-width: min(1000px, 100%);
+    max-height: var(--mockup-max-h);
+    margin: 0 auto;
+  }
+  @media (max-width: 700px) {
+    .mockups { padding: 12px; gap: 8px; }
+    .mockups :global(img) { max-height: 320px; }
+  }
+</style>

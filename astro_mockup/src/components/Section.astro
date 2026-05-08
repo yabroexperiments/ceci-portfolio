@@ -1,0 +1,72 @@
+---
+// <Section> — a content block grouping a heading + body text + optional
+// image group + optional caption. Mirrors the recurring [section heading
+// → image group → bullet list of features] pattern on Ceci's case studies.
+//
+// Usage in MDX:
+//   <Section title="Copy Trading App Design">
+//     <Mockups>
+//       ![](url1) ![](url2) ![](url3)
+//     </Mockups>
+//
+//     - The homepage design is clearly categorized
+//     - More user friendly with terminology explanations
+//     - Simplified application process to become a Lead Trader
+//   </Section>
+const { title, kicker } = Astro.props;
+---
+<section class="case-section">
+  {kicker && <p class="kicker">{kicker}</p>}
+  {title && <h2>{title}</h2>}
+  <div class="body">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .case-section {
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 0 56px;
+  }
+  .kicker {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #999;
+    margin: 0 0 8px;
+  }
+  .case-section h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #111;
+    margin: 0 0 24px;
+    letter-spacing: -0.005em;
+  }
+  .body :global(p) {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #444;
+    margin: 0 0 1em;
+  }
+  .body :global(ul) {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #555;
+    padding-left: 0;
+    list-style: none;
+    margin: 16px 0 24px;
+    max-width: 720px;
+  }
+  .body :global(ul li) {
+    padding: 4px 0;
+  }
+  .body :global(ul li::before) {
+    content: "— ";
+    color: #999;
+  }
+  @media (max-width: 700px) {
+    .case-section { padding: 0 24px; margin: 60px auto; }
+  }
+</style>

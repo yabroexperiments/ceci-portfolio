@@ -28,9 +28,10 @@ Object.values(grouped).forEach((arr) =>
   arr.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99))
 );
 
-// Pick first hero image as card thumbnail
+// Pick a thumbnail for the gallery card. Priority: explicit `thumbnail`
+// field → first hero image → undefined (card renders an empty frame).
 function thumb(p: typeof projects[number]): string | undefined {
-  return p.data.hero_images?.[0] || p.data.images?.[0]?.src;
+  return p.data.thumbnail || p.data.hero_images?.[0];
 }
 ---
 <BaseLayout
