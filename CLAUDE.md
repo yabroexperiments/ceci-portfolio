@@ -157,6 +157,7 @@ The static rip captures the site as it exists today, but Ceci can't easily edit 
 For Ceci's actual cadence (~once a year, between jobs), the static rip + occasional Claude session for layout updates is genuinely viable. See the editing strategy doc when she next wants to update.
 
 
+
 <!-- ECVP:BEGIN (managed by install-vet-protocol.sh — edit the yabro-hq copy, then re-run) -->
 > **🛡️ EXTERNAL CODE VETTING PROTOCOL — mandatory, ALL projects
 > (Albert, 2026-07-21).** NO external skill / plugin / MCP server /
