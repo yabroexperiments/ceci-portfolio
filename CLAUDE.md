@@ -6,7 +6,8 @@ This project syncs through GitHub. Same rules apply wherever you operate.
 
 **Session start:**
 1. `git pull --ff-only` (skip on Codex Web — the container is already at HEAD).
-2. Read the latest `.handoffs/*.md` and `.handoffs/INDEX.md` — the bridge from the previous session.
+2. Read the latest `docs/handoffs/handoff-*.md` — the bridge from the previous
+   session. (Pre-2026-08 briefs live in legacy `.handoffs/`.)
 
 **Session end (mandatory):**
 1. Write `.handoffs/YYYY-MM-DD-<task>.md` with: Done · Left · Gotchas · Files touched · How to resume.
@@ -50,6 +51,23 @@ Consequences:
   (idempotent) localizes any new external asset refs and re-verifies; og:image /
   twitter:image must stay ABSOLUTE `https://changhsiju.xyz/...` URLs (chat-app
   scrapers don't resolve relative ones — it absolutizes them too).
+- **`data-ecommerce-solution="DISABLED"` must stay on every page's `<body>`.**
+  It is the OFF-switch for IM Creator's ecommerce/phone-home branch; the JS
+  check is `== "DISABLED"`, so REMOVING the attribute (undefined) re-enables
+  the branch. Purge audit 2026-08-03 stripped every other IM Creator attribute
+  and every host mention (census: zero `imcreator|im--os|imos006|appspot|
+  bricksite|imdomainrouter|googleusercontent|*.googleapis|gstatic` in site/);
+  the audit trail incl. all 685 source URLs lives in `docs/asset-manifest.json`
+  (deliberately OUTSIDE site/ so it isn't served).
+- **Image files hold HIGHER resolutions than their names/URLs suggest — do not
+  "re-sync" them from the referenced URLs.** Two in-place upgrades
+  (localize_assets.py): =s300-derived files hold the =s1600 rendition
+  (`upgrade_s300_variants()`); base-URL-derived files hold the **=s0 true
+  original** — a bare lh3 URL serves only a 512px DEFAULT
+  (`upgrade_base_originals()`; bnct originals reach 6300×3919). IM Creator
+  shipped 300px thumbs + runtime CDN upsizing (patched out), so re-downloading
+  any image "as referenced" reintroduces blur. If images ever look soft, check
+  intrinsic vs displayed dimensions, not just 404s.
 
 ## v2 (historical) — fresh rip from live IM Creator
 
@@ -166,7 +184,25 @@ Python 3 with `beautifulsoup4` and `lxml` (`pip3 install beautifulsoup4 lxml`). 
 
 `gh` CLI required for repo ops, authenticated as `yabroexperiments`.
 
-## Long-term direction
+## Revamp in progress (decided 2026-08-03)
+
+Ceci is revamping the whole site: **new homepage + 3 new case-study pages**,
+designed by her (Figma + AI-generated HTML), replacing the IM Creator look.
+- Her first page template: `reference/drift-earn_13.html` — self-contained
+  single-file HTML (one fix needed on integration: self-host its Google-Fonts
+  `Inter` links). Its nav targets `index.html#work/#branding/#about/#contact`,
+  i.e. the FUTURE homepage. ~14 image placeholders await her Figma exports
+  (galleries expect 16:10 web shots and 9:19 app shots).
+- Fix before live: `mailto:your@email.com` → `changhsiju@gmail.com`; LinkedIn
+  `href="#"` → her profile; confirm zh-Hant helper strings vs English.
+- Build plan: everything on one branch, cut over to `main` in one verified
+  merge (same gates as the standalone migration).
+- Collaboration model: Ceci works ON ALBERT'S MAC with this Claude Code.
+  Do NOT use her company Claude account (employer data policy) and do NOT
+  share Albert's account onto her work machine (ToS + connected MCP services
+  + managed-device exposure).
+
+## Long-term direction (superseded by the revamp above; kept for context)
 
 The static rip captures the site as it exists today, but Ceci can't easily edit it (10K+ lines of IM Creator HTML per page with cryptic `vbid-...` IDs). The paths forward, in rough order of designer-friendliness vs. cost:
 
