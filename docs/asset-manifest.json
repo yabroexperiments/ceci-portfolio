@@ -708,9 +708,10 @@
     "localhost": "Dev-only branch inside IM Creator JS"
   },
   "errors": {},
-  "s300_upgraded_to_s1600": 184,
+  "s300_upgraded_to_s1600": "superseded",
   "base_files_upgraded_to_s0": {
     "bigger": 178,
     "same": 9
-  }
+  },
+  "s300_family_target": "=s2600 (retina 2x coverage for widest 1280px display)"
 }
