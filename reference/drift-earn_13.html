@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeFi Earn Experience — Ceci Chang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef1fb;--ink:#0b0b0f;--ink-soft:#3d3f4a;--ink-mute:#71747f;
+    --line:#d9dcec;--card:#ffffff;--accent:#4f46e5;--pill:#0b0b0f;
+    --radius:18px;--maxw:1440px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 80px}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(238,241,251,.82);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+  nav.scrolled{border-bottom-color:var(--line)}
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 80px;height:104px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .brand{font-weight:600;font-size:20px;letter-spacing:-.01em}
+  .nav-links{display:flex;align-items:center;gap:36px}
+  .nav-links a{font-weight:500;font-size:15.5px;color:var(--ink-soft);transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  .pill{background:var(--pill);color:#fff;font-weight:600;font-size:16px;letter-spacing:-.01em;padding:16px 32px;border-radius:999px;transition:transform .2s,background .2s;line-height:1}
+  .pill:hover{transform:translateY(-1px);background:#232433}
+  .nav-toggle{display:none;background:none;border:0;font-size:24px;cursor:pointer}
+
+  /* HERO / project header */
+  .back{display:inline-flex;align-items:center;gap:8px;margin:50px 0 40px;font-weight:600;font-size:14px;letter-spacing:.03em;color:var(--ink-soft)}
+  .back:hover{color:var(--ink)}
+  .p-head{display:grid;grid-template-columns:1.4fr .8fr;gap:60px;padding-bottom:40px}
+  .eyebrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+  .eyebrow .lbl{font-size:14px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mute)}
+  .chip{border:1px solid var(--line);background:transparent;border-radius:999px;padding:7px 15px;font-size:13.5px;font-weight:600}
+  .p-title{font-size:clamp(40px,5.5vw,60px);font-weight:600;letter-spacing:-.03em;line-height:1.04}
+  .p-lead{margin-top:24px;font-size:19px;color:var(--ink-soft);max-width:784px;line-height:1.6}
+  .facts{display:flex;flex-direction:column;gap:22px;border-left:1px solid var(--line);padding-left:28px}
+  .fact .k{font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:5px}
+  .fact .v{font-size:16px;font-weight:500}
+
+  /* meta strip */
+  .hero-shot{margin:40px 0 4px}
+  .hero-shot .ph{aspect-ratio:16/8.2;border-radius:16px}
+  .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .strip .col{padding:30px 30px 40px 0;position:relative}
+  .strip .col+.col{padding-left:30px}
+  .strip .col+.col::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--line)}
+  .strip .k{font-size:17px;font-weight:600;margin-bottom:6px}
+  .strip .v{font-size:15px;color:var(--ink-soft);line-height:1.55}
+
+  /* BODY: two column */
+  .layout{display:grid;grid-template-columns:260px 1fr;gap:70px;padding:70px 0 40px;align-items:start}
+  .toc{position:sticky;top:120px;display:flex;flex-direction:column;gap:8px}
+  .toc a{display:flex;gap:12px;padding:12px 16px;border-radius:12px;font-size:15px;color:var(--ink-mute);font-weight:500;transition:background .2s,color .2s}
+  .toc a .num{color:var(--accent);font-variant-numeric:tabular-nums}
+  .toc a:hover{color:var(--ink)}
+  .toc a.active{background:#e2e5f6;color:var(--ink);font-weight:600}
+
+  .content{min-width:0}   /* 关键:解除 grid 子项 min-width:auto,避免宽内容撑爆版面 */
+  .content section{padding:0 0 68px;scroll-margin-top:120px}
+  .sec-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+  .sec-eyebrow .num{color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums}
+  .sec-eyebrow .name{font-weight:600;font-size:15px}
+  .sec-h{font-size:clamp(24px,2.6vw,32px);font-weight:600;letter-spacing:-.02em;line-height:1.18;margin-bottom:18px}
+  .content p{font-size:16.5px;color:var(--ink-soft);line-height:1.7;margin-bottom:14px;max-width:760px}
+  .focus-label{font-size:15px;color:var(--ink-mute);font-weight:500;margin:6px 0 14px}
+  .ol{max-width:760px;margin-bottom:8px}
+  .ol li{font-size:16.5px;color:var(--ink-soft);line-height:1.7;margin:0 0 8px 22px}
+
+  /* numbered challenge rows */
+  .rows{max-width:860px}
+  .row{display:grid;grid-template-columns:34px 1fr;gap:16px;padding:20px 0;border-top:1px solid var(--line)}
+  .row:last-child{border-bottom:1px solid var(--line)}
+  .row .rn{color:var(--ink-mute);font-weight:600;font-variant-numeric:tabular-nums;padding-top:2px}
+  .row h4{font-size:18px;font-weight:600;margin-bottom:6px}
+  .row p{margin:0;font-size:15.5px}
+
+  /* context 4-up card */
+  .quad{border:1px solid var(--line);border-radius:var(--radius);background:#fff;display:grid;grid-template-columns:repeat(4,1fr);gap:0;overflow:hidden;margin-top:8px}
+  .quad .q{padding:26px 22px}
+  .quad .q+.q{border-left:1px solid var(--line)}
+  .quad h4{font-size:16px;font-weight:600;margin-bottom:10px}
+  .quad p{font-size:13.5px;line-height:1.6;margin:0}
+
+  /* image placeholders */
+  .figure{margin-top:26px}
+  .ph{
+    background:linear-gradient(135deg,#1a1030,#0c0c14);border-radius:14px;
+    display:flex;align-items:center;justify-content:center;color:#71749a;font-size:13.5px;font-weight:500;text-align:center;padding:24px;border:1px solid var(--line);
+  }
+  .ph.light{background:linear-gradient(135deg,#e9ebf7,#dde0f0);color:#7d80a0}
+  .ph.wide{aspect-ratio:16/9}
+  .ph.tall{aspect-ratio:3/4}
+  .fig-cap{margin-top:10px;font-size:13.5px;color:var(--ink-mute)}
+  .two-up{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+  /* horizontal gallery — 固定宽度容器 + 左右箭头 */
+  .gallery{position:relative;margin-top:26px}
+  .viewport{overflow:hidden;border-radius:14px;max-width:100%}
+  .track{display:flex;gap:20px;transition:transform .5s cubic-bezier(.22,.61,.36,1);will-change:transform}
+  .track .slide{flex:0 0 auto;width:300px}
+  .track .slide-wide{width:560px}
+  .track .slide-wide .ph{aspect-ratio:16/10}
+  .track .ph{aspect-ratio:9/19}
+  .gallery .fig-cap{margin-top:0;padding-top:8px}
+  /* 箭头 */
+  .arrow{
+    position:absolute;top:calc(50% - 30px);transform:translateY(-50%);
+    width:52px;height:52px;border-radius:999px;border:1px solid var(--line);
+    background:rgba(255,255,255,.92);backdrop-filter:blur(6px);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;
+    box-shadow:0 8px 22px -10px rgba(20,22,50,.4);
+    transition:opacity .3s,transform .2s,background .2s;
+  }
+  .arrow:hover{background:#fff;transform:translateY(-50%) scale(1.06)}
+  .arrow.left{left:-14px}
+  .arrow.right{right:-14px}
+  .arrow svg{width:22px;height:22px;stroke:var(--ink)}
+  .arrow[disabled]{opacity:0;pointer-events:none}
+  /* 进度条 */
+  .prog{margin-top:16px;height:3px;background:var(--line);border-radius:999px;overflow:hidden}
+  .prog .bar{height:100%;background:var(--ink);border-radius:999px;transition:width .5s cubic-bezier(.22,.61,.36,1);width:30%}
+  .swipe-hint{margin-top:10px;font-size:13px;color:var(--ink-mute)}
+  @media(max-width:960px){
+    .arrow{display:none}         /* 手机改用手指滑 */
+    .viewport{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+    .track{transition:none}
+    .track .slide{scroll-snap-align:start}
+  }
+
+  /* outcome stats */
+  .stats{border:1px solid var(--line);border-radius:var(--radius);background:#fff;display:grid;grid-template-columns:repeat(3,1fr);margin:8px 0 26px}
+  .stats .s{padding:30px 26px}
+  .stats .s+.s{border-left:1px solid var(--line)}
+  .stats .k{font-size:14px;color:var(--ink-mute);font-weight:500;margin-bottom:10px}
+  .stats .v{font-size:34px;font-weight:600;letter-spacing:-.02em}
+  .contrib{color:var(--accent);font-weight:600;font-size:16.5px;line-height:1.6;max-width:760px;margin-bottom:14px}
+
+  footer{border-top:1px solid var(--line);padding:60px 0 80px;margin-top:20px}
+  .foot-grid{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:30px}
+  .foot-big{font-size:clamp(28px,4vw,48px);font-weight:600;letter-spacing:-.02em;line-height:1.05}
+  .foot-links{display:flex;gap:24px;font-weight:500;color:var(--ink-soft)}
+  .foot-links a:hover{color:var(--ink)}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:960px){
+    .wrap,.nav-inner{padding-left:24px;padding-right:24px}
+    .nav-links{display:none}
+    .nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--bg);padding:20px 24px;gap:18px;border-bottom:1px solid var(--line)}
+    .nav-toggle{display:block}
+    .p-head{grid-template-columns:1fr;gap:34px}
+    .facts{border-left:0;padding-left:0;flex-direction:row;flex-wrap:wrap;gap:26px}
+    .fact{min-width:130px}
+    .strip{grid-template-columns:1fr}
+    .strip .col+.col{border-left:0;border-top:1px solid var(--line);padding-left:0}
+    .strip .col+.col::before{display:none}
+    .strip .col{padding:24px 0}
+    .layout{grid-template-columns:1fr;gap:0}
+    .toc{position:static;display:flex;gap:8px;overflow-x:auto;margin-bottom:30px;padding-bottom:8px}
+    .toc a{white-space:nowrap;padding:9px 14px}
+    .quad{grid-template-columns:1fr 1fr}
+    .quad .q:nth-child(3){border-left:0;border-top:1px solid var(--line)}
+    .quad .q:nth-child(4){border-top:1px solid var(--line)}
+    .stats{grid-template-columns:1fr}
+    .stats .s+.s{border-left:0;border-top:1px solid var(--line)}
+    .two-up{grid-template-columns:1fr}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important}.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Ceci Chang</a>
+    <button class="nav-toggle" id="navToggle" aria-label="選單">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html#work">Product Design</a>
+      <a href="index.html#branding">Branding Design</a>
+      <a href="index.html#about">About Me</a>
+      <a href="index.html#contact" class="pill">Get in touch</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <a href="index.html#work" class="back">← BACK TO WORK</a>
+
+  <div class="p-head">
+    <div>
+      <div class="eyebrow">
+        <span class="lbl">Case Study</span>
+        <span class="chip">◈ Drift Protocol V3</span>
+        <span class="chip">Mobile App</span>
+      </div>
+      <h1 class="p-title">DeFi Earn Experience</h1>
+      <p class="p-lead">Led the end-to-end UI/UX design for the Drift Earn ecosystem, including onboarding, deposits, borrowing, isolated pools, and portfolio management experiences.</p>
+    </div>
+    <div class="facts">
+      <div class="fact"><div class="k">Year</div><div class="v">2025 & 2026</div></div>
+      <div class="fact"><div class="k">Role</div><div class="v">Product Designer</div></div>
+      <div class="fact"><div class="k">Responsibilities</div><div class="v">End-to-end product design, branding, product strategy, research</div></div>
+      <div class="fact"><div class="k">Team</div><div class="v">1 PM, 1 Product Designer</div></div>
+    </div>
+  </div>
+
+  <div class="hero-shot reveal">
+    <div class="ph wide">[ 換上：Drift Earn 主畫面 hero 大圖（橫向滿版）]</div>
+  </div>
+
+  <div class="strip">
+    <div class="col"><div class="k">Core Experiences</div><div class="v">Earn, Borrow & Lend, Deposit, Isolated Pools, Portfolio</div></div>
+    <div class="col"><div class="k">Device</div><div class="v">Web + Mobile, App (beta)</div></div>
+    <div class="col"><div class="k">Impact</div><div class="v">2025–2026, total deposits in Drift’s Borrow/Lend pool grew approximately 66%, from $330M to $550M at its peak.</div></div>
+  </div>
+
+  <div class="layout">
+    <!-- TOC -->
+    <aside class="toc" id="toc">
+      <a href="#s1"><span class="num">01</span> My Role</a>
+      <a href="#s2"><span class="num">02</span> Context</a>
+      <a href="#s3"><span class="num">03</span> Key Challenges</a>
+      <a href="#s4"><span class="num">04</span> Product Discovery</a>
+      <a href="#s5"><span class="num">05</span> Borrow & Lend</a>
+      <a href="#s6"><span class="num">06</span> Isolated Pools</a>
+      <a href="#s7"><span class="num">07</span> Deposit & Onboarding</a>
+      <a href="#s8"><span class="num">08</span> Portfolio</a>
+      <a href="#s9"><span class="num">09</span> Cross-platform</a>
+      <a href="#s10"><span class="num">10</span> Outcome & Reflection</a>
+    </aside>
+
+    <!-- CONTENT -->
+    <div class="content">
+      <section id="s1" class="reveal">
+        <div class="sec-eyebrow"><span class="num">01</span><span class="name">My Role</span></div>
+        <h2 class="sec-h">I worked closely with PMs and engineers to translate complex DeFi requirements into clear, scalable product experiences. My primary responsibility was UI/UX design — information hierarchy, interaction patterns, user guidance, responsive layouts, and final visual execution across web and mobile.</h2>
+        <p>Beyond designing the product itself, I conducted extensive competitor research before starting the project. In the DEX space, users are often attracted by high yields, but many platforms still lack the trust and user experience that centralized exchanges provide.</p>
+        <p>My focus was on simplifying complex information and making the experience more approachable for both new and experienced users. I worked closely with the PM through multiple design iterations, and gathered community feedback through simple social media surveys to continuously improve the experience.</p>
+      </section>
+
+      <section id="s2" class="reveal">
+        <div class="sec-eyebrow"><span class="num">02</span><span class="name">Context</span></div>
+        <h2 class="sec-h">Depositing is the first meaningful step</h2>
+        <p>After connecting a wallet, the next major challenge was helping users confidently make their first deposit. On Drift, deposited assets can also be used as collateral for perpetual trading, making the Earn experience closely connected to user activation, liquidity, and the broader trading ecosystem.</p>
+        <div class="quad">
+          <div class="q"><h4>Connect Wallet</h4><p>Redesigned the wallet connection experience to reduce complexity, prioritize common wallets, and lower the barrier for new Web3 users.</p></div>
+          <div class="q"><h4>Deposit Assets</h4><p>Improved APY visibility, added multiple deposit entry points, and simplified technical guidance to reduce friction for new users.</p></div>
+          <div class="q"><h4>Earn Yield</h4><p>Helped users manage assets, build trust, and discover earning opportunities like Isolated Pools and dSOL liquid staking.</p></div>
+          <div class="q"><h4>Trading Collateral</h4><p>Since any deposited asset can be used as collateral, Borrow/Lend focused on making account health and borrowing APY easy to understand.</p></div>
+        </div>
+      </section>
+
+      <section id="s3" class="reveal">
+        <div class="sec-eyebrow"><span class="num">03</span><span class="name">Key Challenges</span></div>
+        <div class="rows">
+          <div class="row"><div class="rn">1</div><div><h4>Discoverability</h4><p>More products and assets, and pools made earning opportunities difficult to find and compare.</p></div></div>
+          <div class="row"><div class="rn">2</div><div><h4>Action Clarity</h4><p>Deposit, withdraw, borrow, and repay actions lacked a consistent hierarchy.</p></div></div>
+          <div class="row"><div class="rn">3</div><div><h4>DeFi Education</h4><p>New users struggled to understand isolated pools, subaccounts, and collateral restrictions.</p></div></div>
+          <div class="row"><div class="rn">4</div><div><h4>Asset Management</h4><p>Users needed a clearer way to understand and manage positions across the platform.</p></div></div>
+        </div>
+      </section>
+
+      <section id="s4" class="reveal">
+        <div class="sec-eyebrow"><span class="num">04</span><span class="name">Product Discovery</span></div>
+        <h2 class="sec-h">Making earning opportunities easier to explore</h2>
+        <p class="focus-label">My Design Focus</p>
+        <ol class="ol">
+          <li>Unified asset and product structure</li>
+          <li>Clearer APY comparison</li>
+          <li>Improved filtering and search</li>
+          <li>Better information hierarchy</li>
+          <li>Scalable layouts for future products</li>
+        </ol>
+        <div class="figure two-up">
+          <div><div class="ph wide">[ 換上：Before — 原本的 Drift Earn 画面 ]</div><div class="fig-cap">Before</div></div>
+          <div><div class="ph wide">[ 換上：After — 改版后的 Drift Earn 画面 ]</div><div class="fig-cap">After</div></div>
+        </div>
+      </section>
+
+      <section id="s5" class="reveal">
+        <div class="sec-eyebrow"><span class="num">05</span><span class="name">Borrow & Lend</span></div>
+        <h2 class="sec-h">As the number of supported assets increased, the Borrow and Lend page became harder to navigate. Deposit, withdraw, borrow, and repay actions also appeared inconsistently across the experience.</h2>
+        <p>I restructured the Borrow/Lend layout to give each action a consistent, predictable place, and surfaced account health and borrowing capacity more clearly so users could act with confidence.</p>
+        <div class="gallery" data-gallery>
+          <button class="arrow left" data-dir="-1" aria-label="上一张"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button class="arrow right" data-dir="1" aria-label="下一张"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+          <div class="viewport">
+            <div class="track">
+              <div class="slide slide-wide"><div class="ph wide">[ 換上：Borrow & Lend 改版画面 1 ]</div><div class="fig-cap">Borrow / Lend — main market</div></div>
+              <div class="slide slide-wide"><div class="ph wide">[ 換上：Borrow & Lend 改版画面 2 ]</div><div class="fig-cap">JLP market</div></div>
+              <div class="slide slide-wide"><div class="ph wide">[ 換上：Borrow & Lend 改版画面 3 ]</div><div class="fig-cap">Deposit modal</div></div>
+              <div class="slide slide-wide"><div class="ph light wide">[ 換上：Borrow & Lend 浅色模式 ]</div><div class="fig-cap">Light mode</div></div>
+            </div>
+          </div>
+          <div class="prog"><div class="bar"></div></div>
+        </div>
+        <div class="swipe-hint">用左右箭头查看更多画面（手机上可直接滑动）</div>
+      </section>
+
+      <section id="s6" class="reveal">
+        <div class="sec-eyebrow"><span class="num">06</span><span class="name">Isolated Pools</span></div>
+        <h2 class="sec-h">Isolated pools introduced more flexibility but also created confusion for users unfamiliar with DeFi mechanics.</h2>
+        <p class="focus-label">My Design Focus</p>
+        <div class="rows">
+          <div class="row"><div class="rn">1</div><div><h4>Clarified the differences between isolated products</h4><p>Clearly distinguished Borrow & Lend Isolated Pools, Amplify, dSOL Liquid Staking, DRIFT Staking and Vaults, helping users understand that assets in these products could not be used as trading collateral.</p></div></div>
+          <div class="row"><div class="rn">2</div><div><h4>Reduced the learning curve for DeFi concepts</h4><p>Introduced contextual onboarding, tooltips, and inline explanations to make complex concepts such as isolated pools, collateral, and subaccounts easier to understand.</p></div></div>
+          <div class="row"><div class="rn">3</div><div><h4>Simplified specialized Earn products</h4><p>Improved guidance for managing liabilities, making it easier for users to understand how to repay borrowed assets and monitor loan status.</p></div></div>
+          <div class="row"><div class="rn">4</div><div><h4>Provided a clearer financial overview</h4><p>Improved the visibility of earnings, deposited assets, liabilities, and available collateral, so users could quickly understand their overall financial position.</p></div></div>
+        </div>
+        <div class="figure">
+          <div class="ph wide">[ 換上：Isolated pool 产品 — 深色 / 浅色模式 展示图 ]</div>
+          <div class="fig-cap">Isolated pool products — dark and light mode</div>
+        </div>
+      </section>
+
+      <section id="s7" class="reveal">
+        <div class="sec-eyebrow"><span class="num">07</span><span class="name">Deposit and Onboarding</span></div>
+        <h2 class="sec-h">Connecting a wallet did not always lead to a completed deposit. For new users, cross-chain funding flows were often too complex. We wanted to reduce drop-off right after onboarding and help users complete their first deposit with confidence.</h2>
+        <p class="focus-label">My Design Focus</p>
+        <ol class="ol">
+          <li>Simplified the onboarding flow by removing unnecessary steps and reducing cognitive load.</li>
+          <li>Added clearer and more visible entry points for deposits.</li>
+          <li>Guided users through cross-chain deposit steps with less technical complexity.</li>
+          <li>Educated users that deposited assets could earn yield and be used as collateral for perpetual trading.</li>
+        </ol>
+        <div class="figure">
+          <div class="ph light wide">[ 換上：Onboarding / Deposit user flow 流程图 ]</div>
+          <div class="fig-cap">Deposit & onboarding — user flow</div>
+        </div>
+      </section>
+
+      <section id="s8" class="reveal">
+        <div class="sec-eyebrow"><span class="num">08</span><span class="name">Portfolio Management</span></div>
+        <h2 class="sec-h">Users needed a clearer overview of their balances, liabilities, earnings, and positions across Drift.</h2>
+        <p class="focus-label">My Design Focus</p>
+        <ol class="ol">
+          <li>Clear financial hierarchy</li>
+          <li>Unified asset overview</li>
+          <li>Easier position management</li>
+          <li>Improved performance visibility</li>
+          <li>Consistent actions across the ecosystem</li>
+        </ol>
+        <div class="gallery" data-gallery>
+          <button class="arrow left" data-dir="-1" aria-label="上一张"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button class="arrow right" data-dir="1" aria-label="下一张"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+          <div class="viewport">
+            <div class="track">
+              <div class="slide slide-wide"><div class="ph wide">[ 換上：Portfolio 桌面版画面 ]</div><div class="fig-cap">Web — Portfolio dashboard</div></div>
+              <div class="slide slide-wide"><div class="ph wide">[ 換上：Portfolio 桌面版画面 2 ]</div><div class="fig-cap">Web — Performance stats</div></div>
+              <div class="slide slide-wide"><div class="ph wide">[ 換上：Portfolio 手机版画面 ]</div><div class="fig-cap">Mobile — Portfolio</div></div>
+            </div>
+          </div>
+          <div class="prog"><div class="bar"></div></div>
+        </div>
+        <div class="swipe-hint">用左右箭头查看更多画面（手机上可直接滑动）</div>
+      </section>
+
+      <section id="s9" class="reveal">
+        <div class="sec-eyebrow"><span class="num">09</span><span class="name">Cross-platform Support</span></div>
+        <h2 class="sec-h">Extending the Drift V3 design language across web and mobile</h2>
+        <p>While Drift primarily focused on the web experience due to wallet connectivity and trading behavior in Web3, I also contributed to the beta mobile app. Designed for both iOS and Android, it entered internal testing in early 2026.</p>
+        <p class="focus-label">My Contribution</p>
+        <ol class="ol">
+          <li>Responsive layouts for key product flows</li>
+          <li>Mobile UI adaptation for core experiences</li>
+          <li>Drift V3 visual consistency across web and mobile</li>
+          <li>Beta app design for iOS and Android</li>
+        </ol>
+        <!-- 固定宽度容器 + 左右箭头,超出的图用箭头查看 -->
+        <div class="gallery" data-gallery>
+          <button class="arrow left" data-dir="-1" aria-label="上一张">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="arrow right" data-dir="1" aria-label="下一张">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <div class="viewport">
+            <div class="track">
+              <div class="slide"><div class="ph tall">[ App — Portfolio home ]</div><div class="fig-cap">Portfolio home</div></div>
+              <div class="slide"><div class="ph tall">[ App — Earn ]</div><div class="fig-cap">Earn</div></div>
+              <div class="slide"><div class="ph tall">[ App — Deposit ]</div><div class="fig-cap">Deposit</div></div>
+              <div class="slide"><div class="ph tall">[ App — First-time Deposit ]</div><div class="fig-cap">First-time deposit</div></div>
+              <div class="slide"><div class="ph tall">[ App — Lend / Borrow ]</div><div class="fig-cap">Lend / Borrow</div></div>
+            </div>
+          </div>
+          <div class="prog"><div class="bar"></div></div>
+        </div>
+        <div class="swipe-hint">用左右箭头查看更多手机画面（手机上可直接滑动）</div>
+      </section>
+
+      <section id="s10" class="reveal">
+        <div class="sec-eyebrow"><span class="num">10</span><span class="name">Outcome & Reflection</span></div>
+        <p class="focus-label">Business Context</p>
+        <div class="stats">
+          <div class="s"><div class="k">Total Value Locked</div><div class="v">$1B+</div></div>
+          <div class="s"><div class="k">Traders</div><div class="v">200K+</div></div>
+          <div class="s"><div class="k">Trading Volume</div><div class="v">$70B+</div></div>
+        </div>
+        <p>During the period I contributed to Drift Earn, the platform continued to expand into a broader DeFi ecosystem, reaching over $1B in Total Value Locked, $70B+ in cumulative trading volume, and 200K+ traders.</p>
+        <p class="contrib">My Contribution: Earn Experience & Earn Ecosystem, Borrow & Lend, Deposit & Onboarding Flow, Portfolio & Account Management, Launch Visuals & Promotional Assets.</p>
+        <p class="focus-label">Reflection</p>
+        <p>This project strengthened my ability to translate complex financial requirements into clear product interfaces. Working closely with PMs and engineers also helped me balance product logic, technical constraints, and visual consistency across an evolving DeFi ecosystem.</p>
+      </section>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-big">Let’s work<br>together.</div>
+      <div class="foot-links">
+        <a href="mailto:your@email.com">Email</a>
+        <a href="#">LinkedIn</a>
+        <a href="index.html">Back to home</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>10));
+  const t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+  t.addEventListener('click',()=>l.classList.toggle('open'));
+  l.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>l.classList.remove('open')));
+
+  // reveal
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // TOC active state
+  const links=[...document.querySelectorAll('.toc a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+  const so=new IntersectionObserver((es)=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        const id='#'+e.target.id;
+        links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')===id));
+      }
+    });
+  },{rootMargin:'-30% 0px -60% 0px'});
+  secs.forEach(s=>s&&so.observe(s));
+
+  // ---- 横向画廊(可复用):固定宽度 + 左右箭头,支援页面上多个 ----
+  document.querySelectorAll('[data-gallery]').forEach(function(gallery){
+    const track=gallery.querySelector('.track');
+    const viewport=gallery.querySelector('.viewport');
+    const bar=gallery.querySelector('.bar');
+    const arrowL=gallery.querySelector('.arrow.left');
+    const arrowR=gallery.querySelector('.arrow.right');
+    if(!track) return;
+    let offset=0;
+    const isMobile=()=>window.matchMedia('(max-width:960px)').matches;
+
+    function step(){
+      const slide=track.querySelector('.slide');
+      const gap=parseFloat(getComputedStyle(track).gap)||20;
+      return slide.getBoundingClientRect().width+gap;
+    }
+    function maxOffset(){ return Math.max(0, track.scrollWidth - viewport.clientWidth); }
+    function apply(){
+      offset=Math.min(Math.max(offset,0),maxOffset());
+      track.style.transform='translateX('+(-offset)+'px)';
+      arrowL.disabled = offset<=1;
+      arrowR.disabled = offset>=maxOffset()-1;
+      const denom=maxOffset()||1;
+      const shown=viewport.clientWidth/track.scrollWidth;
+      if(bar) bar.style.width=Math.min(100,(offset/denom)*(1-shown)*100 + shown*100)+'%';
+    }
+    gallery.querySelectorAll('.arrow').forEach(a=>a.addEventListener('click',()=>{
+      offset += parseInt(a.dataset.dir,10)*step();
+      apply();
+    }));
+    viewport.addEventListener('scroll',()=>{
+      if(isMobile()){
+        const denom=(track.scrollWidth-viewport.clientWidth)||1;
+        const shown=viewport.clientWidth/track.scrollWidth;
+        if(bar) bar.style.width=Math.min(100,(viewport.scrollLeft/denom)*(1-shown)*100 + shown*100)+'%';
+      }
+    });
+    window.addEventListener('resize',()=>{ if(!isMobile()){offset=0; track.style.transform='translateX(0)';} apply(); });
+    apply();
+  });
+</script>
+</body>
+</html>
