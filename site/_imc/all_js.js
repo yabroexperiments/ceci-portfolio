@@ -1332,7 +1332,7 @@ flex_arranger.getArrowSrc = function(container){
 	var settings = stripe.find(".arranger-settings");
 	var arrowsSrc = settings.attr("data-flex_arrows");
 	if (typeof arrowsSrc == "undefined"){
-		arrowsSrc = "https://lh3.googleusercontent.com/ZMARmveTg1geksYKXZKdh71KW09XrhDLg8N-XrfXCGsDBEHnuKwhmYpHd55Y2-NwuwLX8qsyx26JNyJWtr1jEcxD=s50";
+		arrowsSrc = "/assets/img/ZMARmveTg1geksYKXZKdh71KW09XrhDLg8N-XrfXCGsDBEHnuKwhmYpHd55Y-ef0073d25d.png";
 	}
 	return arrowsSrc;
 };

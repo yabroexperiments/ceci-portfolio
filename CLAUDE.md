@@ -31,7 +31,27 @@ Static replica of [Ceci Chang's UX/UI design portfolio](https://changhsiju.xyz) 
 - **GitHub user/email** for git: `yabroexperiments` / `yabroexperiments@gmail.com`.
 - **Source of truth**: `http://www.changhsiju.com/` (Ceci's IM Creator site). When IM Creator publishes content updates, re-run the ripper.
 
-## v2 (current) — fresh rip from live IM Creator
+## ⚠️ STANDALONE SINCE 2026-08-03 — the repo is the source of truth now
+
+`site/` self-hosts **every** asset (685 files in `site/assets/`: all images incl.
+size variants, all fonts incl. IM Creator's own bucket fonts and Google Fonts) and
+has **zero runtime dependency on IM Creator or any third-party CDN** (only
+YouTube embeds + outbound content links remain remote, by design). The IM Creator
+ecommerce phone-home XHR is disabled (`data-ecommerce-solution="DISABLED"`), and
+runtime `=sNNN` Google-CDN image resizing is patched out of the IM Creator JS.
+Verified: 25/25 pages runtime-swept (zero external requests, zero broken images)
++ independent adversarial audit (GREEN).
+
+Consequences:
+- **`rip_live.py` is RETIRED → `legacy/`. Never run it against `site/`** — its
+  output re-introduces every IM Creator dependency. See `legacy/README.md`.
+- The build-pipeline section below describes the OLD flow; kept for history.
+- New/changed pages must reference local assets only. `localize_assets.py`
+  (idempotent) localizes any new external asset refs and re-verifies; og:image /
+  twitter:image must stay ABSOLUTE `https://changhsiju.xyz/...` URLs (chat-app
+  scrapers don't resolve relative ones — it absolutizes them too).
+
+## v2 (historical) — fresh rip from live IM Creator
 
 Replaces the v1 stop-gap (Wayback + JS-console hack + custom build template) which was deployed when the IM Creator site was unreachable. Now that IM Creator is online again, we mirror the live site directly.
 

@@ -1071,7 +1071,7 @@ SpimeEngine.shrinkImg = function(container){
 			currentImg.attr("data-width-before-shrink",imgWidth);
 			var loadWidth = imgWidth*2;
 			if (currentImg.attr("src").indexOf("=s") == -1){
-				currentImg.attr("src", currentImg.attr("src") + "=s" + loadWidth);
+				currentImg.attr("src", currentImg.attr("src"));
 			}
 		}
 		if (container.width() < imgWidth){
