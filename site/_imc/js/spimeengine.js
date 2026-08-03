@@ -1071,7 +1071,7 @@ SpimeEngine.shrinkImg = function(container){
 			currentImg.attr("data-width-before-shrink",imgWidth);
 			var loadWidth = imgWidth*2;
 			if (currentImg.attr("src").indexOf("=s") == -1){
-				currentImg.attr("src", currentImg.attr("src") + "=s" + loadWidth);
+				currentImg.attr("src", currentImg.attr("src"));
 			}
 		}
 		if (container.width() < imgWidth){
@@ -1460,8 +1460,8 @@ SpimeEngine.submitClick = function(currentLink,mailTo){
 			$(".g-recaptcha").fadeTo(1000,0);
 			var resolvedHost = location.host;
 			//This is a live site
-			if (resolvedHost.indexOf("appspot") == -1 && resolvedHost.indexOf("localhost") == -1 && resolvedHost.indexOf("127.0.0.1") == -1){
-				resolvedHost = "www.imdomainrouter.com";
+			if (resolvedHost.indexOf("legacy-editor-host.invalid") == -1 && resolvedHost.indexOf("localhost") == -1 && resolvedHost.indexOf("127.0.0.1") == -1){
+				resolvedHost = location.host;
 			}
 			XPRSHelper.POST(XPRSHelper.getParentWindow().location.protocol+'//'+  resolvedHost + "/form_submit", submitParams, function(){
 				var thankyouDiv = $("<div />").addClass("preview-element preview-subtitle magic-circle-holder text-element").text(thankYouText);

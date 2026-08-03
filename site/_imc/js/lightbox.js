@@ -153,7 +153,7 @@ LightBox.itemClick = function(currentItem){
 		lightboxImage.css("background-image","");
 	}else{
 		if(!currentHolder.closest(".master.item-box").is(".showing-feed")){
-			lightboxImage.css("background-image","url('"+ imageSrc + "=s" + newWidth +"')");
+			lightboxImage.css("background-image","url('"+ imageSrc +"')");
 		}else{
 			lightboxImage.css("background-image","url('"+ imageSrc + "')");
 		}
@@ -246,7 +246,7 @@ LightBox.addPagination = function(paginatorHolder,wrapper,items){
 		if (imageSrc == ""){
 			return;
 		}else if(!currentHolder.closest(".master.item-box").is(".showing-feed")){
-			imageSrc += "=s" + newWidth;
+			imageSrc += "";
 		}
 		var imageId = currentItem.attr("data-vbid");
 		var title = currentItem.find(".preview-title").text();
