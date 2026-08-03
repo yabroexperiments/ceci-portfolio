@@ -67,7 +67,12 @@ Consequences:
   (`upgrade_base_originals()`; bnct originals reach 6300×3919). IM Creator
   shipped 300px thumbs + runtime CDN upsizing (patched out), so re-downloading
   any image "as referenced" reintroduces blur. If images ever look soft, check
-  intrinsic vs displayed dimensions, not just 404s.
+  intrinsic vs displayed×DPR (measure at devicePixelRatio 2), not just 404s.
+  **Retina verification done 2026-08-03 across all 25 live pages: 0 fixable
+  deficits.** ~19 files render below 2× need but are AT SOURCE MAX — Ceci's
+  original uploads are that small (e.g. acadine screens 910px, htc_mini icons
+  128px, one binance comp 1679px); verified equal to Google's `=s0` best.
+  Only fix = Ceci re-exports at 2× during the revamp. Do NOT chase these.
 
 ## v2 (historical) — fresh rip from live IM Creator
 
