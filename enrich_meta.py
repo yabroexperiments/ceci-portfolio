@@ -24,9 +24,12 @@ DEFAULT_DESC = (
     "iCard.AI, Mozilla, and HTC."
 )
 OG_IMAGE = (
-    # Use the floating-logo image as a stand-in OG image. It's small but
-    # consistent and on a stable Google CDN. Can swap to a hero image later.
-    "https://lh3.googleusercontent.com/LpF5FkXmIWcEsH77dZ6Z_kV7Y3wLf3y3JQnx7r6TOuVkeypK_jDauMNjgFC-zLhwzd5dlRv82i7ifxBfaw=s400"
+    # Floating-logo image as a stand-in OG image, SELF-HOSTED since the
+    # 2026-08-03 standalone migration (was lh3.googleusercontent.com). Must be
+    # an ABSOLUTE URL - chat-app scrapers don't resolve relative og:image.
+    # Can swap to a hero image later.
+    "https://changhsiju.xyz/assets/img/"
+    "LpF5FkXmIWcEsH77dZ6Z_kV7Y3wLf3y3JQnx7r6TOuVkeypK_jDauMNjgFC--2643e68bd7.png"
 )
 
 # Per-page meta overrides. Slug → (title_override_or_None, description).

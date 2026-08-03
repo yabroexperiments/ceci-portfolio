@@ -117,19 +117,19 @@ XPRSHelper.getXprsCookie = function(cookieName){
 XPRSHelper.setXprsCookie = function(cookieName,cookieValue){
 	var secure = (location.protocol == 'https:') ? ";secure;" : "" ;
 	cookieName = cookieName.replace("xprs","imxprs");
-	if (window.location.href.indexOf("imcreator.com") == -1){
+	if (window.location.href.indexOf("editor-host.invalid") == -1){
 		document.cookie = cookieName + '=' + cookieValue + '; expires=Fri, 27 Jul 2030 02:47:11 UTC; path=/' + secure;
 	}else{
-		document.cookie = cookieName + '=' + cookieValue + '; expires=Fri, 27 Jul 2030 02:47:11 UTC; domain=.imcreator.com; path=/';
+		document.cookie = cookieName + '=' + cookieValue + '; expires=Fri, 27 Jul 2030 02:47:11 UTC; domain=.editor-host.invalid; path=/';
 	}
 };
 
 XPRSHelper.removeXprsCookie = function(cookieName){
 	cookieName = cookieName.replace("xprs","imxprs");
-	if (window.location.href.indexOf("imcreator.com") == -1){
+	if (window.location.href.indexOf("editor-host.invalid") == -1){
 		document.cookie = cookieName + '=invalid; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
 	}else{
-		document.cookie = cookieName + '=invalid; expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=.imcreator.com; path=/';
+		document.cookie = cookieName + '=invalid; expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=.editor-host.invalid; path=/';
 	}
 };
 
@@ -388,8 +388,8 @@ XPRSHelper.signout = function(labelName){
 	XPRSHelper.removeXprsCookie("xprs_session");
 	XPRSHelper.removeXprsCookie("xprs_email");
 	XPRSHelper.updateParent({"deliver_to":"parent","action":"remove_navigation_confirmation"});
-	if (typeof labelName != "undefined" && labelName == "bricksite"){
-		XPRSHelper.getParentWindow().location.href = "https://admin.bricksite.net/logout.php";
+	if (typeof labelName != "undefined" && labelName == "legacy-editor-label"){
+		XPRSHelper.getParentWindow().location.href = "/";
 	}else{
 		XPRSHelper.getParentWindow().location.href = "/";
 	}

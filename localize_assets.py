@@ -60,10 +60,12 @@ LEAVE_REMOTE = {
     "www.apollox.finance": "Outbound content link",
     "peakd.com": "Outbound content link",
     "jonsuh.com": "URL inside a CSS credit comment - never fetched",
-    "www.imcreator.com": "Inert data-static-server attribute; runtime capture confirms it is never fetched",
-    "imos006-dot-im--os.appspot.com": "Inert after ecommerce is DISABLED; verified by runtime capture",
-    "checkout.stripe.com": "Inert after ecommerce is DISABLED; only loaded by the IMOS branch",
-    "admin.bricksite.net": "Dead string inside IM Creator editor JS - never fetched",
+    # 2026-08-03 purge: www.imcreator.com / imos006 appspot / admin.bricksite.net /
+    # www.imdomainrouter.com literals were REMOVED outright (dead attributes
+    # stripped from all pages; dead JS literals swapped for inert same-origin or
+    # .invalid values). data-ecommerce-solution="DISABLED" must remain on every
+    # page - removing the attribute re-enables the ecommerce phone-home branch.
+    "checkout.stripe.com": "Inert: only loaded by the ecommerce branch, gated off by DISABLED",
     "changhsiju.xyz": "Her own canonical/og: URLs injected by enrich_meta.py",
     "www.google.com": "Outbound content link",
     "www.fontsquirrel.com": "URL inside a CSS credit comment - never fetched",
@@ -365,7 +367,7 @@ def main():
     # --- manifest --------------------------------------------------------------
     if not args.dry_run:
         ASSETS.mkdir(parents=True, exist_ok=True)
-        mf = ASSETS / "MANIFEST.json"
+        mf = SITE.parent / "docs" / "asset-manifest.json"
         # MERGE with any existing manifest. This script is idempotent, so a
         # second run discovers nothing (references are already local) - writing
         # a fresh manifest from that run would erase the record of everything
@@ -385,7 +387,7 @@ def main():
             "left_remote_by_design": LEAVE_REMOTE,
             "errors": errors,
         }, indent=2))
-        print(f"\n  manifest -> {(ASSETS / 'MANIFEST.json').relative_to(SITE.parent)}")
+        print(f"\n  manifest -> {mf}")
 
     if errors:
         print(f"\n!! {len(errors)} FAILED - site is NOT yet standalone:")
