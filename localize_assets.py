@@ -13,8 +13,12 @@ What it does
 5. Disables IM Creator's IMOS/Stripe ecommerce init by flipping
    data-ecommerce-solution="IMOS" -> "DISABLED" (their own supported code path
    in spimeengine.js, which early-returns before the XHR to their backend).
-6. Writes site/assets/MANIFEST.json recording every localized URL AND every URL
-   deliberately left remote, so the scope of the work is auditable.
+6. Writes docs/asset-manifest.json (OUTSIDE site/ so it isn't served) recording
+   every localized URL AND every URL deliberately left remote, so the scope of
+   the work is auditable.
+7. upgrade_s300_variants(): overwrites localized =s300 thumbnails in place with
+   the =s1600 rendition (IM Creator upsized thumbnails at runtime against
+   Google's resizing CDN; with that patched out, 300px files render blurry).
 
 Idempotent: already-downloaded files are not re-fetched; already-rewritten
 references are left alone. Safe to re-run.
@@ -270,6 +274,54 @@ def upgrade_s300_variants(jobs=8, dry_run=False):
             print(f"   {u}\n     {e}")
         sys.exit(1)
     print(f"  {len(targets)} files overwritten with =s1600 content")
+
+
+# Google's lh3 CDN serves a 512px DEFAULT when a URL has no size parameter -
+# "=s0" is required to get the true original (e.g. 3692x1430 for the bnct
+# hero vs 512x198 from the bare URL). The first localization pass fetched
+# bare base URLs and therefore stored 512px degraded copies for every image
+# the mockups/lightbox display (production blur #2, 2026-08-03). Repair:
+# overwrite every base-derived local file in place with its =s0 original.
+def upgrade_base_originals(jobs=8, dry_run=False):
+    mf = SITE.parent / "docs" / "asset-manifest.json"
+    manifest = json.loads(mf.read_text())
+    targets = {u: p for u, p in manifest["localized"].items()
+               if "lh3.googleusercontent.com" in u
+               and not re.search(r"=s\d+$", u)
+               and str(p).startswith("assets/img/")}
+    print(f"  {len(targets)} base-URL images to upgrade to =s0 originals")
+    if dry_run:
+        return
+    errors = {}
+    stats = {"bigger": 0, "same": 0}
+
+    def one(item):
+        url, rel = item
+        f = SITE / rel
+        try:
+            before = len(f.read_bytes())
+            data, ctype = fetch(url + "=s0")
+            if not ctype.startswith("image/"):
+                return url, f"unexpected content-type {ctype!r}", None
+            f.write_bytes(data)
+            return url, None, ("bigger" if len(data) > before else "same")
+        except Exception as e:  # noqa: BLE001 - collected and reported
+            return url, f"{type(e).__name__}: {e}", None
+
+    with futures.ThreadPoolExecutor(max_workers=jobs) as ex:
+        for url, err, s in ex.map(one, sorted(targets.items())):
+            if err:
+                errors[url] = err
+            elif s:
+                stats[s] += 1
+    manifest["base_files_upgraded_to_s0"] = stats
+    mf.write_text(json.dumps(manifest, indent=2))
+    if errors:
+        print(f"!! {len(errors)} =s0 upgrades FAILED:")
+        for u, e in list(errors.items())[:10]:
+            print(f"   {u}\n     {e}")
+        sys.exit(1)
+    print(f"  done: {stats['bigger']} grew (were 512px defaults), {stats['same']} unchanged (512 was the true original)")
 
 
 # Social-preview meta tags (og:image, twitter:image) MUST hold absolute URLs -
