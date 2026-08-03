@@ -227,6 +227,51 @@ def patch_dynamic_resize(dry_run=False):
         sys.exit(2)
 
 
+# IM Creator's engine shipped =s300 THUMBNAILS in the HTML and upgraded them to
+# high-res at runtime via replace("=s300", "=s"+2*displayWidth) (capped 1600).
+# Localizing the =s300 files and neutralizing the runtime resize froze every
+# large image at 300px - visibly blurry (production regression, 2026-08-03).
+# Repair: overwrite each localized =s300 file IN PLACE with the =s1600
+# rendition of the same source image (the engine's own cap; Google serves the
+# original size if smaller, never upscales). Filenames stay identical, so no
+# reference rewriting and no cache-key churn beyond content.
+def upgrade_s300_variants(jobs=8, dry_run=False):
+    mf = SITE.parent / "docs" / "asset-manifest.json"
+    manifest = json.loads(mf.read_text())
+    targets = {u: p for u, p in manifest["localized"].items()
+               if u.endswith("=s300") and u.split("//")[1].startswith("lh3.")}
+    print(f"  {len(targets)} =s300 variants to upgrade to =s1600")
+    if dry_run:
+        return
+    errors = {}
+
+    def one(item):
+        url, rel = item
+        f = SITE / rel
+        try:
+            data, ctype = fetch(url[: -len("=s300")] + "=s1600")
+            if not ctype.startswith("image/"):
+                return url, f"unexpected content-type {ctype!r}"
+            f.write_bytes(data)
+            return url, None
+        except Exception as e:  # noqa: BLE001 - collected and reported
+            return url, f"{type(e).__name__}: {e}"
+
+    with futures.ThreadPoolExecutor(max_workers=jobs) as ex:
+        for url, err in ex.map(one, sorted(targets.items())):
+            if err:
+                errors[url] = err
+    already = manifest.get("s300_upgraded_to_s1600", 0)
+    manifest["s300_upgraded_to_s1600"] = len(targets) - len(errors) or already
+    mf.write_text(json.dumps(manifest, indent=2))
+    if errors:
+        print(f"!! {len(errors)} upgrades FAILED - images remain blurry:")
+        for u, e in list(errors.items())[:10]:
+            print(f"   {u}\n     {e}")
+        sys.exit(1)
+    print(f"  {len(targets)} files overwritten with =s1600 content")
+
+
 # Social-preview meta tags (og:image, twitter:image) MUST hold absolute URLs -
 # the OG spec requires it, and chat-app scrapers (LINE/WhatsApp/Slack, the
 # audience enrich_meta.py exists for) won't resolve relative paths. The main

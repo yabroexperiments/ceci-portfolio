@@ -707,5 +707,6 @@
     "www.fontsquirrel.com": "URL inside a CSS credit comment - never fetched",
     "localhost": "Dev-only branch inside IM Creator JS"
   },
-  "errors": {}
+  "errors": {},
+  "s300_upgraded_to_s1600": 184
 }
