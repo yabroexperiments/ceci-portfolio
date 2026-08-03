@@ -61,8 +61,8 @@ Consequences:
   (deliberately OUTSIDE site/ so it isn't served).
 - **Image files hold HIGHER resolutions than their names/URLs suggest — do not
   "re-sync" them from the referenced URLs.** Two in-place upgrades
-  (localize_assets.py): =s300-derived files hold the =s1600 rendition
-  (`upgrade_s300_variants()`); base-URL-derived files hold the **=s0 true
+  (localize_assets.py): =s300-derived files hold the =s2600 rendition — retina 2x coverage for the
+  widest 1280px full-bleed display (`upgrade_s300_variants()`, target =s2600); base-URL-derived files hold the **=s0 true
   original** — a bare lh3 URL serves only a 512px DEFAULT
   (`upgrade_base_originals()`; bnct originals reach 6300×3919). IM Creator
   shipped 300px thumbs + runtime CDN upsizing (patched out), so re-downloading
