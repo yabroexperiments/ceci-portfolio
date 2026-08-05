@@ -1174,7 +1174,7 @@ SpimeEngine.initMapEmbed = function(mapFrame){
 	var mapLat = parseFloat(mapHolder.attr("data-spimelat")) ;
 	var mapLng = parseFloat(mapHolder.attr("data-spimelng")) ;
 	var myLatlng = mapLat + "," + mapLng;
-	var APIKEY = "AIzaSyC_rQkOzLFzNFDolszpJnNiz-klYsz0gAw";
+	var APIKEY = ""; // third-party IM Creator key removed; map embed is unused (no page sets data-spimelocation)
 	var mapIFrame = $('<iframe class="map-iframe" width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=' + APIKEY +'&q=' + mapLocation + '&center=' + myLatlng + '"></iframe>')
 	mapFrame.empty().append(mapIFrame);
 };
