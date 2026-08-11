@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>翻譯編輯器 — Ceci Chang Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#eef1fb;--ink:#0b0b0f;--ink-soft:#48494E;--ink-mute:#71747f;--line:#d9dcec;--accent:#345EF5;--warn:#b45309}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Microsoft JhengHei",sans-serif;
+       background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;padding:40px 24px 80px}
+  .wrap{max-width:1180px;margin:0 auto}
+  h1{font-size:28px;font-weight:600;letter-spacing:-.02em;margin-bottom:8px}
+  .sub{font-size:15px;color:var(--ink-soft);margin-bottom:28px;max-width:760px}
+
+  .bar{position:sticky;top:0;z-index:10;background:var(--bg);padding:14px 0 16px;margin-bottom:8px;
+       border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .btn{background:var(--ink);color:#fff;border:0;font-family:inherit;font-size:15px;font-weight:600;
+       letter-spacing:-.01em;padding:13px 24px;border-radius:999px;cursor:pointer;transition:background .2s,transform .2s}
+  .btn:hover{background:#232433;transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn.ghost:hover{background:#fff;transform:translateY(-1px)}
+  .stat{font-size:14px;color:var(--ink-soft);margin-left:auto}
+  .stat b{color:var(--ink)}
+  .stat .miss{color:var(--warn);font-weight:600}
+
+  .err{background:#fff;border:1px solid var(--warn);border-left-width:4px;border-radius:10px;padding:18px 20px;margin-bottom:24px}
+  .err h2{font-size:16px;font-weight:600;margin-bottom:8px;color:var(--warn)}
+  .err p{font-size:14.5px;color:var(--ink-soft)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;background:rgba(11,11,15,.07);
+       padding:2px 6px;border-radius:5px}
+
+  .grp{margin:32px 0 10px;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+  .row{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:10px;
+       display:grid;grid-template-columns:190px 1fr 1fr;gap:18px;align-items:start}
+  .k{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--ink-mute);
+     padding-top:9px;word-break:break-all}
+  .fld label{display:block;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+             color:var(--ink-mute);margin-bottom:5px}
+  textarea{width:100%;font-family:inherit;font-size:14.5px;line-height:1.55;color:var(--ink);
+           border:1px solid var(--line);border-radius:8px;padding:9px 11px;resize:vertical;min-height:44px;
+           background:#fff;transition:border-color .2s}
+  textarea:focus{outline:none;border-color:var(--accent)}
+  textarea.empty{background:#fffbeb;border-color:#fcd34d}
+  .row.html-ok .fld label::after{content:' · 可用 <br>';color:var(--accent);letter-spacing:0;text-transform:none;font-weight:500}
+
+  .out{margin-top:36px}
+  .out textarea{min-height:280px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.6}
+  .hint{font-size:13.5px;color:var(--ink-mute);margin-top:10px}
+  @media(max-width:900px){.row{grid-template-columns:1fr;gap:12px}.k{padding-top:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>翻譯編輯器</h1>
+  <p class="sub">直接在這裡改中英文，改完按「下載 i18n.js」，把下載到的檔案覆蓋你資料夾裡舊的 <code>i18n.js</code> 就完成了。不需要 Excel，也不需要網路。</p>
+
+  <div id="app"></div>
+</div>
+
+<script src="i18n.js"></script>
+<script>
+(function () {
+  var app = document.getElementById('app');
+  var dict = window.I18N_DICT;
+
+  if (!dict) {
+    app.innerHTML = '<div class="err"><h2>找不到 i18n.js</h2>' +
+      '<p>這個檔案必須跟 <code>i18n.js</code> 放在<b>同一個資料夾</b>裡才能運作。' +
+      '如果兩個檔案已經在一起還是看到這個訊息，代表 <code>i18n.js</code> 有語法錯誤 — ' +
+      '請按 F12 打開瀏覽器主控台（Console）查看紅色錯誤訊息的行號。</p></div>';
+    return;
+  }
+
+  /* ---- 依 key 前綴分組，對應 i18n.js 裡的區塊註解 ---- */
+  function groupOf(k) {
+    if (k.indexOf('nav.') === 0) return '導覽列 Navigation';
+    if (k.indexOf('cs.') === 0 && /\.short$/.test(k)) return '下拉選單 Dropdown';
+    if (k.indexOf('hero.') === 0) return 'Hero';
+    if (k.indexOf('sec.drift') === 0 || /^card\.(earn|growth|ds)\./.test(k)) return 'Drift 區塊';
+    if (k.indexOf('sec.binance') === 0 || /^card\.(copy|futures|leaderboard|tw)\./.test(k)) return 'Binance 區塊';
+    if (k.indexOf('sec.others') === 0 || /^card\.o\d\./.test(k)) return 'Selected Web3 Work 區塊';
+    if (k.indexOf('tag.') === 0) return '卡片按鈕 Card buttons';
+    if (k.indexOf('next.') === 0 || /^cs\..*\.long$/.test(k)) return 'Next case study';
+    return '其他 Misc';
+  }
+  var HTML_KEYS = { 'hero.role': 1 };   // 唯一允許 <br> 的 key
+
+  var keys = Object.keys(dict);
+
+  /* ---- 工具列 ---- */
+  var bar = document.createElement('div');
+  bar.className = 'bar';
+  bar.innerHTML =
+    '<button class="btn" id="dl">下載 i18n.js</button>' +
+    '<button class="btn ghost" id="cp">複製程式碼</button>' +
+    '<button class="btn ghost" id="csv">下載 CSV</button>' +
+    '<span class="stat" id="stat"></span>';
+  app.appendChild(bar);
+
+  /* ---- 表格 ---- */
+  var lastGroup = null;
+  keys.forEach(function (k) {
+    var g = groupOf(k);
+    if (g !== lastGroup) {
+      var h = document.createElement('div');
+      h.className = 'grp';
+      h.textContent = g;
+      app.appendChild(h);
+      lastGroup = g;
+    }
+
+    var row = document.createElement('div');
+    row.className = 'row' + (HTML_KEYS[k] ? ' html-ok' : '');
+    row.innerHTML =
+      '<div class="k">' + k + '</div>' +
+      '<div class="fld"><label>English</label><textarea data-k="' + k + '" data-l="en"></textarea></div>' +
+      '<div class="fld"><label>中文</label><textarea data-k="' + k + '" data-l="zh"></textarea></div>';
+    app.appendChild(row);
+
+    row.querySelectorAll('textarea').forEach(function (t) {
+      t.value = dict[k][t.dataset.l] || '';
+      autosize(t);
+      mark(t);
+      t.addEventListener('input', function () {
+        dict[k][t.dataset.l] = t.value;
+        autosize(t); mark(t); refresh();
+      });
+    });
+  });
+
+  /* ---- 輸出區 ---- */
+  var out = document.createElement('div');
+  out.className = 'out';
+  out.innerHTML = '<div class="grp">產生的 i18n.js</div><textarea id="code" readonly></textarea>' +
+    '<p class="hint">上面的「下載 i18n.js」會直接存成檔案。如果下載被瀏覽器阻擋，就從這個框全選複製，貼進你原本的 i18n.js 覆蓋全部內容。</p>';
+  app.appendChild(out);
+
+  function autosize(t) { t.style.height = 'auto'; t.style.height = (t.scrollHeight + 2) + 'px'; }
+  function mark(t) { t.classList.toggle('empty', t.value.trim() === ''); }
+
+  function refresh() {
+    var missing = keys.filter(function (k) { return !(dict[k].zh || '').trim(); });
+    document.getElementById('stat').innerHTML =
+      '共 <b>' + keys.length + '</b> 筆' +
+      (missing.length ? ' · <span class="miss">' + missing.length + ' 筆缺中文</span>' : ' · 中文已全部填寫');
+    document.getElementById('code').value = build();
+  }
+
+  /* ---- 產生 i18n.js 全文 ---- */
+  var LOGIC = [
+'(function () {',
+"  var DEFAULT_LANG = 'en';           // 預設語言",
+"  var KEY = 'ceci-lang';",
+"  var HTML_LANG = { en: 'en', zh: 'zh-Hant' };",
+'',
+'  function read() {',
+'    try { return localStorage.getItem(KEY); } catch (e) { return null; }',
+'  }',
+'  function write(v) {',
+'    try { localStorage.setItem(KEY, v); } catch (e) { /* 隱私模式等情況忽略 */ }',
+'  }',
+'',
+'  function apply(lang) {',
+'    var dict = window.I18N_DICT || {};',
+'',
+"    document.querySelectorAll('[data-i18n]').forEach(function (el) {",
+"      var entry = dict[el.getAttribute('data-i18n')];",
+'      if (!entry) return;',
+'      var v = entry[lang];',
+"      if (v === undefined || v === null || v === '') v = entry.en;   // 缺翻譯就退回英文",
+'      el.textContent = v;',
+'    });',
+'',
+"    document.querySelectorAll('[data-i18n-html]').forEach(function (el) {",
+"      var entry = dict[el.getAttribute('data-i18n-html')];",
+'      if (!entry) return;',
+'      var v = entry[lang];',
+"      if (v === undefined || v === null || v === '') v = entry.en;",
+'      el.innerHTML = v;',
+'    });',
+'',
+"    document.documentElement.setAttribute('lang', HTML_LANG[lang] || lang);",
+'',
+"    document.querySelectorAll('.lang-btn').forEach(function (b) {",
+"      var on = b.getAttribute('data-lang') === lang;",
+"      b.classList.toggle('is-on', on);",
+"      b.setAttribute('aria-pressed', on ? 'true' : 'false');",
+'    });',
+'',
+'    write(lang);',
+'    window.CURRENT_LANG = lang;',
+'  }',
+'',
+'  function init() {',
+'    var saved = read();',
+"    apply(saved === 'zh' || saved === 'en' ? saved : DEFAULT_LANG);",
+'',
+"    document.querySelectorAll('.lang-btn').forEach(function (b) {",
+"      b.addEventListener('click', function () {",
+"        apply(b.getAttribute('data-lang'));",
+'      });',
+'    });',
+'  }',
+'',
+"  if (document.readyState === 'loading') {",
+"    document.addEventListener('DOMContentLoaded', init);",
+'  } else {',
+'    init();',
+'  }',
+'})();'
+  ].join('\n');
+
+  function build() {
+    var L = [];
+    L.push('/* =========================================================================');
+    L.push('   Ceci Chang — Portfolio i18n');
+    L.push('   由 translations-editor.html 產生於 ' + new Date().toLocaleString('zh-TW'));
+    L.push('   -------------------------------------------------------------------------');
+    L.push('   en = 英文（預設）   zh = 繁體中文');
+    L.push('   若某個 key 的 zh 是空的,會自動退回顯示英文。');
+    L.push('   ========================================================================= */');
+    L.push('');
+    L.push('window.I18N_DICT = {');
+    var lg = null;
+    keys.forEach(function (k, i) {
+      var g = groupOf(k);
+      if (g !== lg) { L.push((i ? '' : '') + '  /* ---------- ' + g + ' ---------- */'); lg = g; }
+      var en = JSON.stringify(dict[k].en || '');
+      var zh = JSON.stringify(dict[k].zh || '');
+      L.push("  '" + k + "': { en: " + en + ', zh: ' + zh + ' }' + (i < keys.length - 1 ? ',' : ''));
+      if (g !== groupOf(keys[i + 1] || '')) L.push('');
+    });
+    L.push('};');
+    L.push('');
+    L.push('/* ===== 以下是切換邏輯,請勿修改 ===== */');
+    L.push(LOGIC);
+    L.push('');
+    return L.join('\n');
+  }
+
+  function download(name, text, mime) {
+    var blob = new Blob([text], { type: (mime || 'text/plain') + ';charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a); a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  }
+
+  document.getElementById('dl').addEventListener('click', function () {
+    download('i18n.js', build(), 'text/javascript');
+  });
+
+  document.getElementById('cp').addEventListener('click', function () {
+    var ta = document.getElementById('code');
+    ta.select();
+    try { document.execCommand('copy'); this.textContent = '已複製 ✓';
+          var b = this; setTimeout(function(){ b.textContent = '複製程式碼'; }, 1600); }
+    catch (e) { alert('複製失敗,請手動全選下方框內的程式碼。'); }
+  });
+
+  document.getElementById('csv').addEventListener('click', function () {
+    function q(v) { return '"' + String(v).replace(/"/g, '""') + '"'; }
+    var rows = [['Group', 'Key', 'English', '中文'].map(q).join(',')];
+    keys.forEach(function (k) {
+      rows.push([groupOf(k), k, dict[k].en || '', dict[k].zh || ''].map(q).join(','));
+    });
+    // BOM 讓 Excel / Numbers 正確判讀 UTF-8 中文
+    download('portfolio-translations.csv', '\ufeff' + rows.join('\r\n'), 'text/csv');
+  });
+
+  refresh();
+})();
+</script>
+</body>
+</html>

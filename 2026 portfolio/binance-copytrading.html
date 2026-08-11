@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BINANCE Copy Trading — Ceci Chang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef1fb;--ink:#0b0b0f;--ink-soft:#48494E;--ink-mute:#71747f;
+    --line:#d9dcec;--card:#ffffff;--accent:#345EF5;--pill:#0b0b0f;
+    --radius:18px;--maxw:1560px;--tw:760px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(238,241,251,.82);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+  nav.scrolled{border-bottom-color:var(--line)}
+  .nav-inner{max-width:1140px;margin:0 auto;padding:0 24px;height:104px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .brand{font-weight:600;font-size:20px;letter-spacing:-.01em}
+  .nav-links{display:flex;align-items:center;gap:36px}
+  .nav-links a{font-weight:500;font-size:15.5px;color:var(--ink-soft);transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  .pill{background:var(--pill);color:#fff;font-weight:600;font-size:16px;letter-spacing:-.01em;padding:16px 32px;border-radius:999px;transition:transform .2s,background .2s;line-height:1}
+  .pill:hover{transform:translateY(-1px);background:#232433}
+  .nav-toggle{display:none;background:none;border:0;font-size:24px;cursor:pointer}
+
+  /* HERO / project header */
+  .back{display:inline-flex;align-items:center;gap:8px;margin:50px 0 40px;font-weight:600;font-size:14px;letter-spacing:.03em;color:var(--ink-soft)}
+  .back:hover{color:var(--ink)}
+  .p-head{display:grid;grid-template-columns:1.4fr .8fr;gap:60px;padding-bottom:40px}
+  .eyebrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+  .eyebrow .lbl{font-size:14px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mute)}
+  .chip{border:1px solid var(--line);background:transparent;border-radius:999px;padding:7px 15px;font-size:13.5px;font-weight:600}
+  .p-title{font-size:clamp(40px,5.5vw,60px);font-weight:600;letter-spacing:-.03em;line-height:1.04}
+  .p-lead{margin-top:24px;font-size:19px;color:var(--ink-soft);max-width:784px;line-height:1.6}
+  .facts{display:flex;flex-direction:column;gap:22px;border-left:1px solid var(--line);padding-left:28px}
+  .fact .k{font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:5px}
+  .fact .v{font-size:16px;font-weight:500}
+
+  /* meta strip */
+  .hero-shot{margin:40px 0 4px}
+  .hero-shot .ph{border-radius:12px}
+  .strip{display:grid;grid-template-columns:3fr 2.5fr 4.5fr;gap:0;align-items:start}
+  .strip .col{padding:30px 30px 8px 0;position:relative}
+  .strip .col+.col{padding-left:30px}
+  .strip .col+.col::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--line)}
+  .strip .k{font-size:17px;font-weight:600;margin-bottom:6px}
+  .strip .v{font-size:15px;color:var(--ink-soft);line-height:1.55}
+
+  /* BODY: two column */
+  .layout{display:grid;grid-template-columns:280px 1fr;gap:40px;padding:70px 0 40px;align-items:start}
+  .toc{position:sticky;top:120px;display:flex;flex-direction:column;gap:8px}
+  .toc a{display:flex;gap:12px;padding:12px 16px;border-radius:12px;font-size:15px;color:#000000;font-weight:500;transition:background .2s,color .2s}
+  .toc a .num{color:#000000;font-variant-numeric:tabular-nums}
+  .toc a:hover{color:var(--ink)}
+  .toc a.active{background:rgba(52,94,245,.1);color:#345EF5;font-weight:600}
+  .toc a.active .num{color:#345EF5}
+
+  .content{min-width:0}   /* 关键:解除 grid 子项 min-width:auto,避免宽内容撑爆版面 */
+  /* 单栏版:内容填满版面,文字元素各自限宽(sec-h/p/ol 已设 max-width:var(--tw)) */
+  /* 色块占位(方便看排版,还没放图时用) */
+  .box{border-radius:12px;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;font-size:14px;font-weight:600;padding:20px;line-height:1.4}
+  .box.wide{aspect-ratio:16/9}
+  .box.tall{aspect-ratio:9/19;border-radius:0}
+  .box.hero{aspect-ratio:16/8.2}
+  .box.c-hero{background:linear-gradient(135deg,#3a5bd0,#2a3f9e)}
+  .box.c-research{background:linear-gradient(135deg,#c78a2e,#a06e1f)}
+  .box.c-app{background:linear-gradient(135deg,#6b4ea8,#4a3578)}
+  .box.c-web{background:linear-gradient(135deg,#2e9c8a,#1f6e60)}
+  .content-single{width:100%}
+  .content-single section{padding-bottom:68px}
+  /* 2 张并排均分 */
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px}
+  /* 垂直由上而下堆叠 */
+  .stack{display:flex;flex-direction:column;gap:24px;margin-top:26px}
+  .pair .fig-cap,.stack .fig-cap{margin-top:8px}
+  @media(max-width:900px){.pair{grid-template-columns:1fr}}
+  .content section{padding:0 0 68px;scroll-margin-top:120px}
+  .sec-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+  .sec-eyebrow .num{color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums}
+  .sec-eyebrow .name{font-weight:600;font-size:15px}
+  .sec-h{font-size:24px;font-weight:600;letter-spacing:-.01em;line-height:1.35;margin-bottom:18px;max-width:var(--tw)}
+  .content p{font-size:16px;color:var(--ink-soft);line-height:1.7;margin-bottom:14px;max-width:var(--tw)}
+  .focus-label{font-size:15px;color:var(--ink-mute);font-weight:500;margin:6px 0 14px}
+  .ol{max-width:var(--tw);margin-bottom:8px}
+  .ol li{font-size:16px;color:var(--ink-soft);line-height:1.45;margin:0 0 2px 22px}
+
+  /* numbered challenge rows */
+  .rows{max-width:var(--tw)}
+  .row{display:grid;grid-template-columns:34px 1fr;gap:16px;padding:20px 0;border-top:1px solid var(--line)}
+  .rows .row:first-child{border-top:0}
+  .row:last-child{border-bottom:1px solid var(--line)}
+  .row .rn{color:#000000;font-weight:500;font-size:12px;font-variant-numeric:tabular-nums;padding-top:6px}
+  .row h4{font-size:18px;font-weight:600;margin-bottom:6px}
+  .row p{margin:0;font-size:15.5px}
+
+  /* context 4-up card */
+  .quad{border:1px solid var(--line);border-radius:var(--radius);background:transparent;display:grid;grid-template-columns:repeat(4,1fr);gap:0;overflow:hidden;margin-top:8px}
+  .quad .q{padding:26px 22px}
+  .quad .q+.q{border-left:0}
+  .quad h4{font-size:16px;font-weight:600;margin-bottom:10px}
+  .quad p{font-size:13.5px;line-height:1.6;margin:0}
+
+  /* image placeholders */
+  .figure{margin-top:26px}
+  .ph{
+    background:linear-gradient(135deg,#1a1030,#0c0c14);border-radius:14px;
+    display:flex;align-items:center;justify-content:center;color:#71749a;font-size:13.5px;font-weight:500;text-align:center;padding:24px;border:1px solid var(--line);
+  }
+  .ph.light{background:linear-gradient(135deg,#e9ebf7,#dde0f0);color:#7d80a0}
+  .ph.wide{aspect-ratio:16/9}
+  .ph.tall{aspect-ratio:3/4}
+  img.ph{width:100%;height:auto!important;aspect-ratio:auto!important;display:block;background:none;padding:0;border:0;border-radius:12px;object-fit:fill}
+  img.ph.no-radius{border-radius:0}
+  .fig-cap{margin-top:10px;font-size:13.5px;color:var(--ink-mute)}
+  .two-up{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  /* 08 双栏并排 / 09 手机图换行网格 */
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px}
+  .grid-phones{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:26px}
+  .grid-2 .fig-cap,.grid-phones .fig-cap{margin-top:8px}
+
+  /* horizontal gallery — 固定宽度容器 + 左右箭头 */
+  .gallery{position:relative;margin-top:26px}
+  .viewport{overflow:hidden;max-width:100%}
+  .track{display:flex;gap:20px;transition:transform .5s cubic-bezier(.22,.61,.36,1);will-change:transform}
+  .track .slide{flex:0 0 auto;width:300px}
+  .track .slide-wide{width:840px}
+  .gallery .fig-cap{margin-top:0;padding-top:8px}
+  /* 箭头 */
+  .arrow{
+    position:absolute;top:calc(50% - 30px);transform:translateY(-50%);
+    width:52px;height:52px;border-radius:999px;border:1px solid var(--line);
+    background:rgba(255,255,255,.92);backdrop-filter:blur(6px);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;
+    box-shadow:0 8px 22px -10px rgba(20,22,50,.4);
+    transition:opacity .3s,transform .2s,background .2s;
+  }
+  .arrow:hover{background:#fff;transform:translateY(-50%) scale(1.06)}
+  .arrow.left{left:-14px}
+  .arrow.right{right:-14px}
+  .arrow svg{width:22px;height:22px;stroke:var(--ink)}
+  .arrow[disabled]{opacity:0;pointer-events:none}
+  /* 进度条 */
+  .prog{margin:16px auto 0;width:100px;height:6px;background:#d9dcec;border-radius:999px;overflow:hidden}
+  .prog .bar{height:100%;background:#345EF5;border-radius:999px;transition:transform .5s cubic-bezier(.22,.61,.36,1),width .5s cubic-bezier(.22,.61,.36,1);width:30%}
+  .swipe-hint{margin-top:10px;font-size:13px;color:var(--ink-mute)}
+  @media(max-width:960px){
+    .arrow{display:none}         /* 手机改用手指滑 */
+    .viewport{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+    .track{transition:none}
+    .track .slide{scroll-snap-align:start}
+  }
+
+  /* outcome stats */
+  .stats{border:1px solid var(--line);border-radius:var(--radius);background:transparent;display:grid;grid-template-columns:repeat(3,1fr);margin:8px 0 26px}
+  .stats .s{padding:30px 26px}
+  .stats .s+.s{border-left:0}
+  .stats .k{font-size:14px;color:var(--ink-mute);font-weight:500;margin-bottom:10px}
+  .stats .v{font-size:34px;font-weight:600;letter-spacing:-.02em}
+  .contrib{color:var(--accent);font-weight:600;font-size:16.5px;line-height:1.6;max-width:var(--tw);margin-bottom:14px}
+
+  footer{border-top:1px solid var(--line);padding:60px 0 80px;margin-top:20px}
+  .foot-grid{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:30px}
+  .foot-big{font-size:clamp(28px,4vw,48px);font-weight:600;letter-spacing:-.02em;line-height:1.05}
+  .foot-links{display:flex;gap:24px;font-weight:500;color:var(--ink-soft)}
+  .foot-links a:hover{color:var(--ink)}
+
+  .reveal>*{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.16,.84,.34,1)}
+  .reveal.in>*{opacity:1;transform:none}
+  /* 左侧 menu 载入时由左淡入 */
+  @keyframes menuIn{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:none}}
+  .toc{animation:menuIn .8s cubic-bezier(.16,.84,.34,1) both}
+
+  @media(max-width:960px){
+    .wrap,.nav-inner{padding-left:24px;padding-right:24px}
+    .nav-links{display:none}
+    .nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--bg);padding:20px 24px;gap:18px;border-bottom:1px solid var(--line)}
+    .nav-toggle{display:block}
+    .p-head{grid-template-columns:1fr;gap:34px}
+    .facts{border-left:0;padding-left:0;flex-direction:row;flex-wrap:wrap;gap:26px}
+    .fact{min-width:130px}
+    .strip{grid-template-columns:1fr}
+    .strip .col+.col{border-left:0;border-top:1px solid var(--line);padding-left:0}
+    .strip .col+.col::before{display:none}
+    .strip .col{padding:24px 0}
+    .layout{grid-template-columns:1fr;gap:0}
+    .toc{position:static;display:flex;gap:8px;overflow-x:auto;margin-bottom:30px;padding-bottom:8px}
+    .toc a{white-space:nowrap;padding:9px 14px}
+    .quad{grid-template-columns:1fr 1fr}
+    .quad .q:nth-child(3){border-left:0;border-top:1px solid var(--line)}
+    .quad .q:nth-child(4){border-top:1px solid var(--line)}
+    .stats{grid-template-columns:1fr}
+    .stats .s+.s{border-left:0;border-top:1px solid var(--line)}
+    .two-up{grid-template-columns:1fr}
+    .grid-2{grid-template-columns:1fr}
+    .grid-phones{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal>*{opacity:1!important;transform:none!important}.toc{animation:none!important}html{scroll-behavior:auto}}
+
+  /* 响应式:大萤幕内容变宽 */
+  @media(min-width:1280px){
+    :root{--tw:920px}
+    .wrap,.nav-inner{max-width:1360px;padding-left:48px;padding-right:48px}
+    .layout{grid-template-columns:308px 1fr;gap:60px}
+  }
+  @media(min-width:1536px){
+    :root{--tw:1040px}
+    .wrap,.nav-inner{max-width:1560px}
+    .layout{grid-template-columns:340px 1fr;gap:80px}
+  }
+
+  /* ============ v2 — nav / next case study / footer ============ */
+  /* NAV:首頁與子頁統一淺藍底,滾動後只加分隔線(移除首頁變白的行為) */
+  nav{background:#eef1fb;backdrop-filter:none}
+  nav.scrolled{background:#eef1fb;border-bottom-color:var(--line)}
+  .nav-inner{display:flex;align-items:center;gap:24px;position:relative}
+  .brand{flex:0 0 auto}
+  .nav-links{display:flex;align-items:center;flex:1}
+  .nav-group{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:36px;margin:0;white-space:nowrap}
+  .nav-links .pill{flex:0 0 auto;color:#fff}
+  .nav-group a,.drop-toggle{font-weight:500;font-size:15.5px;color:var(--ink-soft);transition:color .2s}
+  .nav-group a:hover,.drop-toggle:hover{color:var(--ink)}
+
+  /* 下拉選單 */
+  .has-drop{position:relative}
+  .drop-toggle{display:inline-flex;align-items:center;gap:7px;background:none;border:0;padding:0;font-family:inherit;line-height:1.5;cursor:pointer}
+  .drop-toggle .chev{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+  .has-drop.open .drop-toggle{color:var(--ink)}
+  .has-drop.open .chev{transform:rotate(180deg)}
+  .drop-menu{position:absolute;top:calc(100% + 16px);left:50%;transform:translateX(-50%) translateY(-8px);min-width:312px;background:#fff;border:1px solid #d9dcec;border-radius:14px;padding:8px;box-shadow:0 20px 44px -20px rgba(20,22,50,.4);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s;z-index:60}
+  .has-drop.open .drop-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .drop-menu a{display:block;padding:11px 14px;border-radius:10px;font-size:15px;font-weight:500;color:var(--ink);transition:background .2s,color .2s}
+  .drop-menu a:hover{background:#eef1fb}
+  .drop-menu a .co{display:block;margin-top:2px;font-size:12.5px;font-weight:500;color:var(--ink-mute)}
+  .drop-menu a[aria-current="page"]{color:var(--accent)}
+  .drop-menu a[aria-current="page"] .co{color:var(--accent);opacity:.65}
+
+  /* NEXT CASE STUDY */
+  .next-cs{display:block;border-top:1px solid var(--line);margin-top:24px;padding:54px 0 66px}
+  .next-cs .inner{display:flex;align-items:center;justify-content:space-between;gap:30px}
+  .next-cs .lbl{font-size:13px;font-weight:600;letter-spacing:.14em;color:var(--accent);margin-bottom:14px}
+  .next-cs .t{font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.12}
+  .next-cs .arw{flex:0 0 auto;width:32px;height:32px;fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s cubic-bezier(.16,.84,.34,1)}
+  .next-cs:hover .arw{transform:translateX(12px)}
+
+  /* FOOTER:黑底 */
+  footer{background:#0b0b0f;color:#fff;border-top:0;margin-top:0;padding:64px 0 44px}
+  .foot-contact{display:flex;justify-content:center;align-items:center;gap:20px}
+  .fc{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:1px solid rgba(255,255,255,.22);color:#fff;transition:background .25s,border-color .25s,transform .25s}
+  .fc:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.55);transform:translateY(-2px)}
+  .fc svg{width:20px;height:20px}
+  .foot-credit{margin-top:32px;text-align:center;font-size:13.5px;color:rgba(255,255,255,.5)}
+
+  /* 手機:五頁統一在 960px 收起 nav */
+  @media(max-width:960px){
+    .nav-links{display:none}
+    .nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:flex-start;background:#eef1fb;padding:20px 24px 26px;gap:18px;border-bottom:1px solid var(--line)}
+    .nav-toggle{display:block}
+    .nav-group{position:static;left:auto;top:auto;transform:none;white-space:normal}
+    .nav-links.open .nav-group{flex-direction:column;align-items:flex-start;gap:18px;margin:0;width:100%}
+    .nav-links.open .pill{margin-left:0}
+    .has-drop{width:100%}
+    .drop-menu{position:static;transform:none;opacity:1;visibility:visible;display:none;min-width:0;width:100%;background:transparent;border:0;box-shadow:none;padding:6px 0 0}
+    .has-drop.open .drop-menu{display:block;transform:none}
+    .drop-menu a{padding:9px 0}
+    .drop-menu a:hover{background:transparent}
+    .next-cs{padding:40px 0 48px}
+    .next-cs .arw{width:28px;height:28px}
+    .foot-credit{margin-top:28px}
+  }
+  @media(prefers-reduced-motion:reduce){.next-cs .arw,.fc .arw,.chev{transition:none!important}}
+
+  /* 語言切換 */
+  .nav-right{display:flex;align-items:center;gap:16px;margin-left:auto}
+  .lang-sw{display:inline-flex;align-items:center;background:rgba(11,11,15,.07);border-radius:999px;padding:3px;flex:0 0 auto}
+  .lang-btn{border:0;background:none;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--ink-mute);padding:6px 13px;border-radius:999px;cursor:pointer;line-height:1;transition:background .2s,color .2s,box-shadow .2s}
+  .lang-btn.is-on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(11,11,15,.14)}
+  .lang-btn:hover:not(.is-on){color:var(--ink)}
+  @media(max-width:960px){
+    .nav-links.open .nav-right{margin-left:0;width:100%;justify-content:space-between;gap:16px}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Ceci Chang</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">☰</button>
+    <div class="nav-links" id="navLinks">
+      <div class="nav-group">
+        <div class="has-drop">
+          <button class="drop-toggle" type="button" aria-expanded="false"><span data-i18n="nav.web3">Web3 Product Design</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="drop-menu">
+          <a href="drift-earn.html"><span data-i18n="cs.earn.short">DeFi Earn Experience</span><span class="co">Drift Protocol</span></a>
+          <a href="drift-growth.html"><span data-i18n="cs.growth.short">Growth &amp; Community Engagement</span><span class="co">Drift Protocol</span></a>
+          <a href="binance-copytrading.html" aria-current="page"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
+          <a href="binance-futures.html"><span data-i18n="cs.futures.short">Futures Trading</span><span class="co">Binance</span></a>
+          </div>
+        </div>
+        <a href="index.html#branding" data-i18n="nav.branding">Branding Design</a>
+        <a href="index.html#ui" data-i18n="nav.ui">UI Design</a>
+      </div>
+      <div class="nav-right">
+        <div class="lang-sw" role="group" aria-label="Language / 語言">
+          <button type="button" class="lang-btn is-on" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" class="lang-btn" data-lang="zh" aria-pressed="false">中</button>
+        </div>
+        <a href="index.html#about" class="pill" data-i18n="nav.about">About Me</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <a href="index.html#work" class="back" data-i18n="back.work">← BACK TO WORK</a>
+
+  <div class="p-head">
+    <div>
+      <div class="eyebrow">
+        <span class="lbl">Case Study</span>
+        <span class="chip">◈ Binance</span>
+        <span class="chip">App & Web</span>
+      </div>
+      <h1 class="p-title">BINANCE Copy Trading</h1>
+      <p class="p-lead">The Copy Trading feature allows users to replicate the trades of experienced traders, providing a unique opportunity for both beginners and experts in the world of cryptocurrency trading.</p>
+    </div>
+    <div class="facts">
+      <div class="fact"><div class="k">Role</div><div class="v">Design Lead, Product Designer</div></div>
+      <div class="fact"><div class="k">Scope</div><div class="v">App & Web, end-to-end UX/UI</div></div>
+      <div class="fact"><div class="k">Timeline</div><div class="v">Designed from scratch, launched in 2 months</div></div>
+      <div class="fact"><div class="k">Process</div><div class="v">Bi-weekly iterations</div></div>
+    </div>
+  </div>
+
+  <div class="hero-shot reveal">
+    <img src="images/bnct-hero.png" alt="Binance Copy Trading — hero" class="ph wide">
+  </div>
+
+  <div class="strip">
+    <div class="col"><div class="k">Product</div><div class="v">Copy Trading (App & Web)</div></div>
+    <div class="col"><div class="k">Users</div><div class="v">Lead Traders & Copy Traders</div></div>
+    <div class="col"><div class="k">Impact</div><div class="v">Achieved growth KPI targets each quarter through a smoother end-to-end experience.</div></div>
+  </div>
+
+  <div class="layout">
+    <!-- TOC -->
+    <aside class="toc" id="toc">
+      <a href="#s1"><span class="num">01</span> My Role</a>
+      <a href="#s2"><span class="num">02</span> The Challenge</a>
+      <a href="#s3"><span class="num">03</span> Competitive Research</a>
+      <a href="#s4"><span class="num">04</span> App Design</a>
+      <a href="#s5"><span class="num">05</span> Web Design</a>
+    </aside>
+
+    <!-- CONTENT -->
+    <div class="content">
+      <section id="s1" class="reveal">
+        <div class="sec-eyebrow"><span class="num">01</span><span class="name">My Role</span></div>
+      <h2 class="sec-h">Design Lead and Product Designer</h2>
+      <p>I led the project and designed the Copy Trading App from scratch with bi-weekly iterations, and pushed to launch within 2 months.</p>
+      <p>I was responsible for a smooth user experience and for achieving growth KPI targets each quarter.</p>
+    </section>
+
+    <section id="s2" class="reveal">
+      <div class="sec-eyebrow"><span class="num">02</span><span class="name">The Challenge</span></div>
+      <h2 class="sec-h">The Copy Trading feature needed to satisfy many different user personas.</h2>
+      <p>There was a lot of varied feedback from users, so I led the discussion between Designers, PM and Marketing teams to reach a solution that catered for:</p>
+      <div class="rows">
+        <div class="row"><div class="rn">1</div><div><h4>Advanced users</h4><p>Requirements of professional Lead Traders and seasoned Copy Traders.</p></div></div>
+        <div class="row"><div class="rn">2</div><div><h4>Beginners</h4><p>Easily follow or copy an order with one click for beginner Copy Traders.</p></div></div>
+        <div class="row"><div class="rn">3</div><div><h4>Portfolio control</h4><p>Enable Lead Traders and Copy Traders to control their portfolio status at any time.</p></div></div>
+      </div>
+    </section>
+
+    <section id="s3" class="reveal">
+      <div class="sec-eyebrow"><span class="num">03</span><span class="name">Competitive Product Research</span></div>
+      <h2 class="sec-h">I conducted extensive research of the competition, with constant monitoring of new features.</h2>
+      <p>I proposed simpler and more intuitive processes, and emphasized our strengths.</p>
+      <div class="pair">
+        <div><img src="images/bnct-research-01.png" alt="Competitor monitoring" class="ph"><div class="fig-cap">Competitor monitoring</div></div>
+        <div><img src="images/bnct-research-02.png" alt="Proposed simpler flows" class="ph"><div class="fig-cap">Proposed simpler flows</div></div>
+      </div>
+    </section>
+
+    <section id="s4" class="reveal">
+      <div class="sec-eyebrow"><span class="num">04</span><span class="name">Copy Trading App Design</span></div>
+      <p class="sub-label">Design Highlights</p>
+      <div class="rows">
+        <div class="row"><div class="rn">1</div><div><h4>Clear, intuitive homepage</h4><p>Clearly categorized homepage; portfolio card design surfaces the most vital information. More beginner-friendly with terminology explanations, and a simplified application process to become a Lead Trader.</p></div></div>
+        <div class="row"><div class="rn">2</div><div><h4>Easy onboarding & copy settings</h4><p>Functional guide for first-time users. Copy settings are simple and easy to understand, with advanced settings that expand for experienced users.</p></div></div>
+        <div class="row"><div class="rn">3</div><div><h4>Performance visualization</h4><p>Trader performance visualization makes it easy to add favorites and copy orders. The total amount is summarized on the My Copy Trading page, with multiple ongoing and closed portfolios viewable and expandable to manage.</p></div></div>
+        <div class="row"><div class="rn">4</div><div><h4>Lead Trader management</h4><p>Lead Traders can easily manage their portfolio, with key performance graphs to monitor positions and trade history, and one click to share portfolio performance. All trading activities are controlled on a single Trade page, with a consistent K-line experience with Futures Trading.</p></div></div>
+      </div>
+      <div class="stack">
+        <div><img src="images/bnct-app-01.png" alt="App — Homepage" class="ph"><div class="fig-cap">Homepage</div></div>
+        <div><img src="images/bnct-app-02.png" alt="App — Copy settings" class="ph"><div class="fig-cap">Copy settings</div></div>
+        <div><img src="images/bnct-app-03.png" alt="App — My Copy Trading" class="ph"><div class="fig-cap">My Copy Trading</div></div>
+        <div><img src="images/bnct-app-04.png" alt="App — Lead Trader portfolio" class="ph"><div class="fig-cap">Lead Trader portfolio</div></div>
+        <div><img src="images/bnct-app-05.png" alt="App — Trade page" class="ph"><div class="fig-cap">Trade page</div></div>
+      </div>
+    </section>
+
+    <section id="s5" class="reveal">
+      <div class="sec-eyebrow"><span class="num">05</span><span class="name">Copy Trading Web Design</span></div>
+      <h2 class="sec-h">Extending the experience to web, with responsive layouts (RWD).</h2>
+      <div class="stack">
+        <div><img src="images/bnct-web-01.png" alt="Web — Copy Trading homepage" class="ph"><div class="fig-cap">Copy Trading homepage & RWD</div></div>
+        <div><img src="images/bnct-web-02.png" alt="Web — My Lead Trading" class="ph"><div class="fig-cap">My Lead Trading & RWD</div></div>
+        <div><img src="images/bnct-web-03.png" alt="Web — Copy Settings" class="ph"><div class="fig-cap">Copy Settings & RWD</div></div>
+        <div><img src="images/bnct-web-04.png" alt="Web — My Copy Trading" class="ph"><div class="fig-cap">My Copy Trading & RWD</div></div>
+        <div><img src="images/bnct-web-05.png" alt="Web — Trade page" class="ph"><div class="fig-cap">Trade page & RWD</div></div>
+      </div>
+    </section>
+    </div>
+  </div>
+
+  <a class="next-cs" href="binance-futures.html">
+    <div class="inner">
+      <div>
+        <div class="lbl"><span data-i18n="next.lbl">NEXT CASE STUDY</span> · BINANCE</div>
+        <div class="t" data-i18n="cs.futures.long">BINANCE Futures Trading</div>
+      </div>
+      <svg class="arw" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </div>
+  </a>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-contact">
+      <a class="fc" href="mailto:changhsiju@gmail.com" aria-label="Email Ceci Chang" title="changhsiju@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4.5" width="20" height="15" rx="2.5"/><path d="M2.8 6.3l8.1 5.3a2 2 0 0 0 2.2 0l8.1-5.3"/></svg></a>
+      <a class="fc" href="https://www.linkedin.com/in/changhsiju/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" title="linkedin.com/in/changhsiju"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.44-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
+    </div>
+    <div class="foot-credit" data-i18n="foot.credit">Designed by Ceci Chang · Made with Claude</div>
+  </div>
+</footer>
+
+<script>
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>10));
+  const t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+  t.addEventListener('click',()=>l.classList.toggle('open'));
+  l.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>l.classList.remove('open')));
+
+  // reveal
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // TOC active state
+  const links=[...document.querySelectorAll('.toc a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+  const so=new IntersectionObserver((es)=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        const id='#'+e.target.id;
+        links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')===id));
+      }
+    });
+  },{rootMargin:'-30% 0px -60% 0px'});
+  secs.forEach(s=>s&&so.observe(s));
+
+  // ---- 横向画廊(可复用):固定宽度 + 左右箭头,支援页面上多个 ----
+  document.querySelectorAll('[data-gallery]').forEach(function(gallery){
+    const track=gallery.querySelector('.track');
+    const viewport=gallery.querySelector('.viewport');
+    const bar=gallery.querySelector('.bar');
+    const arrowL=gallery.querySelector('.arrow.left');
+    const arrowR=gallery.querySelector('.arrow.right');
+    if(!track) return;
+    let offset=0;
+    const isMobile=()=>window.matchMedia('(max-width:960px)').matches;
+
+    function step(){
+      const slide=track.querySelector('.slide');
+      const gap=parseFloat(getComputedStyle(track).gap)||20;
+      return slide.getBoundingClientRect().width+gap;
+    }
+    function maxOffset(){ return Math.max(0, track.scrollWidth - viewport.clientWidth); }
+    function apply(){
+      offset=Math.min(Math.max(offset,0),maxOffset());
+      track.style.transform='translateX('+(-offset)+'px)';
+      arrowL.disabled = offset<=1;
+      arrowR.disabled = offset>=maxOffset()-1;
+      const denom=maxOffset()||1;
+      const shown=viewport.clientWidth/track.scrollWidth;
+      if(bar){const barW=Math.max(20,Math.min(100,shown*100));const prog=maxOffset()>0?offset/maxOffset():0;bar.style.width=barW+'px';bar.style.transform='translateX('+prog*(100-barW)+'px)';}
+      gallery.classList.toggle('at-end', maxOffset()<=1 || offset>=maxOffset()-1);
+    }
+    gallery.querySelectorAll('.arrow').forEach(a=>a.addEventListener('click',()=>{
+      offset += parseInt(a.dataset.dir,10)*step();
+      apply();
+    }));
+    viewport.addEventListener('scroll',()=>{
+      if(isMobile()){
+        const denom=(track.scrollWidth-viewport.clientWidth)||1;
+        const shown=viewport.clientWidth/track.scrollWidth;
+        if(bar){const barW=Math.max(20,Math.min(100,shown*100));const prog=denom>0?viewport.scrollLeft/denom:0;bar.style.width=barW+'px';bar.style.transform='translateX('+prog*(100-barW)+'px)';}
+        gallery.classList.toggle('at-end', viewport.scrollLeft>=denom-2);
+      }
+    });
+    window.addEventListener('resize',()=>{ if(!isMobile()){offset=0; track.style.transform='translateX(0)';} apply(); });
+    apply();
+  });
+</script>
+
+<script>
+  /* nav 下拉選單 */
+  document.querySelectorAll('.has-drop').forEach(function(d){
+    var b=d.querySelector('.drop-toggle'); if(!b) return;
+    b.addEventListener('click',function(e){
+      e.stopPropagation();
+      var open=d.classList.toggle('open');
+      b.setAttribute('aria-expanded',open?'true':'false');
+    });
+  });
+  function closeDrops(except){
+    document.querySelectorAll('.has-drop.open').forEach(function(d){
+      if(except&&d.contains(except)) return;
+      d.classList.remove('open');
+      var b=d.querySelector('.drop-toggle'); if(b) b.setAttribute('aria-expanded','false');
+    });
+  }
+  document.addEventListener('click',function(e){closeDrops(e.target)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrops(null)});
+</script>
+<script src="i18n.js"></script>
+</body>
+</html>
