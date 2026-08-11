@@ -56,12 +56,13 @@
 <body>
 <div class="wrap">
   <h1>翻譯編輯器</h1>
-  <p class="sub">直接在這裡改中英文，改完按「下載 i18n.js」，把下載到的檔案覆蓋你資料夾裡舊的 <code>i18n.js</code> 就完成了。不需要 Excel，也不需要網路。</p>
+  <p class="sub">直接在這裡改中英文，改完按「下載 i18n.js」，把下載到的檔案覆蓋你資料夾裡舊的 <code>i18n.js</code>，並<b>刪除 i18n-cases.js</b>（它的內容已被合併進去）。不需要 Excel，也不需要網路。</p>
 
   <div id="app"></div>
 </div>
 
 <script src="i18n.js"></script>
+<script src="i18n-cases.js"></script>
 <script>
 (function () {
   var app = document.getElementById('app');
@@ -85,6 +86,8 @@
     if (k.indexOf('sec.others') === 0 || /^card\.o\d\./.test(k)) return 'Selected Web3 Work 區塊';
     if (k.indexOf('tag.') === 0) return '卡片按鈕 Card buttons';
     if (k.indexOf('next.') === 0 || /^cs\..*\.long$/.test(k)) return 'Next case study';
+    if (k.indexOf('fact.') === 0 || k.indexOf('strip.') === 0) return '案例頁欄位標籤';
+    if (k.indexOf('lb.') === 0) return 'Binance Leaderboard 頁';
     return '其他 Misc';
   }
   var HTML_KEYS = { 'hero.role': 1 };   // 唯一允許 <br> 的 key

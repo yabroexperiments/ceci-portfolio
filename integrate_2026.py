@@ -66,6 +66,21 @@ PAGES = {
                  "Convert."),
         "og_image": f"{DOMAIN}/images/bnf-hero.png",
     },
+    "binance-leaderboard.html": {
+        "url": f"{DOMAIN}/binance-leaderboard.html",
+        "desc": ("The Futures Leaderboard ranks traders on Binance by ROI, PnL, "
+                 "and popularity — turning individual performance into a public "
+                 "signal that drives competition and trader discovery."),
+        "og_image": f"{DOMAIN}/images/bnl-hero.png",
+    },
+    "traderwagon.html": {
+        "url": f"{DOMAIN}/traderwagon.html",
+        "desc": ("TraderWagon is a social crypto trading platform that helps "
+                 "beginners find experienced traders and copy their trades — "
+                 "design lead for the platform, design system, and the Binance "
+                 "third-party app."),
+        "og_image": f"{DOMAIN}/images/tw-hero.png",
+    },
 }
 
 FONT_LINKS_RE = re.compile(
@@ -75,17 +90,15 @@ FONT_LINKS_RE = re.compile(
 )
 LOCAL_FONT_LINK = '<link href="assets/fonts/inter/inter.css" rel="stylesheet">'
 
-IMG_REMAP = {  # referenced-but-missing filename -> file that holds that content
-    "images/binance-leaderboard.png": "images/binance-03.png",
-    "images/traderwagon.png": "images/binance-04.png",
-}
+# hosts a page may legitimately reference besides our own domain
+EXTERNAL_ALLOW = ("linkedin.com", "apollox.finance", "hoyabit.com", "binance.com")
 
 # TEMPORARY (AC 2026-08-11): Ceci's About section doesn't exist yet, so the
-# About Me links point at the preserved old /about-me/ page. Remove both
-# entries once she ships the new About section (nav.about -> #about again).
+# homepage About Me link points at the preserved old /about-me/ page. Remove
+# once she ships the new About section (nav.about -> #about again).
+# (Her 2026-08-11 revision already removed the About pill from case pages.)
 LINK_REMAP = {
     'href="#about" class="about-link"': 'href="about-me/" class="about-link"',
-    'href="index.html#about" class="pill"': 'href="about-me/" class="pill"',
 }
 
 I18N_KEY_REMAP = {
@@ -131,13 +144,20 @@ def main():
         copied += 1
     print(f"images: copied {copied}")
 
-    # --- i18n.js (with key remap) ---
+    # --- i18n dictionaries (key remap applies to i18n.js only) ---
     js = (SRC / "i18n.js").read_text(encoding="utf-8")
     for old, new in I18N_KEY_REMAP.items():
         js = js.replace(f"'{old}'", f"'{new}'")
     (SITE / "i18n.js").write_text(js, encoding="utf-8")
     print("i18n.js: copied, keys remapped:",
           ", ".join(f"{o}->{n}" for o, n in I18N_KEY_REMAP.items()))
+    cases = SRC / "i18n-cases.js"
+    if cases.exists():
+        shutil.copy2(cases, SITE / "i18n-cases.js")
+        print("i18n-cases.js: copied")
+    elif (SITE / "i18n-cases.js").exists():
+        errors.append("i18n-cases.js gone from source but pages may still "
+                      "reference it — check <script> tags before removing")
 
     # --- pages ---
     for name, info in PAGES.items():
@@ -153,14 +173,6 @@ def main():
 
         for old, new in LINK_REMAP.items():
             page = page.replace(old, new)
-
-        if name == "index.html":
-            for old, new in IMG_REMAP.items():
-                if old in page:
-                    page = page.replace(old, new)
-                else:
-                    errors.append(f"{name}: expected reference {old} not found "
-                                  "(Ceci may have fixed it — update IMG_REMAP)")
 
         (SITE / name).write_text(page, encoding="utf-8")
         print(f"{name}: written")
@@ -180,7 +192,7 @@ def main():
         page = (SITE / name).read_text(encoding="utf-8")
         ext = re.findall(r'(?:src|href)="(https?://[^"]+)"', page)
         bad = [u for u in ext if not (
-            u.startswith(DOMAIN) or "linkedin.com" in u)]
+            u.startswith(DOMAIN) or any(h in u for h in EXTERNAL_ALLOW))]
         for u in bad:
             errors.append(f"{name}: external ref {u}")
 

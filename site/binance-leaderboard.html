@@ -3,10 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BINANCE Copy Trading — Ceci Chang</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>BINANCE Social Trading Leaderboard — Ceci Chang</title>
+<meta name="description" content="The Futures Leaderboard ranks traders on Binance by ROI, PnL, and popularity — turning individual performance into a public signal that drives competition and trader discovery.">
+<link rel="canonical" href="https://changhsiju.xyz/binance-leaderboard.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ceci Chang">
+<meta property="og:title" content="BINANCE Social Trading Leaderboard — Ceci Chang">
+<meta property="og:description" content="The Futures Leaderboard ranks traders on Binance by ROI, PnL, and popularity — turning individual performance into a public signal that drives competition and trader discovery.">
+<meta property="og:url" content="https://changhsiju.xyz/binance-leaderboard.html">
+<meta property="og:image" content="https://changhsiju.xyz/images/bnl-hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BINANCE Social Trading Leaderboard — Ceci Chang">
+<meta name="twitter:description" content="The Futures Leaderboard ranks traders on Binance by ROI, PnL, and popularity — turning individual performance into a public signal that drives competition and trader discovery.">
+<meta name="twitter:image" content="https://changhsiju.xyz/images/bnl-hero.png">
+<link href="assets/img/dd_e0xA19up9208Tv6odcjHEw6z4cKAA6fTgjZ9ynkKoSnr5R4vFxI7gZp6p-16acb57ca0.png" rel="icon" type="image/png">
+<link href="assets/img/dd_e0xA19up9208Tv6odcjHEw6z4cKAA6fTgjZ9ynkKoSnr5R4vFxI7gZp6p-16acb57ca0.png" rel="apple-touch-icon">
+<link href="assets/fonts/inter/inter.css" rel="stylesheet">
 <style>
   :root{
     --bg:#eef1fb;--ink:#0b0b0f;--ink-soft:#48494E;--ink-mute:#71747f;
@@ -45,7 +57,7 @@
   .fact .v{font-size:16px;font-weight:500}
 
   /* meta strip */
-  .hero-shot{margin:40px 0 4px}
+  .hero-shot{margin:40px 0 24px}
   .hero-shot .ph{border-radius:12px}
   .strip{display:grid;grid-template-columns:3fr 2.5fr 4.5fr;gap:0;align-items:start}
   .strip .col{padding:30px 30px 8px 0;position:relative}
@@ -77,9 +89,9 @@
   .content-single{width:100%}
   .content-single section{padding-bottom:68px}
   /* 2 张并排均分 */
-  .pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px}
   /* 垂直由上而下堆叠 */
-  .stack{display:flex;flex-direction:column;gap:24px;margin-top:26px}
+  .stack{display:flex;flex-direction:column;gap:40px;margin-top:40px}
   .pair .fig-cap,.stack .fig-cap{margin-top:8px}
   @media(max-width:900px){.pair{grid-template-columns:1fr}}
   .content section{padding:0 0 68px;scroll-margin-top:102px}
@@ -89,6 +101,8 @@
   .sec-h{font-size:24px;font-weight:600;letter-spacing:-.01em;line-height:1.35;margin-bottom:18px;max-width:var(--tw)}
   .content p{font-size:16px;color:var(--ink-soft);line-height:1.7;margin-bottom:14px;max-width:var(--tw)}
   .focus-label{font-size:15px;color:var(--ink-mute);font-weight:500;margin:6px 0 14px}
+  .sub-label{font-size:15px;font-weight:600;color:var(--ink);letter-spacing:.01em;margin:40px 0 14px;max-width:var(--tw)}
+  .sub-label:first-of-type{margin-top:8px}
   .ol{max-width:var(--tw);margin-bottom:8px}
   .ol li{font-size:16px;color:var(--ink-soft);line-height:1.45;margin:0 0 2px 22px}
 
@@ -109,7 +123,7 @@
   .quad p{font-size:13.5px;line-height:1.6;margin:0}
 
   /* image placeholders */
-  .figure{margin-top:26px}
+  .figure{margin-top:40px}
   .ph{
     background:linear-gradient(135deg,#1a1030,#0c0c14);border-radius:14px;
     display:flex;align-items:center;justify-content:center;color:#71749a;font-size:13.5px;font-weight:500;text-align:center;padding:24px;border:1px solid var(--line);
@@ -122,12 +136,12 @@
   .fig-cap{margin-top:10px;font-size:13.5px;color:var(--ink-mute)}
   .two-up{display:grid;grid-template-columns:1fr 1fr;gap:20px}
   /* 08 双栏并排 / 09 手机图换行网格 */
-  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px}
-  .grid-phones{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:26px}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px}
+  .grid-phones{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-top:40px}
   .grid-2 .fig-cap,.grid-phones .fig-cap{margin-top:8px}
 
   /* horizontal gallery — 固定宽度容器 + 左右箭头 */
-  .gallery{position:relative;margin-top:26px}
+  .gallery{position:relative;margin-top:40px}
   .viewport{overflow:hidden;max-width:100%}
   .track{display:flex;gap:20px;transition:transform .5s cubic-bezier(.22,.61,.36,1);will-change:transform}
   .track .slide{flex:0 0 auto;width:300px}
@@ -286,6 +300,9 @@
   @media(max-width:960px){
     .nav-links.open .nav-right{margin-left:0;width:100%;justify-content:flex-start}
   }
+  .out-link{display:inline-flex;align-items:center;gap:9px;font-weight:600;color:var(--accent);white-space:nowrap}
+  .out-link .ico{width:17px;height:17px;flex:0 0 auto;animation:nudgeDiag 1.8s ease-in-out infinite}
+  @keyframes nudgeDiag{0%,100%{transform:translate(0,0)}50%{transform:translate(4px,-4px)}}
 </style>
 </head>
 <body>
@@ -301,9 +318,9 @@
           <div class="drop-menu">
           <a href="drift-earn.html"><span data-i18n="cs.earn.short">DeFi Earn Experience</span><span class="co">Drift Protocol</span></a>
           <a href="drift-growth.html"><span data-i18n="cs.growth.short">Growth &amp; Community Engagement</span><span class="co">Drift Protocol</span></a>
-          <a href="binance-copytrading.html" aria-current="page"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
+          <a href="binance-copytrading.html"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
           <a href="binance-futures.html"><span data-i18n="cs.futures.short">Futures Trading</span><span class="co">Binance</span></a>
-          <a href="binance-leaderboard.html"><span data-i18n="cs.lb.short">Leaderboard</span><span class="co">Binance</span></a>
+          <a href="binance-leaderboard.html" aria-current="page"><span data-i18n="cs.lb.short">Leaderboard</span><span class="co">Binance</span></a>
           <a href="traderwagon.html"><span data-i18n="cs.tw.short">Social Trading Platform</span><span class="co">TraderWagon</span></a>
           </div>
         </div>
@@ -326,108 +343,96 @@
   <div class="p-head">
     <div>
       <div class="eyebrow">
-        <span class="lbl">Case Study</span>
+        <span class="lbl" data-i18n="lb.eyebrow">Case Study</span>
         <span class="chip">◈ Binance</span>
-        <span class="chip">App & Web</span>
+        <span class="chip" data-i18n="lb.chip2">Social Trading</span>
       </div>
-      <h1 class="p-title">BINANCE Copy Trading</h1>
-      <p class="p-lead">The Copy Trading feature allows users to replicate the trades of experienced traders, providing a unique opportunity for both beginners and experts in the world of cryptocurrency trading.</p>
+      <h1 class="p-title" data-i18n="lb.title">BINANCE Social Trading Leaderboard</h1>
+      <p class="p-lead" data-i18n="lb.lead">The Futures Leaderboard ranks traders on Binance by criteria such as ROI, PnL, and popularity within a given time period — turning individual performance into a public signal that drives competition and trader discovery.</p>
     </div>
     <div class="facts">
-      <div class="fact"><div class="k">Role</div><div class="v">Design Lead, Product Designer</div></div>
-      <div class="fact"><div class="k">Scope</div><div class="v">App & Web, end-to-end UX/UI</div></div>
-      <div class="fact"><div class="k">Timeline</div><div class="v">Designed from scratch, launched in 2 months</div></div>
-      <div class="fact"><div class="k">Process</div><div class="v">Bi-weekly iterations</div></div>
+      <div class="fact"><div class="k" data-i18n="fact.role">Role</div><div class="v" data-i18n="lb.role">Product Designer</div></div>
+      <div class="fact"><div class="k" data-i18n="fact.scope">Scope</div><div class="v" data-i18n="lb.scope">Leaderboard (Web &amp; App), Options &amp; Trading Bot Leaderboards</div></div>
+      <div class="fact"><div class="k" data-i18n="fact.year">Year</div><div class="v">2022</div></div>
+      <div class="fact"><div class="k" data-i18n="fact.teams">Teams</div><div class="v" data-i18n="lb.teams">PM, Dev, Marketing</div></div>
     </div>
   </div>
 
   <div class="hero-shot reveal">
-    <img src="images/bnct-hero.png" alt="Binance Copy Trading — hero" class="ph wide">
+    <img src="images/bnl-hero.png" alt="Binance Social Trading Leaderboard" class="ph" fetchpriority="high">
   </div>
 
   <div class="strip">
-    <div class="col"><div class="k">Product</div><div class="v">Copy Trading (App & Web)</div></div>
-    <div class="col"><div class="k">Users</div><div class="v">Lead Traders & Copy Traders</div></div>
-    <div class="col"><div class="k">Impact</div><div class="v">Achieved growth KPI targets each quarter through a smoother end-to-end experience.</div></div>
+    <div class="col"><div class="k" data-i18n="strip.product">Product</div><div class="v" data-i18n="lb.product">Futures Leaderboard (Web &amp; App)</div></div>
+    <div class="col"><div class="k" data-i18n="strip.ownership">Ownership</div><div class="v" data-i18n="lb.ownership">Ranking system, trader profiles, follow &amp; notifications</div></div>
+    <div class="col"><div class="k" data-i18n="strip.impact">Impact</div><div class="v" data-i18n="lb.impact">Became a key indicator for Binance Futures competition campaigns.</div></div>
   </div>
 
   <div class="layout">
-    <!-- TOC -->
     <aside class="toc" id="toc">
-      <a href="#s1"><span class="num">01</span> My Role</a>
-      <a href="#s2"><span class="num">02</span> The Challenge</a>
-      <a href="#s3"><span class="num">03</span> Competitive Research</a>
-      <a href="#s4"><span class="num">04</span> App Design</a>
-      <a href="#s5"><span class="num">05</span> Web Design</a>
+        <a href="#s1"><span class="num">01</span> <span data-i18n="lb.toc1">My Role</span></a>
+        <a href="#s2"><span class="num">02</span> <span data-i18n="lb.toc2">App Design</span></a>
+        <a href="#s3"><span class="num">03</span> <span data-i18n="lb.toc3">Web Design</span></a>
     </aside>
 
-    <!-- CONTENT -->
     <div class="content">
+
       <section id="s1" class="reveal">
-        <div class="sec-eyebrow"><span class="num">01</span><span class="name">My Role</span></div>
-      <h2 class="sec-h">Design Lead and Product Designer</h2>
-      <p>I led the project and designed the Copy Trading App from scratch with bi-weekly iterations, and pushed to launch within 2 months.</p>
-      <p>I was responsible for a smooth user experience and for achieving growth KPI targets each quarter.</p>
-    </section>
+        <div class="sec-eyebrow"><span class="num">01</span><span class="name" data-i18n="lb.toc1">My Role</span></div>
+        <h2 class="sec-h" data-i18n="lb.s1.h">Turning a plain ranking list into the signal that drives Futures competition.</h2>
+        <p data-i18n="lb.s1.p1">The old Futures Leaderboard was a simple ranking of futures traders — little more than a table of numbers. When I took ownership of the product, I rebuilt its visual style and user flows, and extended it with new categories such as the Options and Trading Bot Leaderboards.</p>
+        <p data-i18n="lb.s1.p2">It has since become a key indicator for Binance Futures competition campaigns, and a primary way for users to discover traders worth following.</p>
+      </section>
 
-    <section id="s2" class="reveal">
-      <div class="sec-eyebrow"><span class="num">02</span><span class="name">The Challenge</span></div>
-      <h2 class="sec-h">The Copy Trading feature needed to satisfy many different user personas.</h2>
-      <p>There was a lot of varied feedback from users, so I led the discussion between Designers, PM and Marketing teams to reach a solution that catered for:</p>
-      <div class="rows">
-        <div class="row"><div class="rn">1</div><div><h4>Advanced users</h4><p>Requirements of professional Lead Traders and seasoned Copy Traders.</p></div></div>
-        <div class="row"><div class="rn">2</div><div><h4>Beginners</h4><p>Easily follow or copy an order with one click for beginner Copy Traders.</p></div></div>
-        <div class="row"><div class="rn">3</div><div><h4>Portfolio control</h4><p>Enable Lead Traders and Copy Traders to control their portfolio status at any time.</p></div></div>
-      </div>
-    </section>
+      <section id="s2" class="reveal">
+        <div class="sec-eyebrow"><span class="num">02</span><span class="name" data-i18n="lb.toc2">App Design</span></div>
+        <h2 class="sec-h" data-i18n="lb.s2.h">Designing the mobile experience around discovery, profiles, and following.</h2>
+        <p data-i18n="lb.s2.p1">The app flow is built around four moments: arriving at the leaderboard, scanning and filtering the ranking, managing your own public profile, and following a trader you want to keep watching.</p>
 
-    <section id="s3" class="reveal">
-      <div class="sec-eyebrow"><span class="num">03</span><span class="name">Competitive Product Research</span></div>
-      <h2 class="sec-h">I conducted extensive research of the competition, with constant monitoring of new features.</h2>
-      <p>I proposed simpler and more intuitive processes, and emphasized our strengths.</p>
-      <div class="pair">
-        <div><img src="images/bnct-research-01.png" alt="Competitor monitoring" class="ph"><div class="fig-cap">Competitor monitoring</div></div>
-        <div><img src="images/bnct-research-02.png" alt="Proposed simpler flows" class="ph"><div class="fig-cap">Proposed simpler flows</div></div>
-      </div>
-    </section>
+        <p class="sub-label" data-i18n="lb.s2.g1">Entry page &amp; homepage</p>
+        <div class="figure">
+          <img src="images/bnl-app-01.png" alt="Leaderboard entry page and homepage" class="ph" loading="lazy" decoding="async">
+          <div class="fig-cap" data-i18n="lb.s2.c1">Entry page / Homepage</div>
+        </div>
 
-    <section id="s4" class="reveal">
-      <div class="sec-eyebrow"><span class="num">04</span><span class="name">Copy Trading App Design</span></div>
-      <p class="sub-label">Design Highlights</p>
-      <div class="rows">
-        <div class="row"><div class="rn">1</div><div><h4>Clear, intuitive homepage</h4><p>Clearly categorized homepage; portfolio card design surfaces the most vital information. More beginner-friendly with terminology explanations, and a simplified application process to become a Lead Trader.</p></div></div>
-        <div class="row"><div class="rn">2</div><div><h4>Easy onboarding & copy settings</h4><p>Functional guide for first-time users. Copy settings are simple and easy to understand, with advanced settings that expand for experienced users.</p></div></div>
-        <div class="row"><div class="rn">3</div><div><h4>Performance visualization</h4><p>Trader performance visualization makes it easy to add favorites and copy orders. The total amount is summarized on the My Copy Trading page, with multiple ongoing and closed portfolios viewable and expandable to manage.</p></div></div>
-        <div class="row"><div class="rn">4</div><div><h4>Lead Trader management</h4><p>Lead Traders can easily manage their portfolio, with key performance graphs to monitor positions and trade history, and one click to share portfolio performance. All trading activities are controlled on a single Trade page, with a consistent K-line experience with Futures Trading.</p></div></div>
-      </div>
-      <div class="stack">
-        <div><img src="images/bnct-app-01.png" alt="App — Homepage" class="ph"><div class="fig-cap">Homepage</div></div>
-        <div><img src="images/bnct-app-02.png" alt="App — Copy settings" class="ph"><div class="fig-cap">Copy settings</div></div>
-        <div><img src="images/bnct-app-03.png" alt="App — My Copy Trading" class="ph"><div class="fig-cap">My Copy Trading</div></div>
-        <div><img src="images/bnct-app-04.png" alt="App — Lead Trader portfolio" class="ph"><div class="fig-cap">Lead Trader portfolio</div></div>
-        <div><img src="images/bnct-app-05.png" alt="App — Trade page" class="ph"><div class="fig-cap">Trade page</div></div>
-      </div>
-    </section>
+        <p class="sub-label" data-i18n="lb.s2.g2">Ranking, filtering &amp; following</p>
+        <div class="figure">
+          <img src="images/bnl-app-02.png" alt="Top traders ranking, action sheet and my following page" class="ph" loading="lazy" decoding="async">
+          <div class="fig-cap" data-i18n="lb.s2.c2">Top Traders Ranking page / Action Sheet / My Following page</div>
+        </div>
 
-    <section id="s5" class="reveal">
-      <div class="sec-eyebrow"><span class="num">05</span><span class="name">Copy Trading Web Design</span></div>
-      <h2 class="sec-h">Extending the experience to web, with responsive layouts (RWD).</h2>
-      <div class="stack">
-        <div><img src="images/bnct-web-01.png" alt="Web — Copy Trading homepage" class="ph"><div class="fig-cap">Copy Trading homepage & RWD</div></div>
-        <div><img src="images/bnct-web-02.png" alt="Web — My Lead Trading" class="ph"><div class="fig-cap">My Lead Trading & RWD</div></div>
-        <div><img src="images/bnct-web-03.png" alt="Web — Copy Settings" class="ph"><div class="fig-cap">Copy Settings & RWD</div></div>
-        <div><img src="images/bnct-web-04.png" alt="Web — My Copy Trading" class="ph"><div class="fig-cap">My Copy Trading & RWD</div></div>
-        <div><img src="images/bnct-web-05.png" alt="Web — Trade page" class="ph"><div class="fig-cap">Trade page & RWD</div></div>
-      </div>
-    </section>
+        <p class="sub-label" data-i18n="lb.s2.g3">Your own profile &amp; sharing</p>
+        <div class="figure">
+          <img src="images/bnl-app-03.png" alt="My profile page, preferences and share post" class="ph" loading="lazy" decoding="async">
+          <div class="fig-cap" data-i18n="lb.s2.c3">My Profile page / Preferences / Share Post</div>
+        </div>
+
+        <p class="sub-label" data-i18n="lb.s2.g4">Trader details &amp; notifications</p>
+        <div class="figure">
+          <img src="images/bnl-app-04.png" alt="Trader details page, follow list and enable notifications" class="ph" loading="lazy" decoding="async">
+          <div class="fig-cap" data-i18n="lb.s2.c4">Trader&rsquo;s Details page / Follow List / Enable Notifications</div>
+        </div>
+      </section>
+
+      <section id="s3" class="reveal">
+        <div class="sec-eyebrow"><span class="num">03</span><span class="name" data-i18n="lb.toc3">Web Design</span></div>
+        <h2 class="sec-h" data-i18n="lb.s3.h">Carrying the same ranking logic onto a wider, data-dense web layout.</h2>
+        <p data-i18n="lb.s3.p1">On web there is room to show more of the ranking at once, so the layout leads with the full table while keeping the same filters, time periods, and profile entry points as the app.</p>
+        <div class="figure">
+          <img src="images/bnl-web-01.png" alt="Binance Futures Leaderboard web key screen" class="ph" loading="lazy" decoding="async">
+          <div class="fig-cap" data-i18n="lb.s3.c1">Web key screen</div>
+        </div>
+        <p><a class="out-link" href="https://www.binance.com/en/futures-activity/leaderboard" target="_blank" rel="noopener noreferrer"><span data-i18n="lb.s3.link">See the live Leaderboard on Binance</span><svg class="ico diag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></a></p>
+      </section>
+
     </div>
   </div>
 
-  <a class="next-cs" href="binance-futures.html">
+  <a class="next-cs" href="traderwagon.html">
     <div class="inner">
       <div>
-        <div class="lbl"><span data-i18n="next.lbl">NEXT CASE STUDY</span> · BINANCE</div>
-        <div class="t" data-i18n="cs.futures.long">BINANCE Futures Trading</div>
+        <div class="lbl"><span data-i18n="next.lbl">NEXT CASE STUDY</span> · TRADERWAGON</div>
+        <div class="t" data-i18n="cs.tw.long">TraderWagon Social Trading Platform</div>
       </div>
       <svg class="arw" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
     </div>

@@ -34,7 +34,7 @@
   /* NAV */
   nav{position:sticky;top:0;z-index:50;background:rgba(238,241,251,.82);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
   nav.scrolled{border-bottom-color:var(--line)}
-  .nav-inner{max-width:1140px;margin:0 auto;padding:0 24px;height:104px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .nav-inner{max-width:1140px;margin:0 auto;padding:0 24px;height:86px;display:flex;align-items:center;justify-content:space-between;gap:24px}
   .brand{font-weight:600;font-size:20px;letter-spacing:-.01em}
   .nav-links{display:flex;align-items:center;gap:36px}
   .nav-links a{font-weight:500;font-size:15.5px;color:var(--ink-soft);transition:color .2s}
@@ -68,7 +68,7 @@
 
   /* BODY: two column */
   .layout{display:grid;grid-template-columns:280px 1fr;gap:40px;padding:70px 0 40px;align-items:start}
-  .toc{position:sticky;top:120px;display:flex;flex-direction:column;gap:8px}
+  .toc{position:sticky;top:102px;display:flex;flex-direction:column;gap:8px}
   .toc a{display:flex;gap:12px;padding:12px 16px;border-radius:12px;font-size:15px;color:#000000;font-weight:500;transition:background .2s,color .2s}
   .toc a .num{color:#000000;font-variant-numeric:tabular-nums}
   .toc a:hover{color:var(--ink)}
@@ -94,7 +94,7 @@
   .stack{display:flex;flex-direction:column;gap:40px;margin-top:40px}
   .pair .fig-cap,.stack .fig-cap{margin-top:8px}
   @media(max-width:900px){.pair{grid-template-columns:1fr}}
-  .content section{padding:0 0 68px;scroll-margin-top:120px}
+  .content section{padding:0 0 68px;scroll-margin-top:102px}
   .sec-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:18px}
   .sec-eyebrow .num{color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums}
   .sec-eyebrow .name{font-weight:600;font-size:15px}
@@ -292,13 +292,13 @@
   @media(prefers-reduced-motion:reduce){.next-cs .arw,.fc .arw,.chev{transition:none!important}}
 
   /* 語言切換 */
-  .nav-right{display:flex;align-items:center;gap:16px;margin-left:auto}
+  .nav-right{display:flex;align-items:center;justify-content:flex-end;margin-left:auto}
   .lang-sw{display:inline-flex;align-items:center;background:rgba(11,11,15,.07);border-radius:999px;padding:3px;flex:0 0 auto}
   .lang-btn{border:0;background:none;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--ink-mute);padding:6px 13px;border-radius:999px;cursor:pointer;line-height:1;transition:background .2s,color .2s,box-shadow .2s}
   .lang-btn.is-on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(11,11,15,.14)}
   .lang-btn:hover:not(.is-on){color:var(--ink)}
   @media(max-width:960px){
-    .nav-links.open .nav-right{margin-left:0;width:100%;justify-content:space-between;gap:16px}
+    .nav-links.open .nav-right{margin-left:0;width:100%;justify-content:flex-start}
   }
 </style>
 </head>
@@ -317,6 +317,8 @@
           <a href="drift-growth.html"><span data-i18n="cs.growth.short">Growth &amp; Community Engagement</span><span class="co">Drift Protocol</span></a>
           <a href="binance-copytrading.html"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
           <a href="binance-futures.html" aria-current="page"><span data-i18n="cs.futures.short">Futures Trading</span><span class="co">Binance</span></a>
+          <a href="binance-leaderboard.html"><span data-i18n="cs.lb.short">Leaderboard</span><span class="co">Binance</span></a>
+          <a href="traderwagon.html"><span data-i18n="cs.tw.short">Social Trading Platform</span><span class="co">TraderWagon</span></a>
           </div>
         </div>
         <a href="index.html#branding" data-i18n="nav.branding">Branding Design</a>
@@ -327,7 +329,6 @@
           <button type="button" class="lang-btn is-on" data-lang="en" aria-pressed="true">EN</button>
           <button type="button" class="lang-btn" data-lang="zh" aria-pressed="false">中</button>
         </div>
-        <a href="about-me/" class="pill" data-i18n="nav.about">About Me</a>
       </div>
     </div>
   </div>
@@ -467,11 +468,11 @@
     </div>
   </div>
 
-  <a class="next-cs" href="drift-earn.html">
+  <a class="next-cs" href="binance-leaderboard.html">
     <div class="inner">
       <div>
-        <div class="lbl"><span data-i18n="next.lbl">NEXT CASE STUDY</span> · DRIFT PROTOCOL</div>
-        <div class="t" data-i18n="cs.earn.long">DeFi Earn Experience</div>
+        <div class="lbl"><span data-i18n="next.lbl">NEXT CASE STUDY</span> · BINANCE</div>
+        <div class="t" data-i18n="cs.lb.long">BINANCE Social Trading Leaderboard</div>
       </div>
       <svg class="arw" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
     </div>
@@ -577,5 +578,6 @@
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrops(null)});
 </script>
 <script src="i18n.js"></script>
+<script src="i18n-cases.js"></script>
 </body>
 </html>

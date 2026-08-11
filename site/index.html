@@ -33,7 +33,7 @@
   /* NAV */
   nav{position:sticky;top:0;z-index:50;background:rgba(238,241,251,.82);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
   nav.scrolled{border-bottom-color:var(--line)}
-  .nav-inner{max-width:1140px;margin:0 auto;padding:0 24px;height:104px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .nav-inner{max-width:1140px;margin:0 auto;padding:0 24px;height:86px;display:flex;align-items:center;justify-content:space-between;gap:24px}
   .brand{font-weight:600;font-size:20px;letter-spacing:-.01em}
   .nav-links{display:flex;align-items:center;gap:36px}
   .nav-links a{font-weight:500;font-size:15.5px;color:var(--ink-soft);transition:color .2s}
@@ -44,7 +44,8 @@
 
   /* HERO */
   .hero-bg{background:var(--lightblue)}
-  .hero{min-height:82vh;display:flex;flex-direction:column;justify-content:space-between;padding:70px 0 80px}
+  .hero{min-height:calc(100vh - 86px);display:flex;flex-direction:column;justify-content:space-between;padding:70px 0 80px}
+  @supports (height:100dvh){.hero{min-height:calc(100dvh - 86px)}}
   .hero-top{display:flex;justify-content:flex-end}
   .hello-block{max-width:560px}
   .hello{font-size:clamp(40px,5vw,64px);font-weight:600;letter-spacing:-.02em;line-height:1.05}
@@ -69,15 +70,22 @@
   .card.linked:hover .card-img img{transform:scale(1.06)}
   .card.soon{opacity:.55;pointer-events:none}
   .card-body{padding:22px 0 0;display:flex;flex-direction:column;flex:1}
-  .card-btn{display:inline-block;align-self:flex-start;margin-top:auto;background:var(--pill);color:#fff;font-size:16px;font-weight:600;letter-spacing:-.01em;padding:14px 28px;border-radius:999px;line-height:1;transition:background .2s,transform .2s}
-  .card.linked:hover .card-btn{background:#232433;transform:translateY(-1px)}
-  .card.soon .card-btn{background:transparent;color:var(--ink-mute);border:1px solid var(--line);padding:13px 27px}
-  .card-body h3{font-size:20px;font-weight:600;letter-spacing:-.01em;margin-bottom:10px;line-height:1.25;min-height:2.5em}
+  .card-btn{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;margin-top:auto;background:none;border:0;border-radius:0;padding:0;color:var(--ink);font-size:16px;font-weight:500;letter-spacing:-.01em;line-height:1.3;white-space:nowrap;transition:opacity .2s}
+  .card-btn .ico{width:18px;height:18px;flex:0 0 auto}
+  .card.linked:hover .card-btn{opacity:.55}
+  .card.soon .card-btn{color:var(--ink-mute)}
+  /* icon 持續輕推。若覺得多個箭頭同時動太吵,把下面兩行的 .card.linked 改成 .card.linked:hover */
+  .card.linked .card-btn .ico{animation:nudgeX 1.8s ease-in-out infinite}
+  .card.linked .card-btn .ico.diag{animation:nudgeDiag 1.8s ease-in-out infinite}
+  @keyframes nudgeX{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+  @keyframes nudgeDiag{0%,100%{transform:translate(0,0)}50%{transform:translate(4px,-4px)}}
+  .card-body h3{font-size:20px;font-weight:600;letter-spacing:-.01em;margin-bottom:16px;line-height:1.25}
   .card-body p{font-size:14.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:26px}
 
   /* Binance 2x2 卡片 */
-  .cards-2{grid-template-columns:1fr 1fr}
+  .cards-2{grid-template-columns:1fr 1fr;gap:80px 24px}
   .cards-2 .card-img{aspect-ratio:16/10}
+  .cards-sq .card-img{aspect-ratio:1/1}
 
   /* FOOTER */
   footer{border-top:1px solid var(--line);padding:64px 0 84px;margin-top:20px}
@@ -117,7 +125,7 @@
     .hero-top{justify-content:flex-start}
     .hero-bottom{flex-direction:column;align-items:flex-start;gap:24px;margin-top:60px}
     .cards{grid-template-columns:1fr}
-    .cards-2{grid-template-columns:1fr}
+    .cards-2{grid-template-columns:1fr;gap:40px}
   }
   /* 区块内卡片依序错开进场 */
   .company.in .card{opacity:0;transform:translateY(24px);animation:fadeUp .7s cubic-bezier(.16,.84,.34,1) forwards}
@@ -125,9 +133,28 @@
   .company.in .card:nth-child(2){animation-delay:.18s}
   .company.in .card:nth-child(3){animation-delay:.31s}
 
+  /* ===== 捲動離場：內容離開畫面時淡出並上飄 =====
+     用 CSS scroll-driven animation,完全不靠 JS,不會造成捲動卡頓。
+     不支援的瀏覽器會直接跳過(內容照常顯示,只是沒有離場效果)。 */
+  @keyframes flyAway{
+    from{opacity:1;transform:translateY(0) scale(1)}
+    to{opacity:0;transform:translateY(-64px) scale(.96)}
+  }
+  @supports (animation-timeline:view()){
+    @media(prefers-reduced-motion:no-preference){
+      .hello-block,.hero-bottom,.co-head,.co-desc,.card-img,.card-body{
+        animation:flyAway linear forwards;
+        animation-timeline:view();
+        animation-range:exit 0% exit 85%;
+        will-change:opacity,transform;
+      }
+    }
+  }
+
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
-    .reveal,.hello,.hero-intro,.about-link,.role,.scroll-cue,.card{opacity:1!important;transform:none!important}
+    .reveal,.hello,.hero-intro,.about-link,.role,.scroll-cue,.card,
+    .hello-block,.hero-bottom,.co-head,.co-desc,.card-img,.card-body{opacity:1!important;transform:none!important;will-change:auto!important}
     html{scroll-behavior:auto}
   }
 
@@ -218,6 +245,8 @@
           <a href="drift-growth.html"><span data-i18n="cs.growth.short">Growth &amp; Community Engagement</span><span class="co">Drift Protocol</span></a>
           <a href="binance-copytrading.html"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
           <a href="binance-futures.html"><span data-i18n="cs.futures.short">Futures Trading</span><span class="co">Binance</span></a>
+          <a href="binance-leaderboard.html"><span data-i18n="cs.lb.short">Leaderboard</span><span class="co">Binance</span></a>
+          <a href="traderwagon.html"><span data-i18n="cs.tw.short">Social Trading Platform</span><span class="co">TraderWagon</span></a>
           </div>
         </div>
         <a href="#branding" data-i18n="nav.branding">Branding Design</a>
@@ -263,7 +292,7 @@
         <div class="card-body">
           <h3 data-i18n="card.earn.title">Reimagining Earn and Deposit Flow Experience</h3>
           <p data-i18n="card.earn.desc">Led the end-to-end UI/UX design for the Drift Earn ecosystem, including new user education, compare APY and portfolio page.</p>
-          <span class="card-btn" data-i18n="tag.view">View More</span>
+          <span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
         </div>
       </a>
       <a class="card linked" href="drift-growth.html">
@@ -271,7 +300,7 @@
         <div class="card-body">
           <h3 data-i18n="card.growth.title">Designing Trading Engagement Experiences</h3>
           <p data-i18n="card.growth.desc">Led the design of user engagement experiences for the Drift trading ecosystem, driving participation through prediction markets, onboarding flows, reward systems, and community campaigns.</p>
-          <span class="card-btn" data-i18n="tag.view">View More</span>
+          <span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
         </div>
       </a>
       <div class="card soon">
@@ -279,7 +308,7 @@
         <div class="card-body">
           <h3 data-i18n="card.ds.title">Building Drift V3 Design System &amp; Visual Ecosystem</h3>
           <p data-i18n="card.ds.desc">Built and scaled the Drift V3 design system across web and mobile platforms, extending the visual language into campaigns, launches, and ecosystem marketing experiences.</p>
-          <span class="card-btn" data-i18n="tag.soon">Coming soon</span>
+          <span class="card-btn"><span data-i18n="tag.soon">Coming Soon</span></span>
         </div>
       </div>
     </div>
@@ -295,7 +324,7 @@
         <div class="card-body">
           <h3 data-i18n="card.copy.title">Copy Trading</h3>
           <p data-i18n="card.copy.desc">Built the Copy Trading platform from 0 to 1, reaching 20K+ users within 4 months.</p>
-          <span class="card-btn" data-i18n="tag.view">View More</span>
+          <span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
         </div>
       </a>
       <a class="card linked" href="binance-futures.html">
@@ -303,57 +332,57 @@
         <div class="card-body">
           <h3 data-i18n="card.futures.title">Futures Trading Experience Design</h3>
           <p data-i18n="card.futures.desc">Owned the end-to-end UI/UX for Futures Trading across web and mobile.</p>
-          <span class="card-btn" data-i18n="tag.view">View More</span>
+          <span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
         </div>
       </a>
-      <div class="card soon">
-        <div class="card-img"><img src="images/binance-03.png" alt="Binance — Leaderboard"></div>
+      <a class="card linked" href="binance-leaderboard.html">
+        <div class="card-img"><img src="images/binance-leaderboard.png" alt="Binance — Leaderboard"></div>
         <div class="card-body">
           <h3 data-i18n="card.leaderboard.title">Binance Leaderboard</h3>
           <p data-i18n="card.leaderboard.desc">Designed the Futures Leaderboard, surfacing top traders and their performance data.</p>
-          <span class="card-btn" data-i18n="tag.soon">Coming soon</span>
+          <span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
         </div>
-      </div>
-      <div class="card soon">
-        <div class="card-img"><img src="images/binance-04.png" alt="TraderWagon"></div>
+      </a>
+      <a class="card linked" href="traderwagon.html">
+        <div class="card-img"><img src="images/traderwagon.png" alt="TraderWagon"></div>
         <div class="card-body">
           <h3 data-i18n="card.tw.title">TraderWagon</h3>
           <p data-i18n="card.tw.desc">The predecessor of Binance Copy Trading, where the core copy trading experience was first designed.</p>
-          <span class="card-btn" data-i18n="tag.soon">Coming soon</span>
+          <span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
         </div>
-      </div>
+      </a>
     </div>
   </section>
 
   <!-- OTHERS -->
   <section class="company reveal">
-    <h2 class="co-head" data-i18n="sec.others.head">— Selected Web3 Work</h2>
-    <p class="co-desc" data-i18n="sec.others.desc">Product and brand design work across other Web3 platforms and ecosystems.</p>
-    <div class="cards">
-      <div class="card soon">
-        <div class="card-img"><img src="images/other-01.png" alt="Other project 1"></div>
+    <h2 class="co-head" data-i18n="sec.others.head">— Web3 Product Design</h2>
+    <p class="co-desc" data-i18n="sec.others.desc">More Web3 Product design across exchanges and Web3 platforms.</p>
+    <div class="cards cards-sq">
+      <a class="card linked" href="https://www.apollox.finance/en" target="_blank" rel="noopener noreferrer">
+        <div class="card-img"><img src="images/apollox.png" alt="Apollo X"></div>
         <div class="card-body">
-          <h3 data-i18n="card.o1.title">Project Title</h3>
-          <p data-i18n="card.o1.desc">Short description of this project — what it was and your role.</p>
-          <span class="card-btn" data-i18n="tag.soon">Coming soon</span>
+          <h3 data-i18n="card.o1.title">Apollo X</h3>
+          <p data-i18n="card.o1.desc">Decentralized Crypto Exchanges from Binance</p>
+          <span class="card-btn"><span data-i18n="tag.visit">Visit Site</span><svg class="ico diag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span>
+        </div>
+      </a>
+      <div class="card soon">
+        <div class="card-img"><img src="images/x-xyz.png" alt="X.xyz"></div>
+        <div class="card-body">
+          <h3 data-i18n="card.o2.title">X.xyz</h3>
+          <p data-i18n="card.o2.desc">An NFT marketplace specializing in trading with ApeCoin (APE).</p>
+          <span class="card-btn"><span data-i18n="tag.soon">Coming Soon</span></span>
         </div>
       </div>
-      <div class="card soon">
-        <div class="card-img"><img src="images/other-02.png" alt="Other project 2"></div>
+      <a class="card linked" href="https://hoyabit.com/" target="_blank" rel="noopener noreferrer">
+        <div class="card-img"><img src="images/hoyabit-landing.png" alt="Hoya BIT Landing Page"></div>
         <div class="card-body">
-          <h3 data-i18n="card.o2.title">Project Title</h3>
-          <p data-i18n="card.o2.desc">Short description of this project — what it was and your role.</p>
-          <span class="card-btn" data-i18n="tag.soon">Coming soon</span>
+          <h3 data-i18n="card.o3.title">Hoya BIT Landing Page</h3>
+          <p data-i18n="card.o3.desc">Worked as a design consultant for Hoya Bit, providing UX reviews, identifying product improvements, and leading the homepage redesign.</p>
+          <span class="card-btn"><span data-i18n="tag.visit">Visit Site</span><svg class="ico diag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span>
         </div>
-      </div>
-      <div class="card soon">
-        <div class="card-img"><img src="images/other-03.png" alt="Other project 3"></div>
-        <div class="card-body">
-          <h3 data-i18n="card.o3.title">Project Title</h3>
-          <p data-i18n="card.o3.desc">Short description of this project — what it was and your role.</p>
-          <span class="card-btn" data-i18n="tag.soon">Coming soon</span>
-        </div>
-      </div>
+      </a>
     </div>
   </section>
 
@@ -402,5 +431,6 @@
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrops(null)});
 </script>
 <script src="i18n.js"></script>
+<script src="i18n-cases.js"></script>
 </body>
 </html>

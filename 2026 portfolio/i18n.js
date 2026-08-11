@@ -50,18 +50,18 @@ window.I18N_DICT = {
   'card.leader.desc': { en: "Led the product design for TraderWagon, the predecessor to Binance Copy Trading.", zh: "幣安跟單交易的上線前產品" },
 
   /* ---------- Selected Web3 Work 區塊 ---------- */
-  'sec.others.head': { en: "— Web3 Product Design", zh: "— Web3 相關作品" },
+  'sec.others.head': { en: "— More Web3 Design", zh: "— 更多Web3設計" },
   'sec.others.desc': { en: "More Web3 Product design across exchanges and Web3 platforms.", zh: "更多在交易所與 Web3 平台的產品設計作品。" },
   'card.o1.title': { en: "Apollo X", zh: "Apollo X" },
   'card.o1.desc': { en: "Decentralized Crypto Exchanges from Binance", zh: "Binance 去中心化的交易所" },
-  'card.o2.title': { en: " X.xyz ", zh: "專案名稱" },
-  'card.o2.desc': { en: "An NFT marketplace specializing in trading with ApeCoin (APE).", zh: "以 ApeCoin (APE) 進行交易的NFT平台" },
+  'card.o2.title': { en: " X.xyz ", zh: "X.xyz" },
+  'card.o2.desc': { en: "An NFT marketplace specializing in trading with ApeCoin", zh: "以 ApeCoin (APE) 進行交易的NFT平台" },
   'card.o3.title': { en: "Hoya BIT Landing Page", zh: "Hoya BIT 首頁設計改造" },
-  'card.o3.desc': { en: "Worked as a design consultant for Hoya Bit, providing UX reviews, identifying product improvements, and leading the homepage redesign.", zh: "Hoya Bit 的短期設計顧問，提供使用者體驗審查、確定產品改進方案，並領導主頁重新設計。" },
+  'card.o3.desc': { en: "Short-term design consultant and redesign landing page", zh: "短期設計顧問並領導主頁重新設計" },
 
   /* ---------- 卡片按鈕 Card buttons ---------- */
-  'tag.view': { en: "View Case Study →", zh: "查看案例研究 →" },
-  'tag.soon': { en: "Coming soon", zh: "即將推出" },
+  'tag.view': { en: "View Case Study", zh: "查看案例研究" },
+  'tag.soon': { en: "Coming soon...", zh: "即將推出..." },
 
   /* ---------- Next case study ---------- */
   'next.lbl': { en: "Next Case Study", zh: "下一個案例研究" },

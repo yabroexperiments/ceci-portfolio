@@ -3,10 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BINANCE Copy Trading — Ceci Chang</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>TraderWagon Social Trading — Ceci Chang</title>
+<meta name="description" content="TraderWagon is a social crypto trading platform that helps beginners find experienced traders and copy their trades — design lead for the platform, design system, and the Binance third-party app.">
+<link rel="canonical" href="https://changhsiju.xyz/traderwagon.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ceci Chang">
+<meta property="og:title" content="TraderWagon Social Trading — Ceci Chang">
+<meta property="og:description" content="TraderWagon is a social crypto trading platform that helps beginners find experienced traders and copy their trades — design lead for the platform, design system, and the Binance third-party app.">
+<meta property="og:url" content="https://changhsiju.xyz/traderwagon.html">
+<meta property="og:image" content="https://changhsiju.xyz/images/tw-hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TraderWagon Social Trading — Ceci Chang">
+<meta name="twitter:description" content="TraderWagon is a social crypto trading platform that helps beginners find experienced traders and copy their trades — design lead for the platform, design system, and the Binance third-party app.">
+<meta name="twitter:image" content="https://changhsiju.xyz/images/tw-hero.png">
+<link href="assets/img/dd_e0xA19up9208Tv6odcjHEw6z4cKAA6fTgjZ9ynkKoSnr5R4vFxI7gZp6p-16acb57ca0.png" rel="icon" type="image/png">
+<link href="assets/img/dd_e0xA19up9208Tv6odcjHEw6z4cKAA6fTgjZ9ynkKoSnr5R4vFxI7gZp6p-16acb57ca0.png" rel="apple-touch-icon">
+<link href="assets/fonts/inter/inter.css" rel="stylesheet">
 <style>
   :root{
     --bg:#eef1fb;--ink:#0b0b0f;--ink-soft:#48494E;--ink-mute:#71747f;
@@ -45,7 +57,7 @@
   .fact .v{font-size:16px;font-weight:500}
 
   /* meta strip */
-  .hero-shot{margin:40px 0 4px}
+  .hero-shot{margin:40px 0 24px}
   .hero-shot .ph{border-radius:12px}
   .strip{display:grid;grid-template-columns:3fr 2.5fr 4.5fr;gap:0;align-items:start}
   .strip .col{padding:30px 30px 8px 0;position:relative}
@@ -77,9 +89,9 @@
   .content-single{width:100%}
   .content-single section{padding-bottom:68px}
   /* 2 张并排均分 */
-  .pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px}
   /* 垂直由上而下堆叠 */
-  .stack{display:flex;flex-direction:column;gap:24px;margin-top:26px}
+  .stack{display:flex;flex-direction:column;gap:40px;margin-top:40px}
   .pair .fig-cap,.stack .fig-cap{margin-top:8px}
   @media(max-width:900px){.pair{grid-template-columns:1fr}}
   .content section{padding:0 0 68px;scroll-margin-top:102px}
@@ -89,6 +101,8 @@
   .sec-h{font-size:24px;font-weight:600;letter-spacing:-.01em;line-height:1.35;margin-bottom:18px;max-width:var(--tw)}
   .content p{font-size:16px;color:var(--ink-soft);line-height:1.7;margin-bottom:14px;max-width:var(--tw)}
   .focus-label{font-size:15px;color:var(--ink-mute);font-weight:500;margin:6px 0 14px}
+  .sub-label{font-size:15px;font-weight:600;color:var(--ink);letter-spacing:.01em;margin:40px 0 14px;max-width:var(--tw)}
+  .sub-label:first-of-type{margin-top:8px}
   .ol{max-width:var(--tw);margin-bottom:8px}
   .ol li{font-size:16px;color:var(--ink-soft);line-height:1.45;margin:0 0 2px 22px}
 
@@ -109,7 +123,7 @@
   .quad p{font-size:13.5px;line-height:1.6;margin:0}
 
   /* image placeholders */
-  .figure{margin-top:26px}
+  .figure{margin-top:40px}
   .ph{
     background:linear-gradient(135deg,#1a1030,#0c0c14);border-radius:14px;
     display:flex;align-items:center;justify-content:center;color:#71749a;font-size:13.5px;font-weight:500;text-align:center;padding:24px;border:1px solid var(--line);
@@ -122,12 +136,12 @@
   .fig-cap{margin-top:10px;font-size:13.5px;color:var(--ink-mute)}
   .two-up{display:grid;grid-template-columns:1fr 1fr;gap:20px}
   /* 08 双栏并排 / 09 手机图换行网格 */
-  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px}
-  .grid-phones{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:26px}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px}
+  .grid-phones{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-top:40px}
   .grid-2 .fig-cap,.grid-phones .fig-cap{margin-top:8px}
 
   /* horizontal gallery — 固定宽度容器 + 左右箭头 */
-  .gallery{position:relative;margin-top:26px}
+  .gallery{position:relative;margin-top:40px}
   .viewport{overflow:hidden;max-width:100%}
   .track{display:flex;gap:20px;transition:transform .5s cubic-bezier(.22,.61,.36,1);will-change:transform}
   .track .slide{flex:0 0 auto;width:300px}
@@ -286,6 +300,9 @@
   @media(max-width:960px){
     .nav-links.open .nav-right{margin-left:0;width:100%;justify-content:flex-start}
   }
+  .out-link{display:inline-flex;align-items:center;gap:9px;font-weight:600;color:var(--accent);white-space:nowrap}
+  .out-link .ico{width:17px;height:17px;flex:0 0 auto;animation:nudgeDiag 1.8s ease-in-out infinite}
+  @keyframes nudgeDiag{0%,100%{transform:translate(0,0)}50%{transform:translate(4px,-4px)}}
 </style>
 </head>
 <body>
@@ -301,10 +318,10 @@
           <div class="drop-menu">
           <a href="drift-earn.html"><span data-i18n="cs.earn.short">DeFi Earn Experience</span><span class="co">Drift Protocol</span></a>
           <a href="drift-growth.html"><span data-i18n="cs.growth.short">Growth &amp; Community Engagement</span><span class="co">Drift Protocol</span></a>
-          <a href="binance-copytrading.html" aria-current="page"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
+          <a href="binance-copytrading.html"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
           <a href="binance-futures.html"><span data-i18n="cs.futures.short">Futures Trading</span><span class="co">Binance</span></a>
           <a href="binance-leaderboard.html"><span data-i18n="cs.lb.short">Leaderboard</span><span class="co">Binance</span></a>
-          <a href="traderwagon.html"><span data-i18n="cs.tw.short">Social Trading Platform</span><span class="co">TraderWagon</span></a>
+          <a href="traderwagon.html" aria-current="page"><span data-i18n="cs.tw.short">Social Trading Platform</span><span class="co">TraderWagon</span></a>
           </div>
         </div>
         <a href="index.html#branding" data-i18n="nav.branding">Branding Design</a>
@@ -326,108 +343,143 @@
   <div class="p-head">
     <div>
       <div class="eyebrow">
-        <span class="lbl">Case Study</span>
-        <span class="chip">◈ Binance</span>
-        <span class="chip">App & Web</span>
+        <span class="lbl" data-i18n="lb.eyebrow">Case Study</span>
+        <span class="chip">◈ TraderWagon</span>
+        <span class="chip" data-i18n="tw.chip2">Social Trading</span>
       </div>
-      <h1 class="p-title">BINANCE Copy Trading</h1>
-      <p class="p-lead">The Copy Trading feature allows users to replicate the trades of experienced traders, providing a unique opportunity for both beginners and experts in the world of cryptocurrency trading.</p>
+      <h1 class="p-title" data-i18n="tw.title">TraderWagon Social Trading Platform</h1>
+      <p class="p-lead" data-i18n="tw.lead">TraderWagon is a social crypto trading platform that helps beginners find experienced traders and copy their trades. Users sign in with their Binance credentials, and can also reach the product as a third-party app embedded inside Binance.</p>
     </div>
     <div class="facts">
-      <div class="fact"><div class="k">Role</div><div class="v">Design Lead, Product Designer</div></div>
-      <div class="fact"><div class="k">Scope</div><div class="v">App & Web, end-to-end UX/UI</div></div>
-      <div class="fact"><div class="k">Timeline</div><div class="v">Designed from scratch, launched in 2 months</div></div>
-      <div class="fact"><div class="k">Process</div><div class="v">Bi-weekly iterations</div></div>
+      <div class="fact"><div class="k" data-i18n="fact.role">Role</div><div class="v" data-i18n="tw.role">Design Lead &amp; Product Designer</div></div>
+      <div class="fact"><div class="k" data-i18n="fact.scope">Scope</div><div class="v" data-i18n="tw.scope">Platform (Web), Binance third-party app, design system</div></div>
+      <div class="fact"><div class="k" data-i18n="fact.year">Year</div><div class="v">2021 &amp; 2022</div></div>
+      <div class="fact"><div class="k" data-i18n="fact.teams">Teams</div><div class="v" data-i18n="tw.teams">2–4 designers, PM, Dev, Marketing</div></div>
     </div>
   </div>
 
   <div class="hero-shot reveal">
-    <img src="images/bnct-hero.png" alt="Binance Copy Trading — hero" class="ph wide">
+    <img src="images/tw-hero.png" alt="TraderWagon Social Trading Platform" class="ph" fetchpriority="high">
   </div>
 
   <div class="strip">
-    <div class="col"><div class="k">Product</div><div class="v">Copy Trading (App & Web)</div></div>
-    <div class="col"><div class="k">Users</div><div class="v">Lead Traders & Copy Traders</div></div>
-    <div class="col"><div class="k">Impact</div><div class="v">Achieved growth KPI targets each quarter through a smoother end-to-end experience.</div></div>
+    <div class="col"><div class="k" data-i18n="strip.product">Product</div><div class="v" data-i18n="tw.product">TraderWagon Social Trading (Web &amp; Binance embedded app)</div></div>
+    <div class="col"><div class="k" data-i18n="strip.ownership">Ownership</div><div class="v" data-i18n="tw.ownership">Design lead for the platform, design system, and the Binance third-party app</div></div>
+    <div class="col"><div class="k" data-i18n="strip.impact">Impact</div><div class="v" data-i18n="tw.impact">Journey-mapping fixes drove a 30% increase in users; the most popular copy trading tool before Binance launched its own.</div></div>
   </div>
 
   <div class="layout">
-    <!-- TOC -->
     <aside class="toc" id="toc">
-      <a href="#s1"><span class="num">01</span> My Role</a>
-      <a href="#s2"><span class="num">02</span> The Challenge</a>
-      <a href="#s3"><span class="num">03</span> Competitive Research</a>
-      <a href="#s4"><span class="num">04</span> App Design</a>
-      <a href="#s5"><span class="num">05</span> Web Design</a>
+        <a href="#s1"><span class="num">01</span> <span data-i18n="tw.toc1">My Role</span></a>
+        <a href="#s2"><span class="num">02</span> <span data-i18n="tw.toc2">User Journey Map</span></a>
+        <a href="#s3"><span class="num">03</span> <span data-i18n="tw.toc3">Web Design</span></a>
+        <a href="#s4"><span class="num">04</span> <span data-i18n="tw.toc4">User Feedback Loop</span></a>
+        <a href="#s5"><span class="num">05</span> <span data-i18n="tw.toc5">Binance 3rd Party Tool</span></a>
     </aside>
 
-    <!-- CONTENT -->
     <div class="content">
+
       <section id="s1" class="reveal">
-        <div class="sec-eyebrow"><span class="num">01</span><span class="name">My Role</span></div>
-      <h2 class="sec-h">Design Lead and Product Designer</h2>
-      <p>I led the project and designed the Copy Trading App from scratch with bi-weekly iterations, and pushed to launch within 2 months.</p>
-      <p>I was responsible for a smooth user experience and for achieving growth KPI targets each quarter.</p>
-    </section>
+        <div class="sec-eyebrow"><span class="num">01</span><span class="name" data-i18n="tw.toc1">My Role</span></div>
+        <h2 class="sec-h" data-i18n="tw.s1.h">Leading a small design team across the platform, the design system, and social.</h2>
+        <p data-i18n="tw.s1.p1">As Design Lead for TraderWagon I led a team of 2–4 designers covering both the platform and the social media experience. My work was as much about building the system the team designed within as about the screens themselves.</p>
+        <p data-i18n="tw.s1.p2">I directed the team to establish design guidelines, a shared component library, and page flows, and I ran the reviews that kept the experience consistent as the product grew.</p>
+      </section>
 
-    <section id="s2" class="reveal">
-      <div class="sec-eyebrow"><span class="num">02</span><span class="name">The Challenge</span></div>
-      <h2 class="sec-h">The Copy Trading feature needed to satisfy many different user personas.</h2>
-      <p>There was a lot of varied feedback from users, so I led the discussion between Designers, PM and Marketing teams to reach a solution that catered for:</p>
-      <div class="rows">
-        <div class="row"><div class="rn">1</div><div><h4>Advanced users</h4><p>Requirements of professional Lead Traders and seasoned Copy Traders.</p></div></div>
-        <div class="row"><div class="rn">2</div><div><h4>Beginners</h4><p>Easily follow or copy an order with one click for beginner Copy Traders.</p></div></div>
-        <div class="row"><div class="rn">3</div><div><h4>Portfolio control</h4><p>Enable Lead Traders and Copy Traders to control their portfolio status at any time.</p></div></div>
-      </div>
-    </section>
+      <section id="s2" class="reveal">
+        <div class="sec-eyebrow"><span class="num">02</span><span class="name" data-i18n="tw.toc2">User Journey Map</span></div>
+        <h2 class="sec-h" data-i18n="tw.s2.h">Mapping the journey to find where beginners actually got stuck.</h2>
+        <p data-i18n="tw.s2.p1">I ran workshops and interviews to map the end-to-end journey and locate the specific steps where users ran into trouble, rather than guessing from analytics alone. Resolving the problems surfaced by that exercise led to a 30% increase in users.</p>
+        <div class="figure">
+          <img src="images/tw-journey.png" alt="TraderWagon user journey map" class="ph" loading="lazy" decoding="async">
+          <div class="fig-cap" data-i18n="tw.s2.c1">User journey map from workshops and interviews</div>
+        </div>
+      </section>
 
-    <section id="s3" class="reveal">
-      <div class="sec-eyebrow"><span class="num">03</span><span class="name">Competitive Product Research</span></div>
-      <h2 class="sec-h">I conducted extensive research of the competition, with constant monitoring of new features.</h2>
-      <p>I proposed simpler and more intuitive processes, and emphasized our strengths.</p>
-      <div class="pair">
-        <div><img src="images/bnct-research-01.png" alt="Competitor monitoring" class="ph"><div class="fig-cap">Competitor monitoring</div></div>
-        <div><img src="images/bnct-research-02.png" alt="Proposed simpler flows" class="ph"><div class="fig-cap">Proposed simpler flows</div></div>
-      </div>
-    </section>
+      <section id="s3" class="reveal">
+        <div class="sec-eyebrow"><span class="num">03</span><span class="name" data-i18n="tw.toc3">Web Design</span></div>
+        <h2 class="sec-h" data-i18n="tw.s3.h">Shifting visual focus onto the portfolios people came to compare.</h2>
 
-    <section id="s4" class="reveal">
-      <div class="sec-eyebrow"><span class="num">04</span><span class="name">Copy Trading App Design</span></div>
-      <p class="sub-label">Design Highlights</p>
-      <div class="rows">
-        <div class="row"><div class="rn">1</div><div><h4>Clear, intuitive homepage</h4><p>Clearly categorized homepage; portfolio card design surfaces the most vital information. More beginner-friendly with terminology explanations, and a simplified application process to become a Lead Trader.</p></div></div>
-        <div class="row"><div class="rn">2</div><div><h4>Easy onboarding & copy settings</h4><p>Functional guide for first-time users. Copy settings are simple and easy to understand, with advanced settings that expand for experienced users.</p></div></div>
-        <div class="row"><div class="rn">3</div><div><h4>Performance visualization</h4><p>Trader performance visualization makes it easy to add favorites and copy orders. The total amount is summarized on the My Copy Trading page, with multiple ongoing and closed portfolios viewable and expandable to manage.</p></div></div>
-        <div class="row"><div class="rn">4</div><div><h4>Lead Trader management</h4><p>Lead Traders can easily manage their portfolio, with key performance graphs to monitor positions and trade history, and one click to share portfolio performance. All trading activities are controlled on a single Trade page, with a consistent K-line experience with Futures Trading.</p></div></div>
-      </div>
-      <div class="stack">
-        <div><img src="images/bnct-app-01.png" alt="App — Homepage" class="ph"><div class="fig-cap">Homepage</div></div>
-        <div><img src="images/bnct-app-02.png" alt="App — Copy settings" class="ph"><div class="fig-cap">Copy settings</div></div>
-        <div><img src="images/bnct-app-03.png" alt="App — My Copy Trading" class="ph"><div class="fig-cap">My Copy Trading</div></div>
-        <div><img src="images/bnct-app-04.png" alt="App — Lead Trader portfolio" class="ph"><div class="fig-cap">Lead Trader portfolio</div></div>
-        <div><img src="images/bnct-app-05.png" alt="App — Trade page" class="ph"><div class="fig-cap">Trade page</div></div>
-      </div>
-    </section>
+        <p class="sub-label" data-i18n="tw.s3.g0">Overview</p>
+        <div class="figure">
+          <img src="images/tw-web-overview.png" alt="TraderWagon web design overview" class="ph" loading="lazy" decoding="async">
+          <div class="fig-cap" data-i18n="tw.s3.c0">Web design overview</div>
+        </div>
 
-    <section id="s5" class="reveal">
-      <div class="sec-eyebrow"><span class="num">05</span><span class="name">Copy Trading Web Design</span></div>
-      <h2 class="sec-h">Extending the experience to web, with responsive layouts (RWD).</h2>
-      <div class="stack">
-        <div><img src="images/bnct-web-01.png" alt="Web — Copy Trading homepage" class="ph"><div class="fig-cap">Copy Trading homepage & RWD</div></div>
-        <div><img src="images/bnct-web-02.png" alt="Web — My Lead Trading" class="ph"><div class="fig-cap">My Lead Trading & RWD</div></div>
-        <div><img src="images/bnct-web-03.png" alt="Web — Copy Settings" class="ph"><div class="fig-cap">Copy Settings & RWD</div></div>
-        <div><img src="images/bnct-web-04.png" alt="Web — My Copy Trading" class="ph"><div class="fig-cap">My Copy Trading & RWD</div></div>
-        <div><img src="images/bnct-web-05.png" alt="Web — Trade page" class="ph"><div class="fig-cap">Trade page & RWD</div></div>
-      </div>
-    </section>
+        <p class="sub-label" data-i18n="tw.s3.g1">Homepage &amp; filters</p>
+        <ol class="ol">
+          <li data-i18n="tw.s3.l1a">Reduced the height of the activity banner so visual focus lands on the portfolio cards.</li>
+          <li data-i18n="tw.s3.l1b">Improved the usability of the filters.</li>
+          <li data-i18n="tw.s3.l1c">Moved My Favorites to a more visible location to increase its usage.</li>
+          <li data-i18n="tw.s3.l1d">Increased the number of portfolio cards on the first page from 9 to 20.</li>
+          <li data-i18n="tw.s3.l1e">Added more sorting options and API filters.</li>
+        </ol>
+        <div class="figure">
+          <img src="images/tw-web-01.png" alt="TraderWagon homepage and filter redesign" class="ph" loading="lazy" decoding="async">
+          <div class="fig-cap" data-i18n="tw.s3.c1">Homepage &amp; filter iteration</div>
+        </div>
+
+        <p class="sub-label" data-i18n="tw.s3.g2">Copy Settings page</p>
+        <ol class="ol">
+          <li data-i18n="tw.s3.l2a">Reduced how often users had to go back to the previous page.</li>
+          <li data-i18n="tw.s3.l2b">Removed illustrations to make room for the settings that mattered.</li>
+          <li data-i18n="tw.s3.l2c">Added friendlier guidance for first-time users.</li>
+          <li data-i18n="tw.s3.l2d">Promoted take-profit and stop-loss to the first layer, based on user feedback.</li>
+        </ol>
+        <div class="figure">
+          <img src="images/tw-web-02.png" alt="TraderWagon copy settings page redesign" class="ph" loading="lazy" decoding="async">
+          <div class="fig-cap" data-i18n="tw.s3.c2">Copy Settings iteration</div>
+        </div>
+      </section>
+
+      <section id="s4" class="reveal">
+        <div class="sec-eyebrow"><span class="num">04</span><span class="name" data-i18n="tw.toc4">User Feedback Loop</span></div>
+        <h2 class="sec-h" data-i18n="tw.s4.h">Turning social media complaints into a weekly design intake.</h2>
+        <p data-i18n="tw.s4.p1">Rather than treating social media as noise, my team reviewed and validated user feedback and reported issues there every week. Once priorities were agreed with the other teams, the fixes went straight into the design queue.</p>
+        <div class="figure">
+          <img src="images/tw-feedback.png" alt="User feedback collected from social media" class="ph" loading="lazy" decoding="async">
+          <div class="fig-cap" data-i18n="tw.s4.c1">Weekly review of user feedback from social media</div>
+        </div>
+      </section>
+
+      <section id="s5" class="reveal">
+        <div class="sec-eyebrow"><span class="num">05</span><span class="name" data-i18n="tw.toc5">Binance 3rd Party Tool</span></div>
+        <h2 class="sec-h" data-i18n="tw.s5.h">The same product, embedded inside Binance itself.</h2>
+        <p data-i18n="tw.s5.p1">This third-party tool was an app embedded on the Binance homepage, letting users copy trade directly with their Binance wallet. It was the most popular copy trading tool available before Binance built its own feature.</p>
+
+        <p class="sub-label" data-i18n="tw.s5.g1">Homepage</p>
+        <div class="figure">
+          <img src="images/tw-app-01.png" alt="Binance third-party tool homepage" class="ph" loading="lazy" decoding="async">
+          <div class="fig-cap" data-i18n="tw.s5.c1">Browsing Lead Trader portfolios to find one to invest in</div>
+        </div>
+
+        <p class="sub-label" data-i18n="tw.s5.g2">Onboarding</p>
+        <div class="figure">
+          <img src="images/tw-app-02.png" alt="Welcome guide and continue with Binance wallet" class="ph" loading="lazy" decoding="async">
+          <div class="fig-cap" data-i18n="tw.s5.c2">Welcome guide and sign-up with a Binance wallet</div>
+        </div>
+
+        <p class="sub-label" data-i18n="tw.s5.g3">Portfolio &amp; copying</p>
+        <div class="figure">
+          <img src="images/tw-app-03.png" alt="Portfolio details and copy portfolio pages" class="ph" loading="lazy" decoding="async">
+          <div class="fig-cap" data-i18n="tw.s5.c3">Portfolio Details and Copy Portfolio pages</div>
+        </div>
+
+        <p class="sub-label" data-i18n="tw.s5.g4">Managing your copies</p>
+        <div class="figure">
+          <img src="images/tw-app-04.png" alt="My copy trading page" class="ph" loading="lazy" decoding="async">
+          <div class="fig-cap" data-i18n="tw.s5.c4">My Copy Trading — managing portfolios and adjusting copy settings</div>
+        </div>
+      </section>
+
     </div>
   </div>
 
-  <a class="next-cs" href="binance-futures.html">
+  <a class="next-cs" href="drift-earn.html">
     <div class="inner">
       <div>
-        <div class="lbl"><span data-i18n="next.lbl">NEXT CASE STUDY</span> · BINANCE</div>
-        <div class="t" data-i18n="cs.futures.long">BINANCE Futures Trading</div>
+        <div class="lbl"><span data-i18n="next.lbl">NEXT CASE STUDY</span> · DRIFT PROTOCOL</div>
+        <div class="t" data-i18n="cs.earn.long">DeFi Earn Experience</div>
       </div>
       <svg class="arw" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
     </div>
