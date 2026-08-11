@@ -80,6 +80,14 @@ IMG_REMAP = {  # referenced-but-missing filename -> file that holds that content
     "images/traderwagon.png": "images/binance-04.png",
 }
 
+# TEMPORARY (AC 2026-08-11): Ceci's About section doesn't exist yet, so the
+# About Me links point at the preserved old /about-me/ page. Remove both
+# entries once she ships the new About section (nav.about -> #about again).
+LINK_REMAP = {
+    'href="#about" class="about-link"': 'href="about-me/" class="about-link"',
+    'href="index.html#about" class="pill"': 'href="about-me/" class="pill"',
+}
+
 I18N_KEY_REMAP = {
     "card.wallet.title": "card.leaderboard.title",
     "card.wallet.desc": "card.leaderboard.desc",
@@ -142,6 +150,9 @@ def main():
         page, n = re.subn(r"(</title>)", r"\1" + meta_block(page, info), page, count=1)
         if n != 1:
             errors.append(f"{name}: could not inject meta after <title>")
+
+        for old, new in LINK_REMAP.items():
+            page = page.replace(old, new)
 
         if name == "index.html":
             for old, new in IMG_REMAP.items():
