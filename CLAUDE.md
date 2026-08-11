@@ -189,19 +189,33 @@ Python 3 with `beautifulsoup4` and `lxml` (`pip3 install beautifulsoup4 lxml`). 
 
 `gh` CLI required for repo ops, authenticated as `yabroexperiments`.
 
-## Revamp in progress (decided 2026-08-03)
+## Revamp — SHIPPED 2026-08-11 (v2026 design live on production)
 
-Ceci is revamping the whole site: **new homepage + 3 new case-study pages**,
-designed by her (Figma + AI-generated HTML), replacing the IM Creator look.
-- Her first page template: `reference/drift-earn_13.html` — self-contained
-  single-file HTML (one fix needed on integration: self-host its Google-Fonts
-  `Inter` links). Its nav targets `index.html#work/#branding/#about/#contact`,
-  i.e. the FUTURE homepage. ~14 image placeholders await her Figma exports
-  (galleries expect 16:10 web shots and 9:19 app shots).
-- Fix before live: `mailto:your@email.com` → `changhsiju@gmail.com`; LinkedIn
-  `href="#"` → her profile; confirm zh-Hant helper strings vs English.
-- Build plan: everything on one branch, cut over to `main` in one verified
-  merge (same gates as the standalone migration).
+Ceci's 2026 redesign is LIVE: new homepage + 4 case-study pages
+(`drift-earn` / `drift-growth` / `binance-copytrading` / `binance-futures`),
+merged to `main` @ `5fdb5de` and content-verified on production.
+
+- **Source of truth = `2026 portfolio/`** (Ceci's export, committed as-is).
+  **Integration = `integrate_2026.py`** (idempotent; run it whenever she
+  delivers updated files). It copies pages/images/i18n.js into `site/` and
+  applies the only allowed patches: self-hosted Inter (`site/assets/fonts/
+  inter/`), SEO/OG/favicon meta, binance-03/04 card-image remap, i18n key
+  remap, About-Me→`about-me/` link remap. Never hand-edit `site/*.html` for
+  content — edit her source or the script.
+- **Old IM Creator pages are KEPT at their URLs** (AC decision 2026-08-11):
+  only the old homepage was replaced. `/about-me/` + 23 project pages still
+  served; new nav does NOT link to them (only About Me → `about-me/`,
+  temporary until Ceci ships her new About section — then remove LINK_REMAP
+  from the script).
+- **Known-open (waived by AC, ship-broken):** `images/other-01/02/03.png`
+  missing → 3 broken cards in "Selected Web3 Work"; nav `#branding`/`#ui`
+  anchors dead until Ceci builds those sections.
+- **Ask Ceci to re-export @2×** (source-limited, soft on Retina):
+  `hero.png` (1280w vs ~2900 need), `growth-campaigns.png`,
+  `onboarding-flow.png`, `discovery-before/after.png`.
+- i18n: EN default + zh-Hant via `i18n.js`; Ceci edits translations with
+  `2026 portfolio/translations-editor.html` (reads/regenerates i18n.js;
+  NOT deployed). Case-study body text is EN-only by design.
 - Collaboration model: Ceci works ON ALBERT'S MAC with this Claude Code.
   Do NOT use her company Claude account (employer data policy) and do NOT
   share Albert's account onto her work machine (ToS + connected MCP services
