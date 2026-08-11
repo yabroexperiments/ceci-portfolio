@@ -172,15 +172,8 @@ def main():
         for ref in sorted(set(re.findall(r'(?:src|href)="(images/[^"]+)"', page))):
             if not (SITE / ref).exists():
                 missing.append(f"{name}: {ref}")
-    known_missing = {"images/other-01.png", "images/other-02.png", "images/other-03.png"}
-    real = [m for m in missing if m.split(": ")[1] not in known_missing]
-    waived = [m for m in missing if m.split(": ")[1] in known_missing]
-    if waived:
-        print("missing images WAIVED by Albert 2026-08-11 (ship broken until Ceci exports):")
-        for m in waived:
-            print("  -", m)
-    if real:
-        errors.extend("missing image: " + m for m in real)
+    if missing:
+        errors.extend("missing image: " + m for m in missing)
 
     # --- verify: no external requests left (fonts/CDNs) ---
     for name in PAGES:
