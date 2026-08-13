@@ -41,7 +41,11 @@ YouTube embeds + outbound content links remain remote, by design). The IM Creato
 ecommerce phone-home XHR is disabled (`data-ecommerce-solution="DISABLED"`), and
 runtime `=sNNN` Google-CDN image resizing is patched out of the IM Creator JS.
 Verified: 25/25 pages runtime-swept (zero external requests, zero broken images)
-+ independent adversarial audit (GREEN).
++ independent adversarial audit (GREEN). **SCOPE: that sweep covered the 25
+IM Creator pages as of 2026-08-03 — one of which (the old homepage) is now
+retired. The 7 v2026 pages are NOT covered by it; they get the same guarantee
+from `integrate_2026.py`'s external-reference + missing-image gates, re-run on
+every drop.**
 
 Consequences:
 - **`rip_live.py` is RETIRED → `legacy/`. Never run it against `site/`** — its
@@ -68,8 +72,10 @@ Consequences:
   shipped 300px thumbs + runtime CDN upsizing (patched out), so re-downloading
   any image "as referenced" reintroduces blur. If images ever look soft, check
   intrinsic vs displayed×DPR (measure at devicePixelRatio 2), not just 404s.
-  **Retina verification done 2026-08-03 across all 25 live pages: 0 fixable
-  deficits.** ~19 files render below 2× need but are AT SOURCE MAX — Ceci's
+  **Retina verification done 2026-08-03 across the 25 IM Creator pages: 0
+  fixable deficits.** (The v2026 pages are a separate asset set with their own
+  known soft files — see the Revamp section.) ~19 files render below 2× need
+  but are AT SOURCE MAX — Ceci's
   original uploads are that small (e.g. acadine screens 910px, htc_mini icons
   128px, one binance comp 1679px); verified equal to Google's `=s0` best.
   Only fix = Ceci re-exports at 2× during the revamp. Do NOT chase these.
@@ -151,12 +157,18 @@ What v2 fixed by re-ripping:
 - **Original IM Creator footer + social icons** rendered as IM Creator does it — no custom Ceci-Chang-logo, no unified-footer injection, no back-link.
 - **No spimeengine flicker** because v2 uses the actual published HTML which is post-render and stable.
 
-## Pages (25 URLs total)
+## Pages — historical IM Creator set (the old `/` is GONE; the other 24 are still served)
+
+> ⚠️ Superseded by the revamp (see bottom section). Since 2026-08-11 the site serves
+> **7 new v2026 pages at the root** (`/`, `drift-earn`, `drift-growth`,
+> `binance-copytrading`, `binance-futures`, `binance-leaderboard`, `traderwagon`)
+> **plus these 24 preserved IM Creator pages** at their original URLs. Only the old
+> homepage was replaced. Nothing in the new nav links to the 24 except About Me.
 
 Homepage + about-me + 23 project pages, mirrored from live changhsiju.com:
 
-- `/` (homepage with all project links)
-- `/about-me/`
+- `/` (homepage with all project links) — **REPLACED 2026-08-11 by Ceci's v2026 homepage**
+- `/about-me/` — still served; the new homepage's "About Me" points here
 - Captured-page slugs: `bnct`, `binance-future-trading-platform`, `binance-leaderboard`, `traderwagon_platform`, `traderwagon_mkt`, `xxyz`, `coinful`, `icardai`
 - Older-portfolio slugs: `acadine_watch`, `acadine_smart-home`, `acadine_feature-phone`, `mozilla_smart-tv`, `mozilla_feature-phone`, `mozilla_car-ui`, `htc_phone-app`, `htc_dot-view`, `htc_cos-wallpaper`, `htc_message`, `htc_clock`, `htc_scribble`, `htc_lifeme`, `htc_mini`, `htc_tablet`
 
@@ -189,33 +201,58 @@ Python 3 with `beautifulsoup4` and `lxml` (`pip3 install beautifulsoup4 lxml`). 
 
 `gh` CLI required for repo ops, authenticated as `yabroexperiments`.
 
-## Revamp — SHIPPED 2026-08-11 (v2026 design live on production)
+## Revamp — SHIPPED (v2026 design live; last revision 2026-08-13 @ `4e95bbf`)
 
-Ceci's 2026 redesign is LIVE: new homepage + 4 case-study pages
-(`drift-earn` / `drift-growth` / `binance-copytrading` / `binance-futures`),
-merged to `main` @ `5fdb5de` and content-verified on production.
+Ceci's 2026 redesign is LIVE: new homepage + **6** case-study pages
+(`drift-earn` / `drift-growth` / `binance-copytrading` / `binance-futures` /
+`binance-leaderboard` / `traderwagon`), content-verified on production.
+Shipped 2026-08-11 @ `5fdb5de`; her first revision landed 2026-08-13 @ `4e95bbf`
+(2 new case studies, homepage card redesign, 86px nav, `i18n-cases.js`).
 
 - **Source of truth = `2026 portfolio/`** (Ceci's export, committed as-is).
-  **Integration = `integrate_2026.py`** (idempotent; run it whenever she
-  delivers updated files). It copies pages/images/i18n.js into `site/` and
-  applies the only allowed patches: self-hosted Inter (`site/assets/fonts/
-  inter/`), SEO/OG/favicon meta, binance-03/04 card-image remap, i18n key
-  remap, About-Me→`about-me/` link remap. Never hand-edit `site/*.html` for
-  content — edit her source or the script.
+  **Integration = `integrate_2026.py`** — run it for every drop; never hand-edit
+  `site/*.html` for content. It mirrors pages/images/i18n dicts into `site/` and
+  applies the only allowed patches: self-hosted Inter (`site/assets/fonts/inter/`),
+  SEO/OG/favicon meta, i18n key remap, About-Me→`about-me/` link remap.
+- **Revision drops arrive as a SEPARATE folder** (e.g. `2026 portfolio revised/`).
+  Fold it into the canonical source, don't integrate from it:
+  `rsync -a --delete --exclude .DS_Store "2026 portfolio revised/" "2026 portfolio/"`
+  then re-run the script. Add the drop folder + its zip to `.gitignore`;
+  `2026 portfolio/` is the only committed copy.
+- **The script is the gate — it has four enforced checks, each verified against
+  known-bad input 2026-08-13.** (1) every `LINK_REMAP`/patch must match at least
+  once, else it errors ("its cause is gone, delete it") — a `str.replace()` whose
+  target vanished is a SILENT no-op; (2) `site/images` is MIRRORED, not copied —
+  files Ceci renames/drops get pruned and logged, or they stay live forever;
+  (3) every `data-i18n` key used by a page must exist in `i18n.js`/`i18n-cases.js`
+  — a missing key silently renders English, which is how a mis-keyed card once
+  shipped untranslated; (4) every referenced local image must exist, and no page
+  may reference an off-domain asset (link allowlist in `EXTERNAL_ALLOW`).
+  **Trust its exit code; don't re-verify these by eye.**
 - **Old IM Creator pages are KEPT at their URLs** (AC decision 2026-08-11):
   only the old homepage was replaced. `/about-me/` + 23 project pages still
   served; new nav does NOT link to them (only About Me → `about-me/`,
-  temporary until Ceci ships her new About section — then remove LINK_REMAP
-  from the script).
-- **Known-open (waived by AC, ship-broken):** `images/other-01/02/03.png`
-  missing → 3 broken cards in "Selected Web3 Work"; nav `#branding`/`#ui`
-  anchors dead until Ceci builds those sections.
+  temporary until Ceci ships her new About section — then delete that
+  `LINK_REMAP` entry; the script will error at the next run if you forget).
+- **Known-open:** nav `#branding`/`#ui` anchors are dead until Ceci builds those
+  sections; X.xyz card is "Coming soon" by her choice. (The 3 missing
+  "Selected Web3 Work" images were CLOSED 2026-08-11 — that section now holds
+  real Apollo X / X.xyz / Hoya BIT content, two cards deep-linking out.)
 - **Ask Ceci to re-export @2×** (source-limited, soft on Retina):
   `hero.png` (1280w vs ~2900 need), `growth-campaigns.png`,
-  `onboarding-flow.png`, `discovery-before/after.png`.
-- i18n: EN default + zh-Hant via `i18n.js`; Ceci edits translations with
-  `2026 portfolio/translations-editor.html` (reads/regenerates i18n.js;
-  NOT deployed). Case-study body text is EN-only by design.
+  `onboarding-flow.png`, `discovery-before/after.png`. Her newer exports are
+  fine (bnl-*/tw-* are 1600–2048px).
+- i18n: EN default + zh-Hant. `i18n.js` = base dict; **`i18n-cases.js` = overlay
+  dict** loaded after it (case-page body text — the 2 newest pages are fully
+  bilingual, the 4 older ones are EN-only by design). Ceci edits with
+  `2026 portfolio/translations-editor.html` (NOT deployed); **when she
+  regenerates `i18n.js` from it, the overlay gets merged in and
+  `i18n-cases.js` must be deleted along with its `<script>` tags** — her
+  editor says so in its own instructions.
+- **Deploys are cache-invisible to AC.** GitHub Pages serves the new bytes in
+  ~1–3 min, but his browser keeps showing the old page. Every "it's live"
+  message ships with "hard-refresh (`Cmd+Shift+R`)" attached — this has cost a
+  round trip twice.
 - Collaboration model: Ceci works ON ALBERT'S MAC with this Claude Code.
   Do NOT use her company Claude account (employer data policy) and do NOT
   share Albert's account onto her work machine (ToS + connected MCP services

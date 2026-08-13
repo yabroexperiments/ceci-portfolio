@@ -136,13 +136,21 @@ def main():
     if not (SITE / "assets/fonts/inter/inter.css").exists():
         sys.exit("FATAL: site/assets/fonts/inter/inter.css missing — self-host Inter first")
 
-    # --- images ---
+    # --- images: MIRROR, not copy. A copy-only sync accumulates: a file Ceci
+    # renames or drops would linger in site/ forever, still deployed. site/images
+    # is owned entirely by this script, so anything not in her export is stale.
     (SITE / "images").mkdir(exist_ok=True)
+    src_names = {img.name for img in (SRC / "images").glob("*.png")}
     copied = 0
     for img in sorted((SRC / "images").glob("*.png")):
         shutil.copy2(img, SITE / "images" / img.name)
         copied += 1
-    print(f"images: copied {copied}")
+    pruned = [p.name for p in sorted((SITE / "images").glob("*.png"))
+              if p.name not in src_names]
+    for name in pruned:
+        (SITE / "images" / name).unlink()
+    print(f"images: copied {copied}" +
+          (f", PRUNED {len(pruned)} stale: {', '.join(pruned)}" if pruned else ""))
 
     # --- i18n dictionaries (key remap applies to i18n.js only) ---
     js = (SRC / "i18n.js").read_text(encoding="utf-8")
@@ -160,6 +168,7 @@ def main():
                       "reference it — check <script> tags before removing")
 
     # --- pages ---
+    link_remap_hits = {k: 0 for k in LINK_REMAP}
     for name, info in PAGES.items():
         page = (SRC / name).read_text(encoding="utf-8")
 
@@ -172,10 +181,38 @@ def main():
             errors.append(f"{name}: could not inject meta after <title>")
 
         for old, new in LINK_REMAP.items():
-            page = page.replace(old, new)
+            if old in page:
+                page = page.replace(old, new)
+                link_remap_hits[old] += 1
 
         (SITE / name).write_text(page, encoding="utf-8")
         print(f"{name}: written")
+
+    # --- verify: every patch still had something to patch ---
+    # A str.replace() whose target vanished is a SILENT no-op, so a workaround
+    # outlives its cause invisibly. Every entry must match at least once or be
+    # deliberately deleted. (2026-08-11: Ceci removed the About pill from the
+    # case pages and that remap entry quietly stopped doing anything.)
+    for pat, hits in link_remap_hits.items():
+        if hits == 0:
+            errors.append(f"LINK_REMAP entry never matched — its cause is gone, "
+                          f"delete it: {pat}")
+
+    # --- verify: every data-i18n key a page asks for is actually defined ---
+    # A missing key silently renders the English fallback, so a typo or a rename
+    # only shows up as "that card won't translate". (Bit us with
+    # card.leaderboard/card.tw on 2026-08-11.)
+    dict_keys = set()
+    for jsname in ("i18n.js", "i18n-cases.js"):
+        f = SITE / jsname
+        if f.exists():
+            dict_keys |= set(re.findall(r"'([\w.]+)':\s*\{\s*en:", f.read_text(encoding="utf-8")))
+    for name in PAGES:
+        page = (SITE / name).read_text(encoding="utf-8")
+        used = set(re.findall(r'data-i18n(?:-html)?="([^"]+)"', page))
+        for k in sorted(used - dict_keys):
+            errors.append(f"{name}: data-i18n key '{k}' has no entry in i18n.js "
+                          "or i18n-cases.js (would silently fall back to English)")
 
     # --- verify: every referenced local image exists ---
     missing = []
