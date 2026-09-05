@@ -10,3 +10,17 @@ __pycache__/
 2026 portfolio.zip
 2026 portfolio revised.zip
 2026 portfolio revised/
+
+# vetted tooling skills are shared (managed by install-vet-protocol.sh)
+!.claude/skills/
+!.claude/skills/**
+!.claude/
+.claude/*
+!.claude/skills/
+!.claude/skills/**
+
+# vetted tooling commands + skills are shared (managed by install-vet-protocol.sh)
+!.claude/commands/
+!.claude/commands/**
+!.claude/skills/
+!.claude/skills/**
