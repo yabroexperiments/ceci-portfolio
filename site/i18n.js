@@ -26,7 +26,7 @@ window.I18N_DICT = {
   'hero.scroll': { en: "Scroll to view my portfolio", zh: "向下捲動瀏覽作品集" },
 
   /* ---------- Drift 區塊 ---------- */
-  'sec.drift.head': { en: "— Drift Protocol", zh: "— Drift Protocol" },
+  'sec.drift.head': { en: "Drift Protocol", zh: "Drift Protocol" },
   'sec.drift.desc': { en: "Drift is a decentralized exchange built on Solana, focused on Perps Trading & Earn products, and on-chain finance. I led the design of the Earn ecosystem and growth initiatives, while helping build the design system and shape product interactions across the platform.", zh: "Drift 是建立在 Solana 上的去中心化交易平台，專注於衍生品、收益產品與鏈上金融體驗。我主導並參與了 Earn 的相關設計以及用戶成長相關產品設計，領導設計團隊建構設計系統以及產品交互。" },
   'card.earn.title': { en: "DeFi Earn Experience", zh: "DeFi Earn 體驗設計" },
   'card.earn.desc': { en: "Led the end-to-end UI/UX design of the Drift Earn ecosystem, including onboarding, deposit flows, APY comparison, and portfolio management.", zh: "主導 Drift Earn 生態系的端到端 UI/UX 設計，包含首次登入與入金流程、APY 比較與投資組合頁面。" },
@@ -36,7 +36,7 @@ window.I18N_DICT = {
   'card.ds.desc': { en: "Built and scaled the Drift V3 design system across web and mobile, extending the visual language into the brand identity.", zh: "建立並擴展 Drift V3 設計系統至網頁與行動端，並將視覺語言延伸到品牌設計。" },
 
   /* ---------- Binance 區塊 ---------- */
-  'sec.binance.head': { en: "— Binance", zh: "— Binance" },
+  'sec.binance.head': { en: "Binance", zh: "Binance" },
   'sec.binance.desc': { en: "Binance is one of the world's leading cryptocurrency exchanges, offering a comprehensive suite of trading products. During my 3.5 years as a Senior Product Designer and Design Lead, I led the end-to-end design of multiple trading and social trading products. I built the Copy Trading platform from 0 to 1, reaching 20K+ users within 4 months. I also owned the UI/UX design for Futures Trading, covering key features such as Futures Wallet, Convert, Leaderboards, and chat, reducing QA issues by 18% within a year.", zh: "Binance 是全球領先的加密貨幣交易所之一，提供完整的交易產品線。在擔任資深產品設計師與設計主管的 3.5 年間，我主導多個交易與社交交易產品的端到端設計。我從 0 到 1 建立跟單交易平台，4 個月內達到 20K+ 使用者；同時負責合約交易的 UI/UX 設計，涵蓋合約錢包、Convert、排行榜與聊天等核心功能，一年內將 QA 問題減少 18%。" },
   'card.copy.title': { en: "Copy Trading", zh: "跟單交易" },
   'card.copy.desc': { en: "Built the Copy Trading platform from 0 to 1, reaching 20K+ users within 4 months.", zh: "從 0 到 1 建立跟單交易平台，4 個月內達到 20K+ 使用者。" },
@@ -50,7 +50,7 @@ window.I18N_DICT = {
   'card.tw.desc': { en: "Led the product design for TraderWagon, the predecessor to Binance Copy Trading.", zh: "幣安跟單交易的上線前產品" },
 
   /* ---------- Selected Web3 Work 區塊 ---------- */
-  'sec.others.head': { en: "— More Web3 Design", zh: "— 更多Web3設計" },
+  'sec.others.head': { en: "More Web3 Design", zh: "更多Web3設計" },
   'sec.others.desc': { en: "More Web3 Product design across exchanges and Web3 platforms.", zh: "更多在交易所與 Web3 平台的產品設計作品。" },
   'card.o1.title': { en: "Apollo X", zh: "Apollo X" },
   'card.o1.desc': { en: "Decentralized Crypto Exchanges from Binance", zh: "Binance 去中心化的交易所" },
@@ -62,6 +62,47 @@ window.I18N_DICT = {
   /* ---------- 卡片按鈕 Card buttons ---------- */
   'tag.view': { en: "View Case Study", zh: "查看案例研究" },
   'tag.soon': { en: "Coming soon...", zh: "即將推出..." },
+
+
+  /* ---------- UI Design archive ---------- */
+  "ui.eyebrow": { en: "Selected Archive · 2011—2020", zh: "精選早期作品 · 2011—2020" },
+  "ui.title": { en: "UI Design", zh: "UI 設計" },
+  "ui.intro": { en: "Selected interface and concept work from my earlier career across fintech, mobile OS, smart devices, and connected experiences.", zh: "精選我早期職涯中的介面與概念設計，涵蓋金融科技、行動作業系統、智慧裝置與跨裝置體驗。" },
+  "ui.viewmore": { en: "View More", zh: "查看更多" },
+  "ui.p1.title": { en: "Coinful Trading Platform", zh: "Coinful 交易平台" },
+  "ui.p2.title": { en: "iCard.AI", zh: "iCard.AI" },
+  "ui.p3.title": { en: "Smart Watch Concepts", zh: "智慧手錶概念" },
+  "ui.p4.title": { en: "Smart Home — H5OS", zh: "智慧家庭 — H5OS" },
+  "ui.p5.title": { en: "H5OS Feature Phone", zh: "H5OS 功能型手機" },
+  "ui.p6.title": { en: "Smart TV Tutorial", zh: "智慧電視教學" },
+  "ui.p7.title": { en: "Future Feature Phone", zh: "未來功能型手機" },
+  "ui.p8.title": { en: "Car UI Concept", zh: "車載 UI 概念" },
+  "ui.p9.title": { en: "HTC Core Apps", zh: "HTC 核心應用程式" },
+  "ui.p10.title": { en: "HTC Dot View", zh: "HTC Dot View" },
+  "ui.p11.title": { en: "HTC COS Wallpaper", zh: "HTC COS 桌布" },
+  "ui.p12.title": { en: "HTC Message Themes", zh: "HTC 訊息主題" },
+  "ui.p13.title": { en: "Clock & Calculator Widgets", zh: "時鐘與計算機小工具" },
+  "ui.p14.title": { en: "HTC Scribble", zh: "HTC Scribble" },
+  "ui.p15.title": { en: "HTC Life.me", zh: "HTC Life.me" },
+  "ui.p16.title": { en: "HTC Mini", zh: "HTC Mini" },
+  "ui.p17.title": { en: "HTC Tablet", zh: "HTC 平板" },
+  "ui.p1.desc": { en: "FinTech · Trading Platform", zh: "金融科技 · 交易平台" },
+  "ui.p2.desc": { en: "FinTech · Credit Card Comparison", zh: "金融科技 · 信用卡比較" },
+  "ui.p3.desc": { en: "Acadine · Wearable UI", zh: "Acadine · 穿戴裝置 UI" },
+  "ui.p4.desc": { en: "Acadine · Smart Home UI", zh: "Acadine · 智慧家庭 UI" },
+  "ui.p5.desc": { en: "Acadine · Mobile OS UI", zh: "Acadine · 行動作業系統 UI" },
+  "ui.p6.desc": { en: "Mozilla · Smart TV UI", zh: "Mozilla · 智慧電視 UI" },
+  "ui.p7.desc": { en: "Mozilla · Mobile Concept", zh: "Mozilla · 行動裝置概念" },
+  "ui.p8.desc": { en: "Mozilla · In-car UI", zh: "Mozilla · 車載 UI" },
+  "ui.p9.desc": { en: "HTC · Mobile UI", zh: "HTC · 行動 UI" },
+  "ui.p10.desc": { en: "HTC · Accessory Experience", zh: "HTC · 配件體驗" },
+  "ui.p11.desc": { en: "HTC · Visual Design", zh: "HTC · 視覺設計" },
+  "ui.p12.desc": { en: "HTC · Mobile UI", zh: "HTC · 行動 UI" },
+  "ui.p13.desc": { en: "HTC · Widget UI", zh: "HTC · Widget UI" },
+  "ui.p14.desc": { en: "HTC · Note & Creation App", zh: "HTC · 筆記與創作 App" },
+  "ui.p15.desc": { en: "HTC · Mobile Concept", zh: "HTC · 行動概念" },
+  "ui.p16.desc": { en: "HTC · Companion Device", zh: "HTC · Companion Device" },
+  "ui.p17.desc": { en: "HTC · Tablet UI", zh: "HTC · 平板 UI" },
 
   /* ---------- Next case study ---------- */
   'next.lbl': { en: "Next Case Study", zh: "下一個案例研究" },

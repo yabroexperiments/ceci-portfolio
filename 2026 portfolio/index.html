@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ceci Chang — DeFi Product & Brand Designer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ceci Chang — DeFi Product &amp; Brand Designer</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <style>
   :root{
     --bg:#ffffff;--lightblue:#eef1fb;--ink:#0b0b0f;--ink-soft:#48494E;--ink-mute:#71747f;
@@ -19,7 +20,7 @@
   .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
 
   /* NAV */
-  nav{position:sticky;top:0;z-index:50;background:rgba(238,241,251,.82);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+  nav{position:sticky;top:0;z-index:50;background:rgba(238,241,251,.82);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid transparent;transition:none}
   nav.scrolled{border-bottom-color:var(--line)}
   .nav-inner{max-width:1140px;margin:0 auto;padding:0 24px;height:86px;display:flex;align-items:center;justify-content:space-between;gap:24px}
   .brand{font-weight:600;font-size:20px;letter-spacing:-.01em}
@@ -68,7 +69,7 @@
   @keyframes nudgeX{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
   @keyframes nudgeDiag{0%,100%{transform:translate(0,0)}50%{transform:translate(4px,-4px)}}
   .card-body h3{font-size:20px;font-weight:600;letter-spacing:-.01em;margin-bottom:16px;line-height:1.25}
-  .card-body p{font-size:14.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:26px}
+  .card-body p{font-size:14.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:16px}
 
   /* Binance 2x2 卡片 */
   .cards-2{grid-template-columns:1fr 1fr;gap:80px 24px}
@@ -216,178 +217,292 @@
   @media(max-width:960px){
     .nav-links.open .nav-right{margin-left:0;width:100%;justify-content:flex-start}
   }
+
+  /* Disabled Branding Design navigation — Coming soon tooltip */
+  .nav-coming-soon{position:relative;display:inline-flex;align-items:center;font-weight:500;font-size:15.5px;color:var(--ink-mute);cursor:not-allowed;line-height:1.5;outline:none}
+  .nav-coming-tip{position:absolute;left:50%;top:calc(100% + 10px);transform:translateX(-50%) translateY(-4px);white-space:nowrap;background:#0b0b0f;color:#fff;font-size:12px;font-weight:500;padding:6px 9px;border-radius:7px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s,transform .18s,visibility .18s;z-index:80}
+  .nav-coming-soon:hover .nav-coming-tip,.nav-coming-soon:focus .nav-coming-tip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  @media(max-width:960px){.nav-coming-tip{left:0;top:100%;transform:translateY(2px)}.nav-coming-soon:hover .nav-coming-tip,.nav-coming-soon:focus .nav-coming-tip{transform:translateY(6px)}}
+
+/* ===== 2026-09 mobile spacing + navigation consistency ===== */
+html{scrollbar-gutter:stable;}
+@media(max-width:960px){
+  .wrap,.nav-inner{width:100%;max-width:none;padding-left:16px!important;padding-right:16px!important;}
+  .nav-inner{height:86px;}
+  .nav-links.open{padding-left:16px!important;padding-right:16px!important;}
+}
+
+  /* Navigation stability: keep the shared header visually fixed across page changes */
+  html{scrollbar-gutter:stable;overflow-y:scroll}
+  nav{transform:none;backface-visibility:visible}
+  .nav-inner,.brand,.nav-links,.nav-links a,.nav-coming-soon,.nav-right{box-sizing:border-box}
+  .brand,.nav-links a,.nav-coming-soon,.drop-toggle,.lang-btn{font-size-adjust:.52}
+  .brand,.nav-links a{-webkit-tap-highlight-color:transparent}
+  .brand:active,.nav-links a:active{transform:none}
+</style>
+
+<style id="mobile-home-polish">
+@media(max-width:900px){
+  .hero.wrap{padding:48px 16px 56px!important;}
+  .hero-top{display:block;}
+  .hello-block{max-width:none;width:100%;}
+  .hello{font-size:42px;line-height:1.08;}
+  .hero-intro{margin-top:20px;font-size:17px;line-height:1.55;}
+  .about-link{margin-top:22px;}
+  .hero-bottom{margin-top:72px;gap:30px;}
+  .role{font-size:36px;line-height:1.08;}
+  .scroll-cue{font-size:16px;}
+  .company{padding:64px 0;}
+  .co-head{margin-bottom:14px;}
+  .co-desc{margin-bottom:32px;}
+  .card-body{padding-top:16px;}
+}
+@media(max-width:480px){
+  .hello{font-size:40px;}
+  .role{font-size:34px;}
+}
+</style>
+
+<style id="nav-stability-final">
+/* Final shared navigation contract — identical on every portfolio page */
+html{scrollbar-gutter:stable;}
+body{margin:0;}
+nav#nav{
+  position:sticky!important;top:0!important;z-index:1000!important;
+  width:100%!important;height:86px!important;min-height:86px!important;
+  background:#eef1fb!important;border-bottom:1px solid transparent!important;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+  transition:none!important;transform:none!important;contain:none!important;
+}
+nav#nav.scrolled{background:#eef1fb!important;border-bottom-color:#d9dcec!important;}
+nav#nav .nav-inner{
+  width:100%!important;max-width:1140px!important;height:86px!important;min-height:86px!important;
+  margin:0 auto!important;padding:0 24px!important;display:flex!important;align-items:center!important;
+  gap:24px!important;position:relative!important;box-sizing:border-box!important;
+}
+nav#nav .brand{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;font-size:20px!important;line-height:1!important;font-weight:600!important;letter-spacing:-.01em!important;margin:0!important;padding:0!important;transform:none!important;}
+nav#nav .nav-links,nav#nav .nav-group,nav#nav .nav-right{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;}
+nav#nav a,nav#nav button{transform:none!important;}
+nav#nav .has-drop{overflow:visible!important;}
+nav#nav .drop-menu{z-index:1100!important;}
+@media(min-width:1280px){nav#nav .nav-inner{max-width:1360px!important;padding-left:48px!important;padding-right:48px!important;}}
+@media(min-width:1536px){nav#nav .nav-inner{max-width:1560px!important;}}
+@media(max-width:960px){
+  nav#nav .nav-inner{max-width:none!important;padding-left:16px!important;padding-right:16px!important;}
+  nav#nav .nav-links.open{left:0!important;right:0!important;padding-left:16px!important;padding-right:16px!important;}
+}
+</style>
+
+<style id="home-final-fixes">
+/* CTA uses the case-study accent blue */
+.card-btn{color:var(--accent)!important;}
+.card.linked:hover .card-btn,.card.linked:focus-visible .card-btn{color:var(--accent)!important;}
+/* Dropdown must be fully visible outside the 86px header */
+nav#nav,.nav-inner,.nav-links,.nav-group,.has-drop{overflow:visible!important;}
+.drop-menu{max-height:min(520px,calc(100vh - 120px));overflow-y:auto;}
+@media(max-width:960px){.drop-menu{max-height:none;overflow:visible;}}
+/* More comfortable image measure on phones */
+@media(max-width:620px){
+  main.wrap{padding-left:16px!important;padding-right:16px!important;}
+  .card-img{width:100%!important;margin-left:0!important;margin-right:0!important;}
+}
+</style>
+
+<link rel="prefetch" href="index.html"/><link rel="prefetch" href="ui-design.html"/>
+
+<style id="final-card-cta-fix">
+/* CTA: default black, blue only on hover; exact 16px from copy */
+.card-btn{color:var(--ink)!important;margin-top:0!important;opacity:1!important;}
+.card-body p{margin-bottom:16px!important;}
+.card-body h3:not(:last-child){margin-bottom:16px!important;}
+.card.linked:hover .card-btn,.card.linked:focus-visible .card-btn{color:var(--accent)!important;opacity:1!important;}
+.card.soon .card-btn,.card.soon:hover .card-btn{color:var(--ink-mute)!important;opacity:1!important;}
+.card.soon .card-btn .ico{animation:none!important;}
+</style>
+
+<style id="cta-spacing-12-final">
+/* Card CTA spacing: exactly 12px from the descriptive copy */
+.card-body p{margin-bottom:12px!important;}
+.card-btn{margin-top:0!important;}
+</style>
+
+<style id="mobile-lang-header-final">
+@media(max-width:960px){
+  nav#nav .nav-inner{position:relative!important;}
+  nav#nav .nav-links{display:block!important;position:static!important;flex:0 0 auto!important;}
+  nav#nav .nav-group{display:none!important;}
+  nav#nav .nav-links.open .nav-group{display:flex!important;position:absolute!important;top:86px!important;left:0!important;right:0!important;background:#eef1fb!important;padding:20px 16px 26px!important;border-bottom:1px solid var(--line)!important;flex-direction:column!important;align-items:flex-start!important;gap:18px!important;}
+  nav#nav .nav-right{display:flex!important;position:absolute!important;right:56px!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important;width:auto!important;}
+  nav#nav .lang-sw{display:inline-flex!important;}
+  nav#nav .nav-toggle{position:absolute!important;right:16px!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important;}
+}
+</style>
+
+<style id="sticky-nav-return-final">
+/* Return to the stable pre-SPA navigation behavior: small page-load flash is accepted, but header stays pinned while scrolling. */
+nav#nav{position:sticky!important;top:0!important;z-index:1000!important;}
 </style>
 </head>
 <body>
-
 <nav id="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="brand">Ceci Chang</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">☰</button>
-    <div class="nav-links" id="navLinks">
-      <div class="nav-group">
-        <div class="has-drop">
-          <button class="drop-toggle" type="button" aria-expanded="false"><span data-i18n="nav.web3">Web3 Product Design</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="drop-menu">
-          <a href="drift-earn.html"><span data-i18n="cs.earn.short">DeFi Earn Experience</span><span class="co">Drift Protocol</span></a>
-          <a href="drift-growth.html"><span data-i18n="cs.growth.short">Growth &amp; Community Engagement</span><span class="co">Drift Protocol</span></a>
-          <a href="binance-copytrading.html"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
-          <a href="binance-futures.html"><span data-i18n="cs.futures.short">Futures Trading</span><span class="co">Binance</span></a>
-          <a href="binance-leaderboard.html"><span data-i18n="cs.lb.short">Leaderboard</span><span class="co">Binance</span></a>
-          <a href="traderwagon.html"><span data-i18n="cs.tw.short">Social Trading Platform</span><span class="co">TraderWagon</span></a>
-          </div>
-        </div>
-        <a href="#branding" data-i18n="nav.branding">Branding Design</a>
-        <a href="#ui" data-i18n="nav.ui">UI Design</a>
-      </div>
-      <div class="nav-right">
-        <div class="lang-sw" role="group" aria-label="Language / 語言">
-          <button type="button" class="lang-btn is-on" data-lang="en" aria-pressed="true">EN</button>
-          <button type="button" class="lang-btn" data-lang="zh" aria-pressed="false">中</button>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="nav-inner">
+<a class="brand" href="index.html">Ceci Chang</a>
+<button aria-expanded="false" aria-label="Menu" class="nav-toggle" id="navToggle">☰</button>
+<div class="nav-links" id="navLinks">
+<div class="nav-group">
+<div class="has-drop">
+<button aria-expanded="false" class="drop-toggle" type="button"><span data-i18n="nav.web3">Web3 Product Design</span><svg class="chev" viewbox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></button>
+<div class="drop-menu">
+<a href="drift-earn.html"><span data-i18n="cs.earn.short">DeFi Earn Experience</span><span class="co">Drift Protocol</span></a>
+<a href="drift-growth.html"><span data-i18n="cs.growth.short">Growth &amp; Community Engagement</span><span class="co">Drift Protocol</span></a>
+<a href="binance-copytrading.html"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
+<a href="binance-futures.html"><span data-i18n="cs.futures.short">Futures Trading</span><span class="co">Binance</span></a>
+<a href="binance-leaderboard.html"><span data-i18n="cs.lb.short">Leaderboard</span><span class="co">Binance</span></a>
+<a href="traderwagon.html"><span data-i18n="cs.tw.short">Social Trading Platform</span><span class="co">TraderWagon</span></a>
+</div>
+</div>
+<span aria-disabled="true" class="nav-coming-soon" tabindex="0"><span data-i18n="nav.branding">Branding Design</span><span class="nav-coming-tip" data-i18n="nav.branding.soon">Coming soon</span></span>
+<a data-i18n="nav.ui" href="ui-design.html">UI Design</a>
+</div>
+<div class="nav-right">
+<div aria-label="Language / 語言" class="lang-sw" role="group">
+<button aria-pressed="true" class="lang-btn is-on" data-lang="en" type="button">EN</button>
+<button aria-pressed="false" class="lang-btn" data-lang="zh" type="button">中</button>
+</div>
+</div>
+</div>
+</div>
 </nav>
-
 <div class="hero-bg">
 <header class="hero wrap">
-  <div class="hero-top">
-    <div class="hello-block">
-      <h1 class="hello" data-i18n="hero.hello">Hello, I am Ceci</h1>
-      <p class="hero-intro" data-i18n="hero.intro">I design products that are both intuitive & visually refined, solving real user problems. Experienced in Web3, with a focus on building 0-to-1 products across exchanges.</p>
-      <a href="#about" class="about-link" data-i18n="nav.about">About Me</a>
-    </div>
-  </div>
-  <div class="hero-bottom">
-    <div class="role" data-i18n-html="hero.role">DeFi Product Designer<br>&amp; Brand Designer</div>
-    <a href="#work" class="scroll-cue"><span data-i18n="hero.scroll">Scroll to view my portfolio</span>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-    </a>
-  </div>
+<div class="hero-top">
+<div class="hello-block">
+<h1 class="hello" data-i18n="hero.hello">Hello, I am Ceci</h1>
+<p class="hero-intro" data-i18n="hero.intro">I design products that are both intuitive &amp; visually refined, solving real user problems. Experienced in Web3, with a focus on building 0-to-1 products across exchanges.</p>
+<a class="about-link" data-i18n="nav.about" href="#about">About Me</a>
+</div>
+</div>
+<div class="hero-bottom">
+<div class="role" data-i18n-html="hero.role">DeFi Product Designer<br/>&amp; Brand Designer</div>
+<a class="scroll-cue" href="#work"><span data-i18n="hero.scroll">Scroll to view my portfolio</span>
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M12 5v14M19 12l-7 7-7-7"></path></svg>
+</a>
+</div>
 </header>
 </div>
-
 <main class="wrap" id="work">
-
-  <!-- DRIFT -->
-  <section class="company reveal">
-    <h2 class="co-head" data-i18n="sec.drift.head">— Drift Protocol</h2>
-    <p class="co-desc" data-i18n="sec.drift.desc">Drift is a decentralized trading platform on Solana focused on derivatives, earning products, and on-chain financial experiences. Led and contributed to product experiences across Earn, onboarding, trading engagement systems, and the Drift V3 design direction for both web and mobile platforms.</p>
-    <div class="cards">
-      <a class="card linked" href="drift-earn.html">
-        <div class="card-img"><img src="images/drift-earn.png" alt="Drift Earn"></div>
-        <div class="card-body">
-          <h3 data-i18n="card.earn.title">Reimagining Earn and Deposit Flow Experience</h3>
-          <p data-i18n="card.earn.desc">Led the end-to-end UI/UX design for the Drift Earn ecosystem, including new user education, compare APY and portfolio page.</p>
-          <span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
-        </div>
-      </a>
-      <a class="card linked" href="drift-growth.html">
-        <div class="card-img"><img src="images/drift-growth.png" alt="Drift Growth & Community"></div>
-        <div class="card-body">
-          <h3 data-i18n="card.growth.title">Designing Trading Engagement Experiences</h3>
-          <p data-i18n="card.growth.desc">Led the design of user engagement experiences for the Drift trading ecosystem, driving participation through prediction markets, onboarding flows, reward systems, and community campaigns.</p>
-          <span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
-        </div>
-      </a>
-      <div class="card soon">
-        <div class="card-img"><img src="images/drift-design-system.png" alt="Drift V3 Design System"></div>
-        <div class="card-body">
-          <h3 data-i18n="card.ds.title">Building Drift V3 Design System &amp; Visual Ecosystem</h3>
-          <p data-i18n="card.ds.desc">Built and scaled the Drift V3 design system across web and mobile platforms, extending the visual language into campaigns, launches, and ecosystem marketing experiences.</p>
-          <span class="card-btn"><span data-i18n="tag.soon">Coming Soon</span></span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BINANCE -->
-  <section class="company reveal">
-    <h2 class="co-head" data-i18n="sec.binance.head">— Binance</h2>
-    <p class="co-desc" data-i18n="sec.binance.desc">Binance is one of the world's leading cryptocurrency exchanges, offering a comprehensive suite of trading products. During my 3.5 years as a Senior Product Designer and Design Lead, I led the end-to-end design of multiple trading and social trading products. I built the Copy Trading platform from 0 to 1, reaching 20K+ users within 4 months. I also owned the UI/UX design for Futures Trading, covering key features such as Futures Wallet, Convert, Leaderboards, and chat, reducing QA issues by 18% within a year.</p>
-    <div class="cards cards-2">
-      <a class="card linked" href="binance-copytrading.html">
-        <div class="card-img"><img src="images/binance-01.png" alt="Binance — Copy Trading"></div>
-        <div class="card-body">
-          <h3 data-i18n="card.copy.title">Copy Trading</h3>
-          <p data-i18n="card.copy.desc">Built the Copy Trading platform from 0 to 1, reaching 20K+ users within 4 months.</p>
-          <span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
-        </div>
-      </a>
-      <a class="card linked" href="binance-futures.html">
-        <div class="card-img"><img src="images/binance-02.png" alt="Binance — Futures Trading"></div>
-        <div class="card-body">
-          <h3 data-i18n="card.futures.title">Futures Trading Experience Design</h3>
-          <p data-i18n="card.futures.desc">Owned the end-to-end UI/UX for Futures Trading across web and mobile.</p>
-          <span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
-        </div>
-      </a>
-      <a class="card linked" href="binance-leaderboard.html">
-        <div class="card-img"><img src="images/binance-leaderboard.png" alt="Binance — Leaderboard"></div>
-        <div class="card-body">
-          <h3 data-i18n="card.leaderboard.title">Binance Leaderboard</h3>
-          <p data-i18n="card.leaderboard.desc">Designed the Futures Leaderboard, surfacing top traders and their performance data.</p>
-          <span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
-        </div>
-      </a>
-      <a class="card linked" href="traderwagon.html">
-        <div class="card-img"><img src="images/traderwagon.png" alt="TraderWagon"></div>
-        <div class="card-body">
-          <h3 data-i18n="card.tw.title">TraderWagon</h3>
-          <p data-i18n="card.tw.desc">The predecessor of Binance Copy Trading, where the core copy trading experience was first designed.</p>
-          <span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- OTHERS -->
-  <section class="company reveal">
-    <h2 class="co-head" data-i18n="sec.others.head">— Web3 Product Design</h2>
-    <p class="co-desc" data-i18n="sec.others.desc">More Web3 Product design across exchanges and Web3 platforms.</p>
-    <div class="cards cards-sq">
-      <a class="card linked" href="https://www.apollox.finance/en" target="_blank" rel="noopener noreferrer">
-        <div class="card-img"><img src="images/apollox.png" alt="Apollo X"></div>
-        <div class="card-body">
-          <h3 data-i18n="card.o1.title">Apollo X</h3>
-          <p data-i18n="card.o1.desc">Decentralized Crypto Exchanges from Binance</p>
-          <span class="card-btn"><span data-i18n="tag.visit">Visit Site</span><svg class="ico diag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-      <div class="card soon">
-        <div class="card-img"><img src="images/x-xyz.png" alt="X.xyz"></div>
-        <div class="card-body">
-          <h3 data-i18n="card.o2.title">X.xyz</h3>
-          <p data-i18n="card.o2.desc">An NFT marketplace specializing in trading with ApeCoin (APE).</p>
-          <span class="card-btn"><span data-i18n="tag.soon">Coming Soon</span></span>
-        </div>
-      </div>
-      <a class="card linked" href="https://hoyabit.com/" target="_blank" rel="noopener noreferrer">
-        <div class="card-img"><img src="images/hoyabit-landing.png" alt="Hoya BIT Landing Page"></div>
-        <div class="card-body">
-          <h3 data-i18n="card.o3.title">Hoya BIT Landing Page</h3>
-          <p data-i18n="card.o3.desc">Worked as a design consultant for Hoya Bit, providing UX reviews, identifying product improvements, and leading the homepage redesign.</p>
-          <span class="card-btn"><span data-i18n="tag.visit">Visit Site</span><svg class="ico diag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- 其他公司区块可依同样格式往下加(Shopify / TraderWagon 等) -->
-
+<!-- DRIFT -->
+<section class="company reveal">
+<h2 class="co-head" data-i18n="sec.drift.head">Drift Protocol</h2>
+<p class="co-desc" data-i18n="sec.drift.desc">Drift is a decentralized trading platform on Solana focused on derivatives, earning products, and on-chain financial experiences. Led and contributed to product experiences across Earn, onboarding, trading engagement systems, and the Drift V3 design direction for both web and mobile platforms.</p>
+<div class="cards">
+<a class="card linked" href="drift-earn.html">
+<div class="card-img"><img alt="Drift Earn" src="images/drift-earn.png"/></div>
+<div class="card-body">
+<h3 data-i18n="card.earn.title">Reimagining Earn and Deposit Flow Experience</h3>
+<p data-i18n="card.earn.desc">Led the end-to-end UI/UX design for the Drift Earn ecosystem, including new user education, compare APY and portfolio page.</p>
+<span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span>
+</div>
+</a>
+<a class="card linked" href="drift-growth.html">
+<div class="card-img"><img alt="Drift Growth &amp; Community" src="images/drift-growth.png"/></div>
+<div class="card-body">
+<h3 data-i18n="card.growth.title">Designing Trading Engagement Experiences</h3>
+<p data-i18n="card.growth.desc">Led the design of user engagement experiences for the Drift trading ecosystem, driving participation through prediction markets, onboarding flows, reward systems, and community campaigns.</p>
+<span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span>
+</div>
+</a>
+<div class="card soon">
+<div class="card-img"><img alt="Drift V3 Design System" src="images/drift-design-system.png"/></div>
+<div class="card-body">
+<h3 data-i18n="card.ds.title">Building Drift V3 Design System &amp; Visual Ecosystem</h3>
+<p data-i18n="card.ds.desc">Built and scaled the Drift V3 design system across web and mobile platforms, extending the visual language into campaigns, launches, and ecosystem marketing experiences.</p>
+<span class="card-btn"><span data-i18n="tag.soon">Coming Soon</span></span>
+</div>
+</div>
+</div>
+</section>
+<!-- BINANCE -->
+<section class="company reveal">
+<h2 class="co-head" data-i18n="sec.binance.head">Binance</h2>
+<p class="co-desc" data-i18n="sec.binance.desc">Binance is one of the world's leading cryptocurrency exchanges, offering a comprehensive suite of trading products. During my 3.5 years as a Senior Product Designer and Design Lead, I led the end-to-end design of multiple trading and social trading products. I built the Copy Trading platform from 0 to 1, reaching 20K+ users within 4 months. I also owned the UI/UX design for Futures Trading, covering key features such as Futures Wallet, Convert, Leaderboards, and chat, reducing QA issues by 18% within a year.</p>
+<div class="cards cards-2">
+<a class="card linked" href="binance-copytrading.html">
+<div class="card-img"><img alt="Binance — Copy Trading" src="images/binance-01.png"/></div>
+<div class="card-body">
+<h3 data-i18n="card.copy.title">Copy Trading</h3>
+<p data-i18n="card.copy.desc">Built the Copy Trading platform from 0 to 1, reaching 20K+ users within 4 months.</p>
+<span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span>
+</div>
+</a>
+<a class="card linked" href="binance-futures.html">
+<div class="card-img"><img alt="Binance — Futures Trading" src="images/binance-02.png"/></div>
+<div class="card-body">
+<h3 data-i18n="card.futures.title">Futures Trading Experience Design</h3>
+<p data-i18n="card.futures.desc">Owned the end-to-end UI/UX for Futures Trading across web and mobile.</p>
+<span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span>
+</div>
+</a>
+<a class="card linked" href="binance-leaderboard.html">
+<div class="card-img"><img alt="Binance — Leaderboard" src="images/binance-leaderboard.png"/></div>
+<div class="card-body">
+<h3 data-i18n="card.leaderboard.title">Binance Leaderboard</h3>
+<p data-i18n="card.leaderboard.desc">Designed the Futures Leaderboard, surfacing top traders and their performance data.</p>
+<span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span>
+</div>
+</a>
+<a class="card linked" href="traderwagon.html">
+<div class="card-img"><img alt="TraderWagon" src="images/traderwagon.png"/></div>
+<div class="card-body">
+<h3 data-i18n="card.tw.title">TraderWagon</h3>
+<p data-i18n="card.tw.desc">The predecessor of Binance Copy Trading, where the core copy trading experience was first designed.</p>
+<span class="card-btn"><span data-i18n="tag.view">View Case Study</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span>
+</div>
+</a>
+</div>
+</section>
+<!-- OTHERS -->
+<section class="company reveal">
+<h2 class="co-head" data-i18n="sec.others.head">Web3 Product Design</h2>
+<p class="co-desc" data-i18n="sec.others.desc">More Web3 Product design across exchanges and Web3 platforms.</p>
+<div class="cards cards-sq">
+<a class="card linked" href="https://www.apollox.finance/en" rel="noopener noreferrer" target="_blank">
+<div class="card-img"><img alt="Apollo X" src="images/apollox.png"/></div>
+<div class="card-body">
+<h3 data-i18n="card.o1.title">Apollo X</h3>
+<p data-i18n="card.o1.desc">Decentralized Crypto Exchanges from Binance</p>
+<span class="card-btn"><span data-i18n="tag.visit">Visit Site</span><svg class="ico diag" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"></path></svg></span>
+</div>
+</a>
+<div class="card soon">
+<div class="card-img"><img alt="X.xyz" src="images/x-xyz.png"/></div>
+<div class="card-body">
+<h3 data-i18n="card.o2.title">X.xyz</h3>
+<p data-i18n="card.o2.desc">An NFT marketplace specializing in trading with ApeCoin (APE).</p>
+<span class="card-btn"><span data-i18n="tag.soon">Coming Soon</span></span>
+</div>
+</div>
+<a class="card linked" href="https://hoyabit.com/" rel="noopener noreferrer" target="_blank">
+<div class="card-img"><img alt="Hoya BIT Landing Page" src="images/hoyabit-landing.png"/></div>
+<div class="card-body">
+<h3 data-i18n="card.o3.title">Hoya BIT Landing Page</h3>
+<p data-i18n="card.o3.desc">Worked as a design consultant for Hoya Bit, providing UX reviews, identifying product improvements, and leading the homepage redesign.</p>
+<span class="card-btn"><span data-i18n="tag.visit">Visit Site</span><svg class="ico diag" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"></path></svg></span>
+</div>
+</a>
+</div>
+</section>
+<!-- 其他公司区块可依同样格式往下加(Shopify / TraderWagon 等) -->
 </main>
-
 <footer id="contact">
-  <div class="wrap">
-    <div class="foot-contact">
-      <a class="fc" href="mailto:changhsiju@gmail.com" aria-label="Email Ceci Chang" title="changhsiju@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4.5" width="20" height="15" rx="2.5"/><path d="M2.8 6.3l8.1 5.3a2 2 0 0 0 2.2 0l8.1-5.3"/></svg></a>
-      <a class="fc" href="https://www.linkedin.com/in/changhsiju/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" title="linkedin.com/in/changhsiju"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.44-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
-    </div>
-    <div class="foot-credit" data-i18n="foot.credit">Designed by Ceci Chang · Made with Claude</div>
-  </div>
+<div class="wrap">
+<div class="foot-contact">
+<a aria-label="Email Ceci Chang" class="fc" href="mailto:changhsiju@gmail.com" title="changhsiju@gmail.com"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><rect height="15" rx="2.5" width="20" x="2" y="4.5"></rect><path d="M2.8 6.3l8.1 5.3a2 2 0 0 0 2.2 0l8.1-5.3"></path></svg></a>
+<a aria-label="LinkedIn profile" class="fc" href="https://www.linkedin.com/in/changhsiju/" rel="noopener noreferrer" target="_blank" title="linkedin.com/in/changhsiju"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.44-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"></path></svg></a>
+</div>
+<div class="foot-credit" data-i18n="foot.credit">Designed by Ceci Chang · Made with Claude</div>
+</div>
 </footer>
-
 <script>
   const nav=document.getElementById('nav');
   window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>10));
@@ -397,7 +512,6 @@
   const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
-
 <script>
   /* nav 下拉選單 */
   document.querySelectorAll('.has-drop').forEach(function(d){

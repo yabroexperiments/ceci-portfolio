@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Growth & Community Engagement — Ceci Chang</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Growth &amp; Community Engagement — Ceci Chang</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <style>
   :root{
     --bg:#eef1fb;--ink:#0b0b0f;--ink-soft:#48494E;--ink-mute:#71747f;
@@ -271,215 +272,267 @@
   @media(max-width:960px){
     .nav-links.open .nav-right{margin-left:0;width:100%;justify-content:flex-start}
   }
+
+  /* Disabled Branding Design navigation — Coming soon tooltip */
+  .nav-coming-soon{position:relative;display:inline-flex;align-items:center;font-weight:500;font-size:15.5px;color:var(--ink-mute);cursor:not-allowed;line-height:1.5;outline:none}
+  .nav-coming-tip{position:absolute;left:50%;top:calc(100% + 10px);transform:translateX(-50%) translateY(-4px);white-space:nowrap;background:#0b0b0f;color:#fff;font-size:12px;font-weight:500;padding:6px 9px;border-radius:7px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s,transform .18s,visibility .18s;z-index:80}
+  .nav-coming-soon:hover .nav-coming-tip,.nav-coming-soon:focus .nav-coming-tip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  @media(max-width:960px){.nav-coming-tip{left:0;top:100%;transform:translateY(2px)}.nav-coming-soon:hover .nav-coming-tip,.nav-coming-soon:focus .nav-coming-tip{transform:translateY(6px)}}
+
+/* ===== 2026-09 mobile spacing + navigation consistency ===== */
+html{scrollbar-gutter:stable;}
+@media(max-width:960px){
+  .wrap,.nav-inner{width:100%;max-width:none;padding-left:16px!important;padding-right:16px!important;}
+  .nav-inner{height:86px;}
+  .nav-links.open{padding-left:16px!important;padding-right:16px!important;}
+}
+</style>
+
+<style id="nav-stability-final">
+/* Final shared navigation contract — identical on every portfolio page */
+html{scrollbar-gutter:stable;}
+body{margin:0;}
+nav#nav{
+  position:sticky!important;top:0!important;z-index:1000!important;
+  width:100%!important;height:86px!important;min-height:86px!important;
+  background:#eef1fb!important;border-bottom:1px solid transparent!important;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+  transition:none!important;transform:none!important;contain:none!important;
+}
+nav#nav.scrolled{background:#eef1fb!important;border-bottom-color:#d9dcec!important;}
+nav#nav .nav-inner{
+  width:100%!important;max-width:1140px!important;height:86px!important;min-height:86px!important;
+  margin:0 auto!important;padding:0 24px!important;display:flex!important;align-items:center!important;
+  gap:24px!important;position:relative!important;box-sizing:border-box!important;
+}
+nav#nav .brand{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;font-size:20px!important;line-height:1!important;font-weight:600!important;letter-spacing:-.01em!important;margin:0!important;padding:0!important;transform:none!important;}
+nav#nav .nav-links,nav#nav .nav-group,nav#nav .nav-right{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;}
+nav#nav a,nav#nav button{transform:none!important;}
+nav#nav .has-drop{overflow:visible!important;}
+nav#nav .drop-menu{z-index:1100!important;}
+@media(min-width:1280px){nav#nav .nav-inner{max-width:1360px!important;padding-left:48px!important;padding-right:48px!important;}}
+@media(min-width:1536px){nav#nav .nav-inner{max-width:1560px!important;}}
+@media(max-width:960px){
+  nav#nav .nav-inner{max-width:none!important;padding-left:16px!important;padding-right:16px!important;}
+  nav#nav .nav-links.open{left:0!important;right:0!important;padding-left:16px!important;padding-right:16px!important;}
+}
+</style>
+
+<link rel="prefetch" href="index.html"/><link rel="prefetch" href="ui-design.html"/>
+
+<style id="mobile-gallery-fit-fix">
+@media(max-width:960px){
+  /* Desktop UI screenshots should be viewable as a whole on mobile. */
+  .gallery .viewport{overflow-x:auto!important;overflow-y:hidden!important;scroll-padding-left:0;}
+  .gallery .track{gap:14px!important;align-items:flex-start;}
+  .gallery .track .slide-wide{width:calc(100vw - 80px)!important;max-width:520px!important;min-width:0!important;}
+  .gallery .track .slide:not(.slide-wide){width:min(220px,62vw)!important;}
+  .gallery .track .slide img.ph{width:100%!important;height:auto!important;object-fit:contain!important;}
+  .gallery .fig-cap{font-size:12.5px!important;line-height:1.4;}
+  .gallery .prog{margin-top:14px;}
+}
+@media(max-width:480px){
+  .gallery .track .slide-wide{width:calc(100vw - 72px)!important;}
+  .gallery .track .slide:not(.slide-wide){width:min(210px,58vw)!important;}
+}
+</style>
+
+<style id="mobile-lang-header-final">
+@media(max-width:960px){
+  nav#nav .nav-inner{position:relative!important;}
+  nav#nav .nav-links{display:block!important;position:static!important;flex:0 0 auto!important;}
+  nav#nav .nav-group{display:none!important;}
+  nav#nav .nav-links.open .nav-group{display:flex!important;position:absolute!important;top:86px!important;left:0!important;right:0!important;background:#eef1fb!important;padding:20px 16px 26px!important;border-bottom:1px solid var(--line)!important;flex-direction:column!important;align-items:flex-start!important;gap:18px!important;}
+  nav#nav .nav-right{display:flex!important;position:absolute!important;right:56px!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important;width:auto!important;}
+  nav#nav .lang-sw{display:inline-flex!important;}
+  nav#nav .nav-toggle{position:absolute!important;right:16px!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important;}
+}
+</style>
+
+<style id="sticky-nav-return-final">
+/* Return to the stable pre-SPA navigation behavior: small page-load flash is accepted, but header stays pinned while scrolling. */
+nav#nav{position:sticky!important;top:0!important;z-index:1000!important;}
 </style>
 </head>
 <body>
-
 <nav id="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="brand">Ceci Chang</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">☰</button>
-    <div class="nav-links" id="navLinks">
-      <div class="nav-group">
-        <div class="has-drop">
-          <button class="drop-toggle" type="button" aria-expanded="false"><span data-i18n="nav.web3">Web3 Product Design</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="drop-menu">
-          <a href="drift-earn.html"><span data-i18n="cs.earn.short">DeFi Earn Experience</span><span class="co">Drift Protocol</span></a>
-          <a href="drift-growth.html" aria-current="page"><span data-i18n="cs.growth.short">Growth &amp; Community Engagement</span><span class="co">Drift Protocol</span></a>
-          <a href="binance-copytrading.html"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
-          <a href="binance-futures.html"><span data-i18n="cs.futures.short">Futures Trading</span><span class="co">Binance</span></a>
-          <a href="binance-leaderboard.html"><span data-i18n="cs.lb.short">Leaderboard</span><span class="co">Binance</span></a>
-          <a href="traderwagon.html"><span data-i18n="cs.tw.short">Social Trading Platform</span><span class="co">TraderWagon</span></a>
-          </div>
-        </div>
-        <a href="index.html#branding" data-i18n="nav.branding">Branding Design</a>
-        <a href="index.html#ui" data-i18n="nav.ui">UI Design</a>
-      </div>
-      <div class="nav-right">
-        <div class="lang-sw" role="group" aria-label="Language / 語言">
-          <button type="button" class="lang-btn is-on" data-lang="en" aria-pressed="true">EN</button>
-          <button type="button" class="lang-btn" data-lang="zh" aria-pressed="false">中</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
-
-<div class="wrap">
-  <a href="index.html#work" class="back" data-i18n="back.work">← BACK TO WORK</a>
-
-  <div class="p-head">
-    <div>
-      <div class="eyebrow">
-        <span class="lbl">Case Study</span>
-        <span class="chip">◈ Drift Protocol V2</span>
-        <span class="chip">0 → 1</span>
-      </div>
-      <h1 class="p-title">Growth & Community Engagement</h1>
-      <p class="p-lead">Beyond perpetual trading, I designed product experiences, reward programs, and campaigns that encouraged users to discover, participate in, and stay engaged across the Drift ecosystem.</p>
-    </div>
-    <div class="facts">
-      <div class="fact"><div class="k">Year</div><div class="v">2024 & 2025</div></div>
-      <div class="fact"><div class="k">Role</div><div class="v">Product Designer, Branding & Market Designer</div></div>
-      <div class="fact"><div class="k">Responsibilities</div><div class="v">Led competitive research, 0→1 product design, feature iteration, and launch marketing assets.</div></div>
-      <div class="fact"><div class="k">Team</div><div class="v">1 PM, 1 Product Designer, 2 Operations</div></div>
-    </div>
-  </div>
-
-  <div class="strip">
-    <div class="col"><div class="k">Core Experiences</div><div class="v">Airdrop, Prediction Markets, Rewards, Leaderboards</div></div>
-    <div class="col"><div class="k">Device</div><div class="v">Web + Mobile View</div></div>
-    <div class="col"><div class="k">Impact</div><div class="v">2024 was a defining year for Drift, driven by the launch of new ecosystem products and growth initiatives.</div></div>
-  </div>
-
-  <div class="layout">
-    <!-- TOC -->
-    <aside class="toc" id="toc">
-      <a href="#s1"><span class="num">01</span> My Role</a>
-      <a href="#s2"><span class="num">02</span> Drift BET - Prediction Markets</a>
-      <a href="#s3"><span class="num">03</span> Growth & Community Experiences</a>
-      <a href="#s4"><span class="num">04</span> Drift Visual Ecosystem</a>
-    </aside>
-
-    <!-- CONTENT -->
-    <div class="content">
-      <section id="s1" class="reveal">
-        <div class="sec-eyebrow"><span class="num">01</span><span class="name">My Role</span></div>
-        <h2 class="sec-h">I focused primarily on product design, leading feature design from concept to launch and continuously improving the user experience. Beyond the product, I collaborated with marketing teams on launch campaigns and supporting visual assets.</h2>
-      </section>
-
-      <section id="s2" class="reveal">
-        <div class="sec-eyebrow"><span class="num">02</span><span class="name">Drift BET - Prediction Markets</span></div>
-        <p>Drift BET expanded the Drift ecosystem beyond perpetual trading, allowing users to participate in prediction markets while earning yield on their collateral.</p>
-        <p>Within weeks of launch, the platform reached over $20M in daily trading volume, becoming one of the most active prediction markets on Solana.</p>
-
-        <p class="sub-label">Challenge</p>
-        <h2 class="sec-h">Prediction markets are often complex for first-time users, with unfamiliar concepts, market selection, and trading flows. The goal was to create an experience that felt approachable while maintaining the speed and flexibility expected by experienced traders.</h2>
-
-        <p class="sub-label">Design Highlights</p>
-        <div class="rows">
-          <div class="row"><div class="rn">1</div><div><h4>Simplified Trading Experience</h4><p>Reduced unnecessary complexity from traditional trading interfaces, creating a more approachable experience for prediction market users.</p></div></div>
-          <div class="row"><div class="rn">2</div><div><h4>Consistent Product Experience</h4><p>Applied familiar Drift trading patterns and visual language to help existing users transition naturally into prediction markets.</p></div></div>
-          <div class="row"><div class="rn">3</div><div><h4>Launch Experience</h4><p>Created a cyberpunk-inspired visual experience and marketing assets that generated excitement across the community.</p></div></div>
-        </div>
-
-        <div class="gallery" data-gallery>
-          <button class="arrow left" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-          <button class="arrow right" data-dir="1" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
-          <div class="viewport">
-            <div class="track">
-              <div class="slide slide-wide"><img src="images/bet-01.png" alt="V2 Drift BET — Home Page" class="ph"><div class="fig-cap">V2 Drift BET — Home Page</div></div>
-              <div class="slide slide-wide"><img src="images/bet-02.png" alt="V2 Drift BET — Home Page" class="ph"><div class="fig-cap">V2 Drift BET — Home Page</div></div>
-              <div class="slide slide-wide"><img src="images/bet-03.png" alt="V2 Drift BET" class="ph"><div class="fig-cap">V2 Drift BET</div></div>
-            </div>
-          </div>
-          <div class="prog"><div class="bar"></div></div>
-        </div>
-
-        <p class="sub-label">Outcome</p>
-        <p>During the period I contributed to BET, Drift continued expanding its ecosystem beyond perpetual trading. The platform surpassed $1B+ TVL, served 200K+ traders, and accumulated $70B+ trading volume. BET further extended the ecosystem by introducing prediction markets, with the alpha launch generating over $3.5M in order book liquidity within the first 24 hours, demonstrating strong early user interest.</p>
-      </section>
-
-      <section id="s3" class="reveal">
-        <div class="sec-eyebrow"><span class="num">03</span><span class="name">Growth & Community Experiences</span></div>
-        <h2 class="sec-h">As Drift expanded its ecosystem, user engagement became just as important as trading itself. Beyond building core product experiences, I designed features that encouraged users to return regularly, track their progress, share achievements, and participate in community campaigns.</h2>
-
-        <p class="sub-head">— DRIFT Airdrop</p>
-        <p>Drift launched its first community airdrop to reward early traders and liquidity providers while transitioning toward community governance. The claim experience needed to support thousands of users during one of the platform's most anticipated events.</p>
-
-        <p class="sub-label">Challenge</p>
-        <h2 class="sec-h">Heavy claim traffic on Solana created a high risk of network congestion. We needed a simple experience that reduced friction while encouraging users to avoid claiming simultaneously.</h2>
-
-        <p class="sub-label">Design Highlights</p>
-        <div class="rows">
-          <div class="row"><div class="rn">1</div><div><h4>Reward-Based Waiting</h4><p>Users who waited received additional airdrop rewards, helping distribute claim traffic over time.</p></div></div>
-          <div class="row"><div class="rn">2</div><div><h4>One-Step Claim</h4><p>Simplified wallet connection and eligibility verification with minimal user actions.</p></div></div>
-          <div class="row"><div class="rn">3</div><div><h4>Launch Experience</h4><p>Created a cyberpunk-inspired visual experience and marketing assets that generated excitement across the community.</p></div></div>
-        </div>
-
-        <div class="gallery" data-gallery>
-          <button class="arrow left" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-          <button class="arrow right" data-dir="1" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
-          <div class="viewport">
-            <div class="track">
-              <div class="slide slide-wide"><img src="images/airdrop-01.png" alt="Airdrop — Foundation Site" class="ph"><div class="fig-cap">Airdrop — Foundation Site</div></div>
-              <div class="slide slide-wide"><img src="images/airdrop-02.png" alt="Airdrop — Claim Page" class="ph"><div class="fig-cap">Airdrop — Claim Page</div></div>
-              <div class="slide slide-wide"><img src="images/airdrop-03.png" alt="Airdrop — After Claim" class="ph"><div class="fig-cap">Airdrop — After Claim</div></div>
-            </div>
-          </div>
-          <div class="prog"><div class="bar"></div></div>
-        </div>
-
-        <p class="sub-head">— Rewards, Leaderboards & Social Engagement</p>
-
-        <p class="sub-label">Challenge</p>
-        <h2 class="sec-h">As Drift introduced more incentive programs and community features, users needed a clearer way to understand their progress, discover rewards, and showcase their trading performance. The goal was to encourage long-term participation while making engagement features simple and rewarding to use.</h2>
-
-        <p class="sub-label">Design Focus</p>
-        <ol class="ol">
-          <li>Simplified the Fuel Rewards experience with clearer progress tracking and reward visibility.</li>
-          <li>Designed intuitive leaderboard experiences to help users discover top traders and monitor their own performance.</li>
-          <li>Created shareable P&L cards that encouraged users to showcase their trading results across social platforms.</li>
-        </ol>
-
-        <div class="figure">
-          <img src="images/growth-product.png" alt="Product Design — Fuel, Leaderboards, P&L cards" class="ph">
-          <div class="fig-cap">Product Design</div>
-        </div>
-
-        <p class="sub-label">Outcome</p>
-        <p>The engagement features became more than standalone interfaces — they evolved into growth touchpoints across the Drift ecosystem. Clearer reward progression, competitive leaderboards, and shareable P&L cards encouraged users to return, participate in campaigns, and celebrate their achievements publicly. By aligning product experiences with community and marketing initiatives, these designs helped create a stronger connection between user engagement and product growth.</p>
-      </section>
-
-      <section id="s4" class="reveal">
-        <div class="sec-eyebrow"><span class="num">04</span><span class="name">Drift Visual Ecosystem</span></div>
-
-        <p class="sub-label">Challenge</p>
-        <h2 class="sec-h">Product launches and promotional campaigns required consistent visual communication across the product, website, and social media while maintaining Drift's brand identity.</h2>
-
-        <div class="figure">
-          <img src="images/growth-campaigns.png" alt="Growth campaigns — social & marketing assets" class="ph">
-          <div class="fig-cap">Growth Campaigns — marketing & social assets</div>
-        </div>
-
-        <div class="gallery" data-gallery>
-          <button class="arrow left" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-          <button class="arrow right" data-dir="1" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
-          <div class="viewport">
-            <div class="track">
-              <div class="slide slide-wide"><img src="images/foundation-01.png" alt="Foundation Site" class="ph"><div class="fig-cap">Foundation Site</div></div>
-              <div class="slide slide-wide"><img src="images/foundation-02.png" alt="Foundation Site — About Token" class="ph"><div class="fig-cap">Foundation Site — About Token</div></div>
-              <div class="slide slide-wide"><img src="images/foundation-03.png" alt="Foundation Site" class="ph"><div class="fig-cap">Foundation Site</div></div>
-              <div class="slide slide-wide"><img src="images/foundation-04.png" alt="Foundation Site" class="ph"><div class="fig-cap">Foundation Site</div></div>
-            </div>
-          </div>
-          <div class="prog"><div class="bar"></div></div>
-        </div>
-      </section>
-    </div>
-  </div>
-
-  <a class="next-cs" href="binance-copytrading.html">
-    <div class="inner">
-      <div>
-        <div class="lbl"><span data-i18n="next.lbl">NEXT CASE STUDY</span> · BINANCE</div>
-        <div class="t" data-i18n="cs.copy.long">BINANCE Copy Trading</div>
-      </div>
-      <svg class="arw" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-    </div>
-  </a>
+<div class="nav-inner">
+<a class="brand" href="index.html">Ceci Chang</a>
+<button aria-expanded="false" aria-label="Menu" class="nav-toggle" id="navToggle">☰</button>
+<div class="nav-links" id="navLinks">
+<div class="nav-group">
+<div class="has-drop">
+<button aria-expanded="false" class="drop-toggle" type="button"><span data-i18n="nav.web3">Web3 Product Design</span><svg class="chev" viewbox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></button>
+<div class="drop-menu">
+<a href="drift-earn.html"><span data-i18n="cs.earn.short">DeFi Earn Experience</span><span class="co">Drift Protocol</span></a>
+<a aria-current="page" href="drift-growth.html"><span data-i18n="cs.growth.short">Growth &amp; Community Engagement</span><span class="co">Drift Protocol</span></a>
+<a href="binance-copytrading.html"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
+<a href="binance-futures.html"><span data-i18n="cs.futures.short">Futures Trading</span><span class="co">Binance</span></a>
+<a href="binance-leaderboard.html"><span data-i18n="cs.lb.short">Leaderboard</span><span class="co">Binance</span></a>
+<a href="traderwagon.html"><span data-i18n="cs.tw.short">Social Trading Platform</span><span class="co">TraderWagon</span></a>
 </div>
-
+</div>
+<span aria-disabled="true" class="nav-coming-soon" tabindex="0"><span data-i18n="nav.branding">Branding Design</span><span class="nav-coming-tip" data-i18n="nav.branding.soon">Coming soon</span></span>
+<a data-i18n="nav.ui" href="ui-design.html">UI Design</a>
+</div>
+<div class="nav-right">
+<div aria-label="Language / 語言" class="lang-sw" role="group">
+<button aria-pressed="true" class="lang-btn is-on" data-lang="en" type="button">EN</button>
+<button aria-pressed="false" class="lang-btn" data-lang="zh" type="button">中</button>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<div class="wrap">
+<a class="back" data-i18n="back.work" href="index.html#work">← BACK TO WORK</a>
+<div class="p-head">
+<div>
+<div class="eyebrow">
+<span class="lbl" data-i18n="growth.auto001">Case Study</span>
+<span class="chip" data-i18n="growth.auto002">◈ Drift Protocol V2</span>
+<span class="chip">0 → 1</span>
+</div>
+<h1 class="p-title" data-i18n="growth.auto003">Growth &amp; Community Engagement</h1>
+<p class="p-lead" data-i18n="growth.auto004">Beyond perpetual trading, I designed product experiences, reward programs, and campaigns that encouraged users to discover, participate in, and stay engaged across the Drift ecosystem.</p>
+</div>
+<div class="facts">
+<div class="fact"><div class="k" data-i18n="growth.auto005">Year</div><div class="v">2024 &amp; 2025</div></div>
+<div class="fact"><div class="k" data-i18n="growth.auto006">Role</div><div class="v" data-i18n="growth.auto007">Product Designer, Branding &amp; Market Designer</div></div>
+<div class="fact"><div class="k" data-i18n="growth.auto008">Responsibilities</div><div class="v" data-i18n="growth.auto009">Led competitive research, 0→1 product design, feature iteration, and launch marketing assets.</div></div>
+<div class="fact"><div class="k" data-i18n="growth.auto010">Team</div><div class="v" data-i18n="growth.auto011">1 PM, 1 Product Designer, 2 Operations</div></div>
+</div>
+</div>
+<div class="strip">
+<div class="col"><div class="k" data-i18n="growth.auto012">Core Experiences</div><div class="v" data-i18n="growth.auto013">Airdrop, Prediction Markets, Rewards, Leaderboards</div></div>
+<div class="col"><div class="k" data-i18n="growth.auto014">Device</div><div class="v" data-i18n="growth.auto015">Web + Mobile View</div></div>
+<div class="col"><div class="k" data-i18n="growth.auto016">Impact</div><div class="v" data-i18n="growth.auto017">2024 was a defining year for Drift, driven by the launch of new ecosystem products and growth initiatives.</div></div>
+</div>
+<div class="layout">
+<!-- TOC -->
+<aside class="toc" id="toc">
+<a data-i18n="growth.auto018" href="#s1"><span class="num">01</span> My Role</a>
+<a data-i18n="growth.auto019" href="#s2"><span class="num">02</span> Drift BET - Prediction Markets</a>
+<a data-i18n="growth.auto020" href="#s3"><span class="num">03</span> Growth &amp; Community Experiences</a>
+<a data-i18n="growth.auto021" href="#s4"><span class="num">04</span> Drift Visual Ecosystem</a>
+</aside>
+<!-- CONTENT -->
+<div class="content">
+<section class="reveal" id="s1">
+<div class="sec-eyebrow"><span class="num">01</span><span class="name" data-i18n="growth.auto022">My Role</span></div>
+<h2 class="sec-h" data-i18n="growth.auto023">I focused primarily on product design, leading feature design from concept to launch and continuously improving the user experience. Beyond the product, I collaborated with marketing teams on launch campaigns and supporting visual assets.</h2>
+</section>
+<section class="reveal" id="s2">
+<div class="sec-eyebrow"><span class="num">02</span><span class="name" data-i18n="growth.auto024">Drift BET - Prediction Markets</span></div>
+<p data-i18n="growth.auto025">Drift BET expanded the Drift ecosystem beyond perpetual trading, allowing users to participate in prediction markets while earning yield on their collateral.</p>
+<p data-i18n="growth.auto026">Within weeks of launch, the platform reached over $20M in daily trading volume, becoming one of the most active prediction markets on Solana.</p>
+<p class="sub-label" data-i18n="growth.auto027">Challenge</p>
+<h2 class="sec-h" data-i18n="growth.auto028">Prediction markets are often complex for first-time users, with unfamiliar concepts, market selection, and trading flows. The goal was to create an experience that felt approachable while maintaining the speed and flexibility expected by experienced traders.</h2>
+<p class="sub-label" data-i18n="growth.auto029">Design Highlights</p>
+<div class="rows">
+<div class="row"><div class="rn">1</div><div><h4 data-i18n="growth.auto030">Simplified Trading Experience</h4><p data-i18n="growth.auto031">Reduced unnecessary complexity from traditional trading interfaces, creating a more approachable experience for prediction market users.</p></div></div>
+<div class="row"><div class="rn">2</div><div><h4 data-i18n="growth.auto032">Consistent Product Experience</h4><p data-i18n="growth.auto033">Applied familiar Drift trading patterns and visual language to help existing users transition naturally into prediction markets.</p></div></div>
+<div class="row"><div class="rn">3</div><div><h4 data-i18n="growth.auto034">Launch Experience</h4><p data-i18n="growth.auto035">Created a cyberpunk-inspired visual experience and marketing assets that generated excitement across the community.</p></div></div>
+</div>
+<div class="gallery" data-gallery="">
+<button aria-label="Previous" class="arrow left" data-dir="-1"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<button aria-label="Next" class="arrow right" data-dir="1"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></button>
+<div class="viewport">
+<div class="track">
+<div class="slide slide-wide"><img alt="V2 Drift BET — Home Page" class="ph" src="images/bet-01.png"/><div class="fig-cap" data-i18n="growth.auto036">V2 Drift BET — Home Page</div></div>
+<div class="slide slide-wide"><img alt="V2 Drift BET — Home Page" class="ph" src="images/bet-02.png"/><div class="fig-cap" data-i18n="growth.auto037">V2 Drift BET — Home Page</div></div>
+<div class="slide slide-wide"><img alt="V2 Drift BET" class="ph" src="images/bet-03.png"/><div class="fig-cap" data-i18n="growth.auto038">V2 Drift BET</div></div>
+</div>
+</div>
+<div class="prog"><div class="bar"></div></div>
+</div>
+<p class="sub-label" data-i18n="growth.auto039">Outcome</p>
+<p data-i18n="growth.auto040">During the period I contributed to BET, Drift continued expanding its ecosystem beyond perpetual trading. The platform surpassed $1B+ TVL, served 200K+ traders, and accumulated $70B+ trading volume. BET further extended the ecosystem by introducing prediction markets, with the alpha launch generating over $3.5M in order book liquidity within the first 24 hours, demonstrating strong early user interest.</p>
+</section>
+<section class="reveal" id="s3">
+<div class="sec-eyebrow"><span class="num">03</span><span class="name" data-i18n="growth.auto041">Growth &amp; Community Experiences</span></div>
+<h2 class="sec-h" data-i18n="growth.auto042">As Drift expanded its ecosystem, user engagement became just as important as trading itself. Beyond building core product experiences, I designed features that encouraged users to return regularly, track their progress, share achievements, and participate in community campaigns.</h2>
+<p class="sub-head" data-i18n="growth.auto043">— DRIFT Airdrop</p>
+<p data-i18n="growth.auto044">Drift launched its first community airdrop to reward early traders and liquidity providers while transitioning toward community governance. The claim experience needed to support thousands of users during one of the platform's most anticipated events.</p>
+<p class="sub-label" data-i18n="growth.auto045">Challenge</p>
+<h2 class="sec-h" data-i18n="growth.auto046">Heavy claim traffic on Solana created a high risk of network congestion. We needed a simple experience that reduced friction while encouraging users to avoid claiming simultaneously.</h2>
+<p class="sub-label" data-i18n="growth.auto047">Design Highlights</p>
+<div class="rows">
+<div class="row"><div class="rn">1</div><div><h4 data-i18n="growth.auto048">Reward-Based Waiting</h4><p data-i18n="growth.auto049">Users who waited received additional airdrop rewards, helping distribute claim traffic over time.</p></div></div>
+<div class="row"><div class="rn">2</div><div><h4 data-i18n="growth.auto050">One-Step Claim</h4><p data-i18n="growth.auto051">Simplified wallet connection and eligibility verification with minimal user actions.</p></div></div>
+<div class="row"><div class="rn">3</div><div><h4 data-i18n="growth.auto052">Launch Experience</h4><p data-i18n="growth.auto053">Created a cyberpunk-inspired visual experience and marketing assets that generated excitement across the community.</p></div></div>
+</div>
+<div class="gallery" data-gallery="">
+<button aria-label="Previous" class="arrow left" data-dir="-1"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<button aria-label="Next" class="arrow right" data-dir="1"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></button>
+<div class="viewport">
+<div class="track">
+<div class="slide slide-wide"><img alt="Airdrop — Foundation Site" class="ph" src="images/airdrop-01.png"/><div class="fig-cap" data-i18n="growth.auto054">Airdrop — Foundation Site</div></div>
+<div class="slide slide-wide"><img alt="Airdrop — Claim Page" class="ph" src="images/airdrop-02.png"/><div class="fig-cap" data-i18n="growth.auto055">Airdrop — Claim Page</div></div>
+<div class="slide slide-wide"><img alt="Airdrop — After Claim" class="ph" src="images/airdrop-03.png"/><div class="fig-cap" data-i18n="growth.auto056">Airdrop — After Claim</div></div>
+</div>
+</div>
+<div class="prog"><div class="bar"></div></div>
+</div>
+<p class="sub-head" data-i18n="growth.auto057">— Rewards, Leaderboards &amp; Social Engagement</p>
+<p class="sub-label" data-i18n="growth.auto058">Challenge</p>
+<h2 class="sec-h" data-i18n="growth.auto059">As Drift introduced more incentive programs and community features, users needed a clearer way to understand their progress, discover rewards, and showcase their trading performance. The goal was to encourage long-term participation while making engagement features simple and rewarding to use.</h2>
+<p class="sub-label" data-i18n="growth.auto060">Design Focus</p>
+<ol class="ol">
+<li data-i18n="growth.auto061">Simplified the Fuel Rewards experience with clearer progress tracking and reward visibility.</li>
+<li data-i18n="growth.auto062">Designed intuitive leaderboard experiences to help users discover top traders and monitor their own performance.</li>
+<li data-i18n="growth.auto063">Created shareable P&amp;L cards that encouraged users to showcase their trading results across social platforms.</li>
+</ol>
+<div class="figure">
+<img alt="Product Design — Fuel, Leaderboards, P&amp;L cards" class="ph" src="images/growth-product.png"/>
+<div class="fig-cap" data-i18n="growth.auto064">Product Design</div>
+</div>
+<p class="sub-label" data-i18n="growth.auto065">Outcome</p>
+<p data-i18n="growth.auto066">The engagement features became more than standalone interfaces — they evolved into growth touchpoints across the Drift ecosystem. Clearer reward progression, competitive leaderboards, and shareable P&amp;L cards encouraged users to return, participate in campaigns, and celebrate their achievements publicly. By aligning product experiences with community and marketing initiatives, these designs helped create a stronger connection between user engagement and product growth.</p>
+</section>
+<section class="reveal" id="s4">
+<div class="sec-eyebrow"><span class="num">04</span><span class="name" data-i18n="growth.auto067">Drift Visual Ecosystem</span></div>
+<p class="sub-label" data-i18n="growth.auto068">Challenge</p>
+<h2 class="sec-h" data-i18n="growth.auto069">Product launches and promotional campaigns required consistent visual communication across the product, website, and social media while maintaining Drift's brand identity.</h2>
+<div class="figure">
+<img alt="Growth campaigns — social &amp; marketing assets" class="ph" src="images/growth-campaigns.png"/>
+<div class="fig-cap" data-i18n="growth.auto070">Growth Campaigns — marketing &amp; social assets</div>
+</div>
+<div class="gallery" data-gallery="">
+<button aria-label="Previous" class="arrow left" data-dir="-1"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<button aria-label="Next" class="arrow right" data-dir="1"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></button>
+<div class="viewport">
+<div class="track">
+<div class="slide slide-wide"><img alt="Foundation Site" class="ph" src="images/foundation-01.png"/><div class="fig-cap" data-i18n="growth.auto071">Foundation Site</div></div>
+<div class="slide slide-wide"><img alt="Foundation Site — About Token" class="ph" src="images/foundation-02.png"/><div class="fig-cap" data-i18n="growth.auto072">Foundation Site — About Token</div></div>
+<div class="slide slide-wide"><img alt="Foundation Site" class="ph" src="images/foundation-03.png"/><div class="fig-cap" data-i18n="growth.auto073">Foundation Site</div></div>
+<div class="slide slide-wide"><img alt="Foundation Site" class="ph" src="images/foundation-04.png"/><div class="fig-cap" data-i18n="growth.auto074">Foundation Site</div></div>
+</div>
+</div>
+<div class="prog"><div class="bar"></div></div>
+</div>
+</section>
+</div>
+</div>
+<a class="next-cs" href="binance-copytrading.html">
+<div class="inner">
+<div>
+<div class="lbl"><span data-i18n="next.lbl">NEXT CASE STUDY</span> · BINANCE</div>
+<div class="t" data-i18n="cs.copy.long">BINANCE Copy Trading</div>
+</div>
+<svg class="arw" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
+</div>
+</a>
+</div>
 <footer>
-  <div class="wrap">
-    <div class="foot-contact">
-      <a class="fc" href="mailto:changhsiju@gmail.com" aria-label="Email Ceci Chang" title="changhsiju@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4.5" width="20" height="15" rx="2.5"/><path d="M2.8 6.3l8.1 5.3a2 2 0 0 0 2.2 0l8.1-5.3"/></svg></a>
-      <a class="fc" href="https://www.linkedin.com/in/changhsiju/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" title="linkedin.com/in/changhsiju"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.44-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
-    </div>
-    <div class="foot-credit" data-i18n="foot.credit">Designed by Ceci Chang · Made with Claude</div>
-  </div>
+<div class="wrap">
+<div class="foot-contact">
+<a aria-label="Email Ceci Chang" class="fc" href="mailto:changhsiju@gmail.com" title="changhsiju@gmail.com"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><rect height="15" rx="2.5" width="20" x="2" y="4.5"></rect><path d="M2.8 6.3l8.1 5.3a2 2 0 0 0 2.2 0l8.1-5.3"></path></svg></a>
+<a aria-label="LinkedIn profile" class="fc" href="https://www.linkedin.com/in/changhsiju/" rel="noopener noreferrer" target="_blank" title="linkedin.com/in/changhsiju"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.44-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"></path></svg></a>
+</div>
+<div class="foot-credit" data-i18n="foot.credit">Designed by Ceci Chang · Made with Claude</div>
+</div>
 </footer>
-
 <script>
   const nav=document.getElementById('nav');
   window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>10));
@@ -547,7 +600,6 @@
     apply();
   });
 </script>
-
 <script>
   /* nav 下拉選單 */
   document.querySelectorAll('.has-drop').forEach(function(d){

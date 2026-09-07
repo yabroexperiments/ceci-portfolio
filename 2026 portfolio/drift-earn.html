@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>DeFi Earn Experience — Ceci Chang</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <style>
   :root{
     --bg:#eef1fb;--ink:#0b0b0f;--ink-soft:#48494E;--ink-mute:#71747f;
@@ -268,275 +269,336 @@
   @media(max-width:960px){
     .nav-links.open .nav-right{margin-left:0;width:100%;justify-content:flex-start}
   }
+
+  /* Disabled Branding Design navigation — Coming soon tooltip */
+  .nav-coming-soon{position:relative;display:inline-flex;align-items:center;font-weight:500;font-size:15.5px;color:var(--ink-mute);cursor:not-allowed;line-height:1.5;outline:none}
+  .nav-coming-tip{position:absolute;left:50%;top:calc(100% + 10px);transform:translateX(-50%) translateY(-4px);white-space:nowrap;background:#0b0b0f;color:#fff;font-size:12px;font-weight:500;padding:6px 9px;border-radius:7px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s,transform .18s,visibility .18s;z-index:80}
+  .nav-coming-soon:hover .nav-coming-tip,.nav-coming-soon:focus .nav-coming-tip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  @media(max-width:960px){.nav-coming-tip{left:0;top:100%;transform:translateY(2px)}.nav-coming-soon:hover .nav-coming-tip,.nav-coming-soon:focus .nav-coming-tip{transform:translateY(6px)}}
+
+/* ===== 2026-09 mobile spacing + navigation consistency ===== */
+html{scrollbar-gutter:stable;}
+@media(max-width:960px){
+  .wrap,.nav-inner{width:100%;max-width:none;padding-left:16px!important;padding-right:16px!important;}
+  .nav-inner{height:86px;}
+  .nav-links.open{padding-left:16px!important;padding-right:16px!important;}
+}
+</style>
+
+<style id="nav-stability-final">
+/* Final shared navigation contract — identical on every portfolio page */
+html{scrollbar-gutter:stable;}
+body{margin:0;}
+nav#nav{
+  position:sticky!important;top:0!important;z-index:1000!important;
+  width:100%!important;height:86px!important;min-height:86px!important;
+  background:#eef1fb!important;border-bottom:1px solid transparent!important;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+  transition:none!important;transform:none!important;contain:none!important;
+}
+nav#nav.scrolled{background:#eef1fb!important;border-bottom-color:#d9dcec!important;}
+nav#nav .nav-inner{
+  width:100%!important;max-width:1140px!important;height:86px!important;min-height:86px!important;
+  margin:0 auto!important;padding:0 24px!important;display:flex!important;align-items:center!important;
+  gap:24px!important;position:relative!important;box-sizing:border-box!important;
+}
+nav#nav .brand{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;font-size:20px!important;line-height:1!important;font-weight:600!important;letter-spacing:-.01em!important;margin:0!important;padding:0!important;transform:none!important;}
+nav#nav .nav-links,nav#nav .nav-group,nav#nav .nav-right{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;}
+nav#nav a,nav#nav button{transform:none!important;}
+nav#nav .has-drop{overflow:visible!important;}
+nav#nav .drop-menu{z-index:1100!important;}
+@media(min-width:1280px){nav#nav .nav-inner{max-width:1360px!important;padding-left:48px!important;padding-right:48px!important;}}
+@media(min-width:1536px){nav#nav .nav-inner{max-width:1560px!important;}}
+@media(max-width:960px){
+  nav#nav .nav-inner{max-width:none!important;padding-left:16px!important;padding-right:16px!important;}
+  nav#nav .nav-links.open{left:0!important;right:0!important;padding-left:16px!important;padding-right:16px!important;}
+}
+</style>
+
+<link rel="prefetch" href="index.html"/><link rel="prefetch" href="ui-design.html"/>
+
+<style id="mobile-gallery-fit-fix">
+@media(max-width:960px){
+  /* Desktop UI screenshots should be viewable as a whole on mobile. */
+  .gallery .viewport{overflow-x:auto!important;overflow-y:hidden!important;scroll-padding-left:0;}
+  .gallery .track{gap:14px!important;align-items:flex-start;}
+  .gallery .track .slide-wide{width:calc(100vw - 80px)!important;max-width:520px!important;min-width:0!important;}
+  .gallery .track .slide:not(.slide-wide){width:min(220px,62vw)!important;}
+  .gallery .track .slide img.ph{width:100%!important;height:auto!important;object-fit:contain!important;}
+  .gallery .fig-cap{font-size:12.5px!important;line-height:1.4;}
+  .gallery .prog{margin-top:14px;}
+}
+@media(max-width:480px){
+  .gallery .track .slide-wide{width:calc(100vw - 72px)!important;}
+  .gallery .track .slide:not(.slide-wide){width:min(210px,58vw)!important;}
+}
+</style>
+
+<style id="mobile-lang-header-final">
+@media(max-width:960px){
+  nav#nav .nav-inner{position:relative!important;}
+  nav#nav .nav-links{display:block!important;position:static!important;flex:0 0 auto!important;}
+  nav#nav .nav-group{display:none!important;}
+  nav#nav .nav-links.open .nav-group{display:flex!important;position:absolute!important;top:86px!important;left:0!important;right:0!important;background:#eef1fb!important;padding:20px 16px 26px!important;border-bottom:1px solid var(--line)!important;flex-direction:column!important;align-items:flex-start!important;gap:18px!important;}
+  nav#nav .nav-right{display:flex!important;position:absolute!important;right:56px!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important;width:auto!important;}
+  nav#nav .lang-sw{display:inline-flex!important;}
+  nav#nav .nav-toggle{position:absolute!important;right:16px!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important;}
+}
+</style>
+
+<style id="sticky-nav-return-final">
+/* Return to the stable pre-SPA navigation behavior: small page-load flash is accepted, but header stays pinned while scrolling. */
+nav#nav{position:sticky!important;top:0!important;z-index:1000!important;}
 </style>
 </head>
 <body>
-
 <nav id="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="brand">Ceci Chang</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">☰</button>
-    <div class="nav-links" id="navLinks">
-      <div class="nav-group">
-        <div class="has-drop">
-          <button class="drop-toggle" type="button" aria-expanded="false"><span data-i18n="nav.web3">Web3 Product Design</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="drop-menu">
-          <a href="drift-earn.html" aria-current="page"><span data-i18n="cs.earn.short">DeFi Earn Experience</span><span class="co">Drift Protocol</span></a>
-          <a href="drift-growth.html"><span data-i18n="cs.growth.short">Growth &amp; Community Engagement</span><span class="co">Drift Protocol</span></a>
-          <a href="binance-copytrading.html"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
-          <a href="binance-futures.html"><span data-i18n="cs.futures.short">Futures Trading</span><span class="co">Binance</span></a>
-          <a href="binance-leaderboard.html"><span data-i18n="cs.lb.short">Leaderboard</span><span class="co">Binance</span></a>
-          <a href="traderwagon.html"><span data-i18n="cs.tw.short">Social Trading Platform</span><span class="co">TraderWagon</span></a>
-          </div>
-        </div>
-        <a href="index.html#branding" data-i18n="nav.branding">Branding Design</a>
-        <a href="index.html#ui" data-i18n="nav.ui">UI Design</a>
-      </div>
-      <div class="nav-right">
-        <div class="lang-sw" role="group" aria-label="Language / 語言">
-          <button type="button" class="lang-btn is-on" data-lang="en" aria-pressed="true">EN</button>
-          <button type="button" class="lang-btn" data-lang="zh" aria-pressed="false">中</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
-
-<div class="wrap">
-  <a href="index.html#work" class="back" data-i18n="back.work">← BACK TO WORK</a>
-
-  <div class="p-head">
-    <div>
-      <div class="eyebrow">
-        <span class="lbl">Case Study</span>
-        <span class="chip">◈ Drift Protocol V3</span>
-        <span class="chip">Mobile App</span>
-      </div>
-      <h1 class="p-title">DeFi Earn Experience</h1>
-      <p class="p-lead">Led the end-to-end UI/UX design for the Drift Earn ecosystem, including onboarding, deposits, borrowing, isolated pools, and portfolio management experiences.</p>
-    </div>
-    <div class="facts">
-      <div class="fact"><div class="k">Year</div><div class="v">2025 & 2026</div></div>
-      <div class="fact"><div class="k">Role</div><div class="v">Product Designer</div></div>
-      <div class="fact"><div class="k">Responsibilities</div><div class="v">End-to-end product design, branding, product strategy, research</div></div>
-      <div class="fact"><div class="k">Team</div><div class="v">1 PM, 1 Product Designer</div></div>
-    </div>
-  </div>
-
-  <div class="hero-shot reveal">
-    <img src="images/hero.png" alt="Drift Earn main dashboard" class="ph wide">
-  </div>
-
-  <div class="strip">
-    <div class="col"><div class="k">Core Experiences</div><div class="v">Earn, Borrow & Lend, Deposit, Isolated Pools, Portfolio</div></div>
-    <div class="col"><div class="k">Device</div><div class="v">Web + Mobile, App (beta)</div></div>
-    <div class="col"><div class="k">Impact</div><div class="v">2025–2026, total deposits in Drift’s Borrow/Lend pool grew approximately 66%, from $330M to $550M at its peak.</div></div>
-  </div>
-
-  <div class="layout">
-    <!-- TOC -->
-    <aside class="toc" id="toc">
-      <a href="#s1"><span class="num">01</span> My Role</a>
-      <a href="#s2"><span class="num">02</span> Context</a>
-      <a href="#s3"><span class="num">03</span> Key Challenges</a>
-      <a href="#s4"><span class="num">04</span> Product Discovery</a>
-      <a href="#s5"><span class="num">05</span> Borrow & Lend</a>
-      <a href="#s6"><span class="num">06</span> Isolated Pools</a>
-      <a href="#s7"><span class="num">07</span> Deposit & Onboarding</a>
-      <a href="#s8"><span class="num">08</span> Portfolio</a>
-      <a href="#s9"><span class="num">09</span> Cross-platform</a>
-      <a href="#s10"><span class="num">10</span> Outcome & Reflection</a>
-    </aside>
-
-    <!-- CONTENT -->
-    <div class="content">
-      <section id="s1" class="reveal">
-        <div class="sec-eyebrow"><span class="num">01</span><span class="name">My Role</span></div>
-        <h2 class="sec-h">I worked closely with PMs and engineers to translate complex DeFi requirements into clear, scalable product experiences. My primary responsibility was UI/UX design — information hierarchy, interaction patterns, user guidance, responsive layouts, and final visual execution across web and mobile.</h2>
-        <p>Beyond designing the product itself, I conducted extensive competitor research before starting the project. In the DEX space, users are often attracted by high yields, but many platforms still lack the trust and user experience that centralized exchanges provide.</p>
-        <p>My focus was on simplifying complex information and making the experience more approachable for both new and experienced users. I worked closely with the PM through multiple design iterations, and gathered community feedback through simple social media surveys to continuously improve the experience.</p>
-      </section>
-
-      <section id="s2" class="reveal">
-        <div class="sec-eyebrow"><span class="num">02</span><span class="name">Context</span></div>
-        <h2 class="sec-h">Depositing is the first meaningful step</h2>
-        <p>After connecting a wallet, the next major challenge was helping users confidently make their first deposit. On Drift, deposited assets can also be used as collateral for perpetual trading, making the Earn experience closely connected to user activation, liquidity, and the broader trading ecosystem.</p>
-        <div class="quad">
-          <div class="q"><h4>Connect Wallet</h4><p>Redesigned the wallet connection experience to reduce complexity, prioritize common wallets, and lower the barrier for new Web3 users.</p></div>
-          <div class="q"><h4>Deposit Assets</h4><p>Improved APY visibility, added multiple deposit entry points, and simplified technical guidance to reduce friction for new users.</p></div>
-          <div class="q"><h4>Earn Yield</h4><p>Helped users manage assets, build trust, and discover earning opportunities like Isolated Pools and dSOL liquid staking.</p></div>
-          <div class="q"><h4>Trading Collateral</h4><p>Since any deposited asset can be used as collateral, Borrow/Lend focused on making account health and borrowing APY easy to understand.</p></div>
-        </div>
-      </section>
-
-      <section id="s3" class="reveal">
-        <div class="sec-eyebrow"><span class="num">03</span><span class="name">Key Challenges</span></div>
-        <div class="rows">
-          <div class="row"><div class="rn">1</div><div><h4>Discoverability</h4><p>More products and assets, and pools made earning opportunities difficult to find and compare.</p></div></div>
-          <div class="row"><div class="rn">2</div><div><h4>Action Clarity</h4><p>Deposit, withdraw, borrow, and repay actions lacked a consistent hierarchy.</p></div></div>
-          <div class="row"><div class="rn">3</div><div><h4>DeFi Education</h4><p>New users struggled to understand isolated pools, subaccounts, and collateral restrictions.</p></div></div>
-          <div class="row"><div class="rn">4</div><div><h4>Asset Management</h4><p>Users needed a clearer way to understand and manage positions across the platform.</p></div></div>
-        </div>
-      </section>
-
-      <section id="s4" class="reveal">
-        <div class="sec-eyebrow"><span class="num">04</span><span class="name">Product Discovery</span></div>
-        <h2 class="sec-h">Making earning opportunities easier to explore</h2>
-        <p class="focus-label">My Design Focus</p>
-        <ol class="ol">
-          <li>Unified asset and product structure</li>
-          <li>Clearer APY comparison</li>
-          <li>Improved filtering and search</li>
-          <li>Better information hierarchy</li>
-          <li>Scalable layouts for future products</li>
-        </ol>
-        <div class="figure two-up">
-          <div><img src="images/discovery-before.png" alt="Drift Earn — before redesign" class="ph wide"><div class="fig-cap">Before</div></div>
-          <div><img src="images/discovery-after.png" alt="Drift Earn — after redesign" class="ph wide"><div class="fig-cap">After</div></div>
-        </div>
-      </section>
-
-      <section id="s5" class="reveal">
-        <div class="sec-eyebrow"><span class="num">05</span><span class="name">Borrow & Lend</span></div>
-        <h2 class="sec-h">As the number of supported assets increased, the Borrow and Lend page became harder to navigate. Deposit, withdraw, borrow, and repay actions also appeared inconsistently across the experience.</h2>
-        <p>I restructured the Borrow/Lend layout to give each action a consistent, predictable place, and surfaced account health and borrowing capacity more clearly so users could act with confidence.</p>
-        <div class="gallery" data-gallery>
-          <button class="arrow left" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-          <button class="arrow right" data-dir="1" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
-          <div class="viewport">
-            <div class="track">
-              <div class="slide slide-wide"><img src="images/borrow-01.png" alt="Borrow / Lend — main market" class="ph wide"><div class="fig-cap">Borrow / Lend — main market</div></div>
-              <div class="slide slide-wide"><img src="images/borrow-02.png" alt="Borrow / Lend — JLP market" class="ph wide"><div class="fig-cap">JLP market</div></div>
-              <div class="slide slide-wide"><img src="images/borrow-03.png" alt="Borrow / Lend — deposit modal" class="ph wide"><div class="fig-cap">Deposit modal</div></div>
-              <div class="slide slide-wide"><img src="images/borrow-04.png" alt="Borrow / Lend — light mode" class="ph wide"><div class="fig-cap">Light mode</div></div>
-            </div>
-          </div>
-          <div class="prog"><div class="bar"></div></div>
-        </div>
-      </section>
-
-      <section id="s6" class="reveal">
-        <div class="sec-eyebrow"><span class="num">06</span><span class="name">Isolated Pools</span></div>
-        <h2 class="sec-h">Isolated pools introduced more flexibility but also created confusion for users unfamiliar with DeFi mechanics.</h2>
-        <p class="focus-label">My Design Focus</p>
-        <div class="rows">
-          <div class="row"><div class="rn">1</div><div><h4>Clarified the differences between isolated products</h4><p>Clearly distinguished Borrow & Lend Isolated Pools, Amplify, dSOL Liquid Staking, DRIFT Staking and Vaults, helping users understand that assets in these products could not be used as trading collateral.</p></div></div>
-          <div class="row"><div class="rn">2</div><div><h4>Reduced the learning curve for DeFi concepts</h4><p>Introduced contextual onboarding, tooltips, and inline explanations to make complex concepts such as isolated pools, collateral, and subaccounts easier to understand.</p></div></div>
-          <div class="row"><div class="rn">3</div><div><h4>Simplified specialized Earn products</h4><p>Improved guidance for managing liabilities, making it easier for users to understand how to repay borrowed assets and monitor loan status.</p></div></div>
-          <div class="row"><div class="rn">4</div><div><h4>Provided a clearer financial overview</h4><p>Improved the visibility of earnings, deposited assets, liabilities, and available collateral, so users could quickly understand their overall financial position.</p></div></div>
-        </div>
-        <div class="figure">
-          <img src="images/isolated-01.png" alt="Isolated pool products — dark and light mode" class="ph wide">
-          <div class="fig-cap">Isolated pool products — dark and light mode</div>
-        </div>
-      </section>
-
-      <section id="s7" class="reveal">
-        <div class="sec-eyebrow"><span class="num">07</span><span class="name">Deposit and Onboarding</span></div>
-        <h2 class="sec-h">Connecting a wallet did not always lead to a completed deposit. For new users, cross-chain funding flows were often too complex. We wanted to reduce drop-off right after onboarding and help users complete their first deposit with confidence.</h2>
-        <p class="focus-label">My Design Focus</p>
-        <ol class="ol">
-          <li>Simplified the onboarding flow by removing unnecessary steps and reducing cognitive load.</li>
-          <li>Added clearer and more visible entry points for deposits.</li>
-          <li>Guided users through cross-chain deposit steps with less technical complexity.</li>
-          <li>Educated users that deposited assets could earn yield and be used as collateral for perpetual trading.</li>
-        </ol>
-        <div class="figure">
-          <img src="images/onboarding-flow.png" alt="Deposit and onboarding — user flow" class="ph wide">
-          <div class="fig-cap">Deposit & onboarding — user flow</div>
-        </div>
-      </section>
-
-      <section id="s8" class="reveal">
-        <div class="sec-eyebrow"><span class="num">08</span><span class="name">Portfolio Management</span></div>
-        <h2 class="sec-h">Users needed a clearer overview of their balances, liabilities, earnings, and positions across Drift.</h2>
-        <p class="focus-label">My Design Focus</p>
-        <ol class="ol">
-          <li>Clear financial hierarchy</li>
-          <li>Unified asset overview</li>
-          <li>Easier position management</li>
-          <li>Improved performance visibility</li>
-          <li>Consistent actions across the ecosystem</li>
-        </ol>
-        <div class="gallery" data-gallery>
-          <button class="arrow left" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-          <button class="arrow right" data-dir="1" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
-          <div class="viewport">
-            <div class="track">
-              <div class="slide slide-wide"><img src="images/portfolio-01.png" alt="Portfolio — web" class="ph"><div class="fig-cap">Web — Portfolio dashboard</div></div>
-              <div class="slide slide-wide"><img src="images/portfolio-02.png" alt="Portfolio — mobile" class="ph"><div class="fig-cap">Mobile — Portfolio</div></div>
-            </div>
-          </div>
-          <div class="prog"><div class="bar"></div></div>
-        </div>
-      </section>
-
-      <section id="s9" class="reveal">
-        <div class="sec-eyebrow"><span class="num">09</span><span class="name">Cross-platform Support</span></div>
-        <h2 class="sec-h">Extending the Drift V3 design language across web and mobile</h2>
-        <p>While Drift primarily focused on the web experience due to wallet connectivity and trading behavior in Web3, I also contributed to the beta mobile app. Designed for both iOS and Android, it entered internal testing in early 2026.</p>
-        <p class="focus-label">My Contribution</p>
-        <ol class="ol">
-          <li>Responsive layouts for key product flows</li>
-          <li>Mobile UI adaptation for core experiences</li>
-          <li>Drift V3 visual consistency across web and mobile</li>
-          <li>Beta app design for iOS and Android</li>
-        </ol>
-        <div class="gallery" data-gallery>
-          <button class="arrow left" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-          <button class="arrow right" data-dir="1" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
-          <div class="viewport">
-            <div class="track">
-              <div class="slide"><img src="images/app-01.png" alt="App — Portfolio home" class="ph no-radius"><div class="fig-cap">Portfolio home</div></div>
-              <div class="slide"><img src="images/app-02.png" alt="App — Earn" class="ph no-radius"><div class="fig-cap">Earn</div></div>
-              <div class="slide"><img src="images/app-03.png" alt="App — Deposit" class="ph no-radius"><div class="fig-cap">Deposit</div></div>
-              <div class="slide"><img src="images/app-04.png" alt="App — First-time deposit" class="ph no-radius"><div class="fig-cap">First-time deposit</div></div>
-              <div class="slide"><img src="images/app-05.png" alt="App — Rate history chart" class="ph no-radius"><div class="fig-cap">Rate history chart</div></div>
-              <div class="slide"><img src="images/app-06.png" alt="App — P&L card design" class="ph no-radius"><div class="fig-cap">P&L card design</div></div>
-              <div class="slide"><img src="images/app-07.png" alt="App — Perps page" class="ph no-radius"><div class="fig-cap">Perps page</div></div>
-            </div>
-          </div>
-          <div class="prog"><div class="bar"></div></div>
-        </div>
-      </section>
-
-      <section id="s10" class="reveal">
-        <div class="sec-eyebrow"><span class="num">10</span><span class="name">Outcome & Reflection</span></div>
-        <p class="focus-label">Business Context</p>
-        <div class="stats">
-          <div class="s"><div class="k">Total Value Locked</div><div class="v">$1B+</div></div>
-          <div class="s"><div class="k">Traders</div><div class="v">200K+</div></div>
-          <div class="s"><div class="k">Trading Volume</div><div class="v">$70B+</div></div>
-        </div>
-        <p>During the period I contributed to Drift Earn, the platform continued to expand into a broader DeFi ecosystem, reaching over $1B in Total Value Locked, $70B+ in cumulative trading volume, and 200K+ traders.</p>
-        <p class="contrib">My Contribution: Earn Experience & Earn Ecosystem, Borrow & Lend, Deposit & Onboarding Flow, Portfolio & Account Management, Launch Visuals & Promotional Assets.</p>
-        <p class="focus-label">Reflection</p>
-        <p>This project strengthened my ability to translate complex financial requirements into clear product interfaces. Working closely with PMs and engineers also helped me balance product logic, technical constraints, and visual consistency across an evolving DeFi ecosystem.</p>
-      </section>
-    </div>
-  </div>
-
-  <a class="next-cs" href="drift-growth.html">
-    <div class="inner">
-      <div>
-        <div class="lbl"><span data-i18n="next.lbl">NEXT CASE STUDY</span> · DRIFT PROTOCOL</div>
-        <div class="t" data-i18n="cs.growth.long">Growth &amp; Community Engagement</div>
-      </div>
-      <svg class="arw" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-    </div>
-  </a>
+<div class="nav-inner">
+<a class="brand" href="index.html">Ceci Chang</a>
+<button aria-expanded="false" aria-label="Menu" class="nav-toggle" id="navToggle">☰</button>
+<div class="nav-links" id="navLinks">
+<div class="nav-group">
+<div class="has-drop">
+<button aria-expanded="false" class="drop-toggle" type="button"><span data-i18n="nav.web3">Web3 Product Design</span><svg class="chev" viewbox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></button>
+<div class="drop-menu">
+<a aria-current="page" href="drift-earn.html"><span data-i18n="cs.earn.short">DeFi Earn Experience</span><span class="co">Drift Protocol</span></a>
+<a href="drift-growth.html"><span data-i18n="cs.growth.short">Growth &amp; Community Engagement</span><span class="co">Drift Protocol</span></a>
+<a href="binance-copytrading.html"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
+<a href="binance-futures.html"><span data-i18n="cs.futures.short">Futures Trading</span><span class="co">Binance</span></a>
+<a href="binance-leaderboard.html"><span data-i18n="cs.lb.short">Leaderboard</span><span class="co">Binance</span></a>
+<a href="traderwagon.html"><span data-i18n="cs.tw.short">Social Trading Platform</span><span class="co">TraderWagon</span></a>
 </div>
-
+</div>
+<span aria-disabled="true" class="nav-coming-soon" tabindex="0"><span data-i18n="nav.branding">Branding Design</span><span class="nav-coming-tip" data-i18n="nav.branding.soon">Coming soon</span></span>
+<a data-i18n="nav.ui" href="ui-design.html">UI Design</a>
+</div>
+<div class="nav-right">
+<div aria-label="Language / 語言" class="lang-sw" role="group">
+<button aria-pressed="true" class="lang-btn is-on" data-lang="en" type="button">EN</button>
+<button aria-pressed="false" class="lang-btn" data-lang="zh" type="button">中</button>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<div class="wrap">
+<a class="back" data-i18n="back.work" href="index.html#work">← BACK TO WORK</a>
+<div class="p-head">
+<div>
+<div class="eyebrow">
+<span class="lbl" data-i18n="earn.auto001">Case Study</span>
+<span class="chip" data-i18n="earn.auto002">◈ Drift Protocol V3</span>
+<span class="chip" data-i18n="earn.auto003">Mobile App</span>
+</div>
+<h1 class="p-title" data-i18n="earn.auto004">DeFi Earn Experience</h1>
+<p class="p-lead" data-i18n="earn.auto005">Led the end-to-end UI/UX design for the Drift Earn ecosystem, including onboarding, deposits, borrowing, isolated pools, and portfolio management experiences.</p>
+</div>
+<div class="facts">
+<div class="fact"><div class="k" data-i18n="earn.auto006">Year</div><div class="v">2025 &amp; 2026</div></div>
+<div class="fact"><div class="k" data-i18n="earn.auto007">Role</div><div class="v" data-i18n="earn.auto008">Product Designer</div></div>
+<div class="fact"><div class="k" data-i18n="earn.auto009">Responsibilities</div><div class="v" data-i18n="earn.auto010">End-to-end product design, branding, product strategy, research</div></div>
+<div class="fact"><div class="k" data-i18n="earn.auto011">Team</div><div class="v" data-i18n="earn.auto012">1 PM, 1 Product Designer</div></div>
+</div>
+</div>
+<div class="hero-shot reveal">
+<img alt="Drift Earn main dashboard" class="ph wide" src="images/hero.png"/>
+</div>
+<div class="strip">
+<div class="col"><div class="k" data-i18n="earn.auto013">Core Experiences</div><div class="v" data-i18n="earn.auto014">Earn, Borrow &amp; Lend, Deposit, Isolated Pools, Portfolio</div></div>
+<div class="col"><div class="k" data-i18n="earn.auto015">Device</div><div class="v" data-i18n="earn.auto016">Web + Mobile, App (beta)</div></div>
+<div class="col"><div class="k" data-i18n="earn.auto017">Impact</div><div class="v" data-i18n="earn.auto018">2025–2026, total deposits in Drift’s Borrow/Lend pool grew approximately 66%, from $330M to $550M at its peak.</div></div>
+</div>
+<div class="layout">
+<!-- TOC -->
+<aside class="toc" id="toc">
+<a data-i18n="earn.auto019" href="#s1"><span class="num">01</span> My Role</a>
+<a data-i18n="earn.auto020" href="#s2"><span class="num">02</span> Context</a>
+<a data-i18n="earn.auto021" href="#s3"><span class="num">03</span> Key Challenges</a>
+<a data-i18n="earn.auto022" href="#s4"><span class="num">04</span> Product Discovery</a>
+<a data-i18n="earn.auto023" href="#s5"><span class="num">05</span> Borrow &amp; Lend</a>
+<a data-i18n="earn.auto024" href="#s6"><span class="num">06</span> Isolated Pools</a>
+<a data-i18n="earn.auto025" href="#s7"><span class="num">07</span> Deposit &amp; Onboarding</a>
+<a data-i18n="earn.auto026" href="#s8"><span class="num">08</span> Portfolio</a>
+<a data-i18n="earn.auto027" href="#s9"><span class="num">09</span> Cross-platform</a>
+<a data-i18n="earn.auto028" href="#s10"><span class="num">10</span> Outcome &amp; Reflection</a>
+</aside>
+<!-- CONTENT -->
+<div class="content">
+<section class="reveal" id="s1">
+<div class="sec-eyebrow"><span class="num">01</span><span class="name" data-i18n="earn.auto029">My Role</span></div>
+<h2 class="sec-h" data-i18n="earn.auto030">I worked closely with PMs and engineers to translate complex DeFi requirements into clear, scalable product experiences. My primary responsibility was UI/UX design — information hierarchy, interaction patterns, user guidance, responsive layouts, and final visual execution across web and mobile.</h2>
+<p data-i18n="earn.auto031">Beyond designing the product itself, I conducted extensive competitor research before starting the project. In the DEX space, users are often attracted by high yields, but many platforms still lack the trust and user experience that centralized exchanges provide.</p>
+<p data-i18n="earn.auto032">My focus was on simplifying complex information and making the experience more approachable for both new and experienced users. I worked closely with the PM through multiple design iterations, and gathered community feedback through simple social media surveys to continuously improve the experience.</p>
+</section>
+<section class="reveal" id="s2">
+<div class="sec-eyebrow"><span class="num">02</span><span class="name" data-i18n="earn.auto033">Context</span></div>
+<h2 class="sec-h" data-i18n="earn.auto034">Depositing is the first meaningful step</h2>
+<p data-i18n="earn.auto035">After connecting a wallet, the next major challenge was helping users confidently make their first deposit. On Drift, deposited assets can also be used as collateral for perpetual trading, making the Earn experience closely connected to user activation, liquidity, and the broader trading ecosystem.</p>
+<div class="quad">
+<div class="q"><h4 data-i18n="earn.auto036">Connect Wallet</h4><p data-i18n="earn.auto037">Redesigned the wallet connection experience to reduce complexity, prioritize common wallets, and lower the barrier for new Web3 users.</p></div>
+<div class="q"><h4 data-i18n="earn.auto038">Deposit Assets</h4><p data-i18n="earn.auto039">Improved APY visibility, added multiple deposit entry points, and simplified technical guidance to reduce friction for new users.</p></div>
+<div class="q"><h4 data-i18n="earn.auto040">Earn Yield</h4><p data-i18n="earn.auto041">Helped users manage assets, build trust, and discover earning opportunities like Isolated Pools and dSOL liquid staking.</p></div>
+<div class="q"><h4 data-i18n="earn.auto042">Trading Collateral</h4><p data-i18n="earn.auto043">Since any deposited asset can be used as collateral, Borrow/Lend focused on making account health and borrowing APY easy to understand.</p></div>
+</div>
+</section>
+<section class="reveal" id="s3">
+<div class="sec-eyebrow"><span class="num">03</span><span class="name" data-i18n="earn.auto044">Key Challenges</span></div>
+<div class="rows">
+<div class="row"><div class="rn">1</div><div><h4 data-i18n="earn.auto045">Discoverability</h4><p data-i18n="earn.auto046">More products and assets, and pools made earning opportunities difficult to find and compare.</p></div></div>
+<div class="row"><div class="rn">2</div><div><h4 data-i18n="earn.auto047">Action Clarity</h4><p data-i18n="earn.auto048">Deposit, withdraw, borrow, and repay actions lacked a consistent hierarchy.</p></div></div>
+<div class="row"><div class="rn">3</div><div><h4 data-i18n="earn.auto049">DeFi Education</h4><p data-i18n="earn.auto050">New users struggled to understand isolated pools, subaccounts, and collateral restrictions.</p></div></div>
+<div class="row"><div class="rn">4</div><div><h4 data-i18n="earn.auto051">Asset Management</h4><p data-i18n="earn.auto052">Users needed a clearer way to understand and manage positions across the platform.</p></div></div>
+</div>
+</section>
+<section class="reveal" id="s4">
+<div class="sec-eyebrow"><span class="num">04</span><span class="name" data-i18n="earn.auto053">Product Discovery</span></div>
+<h2 class="sec-h" data-i18n="earn.auto054">Making earning opportunities easier to explore</h2>
+<p class="focus-label" data-i18n="earn.auto055">My Design Focus</p>
+<ol class="ol">
+<li data-i18n="earn.auto056">Unified asset and product structure</li>
+<li data-i18n="earn.auto057">Clearer APY comparison</li>
+<li data-i18n="earn.auto058">Improved filtering and search</li>
+<li data-i18n="earn.auto059">Better information hierarchy</li>
+<li data-i18n="earn.auto060">Scalable layouts for future products</li>
+</ol>
+<div class="figure two-up">
+<div><img alt="Drift Earn — before redesign" class="ph wide" src="images/discovery-before.png"/><div class="fig-cap" data-i18n="earn.auto061">Before</div></div>
+<div><img alt="Drift Earn — after redesign" class="ph wide" src="images/discovery-after.png"/><div class="fig-cap" data-i18n="earn.auto062">After</div></div>
+</div>
+</section>
+<section class="reveal" id="s5">
+<div class="sec-eyebrow"><span class="num">05</span><span class="name" data-i18n="earn.auto063">Borrow &amp; Lend</span></div>
+<h2 class="sec-h" data-i18n="earn.auto064">As the number of supported assets increased, the Borrow and Lend page became harder to navigate. Deposit, withdraw, borrow, and repay actions also appeared inconsistently across the experience.</h2>
+<p data-i18n="earn.auto065">I restructured the Borrow/Lend layout to give each action a consistent, predictable place, and surfaced account health and borrowing capacity more clearly so users could act with confidence.</p>
+<div class="gallery" data-gallery="">
+<button aria-label="Previous" class="arrow left" data-dir="-1"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<button aria-label="Next" class="arrow right" data-dir="1"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></button>
+<div class="viewport">
+<div class="track">
+<div class="slide slide-wide"><img alt="Borrow / Lend — main market" class="ph wide" src="images/borrow-01.png"/><div class="fig-cap" data-i18n="earn.auto066">Borrow / Lend — main market</div></div>
+<div class="slide slide-wide"><img alt="Borrow / Lend — JLP market" class="ph wide" src="images/borrow-02.png"/><div class="fig-cap" data-i18n="earn.auto067">JLP market</div></div>
+<div class="slide slide-wide"><img alt="Borrow / Lend — deposit modal" class="ph wide" src="images/borrow-03.png"/><div class="fig-cap" data-i18n="earn.auto068">Deposit modal</div></div>
+<div class="slide slide-wide"><img alt="Borrow / Lend — light mode" class="ph wide" src="images/borrow-04.png"/><div class="fig-cap" data-i18n="earn.auto069">Light mode</div></div>
+</div>
+</div>
+<div class="prog"><div class="bar"></div></div>
+</div>
+</section>
+<section class="reveal" id="s6">
+<div class="sec-eyebrow"><span class="num">06</span><span class="name" data-i18n="earn.auto070">Isolated Pools</span></div>
+<h2 class="sec-h" data-i18n="earn.auto071">Isolated pools introduced more flexibility but also created confusion for users unfamiliar with DeFi mechanics.</h2>
+<p class="focus-label" data-i18n="earn.auto072">My Design Focus</p>
+<div class="rows">
+<div class="row"><div class="rn">1</div><div><h4 data-i18n="earn.auto073">Clarified the differences between isolated products</h4><p data-i18n="earn.auto074">Clearly distinguished Borrow &amp; Lend Isolated Pools, Amplify, dSOL Liquid Staking, DRIFT Staking and Vaults, helping users understand that assets in these products could not be used as trading collateral.</p></div></div>
+<div class="row"><div class="rn">2</div><div><h4 data-i18n="earn.auto075">Reduced the learning curve for DeFi concepts</h4><p data-i18n="earn.auto076">Introduced contextual onboarding, tooltips, and inline explanations to make complex concepts such as isolated pools, collateral, and subaccounts easier to understand.</p></div></div>
+<div class="row"><div class="rn">3</div><div><h4 data-i18n="earn.auto077">Simplified specialized Earn products</h4><p data-i18n="earn.auto078">Improved guidance for managing liabilities, making it easier for users to understand how to repay borrowed assets and monitor loan status.</p></div></div>
+<div class="row"><div class="rn">4</div><div><h4 data-i18n="earn.auto079">Provided a clearer financial overview</h4><p data-i18n="earn.auto080">Improved the visibility of earnings, deposited assets, liabilities, and available collateral, so users could quickly understand their overall financial position.</p></div></div>
+</div>
+<div class="figure">
+<img alt="Isolated pool products — dark and light mode" class="ph wide" src="images/isolated-01.png"/>
+<div class="fig-cap" data-i18n="earn.auto081">Isolated pool products — dark and light mode</div>
+</div>
+</section>
+<section class="reveal" id="s7">
+<div class="sec-eyebrow"><span class="num">07</span><span class="name" data-i18n="earn.auto082">Deposit and Onboarding</span></div>
+<h2 class="sec-h" data-i18n="earn.auto083">Connecting a wallet did not always lead to a completed deposit. For new users, cross-chain funding flows were often too complex. We wanted to reduce drop-off right after onboarding and help users complete their first deposit with confidence.</h2>
+<p class="focus-label" data-i18n="earn.auto084">My Design Focus</p>
+<ol class="ol">
+<li data-i18n="earn.auto085">Simplified the onboarding flow by removing unnecessary steps and reducing cognitive load.</li>
+<li data-i18n="earn.auto086">Added clearer and more visible entry points for deposits.</li>
+<li data-i18n="earn.auto087">Guided users through cross-chain deposit steps with less technical complexity.</li>
+<li data-i18n="earn.auto088">Educated users that deposited assets could earn yield and be used as collateral for perpetual trading.</li>
+</ol>
+<div class="figure">
+<img alt="Deposit and onboarding — user flow" class="ph wide" src="images/onboarding-flow.png"/>
+<div class="fig-cap" data-i18n="earn.auto089">Deposit &amp; onboarding — user flow</div>
+</div>
+</section>
+<section class="reveal" id="s8">
+<div class="sec-eyebrow"><span class="num">08</span><span class="name" data-i18n="earn.auto090">Portfolio Management</span></div>
+<h2 class="sec-h" data-i18n="earn.auto091">Users needed a clearer overview of their balances, liabilities, earnings, and positions across Drift.</h2>
+<p class="focus-label" data-i18n="earn.auto092">My Design Focus</p>
+<ol class="ol">
+<li data-i18n="earn.auto093">Clear financial hierarchy</li>
+<li data-i18n="earn.auto094">Unified asset overview</li>
+<li data-i18n="earn.auto095">Easier position management</li>
+<li data-i18n="earn.auto096">Improved performance visibility</li>
+<li data-i18n="earn.auto097">Consistent actions across the ecosystem</li>
+</ol>
+<div class="gallery" data-gallery="">
+<button aria-label="Previous" class="arrow left" data-dir="-1"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<button aria-label="Next" class="arrow right" data-dir="1"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></button>
+<div class="viewport">
+<div class="track">
+<div class="slide slide-wide"><img alt="Portfolio — web" class="ph" src="images/portfolio-01.png"/><div class="fig-cap" data-i18n="earn.auto098">Web — Portfolio dashboard</div></div>
+<div class="slide slide-wide"><img alt="Portfolio — mobile" class="ph" src="images/portfolio-02.png"/><div class="fig-cap" data-i18n="earn.auto099">Mobile — Portfolio</div></div>
+</div>
+</div>
+<div class="prog"><div class="bar"></div></div>
+</div>
+</section>
+<section class="reveal" id="s9">
+<div class="sec-eyebrow"><span class="num">09</span><span class="name" data-i18n="earn.auto100">Cross-platform Support</span></div>
+<h2 class="sec-h" data-i18n="earn.auto101">Extending the Drift V3 design language across web and mobile</h2>
+<p data-i18n="earn.auto102">While Drift primarily focused on the web experience due to wallet connectivity and trading behavior in Web3, I also contributed to the beta mobile app. Designed for both iOS and Android, it entered internal testing in early 2026.</p>
+<p class="focus-label" data-i18n="earn.auto103">My Contribution</p>
+<ol class="ol">
+<li data-i18n="earn.auto104">Responsive layouts for key product flows</li>
+<li data-i18n="earn.auto105">Mobile UI adaptation for core experiences</li>
+<li data-i18n="earn.auto106">Drift V3 visual consistency across web and mobile</li>
+<li data-i18n="earn.auto107">Beta app design for iOS and Android</li>
+</ol>
+<div class="gallery" data-gallery="">
+<button aria-label="Previous" class="arrow left" data-dir="-1"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<button aria-label="Next" class="arrow right" data-dir="1"><svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></button>
+<div class="viewport">
+<div class="track">
+<div class="slide"><img alt="App — Portfolio home" class="ph no-radius" src="images/app-01.png"/><div class="fig-cap" data-i18n="earn.auto108">Portfolio home</div></div>
+<div class="slide"><img alt="App — Earn" class="ph no-radius" src="images/app-02.png"/><div class="fig-cap" data-i18n="earn.auto109">Earn</div></div>
+<div class="slide"><img alt="App — Deposit" class="ph no-radius" src="images/app-03.png"/><div class="fig-cap" data-i18n="earn.auto110">Deposit</div></div>
+<div class="slide"><img alt="App — First-time deposit" class="ph no-radius" src="images/app-04.png"/><div class="fig-cap" data-i18n="earn.auto111">First-time deposit</div></div>
+<div class="slide"><img alt="App — Rate history chart" class="ph no-radius" src="images/app-05.png"/><div class="fig-cap" data-i18n="earn.auto112">Rate history chart</div></div>
+<div class="slide"><img alt="App — P&amp;L card design" class="ph no-radius" src="images/app-06.png"/><div class="fig-cap" data-i18n="earn.auto113">P&amp;L card design</div></div>
+<div class="slide"><img alt="App — Perps page" class="ph no-radius" src="images/app-07.png"/><div class="fig-cap" data-i18n="earn.auto114">Perps page</div></div>
+</div>
+</div>
+<div class="prog"><div class="bar"></div></div>
+</div>
+</section>
+<section class="reveal" id="s10">
+<div class="sec-eyebrow"><span class="num">10</span><span class="name" data-i18n="earn.auto115">Outcome &amp; Reflection</span></div>
+<p class="focus-label" data-i18n="earn.auto116">Business Context</p>
+<div class="stats">
+<div class="s"><div class="k" data-i18n="earn.auto117">Total Value Locked</div><div class="v">$1B+</div></div>
+<div class="s"><div class="k" data-i18n="earn.auto119">Traders</div><div class="v">200K+</div></div>
+<div class="s"><div class="k" data-i18n="earn.auto121">Trading Volume</div><div class="v">$70B+</div></div>
+</div>
+<p data-i18n="earn.auto123">During the period I contributed to Drift Earn, the platform continued to expand into a broader DeFi ecosystem, reaching over $1B in Total Value Locked, $70B+ in cumulative trading volume, and 200K+ traders.</p>
+<p class="contrib" data-i18n="earn.auto124">My Contribution: Earn Experience &amp; Earn Ecosystem, Borrow &amp; Lend, Deposit &amp; Onboarding Flow, Portfolio &amp; Account Management, Launch Visuals &amp; Promotional Assets.</p>
+<p class="focus-label" data-i18n="earn.auto125">Reflection</p>
+<p data-i18n="earn.auto126">This project strengthened my ability to translate complex financial requirements into clear product interfaces. Working closely with PMs and engineers also helped me balance product logic, technical constraints, and visual consistency across an evolving DeFi ecosystem.</p>
+</section>
+</div>
+</div>
+<a class="next-cs" href="drift-growth.html">
+<div class="inner">
+<div>
+<div class="lbl"><span data-i18n="next.lbl">NEXT CASE STUDY</span> · DRIFT PROTOCOL</div>
+<div class="t" data-i18n="cs.growth.long">Growth &amp; Community Engagement</div>
+</div>
+<svg class="arw" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
+</div>
+</a>
+</div>
 <footer>
-  <div class="wrap">
-    <div class="foot-contact">
-      <a class="fc" href="mailto:changhsiju@gmail.com" aria-label="Email Ceci Chang" title="changhsiju@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4.5" width="20" height="15" rx="2.5"/><path d="M2.8 6.3l8.1 5.3a2 2 0 0 0 2.2 0l8.1-5.3"/></svg></a>
-      <a class="fc" href="https://www.linkedin.com/in/changhsiju/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" title="linkedin.com/in/changhsiju"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.44-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
-    </div>
-    <div class="foot-credit" data-i18n="foot.credit">Designed by Ceci Chang · Made with Claude</div>
-  </div>
+<div class="wrap">
+<div class="foot-contact">
+<a aria-label="Email Ceci Chang" class="fc" href="mailto:changhsiju@gmail.com" title="changhsiju@gmail.com"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><rect height="15" rx="2.5" width="20" x="2" y="4.5"></rect><path d="M2.8 6.3l8.1 5.3a2 2 0 0 0 2.2 0l8.1-5.3"></path></svg></a>
+<a aria-label="LinkedIn profile" class="fc" href="https://www.linkedin.com/in/changhsiju/" rel="noopener noreferrer" target="_blank" title="linkedin.com/in/changhsiju"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.44-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"></path></svg></a>
+</div>
+<div class="foot-credit" data-i18n="foot.credit">Designed by Ceci Chang · Made with Claude</div>
+</div>
 </footer>
-
 <script>
   const nav=document.getElementById('nav');
   window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>10));
@@ -604,7 +666,6 @@
     apply();
   });
 </script>
-
 <script>
   /* nav 下拉選單 */
   document.querySelectorAll('.has-drop').forEach(function(d){

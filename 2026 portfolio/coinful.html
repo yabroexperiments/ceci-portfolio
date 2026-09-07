@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coinful Trading Platform — Ceci Chang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffffff;--nav:#eef1fb;--ink:#0b0b0f;--ink-soft:#48494E;--ink-mute:#71747f;--line:#d9dcec}
+*{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+nav#portfolioNav{position:relative;z-index:999;background:var(--nav);border-bottom:1px solid rgba(11,11,15,.06)}.nav-inner{max-width:1140px;margin:0 auto;padding:0 24px;height:86px;display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative}.brand{font-weight:650;font-size:18px;flex:0 0 auto}.nav-toggle{display:none;background:none;border:0;font-size:24px;cursor:pointer}.nav-links{display:flex;align-items:center;flex:1}.nav-group{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:36px;margin:0;white-space:nowrap}.nav-group a,.drop-toggle{font-weight:500;font-size:15.5px;color:var(--ink-soft);transition:color .2s}.nav-group a:hover,.drop-toggle:hover,.nav-group a[aria-current="page"]{color:var(--ink)}
+.has-drop{position:relative}.drop-toggle{display:inline-flex;align-items:center;gap:7px;background:none;border:0;padding:0;font-family:inherit;line-height:1.5;cursor:pointer}.drop-toggle .chev{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}.has-drop.open .chev{transform:rotate(180deg)}.drop-menu{position:absolute;top:calc(100% + 16px);left:50%;transform:translateX(-50%) translateY(-8px);min-width:312px;background:#fff;border:1px solid #d9dcec;border-radius:14px;padding:8px;box-shadow:0 20px 44px -20px rgba(20,22,50,.4);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s;z-index:1000}.has-drop.open .drop-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}.drop-menu a{display:block;padding:11px 14px;border-radius:10px;font-size:15px;font-weight:500;color:var(--ink)}.drop-menu a:hover{background:#eef1fb}.drop-menu a .co{display:block;margin-top:2px;font-size:12.5px;color:var(--ink-mute)}
+.nav-coming-soon{position:relative;display:inline-flex;align-items:center;font-weight:500;font-size:15.5px;color:var(--ink-mute);cursor:not-allowed;line-height:1.5}.nav-coming-tip{position:absolute;left:50%;top:calc(100% + 10px);transform:translateX(-50%) translateY(-4px);white-space:nowrap;background:#0b0b0f;color:#fff;font-size:12px;font-weight:500;padding:6px 9px;border-radius:7px;opacity:0;visibility:hidden;pointer-events:none;transition:.18s;z-index:1001}.nav-coming-soon:hover .nav-coming-tip,.nav-coming-soon:focus .nav-coming-tip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.nav-right{display:flex;align-items:center;justify-content:flex-end;margin-left:auto}.lang-sw{display:inline-flex;align-items:center;background:rgba(11,11,15,.07);border-radius:999px;padding:3px}.lang-btn{border:0;background:none;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--ink-mute);padding:6px 13px;border-radius:999px;cursor:pointer;line-height:1}.lang-btn.is-on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(11,11,15,.14)}
+/* The legacy project begins immediately below our navigation. No card, no wrapper title. */
+.legacy-host{width:100%;margin:0;padding:0;background:#fff;overflow:hidden}.legacy-host iframe{display:block;width:100%;height:100vh;border:0;margin:0;padding:0;background:#fff;overflow:hidden}
+footer#portfolioFooter{background:#0b0b0f;color:#fff;padding:64px 0 44px}.foot-contact{display:flex;justify-content:center;align-items:center;gap:20px}.fc{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:1px solid rgba(255,255,255,.22);color:#fff;transition:background .25s,border-color .25s,transform .25s}.fc:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.55);transform:translateY(-2px)}.fc svg{width:20px;height:20px}.foot-credit{margin-top:32px;text-align:center;font-size:13.5px;color:rgba(255,255,255,.5)}
+@media(min-width:1280px){.wrap,.nav-inner{max-width:1360px;padding-left:48px;padding-right:48px}}@media(min-width:1600px){.wrap,.nav-inner{max-width:1560px}}
+@media(max-width:960px){.nav-links{display:none}.nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:flex-start;background:#eef1fb;padding:20px 24px 26px;gap:18px;border-bottom:1px solid var(--line)}.nav-toggle{display:block}.nav-group{position:static;transform:none;white-space:normal}.nav-links.open .nav-group{flex-direction:column;align-items:flex-start;gap:18px;width:100%}.has-drop{width:100%}.drop-menu{position:static;transform:none;opacity:1;visibility:visible;display:none;min-width:0;width:100%;background:transparent;border:0;box-shadow:none;padding:6px 0 0}.has-drop.open .drop-menu{display:block;transform:none}.drop-menu a{padding:9px 0}.nav-links.open .nav-right{margin-left:0;width:100%;justify-content:flex-start}}
+
+/* ===== 2026-09 mobile spacing + navigation consistency ===== */
+html{scrollbar-gutter:stable;}
+@media(max-width:960px){
+  .wrap,.nav-inner{width:100%;max-width:none;padding-left:16px!important;padding-right:16px!important;}
+  .nav-inner{height:86px;}
+  .nav-links.open{padding-left:16px!important;padding-right:16px!important;}
+}
+</style>
+
+<style id="nav-stability-final">
+/* Final shared navigation contract — identical on every portfolio page */
+html{scrollbar-gutter:stable;}
+body{margin:0;}
+nav#nav{
+  position:sticky!important;top:0!important;z-index:1000!important;
+  width:100%!important;height:86px!important;min-height:86px!important;
+  background:#eef1fb!important;border-bottom:1px solid transparent!important;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+  transition:none!important;transform:none!important;contain:none!important;
+}
+nav#nav.scrolled{background:#eef1fb!important;border-bottom-color:#d9dcec!important;}
+nav#nav .nav-inner{
+  width:100%!important;max-width:1140px!important;height:86px!important;min-height:86px!important;
+  margin:0 auto!important;padding:0 24px!important;display:flex!important;align-items:center!important;
+  gap:24px!important;position:relative!important;box-sizing:border-box!important;
+}
+nav#nav .brand{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;font-size:20px!important;line-height:1!important;font-weight:600!important;letter-spacing:-.01em!important;margin:0!important;padding:0!important;transform:none!important;}
+nav#nav .nav-links,nav#nav .nav-group,nav#nav .nav-right{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;}
+nav#nav a,nav#nav button{transform:none!important;}
+nav#nav .has-drop{overflow:visible!important;}
+nav#nav .drop-menu{z-index:1100!important;}
+@media(min-width:1280px){nav#nav .nav-inner{max-width:1360px!important;padding-left:48px!important;padding-right:48px!important;}}
+@media(min-width:1536px){nav#nav .nav-inner{max-width:1560px!important;}}
+@media(max-width:960px){
+  nav#nav .nav-inner{max-width:none!important;padding-left:16px!important;padding-right:16px!important;}
+  nav#nav .nav-links.open{left:0!important;right:0!important;padding-left:16px!important;padding-right:16px!important;}
+}
+</style>
+
+<style id="mobile-lang-header-final">
+@media(max-width:960px){
+  nav#nav .nav-inner{position:relative!important;}
+  nav#nav .nav-links{display:block!important;position:static!important;flex:0 0 auto!important;}
+  nav#nav .nav-group{display:none!important;}
+  nav#nav .nav-links.open .nav-group{display:flex!important;position:absolute!important;top:86px!important;left:0!important;right:0!important;background:#eef1fb!important;padding:20px 16px 26px!important;border-bottom:1px solid var(--line)!important;flex-direction:column!important;align-items:flex-start!important;gap:18px!important;}
+  nav#nav .nav-right{display:flex!important;position:absolute!important;right:56px!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important;width:auto!important;}
+  nav#nav .lang-sw{display:inline-flex!important;}
+  nav#nav .nav-toggle{position:absolute!important;right:16px!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important;}
+}
+</style>
+
+<style id="sticky-nav-return-final">
+/* Return to the stable pre-SPA navigation behavior: small page-load flash is accepted, but header stays pinned while scrolling. */
+nav#nav{position:sticky!important;top:0!important;z-index:1000!important;}
+</style>
+</head>
+<body>
+<nav id="portfolioNav"><div class="nav-inner"><a class="brand" href="index.html">Ceci Chang</a><button aria-expanded="false" aria-label="Menu" class="nav-toggle" id="navToggle">☰</button><div class="nav-links" id="navLinks"><div class="nav-group"><div class="has-drop"><button aria-expanded="false" class="drop-toggle" type="button">Web3 Product Design <svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></button><div class="drop-menu"><a href="drift-earn.html">DeFi Earn Experience<span class="co">Drift Protocol</span></a><a href="drift-growth.html">Growth & Community Engagement<span class="co">Drift Protocol</span></a><a href="binance-copytrading.html">Copy Trading<span class="co">Binance</span></a><a href="binance-futures.html">Futures Trading<span class="co">Binance</span></a><a href="binance-leaderboard.html">Leaderboard<span class="co">Binance</span></a><a href="traderwagon.html">Social Trading Platform<span class="co">TraderWagon</span></a></div></div><span aria-disabled="true" class="nav-coming-soon" tabindex="0">Branding Design<span class="nav-coming-tip">Coming soon</span></span><a aria-current="page" href="ui-design.html">UI Design</a></div><div class="nav-right"><div class="lang-sw"><button class="lang-btn is-on" type="button">EN</button><button class="lang-btn" type="button">中</button></div></div></div></div></nav>
+<main class="legacy-host"><iframe id="coinfulFrame" title="Coinful Trading Platform" src="/coinful/" scrolling="no"></iframe></main>
+<footer id="portfolioFooter"><div class="wrap"><div class="foot-contact"><a aria-label="Email Ceci Chang" class="fc" href="mailto:changhsiju@gmail.com"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><rect height="15" rx="2.5" width="20" x="2" y="4.5"></rect><path d="M2.8 6.3l8.1 5.3a2 2 0 0 0 2.2 0l8.1-5.3"></path></svg></a><a aria-label="LinkedIn profile" class="fc" href="https://www.linkedin.com/in/changhsiju/" target="_blank"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.44-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"></path></svg></a></div><div class="foot-credit">Designed by Ceci Chang · Made with Claude</div></div></footer>
+<script>
+const t=document.getElementById('navToggle'),l=document.getElementById('navLinks');if(t)t.addEventListener('click',()=>{l.classList.toggle('open');t.setAttribute('aria-expanded',l.classList.contains('open'))});document.querySelectorAll('.has-drop').forEach(d=>{const b=d.querySelector('.drop-toggle');b.addEventListener('click',e=>{e.stopPropagation();d.classList.toggle('open');b.setAttribute('aria-expanded',d.classList.contains('open'))})});document.addEventListener('click',()=>document.querySelectorAll('.has-drop.open').forEach(d=>d.classList.remove('open')));
+const frame=document.getElementById('coinfulFrame');
+function restyleCoinful(){
+  try{
+    const doc=frame.contentDocument||frame.contentWindow.document;
+    if(!doc||!doc.body)return;
+
+    // Load the same Inter family used by the current portfolio inside the legacy document.
+    if(!doc.querySelector('link[data-portfolio-inter]')){
+      const font=doc.createElement('link');
+      font.rel='stylesheet';
+      font.href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap';
+      font.setAttribute('data-portfolio-inter','');
+      doc.head.appendChild(font);
+    }
+
+    const style=doc.createElement('style');
+    style.setAttribute('data-portfolio-style','');
+    style.textContent=`
+      html,body{margin:0!important;padding:0!important;background:#fff!important;color:#0b0b0f!important;overflow-x:hidden!important;overflow-y:hidden!important;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;-webkit-font-smoothing:antialiased!important}
+      body,body *:not(svg):not(path){font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important}
+      h1,h2,h3,h4,h5,h6{font-weight:600!important;letter-spacing:-.02em!important}
+      p,li,span,a{font-weight:400!important}
+    `;
+    doc.head.appendChild(style);
+
+    // Hide the legacy top navigation/header, but preserve the original Coinful hero and page layout.
+    [...doc.querySelectorAll('header,nav')].forEach(el=>el.style.setProperty('display','none','important'));
+
+    // Remove old NEXT PROJECT and copyright/footer blocks, including their section wrappers.
+    const hideStructuralAncestor=(el)=>{
+      let node=el;
+      for(let i=0;i<5 && node && node!==doc.body;i++,node=node.parentElement){
+        const tag=node.tagName?.toLowerCase();
+        const txt=(node.textContent||'').trim();
+        if(tag==='footer' || tag==='section' || tag==='aside' || (node.children.length<=4 && txt.length<180)){
+          node.style.setProperty('display','none','important');
+          return;
+        }
+      }
+      el.style.setProperty('display','none','important');
+    };
+
+    [...doc.querySelectorAll('footer')].forEach(el=>el.style.setProperty('display','none','important'));
+    [...doc.querySelectorAll('body *')].forEach(el=>{
+      const txt=(el.textContent||'').replace(/\s+/g,' ').trim();
+      if(!txt)return;
+      if(/NEXT PROJECT/i.test(txt) && txt.length<120) hideStructuralAncestor(el);
+      if(/Copyright\s*©?\s*2026\s*Ceci Chang/i.test(txt) && txt.length<180) hideStructuralAncestor(el);
+    });
+
+    const resize=()=>{
+      // scrollHeight after the old project/footer blocks are hidden gives the true content height.
+      doc.documentElement.style.height='auto';
+      doc.body.style.height='auto';
+      const h=Math.ceil(Math.max(doc.body.scrollHeight,doc.documentElement.scrollHeight));
+      if(h>200) frame.style.height=h+'px';
+    };
+    resize();
+    [100,300,700,1400,2600].forEach(ms=>setTimeout(resize,ms));
+    const mo=new MutationObserver(()=>requestAnimationFrame(resize));
+    mo.observe(doc.body,{subtree:true,childList:true,attributes:true,characterData:false});
+    [...doc.images].forEach(img=>{if(!img.complete)img.addEventListener('load',resize,{once:true})});
+    if(doc.fonts&&doc.fonts.ready)doc.fonts.ready.then(resize);
+  }catch(e){
+    // Local file previews cannot restyle an online iframe because of browser cross-origin rules.
+    // The page is intentionally same-origin (/coinful/) after deployment, where styling and auto-height work.
+    frame.style.height='7600px';
+  }
+}
+frame.addEventListener('load',restyleCoinful);
+</script>
+</body></html>

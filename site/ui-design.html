@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><title>UI Design — Ceci Chang</title>
+<meta name="description" content="Selected interface and concept work from Ceci Chang's earlier career (2011—2020) across fintech, mobile OS, smart devices, and connected experiences — Coinful, iCard.AI, Acadine, Mozilla, and HTC.">
+<link rel="canonical" href="https://changhsiju.xyz/ui-design.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ceci Chang">
+<meta property="og:title" content="UI Design — Ceci Chang">
+<meta property="og:description" content="Selected interface and concept work from Ceci Chang's earlier career (2011—2020) across fintech, mobile OS, smart devices, and connected experiences — Coinful, iCard.AI, Acadine, Mozilla, and HTC.">
+<meta property="og:url" content="https://changhsiju.xyz/ui-design.html">
+<meta property="og:image" content="https://changhsiju.xyz/images/hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UI Design — Ceci Chang">
+<meta name="twitter:description" content="Selected interface and concept work from Ceci Chang's earlier career (2011—2020) across fintech, mobile OS, smart devices, and connected experiences — Coinful, iCard.AI, Acadine, Mozilla, and HTC.">
+<meta name="twitter:image" content="https://changhsiju.xyz/images/hero.png">
+<link href="assets/img/dd_e0xA19up9208Tv6odcjHEw6z4cKAA6fTgjZ9ynkKoSnr5R4vFxI7gZp6p-16acb57ca0.png" rel="icon" type="image/png">
+<link href="assets/img/dd_e0xA19up9208Tv6odcjHEw6z4cKAA6fTgjZ9ynkKoSnr5R4vFxI7gZp6p-16acb57ca0.png" rel="apple-touch-icon"><link href="assets/fonts/inter/inter.css" rel="stylesheet"><style>
+  :root{
+    --bg:#ffffff;--lightblue:#eef1fb;--ink:#0b0b0f;--ink-soft:#48494E;--ink-mute:#71747f;
+    --line:#d9dcec;--card:#eef1fb;--accent:#345EF5;--pill:#0b0b0f;--radius:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(238,241,251,.82);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid transparent;transition:none}
+  nav.scrolled{border-bottom-color:var(--line)}
+  .nav-inner{max-width:1140px;margin:0 auto;padding:0 24px;height:86px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .brand{font-weight:600;font-size:20px;letter-spacing:-.01em}
+  .nav-links{display:flex;align-items:center;gap:36px}
+  .nav-links a{font-weight:500;font-size:15.5px;color:var(--ink-soft);transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  .pill{background:var(--pill);color:#fff;font-weight:600;font-size:16px;letter-spacing:-.01em;padding:14px 28px;border-radius:999px;transition:transform .2s,background .2s;line-height:1}
+  .pill:hover{transform:translateY(-1px);background:#232433}
+  .nav-toggle{display:none;background:none;border:0;font-size:24px;cursor:pointer}
+
+  /* HERO */
+  .hero-bg{background:var(--lightblue)}
+  .hero{min-height:calc(100vh - 86px);display:flex;flex-direction:column;justify-content:space-between;padding:70px 0 80px}
+  @supports (height:100dvh){.hero{min-height:calc(100dvh - 86px)}}
+  .hero-top{display:flex;justify-content:flex-end}
+  .hello-block{max-width:560px}
+  .hello{font-size:clamp(40px,5vw,64px);font-weight:600;letter-spacing:-.02em;line-height:1.05}
+  .hero-intro{margin-top:22px;font-size:18px;color:var(--ink-soft);line-height:1.6}
+  .about-link{display:inline-block;margin-top:24px;font-weight:600;border-bottom:2px solid var(--ink);padding-bottom:3px}
+  .hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-top:80px}
+  .role{font-size:clamp(34px,4.6vw,60px);font-weight:600;letter-spacing:-.02em;line-height:1.05}
+  .scroll-cue{display:inline-flex;align-items:center;gap:10px;color:var(--ink);font-weight:500;font-size:17px;white-space:nowrap}
+  .scroll-cue svg{animation:bob 1.8s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+  /* WORK — company section */
+  .company{padding:80px 0}
+  .co-head{font-size:clamp(28px,3.4vw,40px);font-weight:600;letter-spacing:-.02em;margin-bottom:18px}
+  .co-desc{font-size:17px;color:var(--ink-soft);line-height:1.7;max-width:1100px;margin-bottom:44px}
+
+  /* Drift 3 cards */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 24px}
+  .card{background:transparent;border-radius:0;overflow:visible;display:flex;flex-direction:column;padding:0;height:100%}
+  .card-img{aspect-ratio:16/11;overflow:hidden;border-radius:8px;background:#e3e7f5}
+  .card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.16,.84,.34,1)}
+  .card.linked:hover .card-img img{transform:scale(1.06)}
+  .card.soon{opacity:.55;pointer-events:none}
+  .card-body{padding:22px 0 0;display:flex;flex-direction:column;flex:1}
+  .card-btn{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;margin-top:auto;background:none;border:0;border-radius:0;padding:0;color:var(--ink);font-size:16px;font-weight:500;letter-spacing:-.01em;line-height:1.3;white-space:nowrap;transition:opacity .2s}
+  .card-btn .ico{width:18px;height:18px;flex:0 0 auto}
+  .card.linked:hover .card-btn{opacity:.55}
+  .card.soon .card-btn{color:var(--ink-mute)}
+  /* icon 持續輕推。若覺得多個箭頭同時動太吵,把下面兩行的 .card.linked 改成 .card.linked:hover */
+  .card.linked .card-btn .ico{animation:nudgeX 1.8s ease-in-out infinite}
+  .card.linked .card-btn .ico.diag{animation:nudgeDiag 1.8s ease-in-out infinite}
+  @keyframes nudgeX{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+  @keyframes nudgeDiag{0%,100%{transform:translate(0,0)}50%{transform:translate(4px,-4px)}}
+  .card-body h3{font-size:20px;font-weight:600;letter-spacing:-.01em;margin-bottom:16px;line-height:1.25}
+  .card-body p{font-size:14.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:16px}
+
+  /* Binance 2x2 卡片 */
+  .cards-2{grid-template-columns:1fr 1fr;gap:80px 24px}
+  .cards-2 .card-img{aspect-ratio:16/10}
+  .cards-sq .card-img{aspect-ratio:1/1}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--line);padding:64px 0 84px;margin-top:20px}
+  .foot-grid{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:30px}
+  .foot-big{font-size:clamp(30px,4vw,52px);font-weight:600;letter-spacing:-.02em;line-height:1.05}
+  .foot-links{display:flex;gap:24px;font-weight:500;color:var(--ink-soft)}
+  .foot-links a:hover{color:var(--ink)}
+
+  /* 滚动进场:淡入 + 上移 */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.16,.84,.34,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* Hero 载入进场 */
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-22px)}to{opacity:1;transform:none}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+  /* 右侧文字:由上往下、依序错开 */
+  .hello,.hero-intro,.about-link{opacity:0;animation:fadeDown .8s cubic-bezier(.16,.84,.34,1) forwards}
+  .hello{animation-delay:.1s}
+  .hero-intro{animation-delay:.28s}
+  .about-link{animation-delay:.46s}
+  /* 左侧大字:由下往上 */
+  .role{opacity:0;animation:fadeUp 1s cubic-bezier(.16,.84,.34,1) forwards;animation-delay:.5s}
+  .scroll-cue{opacity:0;animation:fadeUp 1s cubic-bezier(.16,.84,.34,1) forwards;animation-delay:.7s}
+
+  /* 响应式 */
+  @media(min-width:1280px){
+    .wrap,.nav-inner{max-width:1360px;padding-left:48px;padding-right:48px}
+  }
+  @media(min-width:1536px){
+    .wrap,.nav-inner{max-width:1560px}
+  }
+  @media(max-width:900px){
+    .nav-links{display:none}
+    .nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--bg);padding:20px 24px;gap:18px;border-bottom:1px solid var(--line)}
+    .nav-toggle{display:block}
+    .hero{min-height:auto;padding:50px 0 60px}
+    .hero-top{justify-content:flex-start}
+    .hero-bottom{flex-direction:column;align-items:flex-start;gap:24px;margin-top:60px}
+    .cards{grid-template-columns:1fr}
+    .cards-2{grid-template-columns:1fr;gap:40px}
+  }
+  /* 区块内卡片依序错开进场 */
+  .company.in .card{opacity:0;transform:translateY(24px);animation:fadeUp .7s cubic-bezier(.16,.84,.34,1) forwards}
+  .company.in .card:nth-child(1){animation-delay:.05s}
+  .company.in .card:nth-child(2){animation-delay:.18s}
+  .company.in .card:nth-child(3){animation-delay:.31s}
+
+  /* ===== 捲動離場：內容離開畫面時淡出並上飄 =====
+     用 CSS scroll-driven animation,完全不靠 JS,不會造成捲動卡頓。
+     不支援的瀏覽器會直接跳過(內容照常顯示,只是沒有離場效果)。 */
+  @keyframes flyAway{
+    from{opacity:1;transform:translateY(0) scale(1)}
+    to{opacity:0;transform:translateY(-64px) scale(.96)}
+  }
+  @supports (animation-timeline:view()){
+    @media(prefers-reduced-motion:no-preference){
+      .hello-block,.hero-bottom,.co-head,.co-desc,.card-img,.card-body{
+        animation:flyAway linear forwards;
+        animation-timeline:view();
+        animation-range:exit 0% exit 85%;
+        will-change:opacity,transform;
+      }
+    }
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal,.hello,.hero-intro,.about-link,.role,.scroll-cue,.card,
+    .hello-block,.hero-bottom,.co-head,.co-desc,.card-img,.card-body{opacity:1!important;transform:none!important;will-change:auto!important}
+    html{scroll-behavior:auto}
+  }
+
+  /* ============ v2 — nav / next case study / footer ============ */
+  /* NAV:首頁與子頁統一淺藍底,滾動後只加分隔線(移除首頁變白的行為) */
+  nav{background:#eef1fb;backdrop-filter:none}
+  nav.scrolled{background:#eef1fb;border-bottom-color:var(--line)}
+  .nav-inner{display:flex;align-items:center;gap:24px;position:relative}
+  .brand{flex:0 0 auto}
+  .nav-links{display:flex;align-items:center;flex:1}
+  .nav-group{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:36px;margin:0;white-space:nowrap}
+  .nav-links .pill{flex:0 0 auto;color:#fff}
+  .nav-group a,.drop-toggle{font-weight:500;font-size:15.5px;color:var(--ink-soft);transition:color .2s}
+  .nav-group a:hover,.drop-toggle:hover{color:var(--ink)}
+
+  /* 下拉選單 */
+  .has-drop{position:relative}
+  .drop-toggle{display:inline-flex;align-items:center;gap:7px;background:none;border:0;padding:0;font-family:inherit;line-height:1.5;cursor:pointer}
+  .drop-toggle .chev{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+  .has-drop.open .drop-toggle{color:var(--ink)}
+  .has-drop.open .chev{transform:rotate(180deg)}
+  .drop-menu{position:absolute;top:calc(100% + 16px);left:50%;transform:translateX(-50%) translateY(-8px);min-width:312px;background:#fff;border:1px solid #d9dcec;border-radius:14px;padding:8px;box-shadow:0 20px 44px -20px rgba(20,22,50,.4);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s;z-index:60}
+  .has-drop.open .drop-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .drop-menu a{display:block;padding:11px 14px;border-radius:10px;font-size:15px;font-weight:500;color:var(--ink);transition:background .2s,color .2s}
+  .drop-menu a:hover{background:#eef1fb}
+  .drop-menu a .co{display:block;margin-top:2px;font-size:12.5px;font-weight:500;color:var(--ink-mute)}
+  .drop-menu a[aria-current="page"]{color:var(--accent)}
+  .drop-menu a[aria-current="page"] .co{color:var(--accent);opacity:.65}
+
+  /* NEXT CASE STUDY */
+  .next-cs{display:block;border-top:1px solid var(--line);margin-top:24px;padding:54px 0 66px}
+  .next-cs .inner{display:flex;align-items:center;justify-content:space-between;gap:30px}
+  .next-cs .lbl{font-size:13px;font-weight:600;letter-spacing:.14em;color:var(--accent);margin-bottom:14px}
+  .next-cs .t{font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.12}
+  .next-cs .arw{flex:0 0 auto;width:32px;height:32px;fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s cubic-bezier(.16,.84,.34,1)}
+  .next-cs:hover .arw{transform:translateX(12px)}
+
+  /* FOOTER:黑底 */
+  footer{background:#0b0b0f;color:#fff;border-top:0;margin-top:0;padding:64px 0 44px}
+  .foot-contact{display:flex;justify-content:center;align-items:center;gap:20px}
+  .fc{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:1px solid rgba(255,255,255,.22);color:#fff;transition:background .25s,border-color .25s,transform .25s}
+  .fc:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.55);transform:translateY(-2px)}
+  .fc svg{width:20px;height:20px}
+  .foot-credit{margin-top:32px;text-align:center;font-size:13.5px;color:rgba(255,255,255,.5)}
+
+  /* 手機:五頁統一在 960px 收起 nav */
+  @media(max-width:960px){
+    .nav-links{display:none}
+    .nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:flex-start;background:#eef1fb;padding:20px 24px 26px;gap:18px;border-bottom:1px solid var(--line)}
+    .nav-toggle{display:block}
+    .nav-group{position:static;left:auto;top:auto;transform:none;white-space:normal}
+    .nav-links.open .nav-group{flex-direction:column;align-items:flex-start;gap:18px;margin:0;width:100%}
+    .nav-links.open .pill{margin-left:0}
+    .has-drop{width:100%}
+    .drop-menu{position:static;transform:none;opacity:1;visibility:visible;display:none;min-width:0;width:100%;background:transparent;border:0;box-shadow:none;padding:6px 0 0}
+    .has-drop.open .drop-menu{display:block;transform:none}
+    .drop-menu a{padding:9px 0}
+    .drop-menu a:hover{background:transparent}
+    .next-cs{padding:40px 0 48px}
+    .next-cs .arw{width:28px;height:28px}
+    .foot-credit{margin-top:28px}
+  }
+  @media(prefers-reduced-motion:reduce){.next-cs .arw,.fc .arw,.chev{transition:none!important}}
+
+  /* 語言切換 */
+  .nav-right{display:flex;align-items:center;justify-content:flex-end;margin-left:auto}
+  .lang-sw{display:inline-flex;align-items:center;background:rgba(11,11,15,.07);border-radius:999px;padding:3px;flex:0 0 auto}
+  .lang-btn{border:0;background:none;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--ink-mute);padding:6px 13px;border-radius:999px;cursor:pointer;line-height:1;transition:background .2s,color .2s,box-shadow .2s}
+  .lang-btn.is-on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(11,11,15,.14)}
+  .lang-btn:hover:not(.is-on){color:var(--ink)}
+  @media(max-width:960px){
+    .nav-links.open .nav-right{margin-left:0;width:100%;justify-content:flex-start}
+  }
+
+  /* Disabled Branding Design navigation — Coming soon tooltip */
+  .nav-coming-soon{position:relative;display:inline-flex;align-items:center;font-weight:500;font-size:15.5px;color:var(--ink-mute);cursor:not-allowed;line-height:1.5;outline:none}
+  .nav-coming-tip{position:absolute;left:50%;top:calc(100% + 10px);transform:translateX(-50%) translateY(-4px);white-space:nowrap;background:#0b0b0f;color:#fff;font-size:12px;font-weight:500;padding:6px 9px;border-radius:7px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s,transform .18s,visibility .18s;z-index:80}
+  .nav-coming-soon:hover .nav-coming-tip,.nav-coming-soon:focus .nav-coming-tip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  @media(max-width:960px){.nav-coming-tip{left:0;top:100%;transform:translateY(2px)}.nav-coming-soon:hover .nav-coming-tip,.nav-coming-soon:focus .nav-coming-tip{transform:translateY(6px)}}
+
+
+/* ===== UI Design page ===== */
+body{background:var(--lightblue)}
+.ui-main{padding-bottom:100px}
+.ui-hero{padding-top:88px;padding-bottom:54px}
+.ui-hero .eyebrow{font-size:13px;font-weight:600;color:var(--accent);margin-bottom:14px}
+.ui-hero h1{font-size:clamp(44px,5.4vw,72px);line-height:1.02;letter-spacing:-.045em;margin:0 0 20px;font-weight:600}
+.ui-hero p{font-size:18px;line-height:1.6;color:var(--ink-soft);max-width:720px;margin:0}
+.ui-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:54px 24px;padding-top:18px}
+.ui-grid .card{grid-column:span 2}
+.ui-grid .card:nth-child(-n+2){grid-column:span 3}
+.ui-grid .card-img{aspect-ratio:1/1;border-radius:8px}
+.ui-grid .card:nth-child(-n+2) .card-img{aspect-ratio:16/10}
+.ui-grid .card-body{padding-top:18px}
+.ui-grid .card-body h3{font-size:18px;margin-bottom:8px}
+.ui-grid .card-body p{font-size:13.5px;margin-bottom:16px;color:var(--ink-mute)}
+.ui-grid .card-btn{font-size:15px}
+.ui-grid.in .card{opacity:0;transform:translateY(24px);animation:fadeUp .7s cubic-bezier(.16,.84,.34,1) forwards}
+.ui-grid.in .card:nth-child(1){animation-delay:.03s}.ui-grid.in .card:nth-child(2){animation-delay:.10s}.ui-grid.in .card:nth-child(3){animation-delay:.17s}
+.ui-grid.in .card:nth-child(4){animation-delay:.24s}.ui-grid.in .card:nth-child(5){animation-delay:.31s}.ui-grid.in .card:nth-child(n+6){animation-delay:.38s}
+@media(max-width:900px){.ui-grid{grid-template-columns:repeat(2,1fr)}.ui-grid .card,.ui-grid .card:nth-child(-n+2){grid-column:span 1}}
+@media(max-width:620px){.ui-grid{grid-template-columns:1fr}.ui-hero{padding-top:56px}}
+
+/* ===== 2026-09 mobile spacing + navigation consistency ===== */
+html{scrollbar-gutter:stable;}
+@media(max-width:960px){
+  .wrap,.nav-inner{width:100%;max-width:none;padding-left:16px!important;padding-right:16px!important;}
+  .nav-inner{height:86px;}
+  .nav-links.open{padding-left:16px!important;padding-right:16px!important;}
+}
+
+  /* Navigation stability: keep the shared header visually fixed across page changes */
+  html{scrollbar-gutter:stable;}
+  nav{transform:none;backface-visibility:visible}
+  .nav-inner,.brand,.nav-links,.nav-links a,.nav-coming-soon,.nav-right{box-sizing:border-box}
+  .brand,.nav-links a,.nav-coming-soon,.drop-toggle,.lang-btn{font-size-adjust:.52}
+  .brand,.nav-links a{-webkit-tap-highlight-color:transparent}
+  .brand:active,.nav-links a:active{transform:none}
+</style>
+<style id="mobile-ui-polish">
+@media(max-width:620px){
+  .ui-main{padding-left:16px!important;padding-right:16px!important;}
+  .ui-hero{padding-top:48px!important;padding-bottom:40px;}
+  .ui-hero .eyebrow{margin-bottom:12px;}
+  .ui-hero h1{margin-bottom:16px;}
+  .ui-grid{gap:40px 0!important;}
+  .card-body{padding-top:16px;}
+  .card-body h3{margin-bottom:8px;}
+  .card-body p{margin-bottom:16px;}
+  footer .wrap{padding-left:16px!important;padding-right:16px!important;}
+}
+</style>
+
+<style id="nav-stability-final">
+/* Final shared navigation contract — identical on every portfolio page */
+html{scrollbar-gutter:stable;}
+body{margin:0;}
+nav#nav{
+  position:sticky!important;top:0!important;z-index:1000!important;
+  width:100%!important;height:86px!important;min-height:86px!important;
+  background:#eef1fb!important;border-bottom:1px solid transparent!important;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+  transition:none!important;transform:none!important;contain:none!important;
+}
+nav#nav.scrolled{background:#eef1fb!important;border-bottom-color:#d9dcec!important;}
+nav#nav .nav-inner{
+  width:100%!important;max-width:1140px!important;height:86px!important;min-height:86px!important;
+  margin:0 auto!important;padding:0 24px!important;display:flex!important;align-items:center!important;
+  gap:24px!important;position:relative!important;box-sizing:border-box!important;
+}
+nav#nav .brand{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;font-size:20px!important;line-height:1!important;font-weight:600!important;letter-spacing:-.01em!important;margin:0!important;padding:0!important;transform:none!important;}
+nav#nav .nav-links,nav#nav .nav-group,nav#nav .nav-right{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;}
+nav#nav a,nav#nav button{transform:none!important;}
+nav#nav .has-drop{overflow:visible!important;}
+nav#nav .drop-menu{z-index:1100!important;}
+@media(min-width:1280px){nav#nav .nav-inner{max-width:1360px!important;padding-left:48px!important;padding-right:48px!important;}}
+@media(min-width:1536px){nav#nav .nav-inner{max-width:1560px!important;}}
+@media(max-width:960px){
+  nav#nav .nav-inner{max-width:none!important;padding-left:16px!important;padding-right:16px!important;}
+  nav#nav .nav-links.open{left:0!important;right:0!important;padding-left:16px!important;padding-right:16px!important;}
+}
+</style>
+
+<style id="ui-final-fixes">
+.card-btn{color:var(--accent)!important;}
+.card.linked:hover .card-btn,.card.linked:focus-visible .card-btn{color:var(--accent)!important;}
+nav#nav,.nav-inner,.nav-links,.nav-group,.has-drop{overflow:visible!important;}
+.drop-menu{max-height:min(520px,calc(100vh - 120px));overflow-y:auto;}
+@media(max-width:960px){.drop-menu{max-height:none;overflow:visible;}}
+@media(max-width:620px){
+  .ui-main{padding-left:16px!important;padding-right:16px!important;}
+  .ui-grid .card-img{width:100%!important;margin-left:0!important;margin-right:0!important;}
+}
+</style>
+
+<link rel="prefetch" href="index.html"/><link rel="prefetch" href="ui-design.html"/>
+
+<style id="final-card-cta-fix">
+/* CTA: default black, blue only on hover; exact 16px from copy */
+.card-btn{color:var(--ink)!important;margin-top:0!important;opacity:1!important;}
+.card-body p{margin-bottom:16px!important;}
+.card-body h3:not(:last-child){margin-bottom:16px!important;}
+.card.linked:hover .card-btn,.card.linked:focus-visible .card-btn{color:var(--accent)!important;opacity:1!important;}
+.card.soon .card-btn,.card.soon:hover .card-btn{color:var(--ink-mute)!important;opacity:1!important;}
+.card.soon .card-btn .ico{animation:none!important;}
+</style>
+
+<style id="cta-spacing-12-final">
+/* Card CTA spacing: exactly 12px from the descriptive copy */
+.card-body p{margin-bottom:12px!important;}
+.card-btn{margin-top:0!important;}
+</style>
+
+<style id="mobile-lang-header-final">
+@media(max-width:960px){
+  nav#nav .nav-inner{position:relative!important;}
+  nav#nav .nav-links{display:block!important;position:static!important;flex:0 0 auto!important;}
+  nav#nav .nav-group{display:none!important;}
+  nav#nav .nav-links.open .nav-group{display:flex!important;position:absolute!important;top:86px!important;left:0!important;right:0!important;background:#eef1fb!important;padding:20px 16px 26px!important;border-bottom:1px solid var(--line)!important;flex-direction:column!important;align-items:flex-start!important;gap:18px!important;}
+  nav#nav .nav-right{display:flex!important;position:absolute!important;right:56px!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important;width:auto!important;}
+  nav#nav .lang-sw{display:inline-flex!important;}
+  nav#nav .nav-toggle{position:absolute!important;right:16px!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important;}
+}
+</style>
+
+<style id="sticky-nav-return-final">
+/* Return to the stable pre-SPA navigation behavior: small page-load flash is accepted, but header stays pinned while scrolling. */
+nav#nav{position:sticky!important;top:0!important;z-index:1000!important;}
+</style>
+</head><body><nav id="nav">
+<div class="nav-inner">
+<a class="brand" href="index.html">Ceci Chang</a>
+<button aria-expanded="false" aria-label="Menu" class="nav-toggle" id="navToggle">☰</button>
+<div class="nav-links" id="navLinks">
+<div class="nav-group">
+<div class="has-drop">
+<button aria-expanded="false" class="drop-toggle" type="button"><span data-i18n="nav.web3">Web3 Product Design</span><svg class="chev" viewbox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></button>
+<div class="drop-menu">
+<a href="drift-earn.html"><span data-i18n="cs.earn.short">DeFi Earn Experience</span><span class="co">Drift Protocol</span></a>
+<a href="drift-growth.html"><span data-i18n="cs.growth.short">Growth &amp; Community Engagement</span><span class="co">Drift Protocol</span></a>
+<a href="binance-copytrading.html"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
+<a href="binance-futures.html"><span data-i18n="cs.futures.short">Futures Trading</span><span class="co">Binance</span></a>
+<a href="binance-leaderboard.html"><span data-i18n="cs.lb.short">Leaderboard</span><span class="co">Binance</span></a>
+<a href="traderwagon.html"><span data-i18n="cs.tw.short">Social Trading Platform</span><span class="co">TraderWagon</span></a>
+</div>
+</div>
+<span aria-disabled="true" class="nav-coming-soon" tabindex="0"><span data-i18n="nav.branding">Branding Design</span><span class="nav-coming-tip" data-i18n="nav.branding.soon">Coming soon</span></span>
+<a aria-current="page" data-i18n="nav.ui" href="ui-design.html">UI Design</a>
+</div>
+<div class="nav-right">
+<div aria-label="Language / 語言" class="lang-sw" role="group">
+<button aria-pressed="true" class="lang-btn is-on" data-lang="en" type="button">EN</button>
+<button aria-pressed="false" class="lang-btn" data-lang="zh" type="button">中</button>
+</div>
+</div>
+</div>
+</div>
+</nav><main class="wrap ui-main"><section class="ui-hero reveal"><div class="eyebrow" data-i18n="ui.eyebrow">Selected Archive · 2011—2020</div><h1 data-i18n="ui.title">UI Design</h1><p data-i18n="ui.intro">Selected interface and concept work from my earlier career across fintech, mobile OS, smart devices, and connected experiences.</p></section><section class="ui-grid reveal"><a class="card linked" href="legacy-project.html?project=coinful" rel="noopener noreferrer" target="_blank"><div class="card-img"><img alt="Coinful Trading Platform" loading="lazy" src="images/ui-coinful.webp"/></div><div class="card-body"><h3 data-i18n="ui.p1.title">Coinful Trading Platform</h3><p data-i18n="ui.p1.desc">FinTech · Trading Platform</p><span class="card-btn"><span data-i18n="ui.viewmore">View More</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></div></a><a class="card linked" href="legacy-project.html?project=icardai" rel="noopener noreferrer" target="_blank"><div class="card-img"><img alt="iCard.AI" loading="lazy" src="images/ui-icardai.webp"/></div><div class="card-body"><h3 data-i18n="ui.p2.title">iCard.AI</h3><p data-i18n="ui.p2.desc">FinTech · Credit Card Comparison</p><span class="card-btn"><span data-i18n="ui.viewmore">View More</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></div></a><a class="card linked" href="legacy-project.html?project=acadine_watch" rel="noopener noreferrer" target="_blank"><div class="card-img"><img alt="Smart Watch Concepts" loading="lazy" src="images/ui-acadine-watch.webp"/></div><div class="card-body"><h3 data-i18n="ui.p3.title">Smart Watch Concepts</h3><p data-i18n="ui.p3.desc">Acadine · Wearable UI</p><span class="card-btn"><span data-i18n="ui.viewmore">View More</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></div></a><a class="card linked" href="legacy-project.html?project=acadine_smart-home" rel="noopener noreferrer" target="_blank"><div class="card-img"><img alt="Smart Home — H5OS" loading="lazy" src="images/ui-acadine-smart-home.webp"/></div><div class="card-body"><h3 data-i18n="ui.p4.title">Smart Home — H5OS</h3><p data-i18n="ui.p4.desc">Acadine · Smart Home UI</p><span class="card-btn"><span data-i18n="ui.viewmore">View More</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></div></a><a class="card linked" href="legacy-project.html?project=acadine_feature-phone" rel="noopener noreferrer" target="_blank"><div class="card-img"><img alt="H5OS Feature Phone" loading="lazy" src="images/ui-acadine-feature-phone.webp"/></div><div class="card-body"><h3 data-i18n="ui.p5.title">H5OS Feature Phone</h3><p data-i18n="ui.p5.desc">Acadine · Mobile OS UI</p><span class="card-btn"><span data-i18n="ui.viewmore">View More</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></div></a><a class="card linked" href="legacy-project.html?project=mozilla_smart-tv" rel="noopener noreferrer" target="_blank"><div class="card-img"><img alt="Smart TV Tutorial" loading="lazy" src="images/ui-mozilla-smart-tv.webp"/></div><div class="card-body"><h3 data-i18n="ui.p6.title">Smart TV Tutorial</h3><p data-i18n="ui.p6.desc">Mozilla · Smart TV UI</p><span class="card-btn"><span data-i18n="ui.viewmore">View More</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></div></a><a class="card linked" href="legacy-project.html?project=mozilla_feature-phone" rel="noopener noreferrer" target="_blank"><div class="card-img"><img alt="Future Feature Phone" loading="lazy" src="images/ui-mozilla-feature-phone.webp"/></div><div class="card-body"><h3 data-i18n="ui.p7.title">Future Feature Phone</h3><p data-i18n="ui.p7.desc">Mozilla · Mobile Concept</p><span class="card-btn"><span data-i18n="ui.viewmore">View More</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></div></a><a class="card linked" href="legacy-project.html?project=mozilla_car-ui" rel="noopener noreferrer" target="_blank"><div class="card-img"><img alt="Car UI Concept" loading="lazy" src="images/ui-mozilla-car-ui.webp"/></div><div class="card-body"><h3 data-i18n="ui.p8.title">Car UI Concept</h3><p data-i18n="ui.p8.desc">Mozilla · In-car UI</p><span class="card-btn"><span data-i18n="ui.viewmore">View More</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></div></a><a class="card linked" href="legacy-project.html?project=htc_phone-app" rel="noopener noreferrer" target="_blank"><div class="card-img"><img alt="HTC Core Apps" loading="lazy" src="images/ui-htc-phone-app.webp"/></div><div class="card-body"><h3 data-i18n="ui.p9.title">HTC Core Apps</h3><p data-i18n="ui.p9.desc">HTC · Mobile UI</p><span class="card-btn"><span data-i18n="ui.viewmore">View More</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></div></a><a class="card linked" href="legacy-project.html?project=htc_dot-view" rel="noopener noreferrer" target="_blank"><div class="card-img"><img alt="HTC Dot View" loading="lazy" src="images/ui-htc-dot-view.webp"/></div><div class="card-body"><h3 data-i18n="ui.p10.title">HTC Dot View</h3><p data-i18n="ui.p10.desc">HTC · Accessory Experience</p><span class="card-btn"><span data-i18n="ui.viewmore">View More</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></div></a><a class="card linked" href="legacy-project.html?project=htc_cos-wallpaper" rel="noopener noreferrer" target="_blank"><div class="card-img"><img alt="HTC COS Wallpaper" loading="lazy" src="images/ui-htc-cos-wallpaper.webp"/></div><div class="card-body"><h3 data-i18n="ui.p11.title">HTC COS Wallpaper</h3><p data-i18n="ui.p11.desc">HTC · Visual Design</p><span class="card-btn"><span data-i18n="ui.viewmore">View More</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></div></a><a class="card linked" href="legacy-project.html?project=htc_message" rel="noopener noreferrer" target="_blank"><div class="card-img"><img alt="HTC Message Themes" loading="lazy" src="images/ui-htc-message.webp"/></div><div class="card-body"><h3 data-i18n="ui.p12.title">HTC Message Themes</h3><p data-i18n="ui.p12.desc">HTC · Mobile UI</p><span class="card-btn"><span data-i18n="ui.viewmore">View More</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></div></a><a class="card linked" href="legacy-project.html?project=htc_clock" rel="noopener noreferrer" target="_blank"><div class="card-img"><img alt="Clock &amp; Calculator Widgets" loading="lazy" src="images/ui-htc-clock.webp"/></div><div class="card-body"><h3 data-i18n="ui.p13.title">Clock &amp; Calculator Widgets</h3><p data-i18n="ui.p13.desc">HTC · Widget UI</p><span class="card-btn"><span data-i18n="ui.viewmore">View More</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></div></a><a class="card linked" href="legacy-project.html?project=htc_scribble" rel="noopener noreferrer" target="_blank"><div class="card-img"><img alt="HTC Scribble" loading="lazy" src="images/ui-htc-scribble.webp"/></div><div class="card-body"><h3 data-i18n="ui.p14.title">HTC Scribble</h3><p data-i18n="ui.p14.desc">HTC · Note &amp; Creation App</p><span class="card-btn"><span data-i18n="ui.viewmore">View More</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></div></a><a class="card linked" href="legacy-project.html?project=htc_lifeme" rel="noopener noreferrer" target="_blank"><div class="card-img"><img alt="HTC Life.me" loading="lazy" src="images/ui-htc-lifeme.webp"/></div><div class="card-body"><h3 data-i18n="ui.p15.title">HTC Life.me</h3><p data-i18n="ui.p15.desc">HTC · Mobile Concept</p><span class="card-btn"><span data-i18n="ui.viewmore">View More</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></div></a><a class="card linked" href="legacy-project.html?project=htc_mini" rel="noopener noreferrer" target="_blank"><div class="card-img"><img alt="HTC Mini" loading="lazy" src="images/ui-htc-mini.webp"/></div><div class="card-body"><h3 data-i18n="ui.p16.title">HTC Mini</h3><p data-i18n="ui.p16.desc">HTC · Companion Device</p><span class="card-btn"><span data-i18n="ui.viewmore">View More</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></div></a><a class="card linked" href="legacy-project.html?project=htc_tablet" rel="noopener noreferrer" target="_blank"><div class="card-img"><img alt="HTC Tablet" loading="lazy" src="images/ui-htc-tablet.webp"/></div><div class="card-body"><h3 data-i18n="ui.p17.title">HTC Tablet</h3><p data-i18n="ui.p17.desc">HTC · Tablet UI</p><span class="card-btn"><span data-i18n="ui.viewmore">View More</span><svg class="ico" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></span></div></a></section></main><footer id="contact">
+<div class="wrap">
+<div class="foot-contact">
+<a aria-label="Email Ceci Chang" class="fc" href="mailto:changhsiju@gmail.com" title="changhsiju@gmail.com"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><rect height="15" rx="2.5" width="20" x="2" y="4.5"></rect><path d="M2.8 6.3l8.1 5.3a2 2 0 0 0 2.2 0l8.1-5.3"></path></svg></a>
+<a aria-label="LinkedIn profile" class="fc" href="https://www.linkedin.com/in/changhsiju/" rel="noopener noreferrer" target="_blank" title="linkedin.com/in/changhsiju"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.44-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"></path></svg></a>
+</div>
+<div class="foot-credit" data-i18n="foot.credit">Designed by Ceci Chang · Made with Claude</div>
+</div>
+</footer><script>
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>10));
+  const t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+  t.addEventListener('click',()=>l.classList.toggle('open'));
+  l.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>l.classList.remove('open')));
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script><script>
+  document.querySelectorAll('.has-drop').forEach(function(d){
+    var b=d.querySelector('.drop-toggle'); if(!b) return;
+    b.addEventListener('click',function(e){e.stopPropagation();var open=d.classList.toggle('open');b.setAttribute('aria-expanded',open?'true':'false');});
+  });
+  function closeDrops(except){document.querySelectorAll('.has-drop.open').forEach(function(d){if(except&&d.contains(except)) return;d.classList.remove('open');var b=d.querySelector('.drop-toggle');if(b)b.setAttribute('aria-expanded','false');});}
+  document.addEventListener('click',function(e){closeDrops(e.target)});document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrops(null)});
+</script><script src="i18n.js"></script><script src="i18n-cases.js"></script></body></html>

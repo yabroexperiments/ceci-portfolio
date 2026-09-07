@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>BINANCE Futures Trading — Ceci Chang</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <style>
   :root{
     --bg:#eef1fb;--ink:#0b0b0f;--ink-soft:#48494E;--ink-mute:#71747f;
@@ -288,195 +289,256 @@
   @media(max-width:960px){
     .nav-links.open .nav-right{margin-left:0;width:100%;justify-content:flex-start}
   }
+
+  /* Disabled Branding Design navigation — Coming soon tooltip */
+  .nav-coming-soon{position:relative;display:inline-flex;align-items:center;font-weight:500;font-size:15.5px;color:var(--ink-mute);cursor:not-allowed;line-height:1.5;outline:none}
+  .nav-coming-tip{position:absolute;left:50%;top:calc(100% + 10px);transform:translateX(-50%) translateY(-4px);white-space:nowrap;background:#0b0b0f;color:#fff;font-size:12px;font-weight:500;padding:6px 9px;border-radius:7px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s,transform .18s,visibility .18s;z-index:80}
+  .nav-coming-soon:hover .nav-coming-tip,.nav-coming-soon:focus .nav-coming-tip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  @media(max-width:960px){.nav-coming-tip{left:0;top:100%;transform:translateY(2px)}.nav-coming-soon:hover .nav-coming-tip,.nav-coming-soon:focus .nav-coming-tip{transform:translateY(6px)}}
+
+/* ===== 2026-09 mobile spacing + navigation consistency ===== */
+html{scrollbar-gutter:stable;}
+@media(max-width:960px){
+  .wrap,.nav-inner{width:100%;max-width:none;padding-left:16px!important;padding-right:16px!important;}
+  .nav-inner{height:86px;}
+  .nav-links.open{padding-left:16px!important;padding-right:16px!important;}
+}
+</style>
+
+<style id="nav-stability-final">
+/* Final shared navigation contract — identical on every portfolio page */
+html{scrollbar-gutter:stable;}
+body{margin:0;}
+nav#nav{
+  position:sticky!important;top:0!important;z-index:1000!important;
+  width:100%!important;height:86px!important;min-height:86px!important;
+  background:#eef1fb!important;border-bottom:1px solid transparent!important;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+  transition:none!important;transform:none!important;contain:none!important;
+}
+nav#nav.scrolled{background:#eef1fb!important;border-bottom-color:#d9dcec!important;}
+nav#nav .nav-inner{
+  width:100%!important;max-width:1140px!important;height:86px!important;min-height:86px!important;
+  margin:0 auto!important;padding:0 24px!important;display:flex!important;align-items:center!important;
+  gap:24px!important;position:relative!important;box-sizing:border-box!important;
+}
+nav#nav .brand{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;font-size:20px!important;line-height:1!important;font-weight:600!important;letter-spacing:-.01em!important;margin:0!important;padding:0!important;transform:none!important;}
+nav#nav .nav-links,nav#nav .nav-group,nav#nav .nav-right{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;}
+nav#nav a,nav#nav button{transform:none!important;}
+nav#nav .has-drop{overflow:visible!important;}
+nav#nav .drop-menu{z-index:1100!important;}
+@media(min-width:1280px){nav#nav .nav-inner{max-width:1360px!important;padding-left:48px!important;padding-right:48px!important;}}
+@media(min-width:1536px){nav#nav .nav-inner{max-width:1560px!important;}}
+@media(max-width:960px){
+  nav#nav .nav-inner{max-width:none!important;padding-left:16px!important;padding-right:16px!important;}
+  nav#nav .nav-links.open{left:0!important;right:0!important;padding-left:16px!important;padding-right:16px!important;}
+}
+</style>
+
+<link rel="prefetch" href="index.html"/><link rel="prefetch" href="ui-design.html"/>
+
+<style id="mobile-gallery-fit-fix">
+@media(max-width:960px){
+  /* Desktop UI screenshots should be viewable as a whole on mobile. */
+  .gallery .viewport{overflow-x:auto!important;overflow-y:hidden!important;scroll-padding-left:0;}
+  .gallery .track{gap:14px!important;align-items:flex-start;}
+  .gallery .track .slide-wide{width:calc(100vw - 80px)!important;max-width:520px!important;min-width:0!important;}
+  .gallery .track .slide:not(.slide-wide){width:min(220px,62vw)!important;}
+  .gallery .track .slide img.ph{width:100%!important;height:auto!important;object-fit:contain!important;}
+  .gallery .fig-cap{font-size:12.5px!important;line-height:1.4;}
+  .gallery .prog{margin-top:14px;}
+}
+@media(max-width:480px){
+  .gallery .track .slide-wide{width:calc(100vw - 72px)!important;}
+  .gallery .track .slide:not(.slide-wide){width:min(210px,58vw)!important;}
+}
+</style>
+
+<style id="mobile-lang-header-final">
+@media(max-width:960px){
+  nav#nav .nav-inner{position:relative!important;}
+  nav#nav .nav-links{display:block!important;position:static!important;flex:0 0 auto!important;}
+  nav#nav .nav-group{display:none!important;}
+  nav#nav .nav-links.open .nav-group{display:flex!important;position:absolute!important;top:86px!important;left:0!important;right:0!important;background:#eef1fb!important;padding:20px 16px 26px!important;border-bottom:1px solid var(--line)!important;flex-direction:column!important;align-items:flex-start!important;gap:18px!important;}
+  nav#nav .nav-right{display:flex!important;position:absolute!important;right:56px!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important;width:auto!important;}
+  nav#nav .lang-sw{display:inline-flex!important;}
+  nav#nav .nav-toggle{position:absolute!important;right:16px!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important;}
+}
+</style>
+
+<style id="sticky-nav-return-final">
+/* Return to the stable pre-SPA navigation behavior: small page-load flash is accepted, but header stays pinned while scrolling. */
+nav#nav{position:sticky!important;top:0!important;z-index:1000!important;}
 </style>
 </head>
 <body>
-
 <nav id="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="brand">Ceci Chang</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">☰</button>
-    <div class="nav-links" id="navLinks">
-      <div class="nav-group">
-        <div class="has-drop">
-          <button class="drop-toggle" type="button" aria-expanded="false"><span data-i18n="nav.web3">Web3 Product Design</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="drop-menu">
-          <a href="drift-earn.html"><span data-i18n="cs.earn.short">DeFi Earn Experience</span><span class="co">Drift Protocol</span></a>
-          <a href="drift-growth.html"><span data-i18n="cs.growth.short">Growth &amp; Community Engagement</span><span class="co">Drift Protocol</span></a>
-          <a href="binance-copytrading.html"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
-          <a href="binance-futures.html" aria-current="page"><span data-i18n="cs.futures.short">Futures Trading</span><span class="co">Binance</span></a>
-          <a href="binance-leaderboard.html"><span data-i18n="cs.lb.short">Leaderboard</span><span class="co">Binance</span></a>
-          <a href="traderwagon.html"><span data-i18n="cs.tw.short">Social Trading Platform</span><span class="co">TraderWagon</span></a>
-          </div>
-        </div>
-        <a href="index.html#branding" data-i18n="nav.branding">Branding Design</a>
-        <a href="index.html#ui" data-i18n="nav.ui">UI Design</a>
-      </div>
-      <div class="nav-right">
-        <div class="lang-sw" role="group" aria-label="Language / 語言">
-          <button type="button" class="lang-btn is-on" data-lang="en" aria-pressed="true">EN</button>
-          <button type="button" class="lang-btn" data-lang="zh" aria-pressed="false">中</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
-
-<div class="wrap">
-  <a href="index.html#work" class="back" data-i18n="back.work">← BACK TO WORK</a>
-
-  <div class="p-head">
-    <div>
-      <div class="eyebrow">
-        <span class="lbl">Case Study</span>
-        <span class="chip">◈ Binance</span>
-        <span class="chip">Derivatives</span>
-      </div>
-      <h1 class="p-title">BINANCE Futures Trading</h1>
-      <p class="p-lead">Designed the Binance Futures Trading Platform — the world's largest crypto derivatives exchange and the No.1 derivatives trading platform.</p>
-    </div>
-    <div class="facts">
-      <div class="fact"><div class="k">Role</div><div class="v">Product Designer</div></div>
-      <div class="fact"><div class="k">Scope</div><div class="v">Trading Platform, Battle, Futures Wallet, Convert</div></div>
-      <div class="fact"><div class="k">Year</div><div class="v">2021 & 2022</div></div>
-      <div class="fact"><div class="k">Teams</div><div class="v">PM, Dev, Marketing</div></div>
-    </div>
-  </div>
-
-  <div class="hero-shot reveal">
-    <img src="images/bnf-hero.png" alt="Binance Futures Trading platform" class="ph" fetchpriority="high">
-  </div>
-
-  <div class="strip">
-    <div class="col"><div class="k">Product</div><div class="v">Futures Trading Platform (Web & App)</div></div>
-    <div class="col"><div class="k">Ownership</div><div class="v">Trading page, Battle, Wallet, Convert</div></div>
-    <div class="col"><div class="k">Impact</div><div class="v">2021 redesign selected in internal competition; Battle launched with 50K+ users.</div></div>
-  </div>
-
-  <div class="layout">
-    <aside class="toc" id="toc">
-      <a href="#s1"><span class="num">01</span> My Role</a>
-      <a href="#s2"><span class="num">02</span> Trading Page Redesign</a>
-      <a href="#s3"><span class="num">03</span> Battle Game Platform</a>
-      <a href="#s4"><span class="num">04</span> Futures Wallet</a>
-      <a href="#s5"><span class="num">05</span> Binance Convert</a>
-    </aside>
-
-    <div class="content">
-
-      <section id="s1" class="reveal">
-        <div class="sec-eyebrow"><span class="num">01</span><span class="name">My Role</span></div>
-        <h2 class="sec-h">Product Designer</h2>
-        <p>The Trading Platform was redesigned in 2021 with my design layout and style, which was selected among the designer proposals in an internal competition.</p>
-        <p>I am the owner of Binance Futures Battle, a gamification product introduced in 2021 with 50K+ users at launch — developed from scratch to launch within 3 weeks with PM, Dev and Marketing teams.</p>
-        <p>I am also the owner of the Futures Wallet and Orders pages, Futures Landing pages, the Cooling-Off Period function, and Binance Convert — a critical product allowing users to convert between a wide range of tokens.</p>
-      </section>
-
-      <section id="s2" class="reveal">
-        <div class="sec-eyebrow"><span class="num">02</span><span class="name">Trading Page Redesign</span></div>
-        <h2 class="sec-h">Rebuilding the Futures trading page around clearer structure, customization, and new-user confidence.</h2>
-
-        <p class="sub-label">Before — the 2021 platform</p>
-        <ol class="ol">
-          <li>Space usage and blocks were not clear enough.</li>
-          <li>The market selection area was unclear.</li>
-          <li>No unified title for each block.</li>
-          <li>Red and green numbers were poorly readable.</li>
-          <li>No custom functions.</li>
-          <li>The navigation bar needed to be unified across the entire site.</li>
-          <li>Hard to find where to change Leverage &amp; Margin Mode.</li>
-          <li>Not friendly to new users or beginners.</li>
-        </ol>
-        <div class="figure">
-          <img src="images/bnf-before.png" alt="Binance Futures 2021 trading page before redesign" class="ph" loading="lazy" decoding="async">
-          <div class="fig-cap">2021 Trading page — before redesign</div>
-        </div>
-
-        <p class="sub-label">After — the 2022 redesign</p>
-        <ol class="ol">
-          <li>Reduced dividing lines; redefined block positions and proportions.</li>
-          <li>Rearranged the visual flow for users.</li>
-          <li>Unified block design such as titles and icons.</li>
-          <li>Redefined colors to avoid eye fatigue during long sessions.</li>
-          <li>Enabled users to customize block content and size.</li>
-          <li>Added a navigation bar, unifying the experience with other pages.</li>
-          <li>Unified the control area into the right panel.</li>
-          <li>Improved the experience for new users and beginners.</li>
-        </ol>
-        <div class="figure">
-          <img src="images/bnf-after-01.png" alt="Binance Futures 2022 trading page after redesign" class="ph" loading="lazy" decoding="async">
-          <div class="fig-cap">2022 Trading page — after redesign</div>
-        </div>
-
-        <p class="sub-label">Futures feature iterations</p>
-        <p>Beyond the trading page itself, I designed the supporting flows that shape how users enter the Futures product and manage risk over time.</p>
-        <ol class="ol">
-          <li>Open Futures Account onboarding for new users</li>
-          <li>Welcome page and new-user guides</li>
-          <li>P&amp;L card sharing design</li>
-          <li>TP/SL settings</li>
-          <li>Cooling-off period design</li>
-        </ol>
-        <div class="figure">
-          <img src="images/bnf-iteration-01.png" alt="Binance Futures feature iterations — onboarding, new-user guides, P&amp;L card sharing, cooling-off period" class="ph" loading="lazy" decoding="async">
-          <div class="fig-cap">Futures feature iterations — onboarding, guides, P&amp;L card sharing, cooling-off period</div>
-        </div>
-      </section>
-
-      <section id="s3" class="reveal">
-        <div class="sec-eyebrow"><span class="num">03</span><span class="name">Battle Game Platform</span></div>
-        <h2 class="sec-h">Binance Futures Battle — a gamification product with 50K+ users at launch.</h2>
-        <p>Owner of Binance Futures Battle, developed from scratch to launch within 3 weeks with PM, Dev and Marketing teams. Users predict whether a token will go long or short in the next 5 minutes and start a battle — players who predict opposite directions are automatically matched, and the winner earns a prize.</p>
-        <div class="stack">
-          <div><img src="images/bnf-battle-01.png" alt="Binance Futures Battle game platform" class="ph" loading="lazy" decoding="async"><div class="fig-cap">Battle game platform</div></div>
-          <div><img src="images/bnf-battle-02.png" alt="Binance Futures Battle control panel" class="ph" loading="lazy" decoding="async"><div class="fig-cap">Battle game control panel</div></div>
-          <div><img src="images/bnf-battle-03.png" alt="Binance Futures Battle matching and results" class="ph" loading="lazy" decoding="async"><div class="fig-cap">Matching &amp; results</div></div>
-        </div>
-      </section>
-
-      <section id="s4" class="reveal">
-        <div class="sec-eyebrow"><span class="num">04</span><span class="name">Futures Wallet Design</span></div>
-        <h2 class="sec-h">Futures Wallet — web and app design iterations.</h2>
-        <div class="stack">
-          <div><img src="images/bnf-wallet-01.png" alt="Binance Futures Wallet web design" class="ph" loading="lazy" decoding="async"><div class="fig-cap">Futures Wallet — web design iteration</div></div>
-          <div><img src="images/bnf-wallet-02.png" alt="Binance Futures Wallet app design" class="ph" loading="lazy" decoding="async"><div class="fig-cap">Futures Wallet — app design iteration</div></div>
-        </div>
-      </section>
-
-      <section id="s5" class="reveal">
-        <div class="sec-eyebrow"><span class="num">05</span><span class="name">Binance Convert Platform</span></div>
-        <h2 class="sec-h">Binance Convert — a critical product for token conversion.</h2>
-        <p>Owner of Binance Convert, which allows users to convert between a wider range of tokens than Spot Trading.</p>
-        <div class="stack">
-          <div><img src="images/bnf-convert-01.png" alt="Binance Convert page" class="ph" loading="lazy" decoding="async"><div class="fig-cap">Convert page</div></div>
-          <div><img src="images/bnf-convert-02.png" alt="Binance Convert token selection flow" class="ph" loading="lazy" decoding="async"><div class="fig-cap">Token selection flow</div></div>
-        </div>
-      </section>
-
-    </div>
-  </div>
-
-  <a class="next-cs" href="binance-leaderboard.html">
-    <div class="inner">
-      <div>
-        <div class="lbl"><span data-i18n="next.lbl">NEXT CASE STUDY</span> · BINANCE</div>
-        <div class="t" data-i18n="cs.lb.long">BINANCE Social Trading Leaderboard</div>
-      </div>
-      <svg class="arw" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-    </div>
-  </a>
+<div class="nav-inner">
+<a class="brand" href="index.html">Ceci Chang</a>
+<button aria-expanded="false" aria-label="Menu" class="nav-toggle" id="navToggle">☰</button>
+<div class="nav-links" id="navLinks">
+<div class="nav-group">
+<div class="has-drop">
+<button aria-expanded="false" class="drop-toggle" type="button"><span data-i18n="nav.web3">Web3 Product Design</span><svg class="chev" viewbox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></button>
+<div class="drop-menu">
+<a href="drift-earn.html"><span data-i18n="cs.earn.short">DeFi Earn Experience</span><span class="co">Drift Protocol</span></a>
+<a href="drift-growth.html"><span data-i18n="cs.growth.short">Growth &amp; Community Engagement</span><span class="co">Drift Protocol</span></a>
+<a href="binance-copytrading.html"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
+<a aria-current="page" href="binance-futures.html"><span data-i18n="cs.futures.short">Futures Trading</span><span class="co">Binance</span></a>
+<a href="binance-leaderboard.html"><span data-i18n="cs.lb.short">Leaderboard</span><span class="co">Binance</span></a>
+<a href="traderwagon.html"><span data-i18n="cs.tw.short">Social Trading Platform</span><span class="co">TraderWagon</span></a>
 </div>
-
+</div>
+<span aria-disabled="true" class="nav-coming-soon" tabindex="0"><span data-i18n="nav.branding">Branding Design</span><span class="nav-coming-tip" data-i18n="nav.branding.soon">Coming soon</span></span>
+<a data-i18n="nav.ui" href="ui-design.html">UI Design</a>
+</div>
+<div class="nav-right">
+<div aria-label="Language / 語言" class="lang-sw" role="group">
+<button aria-pressed="true" class="lang-btn is-on" data-lang="en" type="button">EN</button>
+<button aria-pressed="false" class="lang-btn" data-lang="zh" type="button">中</button>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<div class="wrap">
+<a class="back" data-i18n="back.work" href="index.html#work">← BACK TO WORK</a>
+<div class="p-head">
+<div>
+<div class="eyebrow">
+<span class="lbl" data-i18n="fut.auto001">Case Study</span>
+<span class="chip" data-i18n="fut.auto002">◈ Binance</span>
+<span class="chip" data-i18n="fut.auto003">Derivatives</span>
+</div>
+<h1 class="p-title" data-i18n="fut.auto004">BINANCE Futures Trading</h1>
+<p class="p-lead" data-i18n="fut.auto005">Designed the Binance Futures Trading Platform — the world's largest crypto derivatives exchange and the No.1 derivatives trading platform.</p>
+</div>
+<div class="facts">
+<div class="fact"><div class="k" data-i18n="fut.auto006">Role</div><div class="v" data-i18n="fut.auto007">Product Designer</div></div>
+<div class="fact"><div class="k" data-i18n="fut.auto008">Scope</div><div class="v" data-i18n="fut.auto009">Trading Platform, Battle, Futures Wallet, Convert</div></div>
+<div class="fact"><div class="k" data-i18n="fut.auto010">Year</div><div class="v">2021 &amp; 2022</div></div>
+<div class="fact"><div class="k" data-i18n="fut.auto011">Teams</div><div class="v" data-i18n="fut.auto012">PM, Dev, Marketing</div></div>
+</div>
+</div>
+<div class="hero-shot reveal">
+<img alt="Binance Futures Trading platform" class="ph" fetchpriority="high" src="images/bnf-hero.png"/>
+</div>
+<div class="strip">
+<div class="col"><div class="k" data-i18n="fut.auto013">Product</div><div class="v" data-i18n="fut.auto014">Futures Trading Platform (Web &amp; App)</div></div>
+<div class="col"><div class="k" data-i18n="fut.auto015">Ownership</div><div class="v" data-i18n="fut.auto016">Trading page, Battle, Wallet, Convert</div></div>
+<div class="col"><div class="k" data-i18n="fut.auto017">Impact</div><div class="v" data-i18n="fut.auto018">2021 redesign selected in internal competition; Battle launched with 50K+ users.</div></div>
+</div>
+<div class="layout">
+<aside class="toc" id="toc">
+<a data-i18n="fut.auto019" href="#s1"><span class="num">01</span> My Role</a>
+<a data-i18n="fut.auto020" href="#s2"><span class="num">02</span> Trading Page Redesign</a>
+<a data-i18n="fut.auto021" href="#s3"><span class="num">03</span> Battle Game Platform</a>
+<a data-i18n="fut.auto022" href="#s4"><span class="num">04</span> Futures Wallet</a>
+<a data-i18n="fut.auto023" href="#s5"><span class="num">05</span> Binance Convert</a>
+</aside>
+<div class="content">
+<section class="reveal" id="s1">
+<div class="sec-eyebrow"><span class="num">01</span><span class="name" data-i18n="fut.auto024">My Role</span></div>
+<h2 class="sec-h" data-i18n="fut.auto025">Product Designer</h2>
+<p data-i18n="fut.auto026">The Trading Platform was redesigned in 2021 with my design layout and style, which was selected among the designer proposals in an internal competition.</p>
+<p data-i18n="fut.auto027">I am the owner of Binance Futures Battle, a gamification product introduced in 2021 with 50K+ users at launch — developed from scratch to launch within 3 weeks with PM, Dev and Marketing teams.</p>
+<p data-i18n="fut.auto028">I am also the owner of the Futures Wallet and Orders pages, Futures Landing pages, the Cooling-Off Period function, and Binance Convert — a critical product allowing users to convert between a wide range of tokens.</p>
+</section>
+<section class="reveal" id="s2">
+<div class="sec-eyebrow"><span class="num">02</span><span class="name" data-i18n="fut.auto029">Trading Page Redesign</span></div>
+<h2 class="sec-h" data-i18n="fut.auto030">Rebuilding the Futures trading page around clearer structure, customization, and new-user confidence.</h2>
+<p class="sub-label" data-i18n="fut.auto031">Before — the 2021 platform</p>
+<ol class="ol">
+<li data-i18n="fut.auto032">Space usage and blocks were not clear enough.</li>
+<li data-i18n="fut.auto033">The market selection area was unclear.</li>
+<li data-i18n="fut.auto034">No unified title for each block.</li>
+<li data-i18n="fut.auto035">Red and green numbers were poorly readable.</li>
+<li data-i18n="fut.auto036">No custom functions.</li>
+<li data-i18n="fut.auto037">The navigation bar needed to be unified across the entire site.</li>
+<li data-i18n="fut.auto038">Hard to find where to change Leverage &amp; Margin Mode.</li>
+<li data-i18n="fut.auto039">Not friendly to new users or beginners.</li>
+</ol>
+<div class="figure">
+<img alt="Binance Futures 2021 trading page before redesign" class="ph" decoding="async" loading="lazy" src="images/bnf-before.png"/>
+<div class="fig-cap" data-i18n="fut.auto040">2021 Trading page — before redesign</div>
+</div>
+<p class="sub-label" data-i18n="fut.auto041">After — the 2022 redesign</p>
+<ol class="ol">
+<li data-i18n="fut.auto042">Reduced dividing lines; redefined block positions and proportions.</li>
+<li data-i18n="fut.auto043">Rearranged the visual flow for users.</li>
+<li data-i18n="fut.auto044">Unified block design such as titles and icons.</li>
+<li data-i18n="fut.auto045">Redefined colors to avoid eye fatigue during long sessions.</li>
+<li data-i18n="fut.auto046">Enabled users to customize block content and size.</li>
+<li data-i18n="fut.auto047">Added a navigation bar, unifying the experience with other pages.</li>
+<li data-i18n="fut.auto048">Unified the control area into the right panel.</li>
+<li data-i18n="fut.auto049">Improved the experience for new users and beginners.</li>
+</ol>
+<div class="figure">
+<img alt="Binance Futures 2022 trading page after redesign" class="ph" decoding="async" loading="lazy" src="images/bnf-after-01.png"/>
+<div class="fig-cap" data-i18n="fut.auto050">2022 Trading page — after redesign</div>
+</div>
+<p class="sub-label" data-i18n="fut.auto051">Futures feature iterations</p>
+<p data-i18n="fut.auto052">Beyond the trading page itself, I designed the supporting flows that shape how users enter the Futures product and manage risk over time.</p>
+<ol class="ol">
+<li data-i18n="fut.auto053">Open Futures Account onboarding for new users</li>
+<li data-i18n="fut.auto054">Welcome page and new-user guides</li>
+<li data-i18n="fut.auto055">P&amp;L card sharing design</li>
+<li data-i18n="fut.auto056">TP/SL settings</li>
+<li data-i18n="fut.auto057">Cooling-off period design</li>
+</ol>
+<div class="figure">
+<img alt="Binance Futures feature iterations — onboarding, new-user guides, P&amp;L card sharing, cooling-off period" class="ph" decoding="async" loading="lazy" src="images/bnf-iteration-01.png"/>
+<div class="fig-cap" data-i18n="fut.auto058">Futures feature iterations — onboarding, guides, P&amp;L card sharing, cooling-off period</div>
+</div>
+</section>
+<section class="reveal" id="s3">
+<div class="sec-eyebrow"><span class="num">03</span><span class="name" data-i18n="fut.auto059">Battle Game Platform</span></div>
+<h2 class="sec-h" data-i18n="fut.auto060">Binance Futures Battle — a gamification product with 50K+ users at launch.</h2>
+<p data-i18n="fut.auto061">Owner of Binance Futures Battle, developed from scratch to launch within 3 weeks with PM, Dev and Marketing teams. Users predict whether a token will go long or short in the next 5 minutes and start a battle — players who predict opposite directions are automatically matched, and the winner earns a prize.</p>
+<div class="stack">
+<div><img alt="Binance Futures Battle game platform" class="ph" decoding="async" loading="lazy" src="images/bnf-battle-01.png"/><div class="fig-cap" data-i18n="fut.auto062">Battle game platform</div></div>
+<div><img alt="Binance Futures Battle control panel" class="ph" decoding="async" loading="lazy" src="images/bnf-battle-02.png"/><div class="fig-cap" data-i18n="fut.auto063">Battle game control panel</div></div>
+<div><img alt="Binance Futures Battle matching and results" class="ph" decoding="async" loading="lazy" src="images/bnf-battle-03.png"/><div class="fig-cap" data-i18n="fut.auto064">Matching &amp; results</div></div>
+</div>
+</section>
+<section class="reveal" id="s4">
+<div class="sec-eyebrow"><span class="num">04</span><span class="name" data-i18n="fut.auto065">Futures Wallet Design</span></div>
+<h2 class="sec-h" data-i18n="fut.auto066">Futures Wallet — web and app design iterations.</h2>
+<div class="stack">
+<div><img alt="Binance Futures Wallet web design" class="ph" decoding="async" loading="lazy" src="images/bnf-wallet-01.png"/><div class="fig-cap" data-i18n="fut.auto067">Futures Wallet — web design iteration</div></div>
+<div><img alt="Binance Futures Wallet app design" class="ph" decoding="async" loading="lazy" src="images/bnf-wallet-02.png"/><div class="fig-cap" data-i18n="fut.auto068">Futures Wallet — app design iteration</div></div>
+</div>
+</section>
+<section class="reveal" id="s5">
+<div class="sec-eyebrow"><span class="num">05</span><span class="name" data-i18n="fut.auto069">Binance Convert Platform</span></div>
+<h2 class="sec-h" data-i18n="fut.auto070">Binance Convert — a critical product for token conversion.</h2>
+<p data-i18n="fut.auto071">Owner of Binance Convert, which allows users to convert between a wider range of tokens than Spot Trading.</p>
+<div class="stack">
+<div><img alt="Binance Convert page" class="ph" decoding="async" loading="lazy" src="images/bnf-convert-01.png"/><div class="fig-cap" data-i18n="fut.auto072">Convert page</div></div>
+<div><img alt="Binance Convert token selection flow" class="ph" decoding="async" loading="lazy" src="images/bnf-convert-02.png"/><div class="fig-cap" data-i18n="fut.auto073">Token selection flow</div></div>
+</div>
+</section>
+</div>
+</div>
+<a class="next-cs" href="binance-leaderboard.html">
+<div class="inner">
+<div>
+<div class="lbl"><span data-i18n="next.lbl">NEXT CASE STUDY</span> · BINANCE</div>
+<div class="t" data-i18n="cs.lb.long">BINANCE Social Trading Leaderboard</div>
+</div>
+<svg class="arw" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
+</div>
+</a>
+</div>
 <footer>
-  <div class="wrap">
-    <div class="foot-contact">
-      <a class="fc" href="mailto:changhsiju@gmail.com" aria-label="Email Ceci Chang" title="changhsiju@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4.5" width="20" height="15" rx="2.5"/><path d="M2.8 6.3l8.1 5.3a2 2 0 0 0 2.2 0l8.1-5.3"/></svg></a>
-      <a class="fc" href="https://www.linkedin.com/in/changhsiju/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" title="linkedin.com/in/changhsiju"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.44-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
-    </div>
-    <div class="foot-credit" data-i18n="foot.credit">Designed by Ceci Chang · Made with Claude</div>
-  </div>
+<div class="wrap">
+<div class="foot-contact">
+<a aria-label="Email Ceci Chang" class="fc" href="mailto:changhsiju@gmail.com" title="changhsiju@gmail.com"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><rect height="15" rx="2.5" width="20" x="2" y="4.5"></rect><path d="M2.8 6.3l8.1 5.3a2 2 0 0 0 2.2 0l8.1-5.3"></path></svg></a>
+<a aria-label="LinkedIn profile" class="fc" href="https://www.linkedin.com/in/changhsiju/" rel="noopener noreferrer" target="_blank" title="linkedin.com/in/changhsiju"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.44-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"></path></svg></a>
+</div>
+<div class="foot-credit" data-i18n="foot.credit">Designed by Ceci Chang · Made with Claude</div>
+</div>
 </footer>
-
 <script>
   const nav=document.getElementById('nav');
   window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>10));
@@ -544,7 +606,6 @@
     apply();
   });
 </script>
-
 <script>
   /* nav 下拉選單 */
   document.querySelectorAll('.has-drop').forEach(function(d){

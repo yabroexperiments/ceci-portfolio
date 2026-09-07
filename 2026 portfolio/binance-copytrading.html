@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>BINANCE Copy Trading — Ceci Chang</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <style>
   :root{
     --bg:#eef1fb;--ink:#0b0b0f;--ink-soft:#48494E;--ink-mute:#71747f;
@@ -286,164 +287,230 @@
   @media(max-width:960px){
     .nav-links.open .nav-right{margin-left:0;width:100%;justify-content:flex-start}
   }
+
+  /* Disabled Branding Design navigation — Coming soon tooltip */
+  .nav-coming-soon{position:relative;display:inline-flex;align-items:center;font-weight:500;font-size:15.5px;color:var(--ink-mute);cursor:not-allowed;line-height:1.5;outline:none}
+  .nav-coming-tip{position:absolute;left:50%;top:calc(100% + 10px);transform:translateX(-50%) translateY(-4px);white-space:nowrap;background:#0b0b0f;color:#fff;font-size:12px;font-weight:500;padding:6px 9px;border-radius:7px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s,transform .18s,visibility .18s;z-index:80}
+  .nav-coming-soon:hover .nav-coming-tip,.nav-coming-soon:focus .nav-coming-tip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  @media(max-width:960px){.nav-coming-tip{left:0;top:100%;transform:translateY(2px)}.nav-coming-soon:hover .nav-coming-tip,.nav-coming-soon:focus .nav-coming-tip{transform:translateY(6px)}}
+
+/* ===== 2026-09 mobile spacing + navigation consistency ===== */
+html{scrollbar-gutter:stable;}
+@media(max-width:960px){
+  .wrap,.nav-inner{width:100%;max-width:none;padding-left:16px!important;padding-right:16px!important;}
+  .nav-inner{height:86px;}
+  .nav-links.open{padding-left:16px!important;padding-right:16px!important;}
+}
+</style>
+
+<style id="nav-stability-final">
+/* Final shared navigation contract — identical on every portfolio page */
+html{scrollbar-gutter:stable;}
+body{margin:0;}
+nav#nav{
+  position:sticky!important;top:0!important;z-index:1000!important;
+  width:100%!important;height:86px!important;min-height:86px!important;
+  background:#eef1fb!important;border-bottom:1px solid transparent!important;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+  transition:none!important;transform:none!important;contain:none!important;
+}
+nav#nav.scrolled{background:#eef1fb!important;border-bottom-color:#d9dcec!important;}
+nav#nav .nav-inner{
+  width:100%!important;max-width:1140px!important;height:86px!important;min-height:86px!important;
+  margin:0 auto!important;padding:0 24px!important;display:flex!important;align-items:center!important;
+  gap:24px!important;position:relative!important;box-sizing:border-box!important;
+}
+nav#nav .brand{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;font-size:20px!important;line-height:1!important;font-weight:600!important;letter-spacing:-.01em!important;margin:0!important;padding:0!important;transform:none!important;}
+nav#nav .nav-links,nav#nav .nav-group,nav#nav .nav-right{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;}
+nav#nav a,nav#nav button{transform:none!important;}
+nav#nav .has-drop{overflow:visible!important;}
+nav#nav .drop-menu{z-index:1100!important;}
+@media(min-width:1280px){nav#nav .nav-inner{max-width:1360px!important;padding-left:48px!important;padding-right:48px!important;}}
+@media(min-width:1536px){nav#nav .nav-inner{max-width:1560px!important;}}
+@media(max-width:960px){
+  nav#nav .nav-inner{max-width:none!important;padding-left:16px!important;padding-right:16px!important;}
+  nav#nav .nav-links.open{left:0!important;right:0!important;padding-left:16px!important;padding-right:16px!important;}
+}
+</style>
+
+<link rel="prefetch" href="index.html"/><link rel="prefetch" href="ui-design.html"/>
+
+<style id="mobile-gallery-fit-fix">
+@media(max-width:960px){
+  /* Desktop UI screenshots should be viewable as a whole on mobile. */
+  .gallery .viewport{overflow-x:auto!important;overflow-y:hidden!important;scroll-padding-left:0;}
+  .gallery .track{gap:14px!important;align-items:flex-start;}
+  .gallery .track .slide-wide{width:calc(100vw - 80px)!important;max-width:520px!important;min-width:0!important;}
+  .gallery .track .slide:not(.slide-wide){width:min(220px,62vw)!important;}
+  .gallery .track .slide img.ph{width:100%!important;height:auto!important;object-fit:contain!important;}
+  .gallery .fig-cap{font-size:12.5px!important;line-height:1.4;}
+  .gallery .prog{margin-top:14px;}
+}
+@media(max-width:480px){
+  .gallery .track .slide-wide{width:calc(100vw - 72px)!important;}
+  .gallery .track .slide:not(.slide-wide){width:min(210px,58vw)!important;}
+}
+</style>
+
+<style id="mobile-lang-header-final">
+@media(max-width:960px){
+  nav#nav .nav-inner{position:relative!important;}
+  nav#nav .nav-links{display:block!important;position:static!important;flex:0 0 auto!important;}
+  nav#nav .nav-group{display:none!important;}
+  nav#nav .nav-links.open .nav-group{display:flex!important;position:absolute!important;top:86px!important;left:0!important;right:0!important;background:#eef1fb!important;padding:20px 16px 26px!important;border-bottom:1px solid var(--line)!important;flex-direction:column!important;align-items:flex-start!important;gap:18px!important;}
+  nav#nav .nav-right{display:flex!important;position:absolute!important;right:56px!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important;width:auto!important;}
+  nav#nav .lang-sw{display:inline-flex!important;}
+  nav#nav .nav-toggle{position:absolute!important;right:16px!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important;}
+}
+</style>
+
+<style id="sticky-nav-return-final">
+/* Return to the stable pre-SPA navigation behavior: small page-load flash is accepted, but header stays pinned while scrolling. */
+nav#nav{position:sticky!important;top:0!important;z-index:1000!important;}
 </style>
 </head>
 <body>
-
 <nav id="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="brand">Ceci Chang</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">☰</button>
-    <div class="nav-links" id="navLinks">
-      <div class="nav-group">
-        <div class="has-drop">
-          <button class="drop-toggle" type="button" aria-expanded="false"><span data-i18n="nav.web3">Web3 Product Design</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="drop-menu">
-          <a href="drift-earn.html"><span data-i18n="cs.earn.short">DeFi Earn Experience</span><span class="co">Drift Protocol</span></a>
-          <a href="drift-growth.html"><span data-i18n="cs.growth.short">Growth &amp; Community Engagement</span><span class="co">Drift Protocol</span></a>
-          <a href="binance-copytrading.html" aria-current="page"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
-          <a href="binance-futures.html"><span data-i18n="cs.futures.short">Futures Trading</span><span class="co">Binance</span></a>
-          <a href="binance-leaderboard.html"><span data-i18n="cs.lb.short">Leaderboard</span><span class="co">Binance</span></a>
-          <a href="traderwagon.html"><span data-i18n="cs.tw.short">Social Trading Platform</span><span class="co">TraderWagon</span></a>
-          </div>
-        </div>
-        <a href="index.html#branding" data-i18n="nav.branding">Branding Design</a>
-        <a href="index.html#ui" data-i18n="nav.ui">UI Design</a>
-      </div>
-      <div class="nav-right">
-        <div class="lang-sw" role="group" aria-label="Language / 語言">
-          <button type="button" class="lang-btn is-on" data-lang="en" aria-pressed="true">EN</button>
-          <button type="button" class="lang-btn" data-lang="zh" aria-pressed="false">中</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
-
-<div class="wrap">
-  <a href="index.html#work" class="back" data-i18n="back.work">← BACK TO WORK</a>
-
-  <div class="p-head">
-    <div>
-      <div class="eyebrow">
-        <span class="lbl">Case Study</span>
-        <span class="chip">◈ Binance</span>
-        <span class="chip">App & Web</span>
-      </div>
-      <h1 class="p-title">BINANCE Copy Trading</h1>
-      <p class="p-lead">The Copy Trading feature allows users to replicate the trades of experienced traders, providing a unique opportunity for both beginners and experts in the world of cryptocurrency trading.</p>
-    </div>
-    <div class="facts">
-      <div class="fact"><div class="k">Role</div><div class="v">Design Lead, Product Designer</div></div>
-      <div class="fact"><div class="k">Scope</div><div class="v">App & Web, end-to-end UX/UI</div></div>
-      <div class="fact"><div class="k">Timeline</div><div class="v">Designed from scratch, launched in 2 months</div></div>
-      <div class="fact"><div class="k">Process</div><div class="v">Bi-weekly iterations</div></div>
-    </div>
-  </div>
-
-  <div class="hero-shot reveal">
-    <img src="images/bnct-hero.png" alt="Binance Copy Trading — hero" class="ph wide">
-  </div>
-
-  <div class="strip">
-    <div class="col"><div class="k">Product</div><div class="v">Copy Trading (App & Web)</div></div>
-    <div class="col"><div class="k">Users</div><div class="v">Lead Traders & Copy Traders</div></div>
-    <div class="col"><div class="k">Impact</div><div class="v">Achieved growth KPI targets each quarter through a smoother end-to-end experience.</div></div>
-  </div>
-
-  <div class="layout">
-    <!-- TOC -->
-    <aside class="toc" id="toc">
-      <a href="#s1"><span class="num">01</span> My Role</a>
-      <a href="#s2"><span class="num">02</span> The Challenge</a>
-      <a href="#s3"><span class="num">03</span> Competitive Research</a>
-      <a href="#s4"><span class="num">04</span> App Design</a>
-      <a href="#s5"><span class="num">05</span> Web Design</a>
-    </aside>
-
-    <!-- CONTENT -->
-    <div class="content">
-      <section id="s1" class="reveal">
-        <div class="sec-eyebrow"><span class="num">01</span><span class="name">My Role</span></div>
-      <h2 class="sec-h">Design Lead and Product Designer</h2>
-      <p>I led the project and designed the Copy Trading App from scratch with bi-weekly iterations, and pushed to launch within 2 months.</p>
-      <p>I was responsible for a smooth user experience and for achieving growth KPI targets each quarter.</p>
-    </section>
-
-    <section id="s2" class="reveal">
-      <div class="sec-eyebrow"><span class="num">02</span><span class="name">The Challenge</span></div>
-      <h2 class="sec-h">The Copy Trading feature needed to satisfy many different user personas.</h2>
-      <p>There was a lot of varied feedback from users, so I led the discussion between Designers, PM and Marketing teams to reach a solution that catered for:</p>
-      <div class="rows">
-        <div class="row"><div class="rn">1</div><div><h4>Advanced users</h4><p>Requirements of professional Lead Traders and seasoned Copy Traders.</p></div></div>
-        <div class="row"><div class="rn">2</div><div><h4>Beginners</h4><p>Easily follow or copy an order with one click for beginner Copy Traders.</p></div></div>
-        <div class="row"><div class="rn">3</div><div><h4>Portfolio control</h4><p>Enable Lead Traders and Copy Traders to control their portfolio status at any time.</p></div></div>
-      </div>
-    </section>
-
-    <section id="s3" class="reveal">
-      <div class="sec-eyebrow"><span class="num">03</span><span class="name">Competitive Product Research</span></div>
-      <h2 class="sec-h">I conducted extensive research of the competition, with constant monitoring of new features.</h2>
-      <p>I proposed simpler and more intuitive processes, and emphasized our strengths.</p>
-      <div class="pair">
-        <div><img src="images/bnct-research-01.png" alt="Competitor monitoring" class="ph"><div class="fig-cap">Competitor monitoring</div></div>
-        <div><img src="images/bnct-research-02.png" alt="Proposed simpler flows" class="ph"><div class="fig-cap">Proposed simpler flows</div></div>
-      </div>
-    </section>
-
-    <section id="s4" class="reveal">
-      <div class="sec-eyebrow"><span class="num">04</span><span class="name">Copy Trading App Design</span></div>
-      <p class="sub-label">Design Highlights</p>
-      <div class="rows">
-        <div class="row"><div class="rn">1</div><div><h4>Clear, intuitive homepage</h4><p>Clearly categorized homepage; portfolio card design surfaces the most vital information. More beginner-friendly with terminology explanations, and a simplified application process to become a Lead Trader.</p></div></div>
-        <div class="row"><div class="rn">2</div><div><h4>Easy onboarding & copy settings</h4><p>Functional guide for first-time users. Copy settings are simple and easy to understand, with advanced settings that expand for experienced users.</p></div></div>
-        <div class="row"><div class="rn">3</div><div><h4>Performance visualization</h4><p>Trader performance visualization makes it easy to add favorites and copy orders. The total amount is summarized on the My Copy Trading page, with multiple ongoing and closed portfolios viewable and expandable to manage.</p></div></div>
-        <div class="row"><div class="rn">4</div><div><h4>Lead Trader management</h4><p>Lead Traders can easily manage their portfolio, with key performance graphs to monitor positions and trade history, and one click to share portfolio performance. All trading activities are controlled on a single Trade page, with a consistent K-line experience with Futures Trading.</p></div></div>
-      </div>
-      <div class="stack">
-        <div><img src="images/bnct-app-01.png" alt="App — Homepage" class="ph"><div class="fig-cap">Homepage</div></div>
-        <div><img src="images/bnct-app-02.png" alt="App — Copy settings" class="ph"><div class="fig-cap">Copy settings</div></div>
-        <div><img src="images/bnct-app-03.png" alt="App — My Copy Trading" class="ph"><div class="fig-cap">My Copy Trading</div></div>
-        <div><img src="images/bnct-app-04.png" alt="App — Lead Trader portfolio" class="ph"><div class="fig-cap">Lead Trader portfolio</div></div>
-        <div><img src="images/bnct-app-05.png" alt="App — Trade page" class="ph"><div class="fig-cap">Trade page</div></div>
-      </div>
-    </section>
-
-    <section id="s5" class="reveal">
-      <div class="sec-eyebrow"><span class="num">05</span><span class="name">Copy Trading Web Design</span></div>
-      <h2 class="sec-h">Extending the experience to web, with responsive layouts (RWD).</h2>
-      <div class="stack">
-        <div><img src="images/bnct-web-01.png" alt="Web — Copy Trading homepage" class="ph"><div class="fig-cap">Copy Trading homepage & RWD</div></div>
-        <div><img src="images/bnct-web-02.png" alt="Web — My Lead Trading" class="ph"><div class="fig-cap">My Lead Trading & RWD</div></div>
-        <div><img src="images/bnct-web-03.png" alt="Web — Copy Settings" class="ph"><div class="fig-cap">Copy Settings & RWD</div></div>
-        <div><img src="images/bnct-web-04.png" alt="Web — My Copy Trading" class="ph"><div class="fig-cap">My Copy Trading & RWD</div></div>
-        <div><img src="images/bnct-web-05.png" alt="Web — Trade page" class="ph"><div class="fig-cap">Trade page & RWD</div></div>
-      </div>
-    </section>
-    </div>
-  </div>
-
-  <a class="next-cs" href="binance-futures.html">
-    <div class="inner">
-      <div>
-        <div class="lbl"><span data-i18n="next.lbl">NEXT CASE STUDY</span> · BINANCE</div>
-        <div class="t" data-i18n="cs.futures.long">BINANCE Futures Trading</div>
-      </div>
-      <svg class="arw" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-    </div>
-  </a>
+<div class="nav-inner">
+<a class="brand" href="index.html">Ceci Chang</a>
+<button aria-expanded="false" aria-label="Menu" class="nav-toggle" id="navToggle">☰</button>
+<div class="nav-links" id="navLinks">
+<div class="nav-group">
+<div class="has-drop">
+<button aria-expanded="false" class="drop-toggle" type="button"><span data-i18n="nav.web3">Web3 Product Design</span><svg class="chev" viewbox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></button>
+<div class="drop-menu">
+<a href="drift-earn.html"><span data-i18n="cs.earn.short">DeFi Earn Experience</span><span class="co">Drift Protocol</span></a>
+<a href="drift-growth.html"><span data-i18n="cs.growth.short">Growth &amp; Community Engagement</span><span class="co">Drift Protocol</span></a>
+<a aria-current="page" href="binance-copytrading.html"><span data-i18n="cs.copy.short">Copy Trading</span><span class="co">Binance</span></a>
+<a href="binance-futures.html"><span data-i18n="cs.futures.short">Futures Trading</span><span class="co">Binance</span></a>
+<a href="binance-leaderboard.html"><span data-i18n="cs.lb.short">Leaderboard</span><span class="co">Binance</span></a>
+<a href="traderwagon.html"><span data-i18n="cs.tw.short">Social Trading Platform</span><span class="co">TraderWagon</span></a>
 </div>
-
+</div>
+<span aria-disabled="true" class="nav-coming-soon" tabindex="0"><span data-i18n="nav.branding">Branding Design</span><span class="nav-coming-tip" data-i18n="nav.branding.soon">Coming soon</span></span>
+<a data-i18n="nav.ui" href="ui-design.html">UI Design</a>
+</div>
+<div class="nav-right">
+<div aria-label="Language / 語言" class="lang-sw" role="group">
+<button aria-pressed="true" class="lang-btn is-on" data-lang="en" type="button">EN</button>
+<button aria-pressed="false" class="lang-btn" data-lang="zh" type="button">中</button>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<div class="wrap">
+<a class="back" data-i18n="back.work" href="index.html#work">← BACK TO WORK</a>
+<div class="p-head">
+<div>
+<div class="eyebrow">
+<span class="lbl" data-i18n="copy.auto001">Case Study</span>
+<span class="chip" data-i18n="copy.auto002">◈ Binance</span>
+<span class="chip" data-i18n="copy.auto003">App &amp; Web</span>
+</div>
+<h1 class="p-title" data-i18n="copy.auto004">BINANCE Copy Trading</h1>
+<p class="p-lead" data-i18n="copy.auto005">The Copy Trading feature allows users to replicate the trades of experienced traders, providing a unique opportunity for both beginners and experts in the world of cryptocurrency trading.</p>
+</div>
+<div class="facts">
+<div class="fact"><div class="k" data-i18n="copy.auto006">Role</div><div class="v" data-i18n="copy.auto007">Design Lead, Product Designer</div></div>
+<div class="fact"><div class="k" data-i18n="copy.auto008">Scope</div><div class="v" data-i18n="copy.auto009">App &amp; Web, end-to-end UX/UI</div></div>
+<div class="fact"><div class="k" data-i18n="copy.auto010">Timeline</div><div class="v" data-i18n="copy.auto011">Designed from scratch, launched in 2 months</div></div>
+<div class="fact"><div class="k" data-i18n="copy.auto012">Process</div><div class="v" data-i18n="copy.auto013">Bi-weekly iterations</div></div>
+</div>
+</div>
+<div class="hero-shot reveal">
+<img alt="Binance Copy Trading — hero" class="ph wide" src="images/bnct-hero.png"/>
+</div>
+<div class="strip">
+<div class="col"><div class="k" data-i18n="copy.auto014">Product</div><div class="v" data-i18n="copy.auto015">Copy Trading (App &amp; Web)</div></div>
+<div class="col"><div class="k" data-i18n="copy.auto016">Users</div><div class="v" data-i18n="copy.auto017">Lead Traders &amp; Copy Traders</div></div>
+<div class="col"><div class="k" data-i18n="copy.auto018">Impact</div><div class="v" data-i18n="copy.auto019">Achieved growth KPI targets each quarter through a smoother end-to-end experience.</div></div>
+</div>
+<div class="layout">
+<!-- TOC -->
+<aside class="toc" id="toc">
+<a data-i18n="copy.auto020" href="#s1"><span class="num">01</span> My Role</a>
+<a data-i18n="copy.auto021" href="#s2"><span class="num">02</span> The Challenge</a>
+<a data-i18n="copy.auto022" href="#s3"><span class="num">03</span> Competitive Research</a>
+<a data-i18n="copy.auto023" href="#s4"><span class="num">04</span> App Design</a>
+<a data-i18n="copy.auto024" href="#s5"><span class="num">05</span> Web Design</a>
+</aside>
+<!-- CONTENT -->
+<div class="content">
+<section class="reveal" id="s1">
+<div class="sec-eyebrow"><span class="num">01</span><span class="name" data-i18n="copy.auto025">My Role</span></div>
+<h2 class="sec-h" data-i18n="copy.auto026">Design Lead and Product Designer</h2>
+<p data-i18n="copy.auto027">I led the project and designed the Copy Trading App from scratch with bi-weekly iterations, and pushed to launch within 2 months.</p>
+<p data-i18n="copy.auto028">I was responsible for a smooth user experience and for achieving growth KPI targets each quarter.</p>
+</section>
+<section class="reveal" id="s2">
+<div class="sec-eyebrow"><span class="num">02</span><span class="name" data-i18n="copy.auto029">The Challenge</span></div>
+<h2 class="sec-h" data-i18n="copy.auto030">The Copy Trading feature needed to satisfy many different user personas.</h2>
+<p data-i18n="copy.auto031">There was a lot of varied feedback from users, so I led the discussion between Designers, PM and Marketing teams to reach a solution that catered for:</p>
+<div class="rows">
+<div class="row"><div class="rn">1</div><div><h4 data-i18n="copy.auto032">Advanced users</h4><p data-i18n="copy.auto033">Requirements of professional Lead Traders and seasoned Copy Traders.</p></div></div>
+<div class="row"><div class="rn">2</div><div><h4 data-i18n="copy.auto034">Beginners</h4><p data-i18n="copy.auto035">Easily follow or copy an order with one click for beginner Copy Traders.</p></div></div>
+<div class="row"><div class="rn">3</div><div><h4 data-i18n="copy.auto036">Portfolio control</h4><p data-i18n="copy.auto037">Enable Lead Traders and Copy Traders to control their portfolio status at any time.</p></div></div>
+</div>
+</section>
+<section class="reveal" id="s3">
+<div class="sec-eyebrow"><span class="num">03</span><span class="name" data-i18n="copy.auto038">Competitive Product Research</span></div>
+<h2 class="sec-h" data-i18n="copy.auto039">I conducted extensive research of the competition, with constant monitoring of new features.</h2>
+<p data-i18n="copy.auto040">I proposed simpler and more intuitive processes, and emphasized our strengths.</p>
+<div class="pair">
+<div><img alt="Competitor monitoring" class="ph" src="images/bnct-research-01.png"/><div class="fig-cap" data-i18n="copy.auto041">Competitor monitoring</div></div>
+<div><img alt="Proposed simpler flows" class="ph" src="images/bnct-research-02.png"/><div class="fig-cap" data-i18n="copy.auto042">Proposed simpler flows</div></div>
+</div>
+</section>
+<section class="reveal" id="s4">
+<div class="sec-eyebrow"><span class="num">04</span><span class="name" data-i18n="copy.auto043">Copy Trading App Design</span></div>
+<p class="sub-label" data-i18n="copy.auto044">Design Highlights</p>
+<div class="rows">
+<div class="row"><div class="rn">1</div><div><h4 data-i18n="copy.auto045">Clear, intuitive homepage</h4><p data-i18n="copy.auto046">Clearly categorized homepage; portfolio card design surfaces the most vital information. More beginner-friendly with terminology explanations, and a simplified application process to become a Lead Trader.</p></div></div>
+<div class="row"><div class="rn">2</div><div><h4 data-i18n="copy.auto047">Easy onboarding &amp; copy settings</h4><p data-i18n="copy.auto048">Functional guide for first-time users. Copy settings are simple and easy to understand, with advanced settings that expand for experienced users.</p></div></div>
+<div class="row"><div class="rn">3</div><div><h4 data-i18n="copy.auto049">Performance visualization</h4><p data-i18n="copy.auto050">Trader performance visualization makes it easy to add favorites and copy orders. The total amount is summarized on the My Copy Trading page, with multiple ongoing and closed portfolios viewable and expandable to manage.</p></div></div>
+<div class="row"><div class="rn">4</div><div><h4 data-i18n="copy.auto051">Lead Trader management</h4><p data-i18n="copy.auto052">Lead Traders can easily manage their portfolio, with key performance graphs to monitor positions and trade history, and one click to share portfolio performance. All trading activities are controlled on a single Trade page, with a consistent K-line experience with Futures Trading.</p></div></div>
+</div>
+<div class="stack">
+<div><img alt="App — Homepage" class="ph" src="images/bnct-app-01.png"/><div class="fig-cap" data-i18n="copy.auto053">Homepage</div></div>
+<div><img alt="App — Copy settings" class="ph" src="images/bnct-app-02.png"/><div class="fig-cap" data-i18n="copy.auto054">Copy settings</div></div>
+<div><img alt="App — My Copy Trading" class="ph" src="images/bnct-app-03.png"/><div class="fig-cap" data-i18n="copy.auto055">My Copy Trading</div></div>
+<div><img alt="App — Lead Trader portfolio" class="ph" src="images/bnct-app-04.png"/><div class="fig-cap" data-i18n="copy.auto056">Lead Trader portfolio</div></div>
+<div><img alt="App — Trade page" class="ph" src="images/bnct-app-05.png"/><div class="fig-cap" data-i18n="copy.auto057">Trade page</div></div>
+</div>
+</section>
+<section class="reveal" id="s5">
+<div class="sec-eyebrow"><span class="num">05</span><span class="name" data-i18n="copy.auto058">Copy Trading Web Design</span></div>
+<h2 class="sec-h" data-i18n="copy.auto059">Extending the experience to web, with responsive layouts (RWD).</h2>
+<div class="stack">
+<div><img alt="Web — Copy Trading homepage" class="ph" src="images/bnct-web-01.png"/><div class="fig-cap" data-i18n="copy.auto060">Copy Trading homepage &amp; RWD</div></div>
+<div><img alt="Web — My Lead Trading" class="ph" src="images/bnct-web-02.png"/><div class="fig-cap" data-i18n="copy.auto061">My Lead Trading &amp; RWD</div></div>
+<div><img alt="Web — Copy Settings" class="ph" src="images/bnct-web-03.png"/><div class="fig-cap" data-i18n="copy.auto062">Copy Settings &amp; RWD</div></div>
+<div><img alt="Web — My Copy Trading" class="ph" src="images/bnct-web-04.png"/><div class="fig-cap" data-i18n="copy.auto063">My Copy Trading &amp; RWD</div></div>
+<div><img alt="Web — Trade page" class="ph" src="images/bnct-web-05.png"/><div class="fig-cap" data-i18n="copy.auto064">Trade page &amp; RWD</div></div>
+</div>
+</section>
+</div>
+</div>
+<a class="next-cs" href="binance-futures.html">
+<div class="inner">
+<div>
+<div class="lbl"><span data-i18n="next.lbl">NEXT CASE STUDY</span> · BINANCE</div>
+<div class="t" data-i18n="cs.futures.long">BINANCE Futures Trading</div>
+</div>
+<svg class="arw" viewbox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
+</div>
+</a>
+</div>
 <footer>
-  <div class="wrap">
-    <div class="foot-contact">
-      <a class="fc" href="mailto:changhsiju@gmail.com" aria-label="Email Ceci Chang" title="changhsiju@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4.5" width="20" height="15" rx="2.5"/><path d="M2.8 6.3l8.1 5.3a2 2 0 0 0 2.2 0l8.1-5.3"/></svg></a>
-      <a class="fc" href="https://www.linkedin.com/in/changhsiju/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" title="linkedin.com/in/changhsiju"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.44-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
-    </div>
-    <div class="foot-credit" data-i18n="foot.credit">Designed by Ceci Chang · Made with Claude</div>
-  </div>
+<div class="wrap">
+<div class="foot-contact">
+<a aria-label="Email Ceci Chang" class="fc" href="mailto:changhsiju@gmail.com" title="changhsiju@gmail.com"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><rect height="15" rx="2.5" width="20" x="2" y="4.5"></rect><path d="M2.8 6.3l8.1 5.3a2 2 0 0 0 2.2 0l8.1-5.3"></path></svg></a>
+<a aria-label="LinkedIn profile" class="fc" href="https://www.linkedin.com/in/changhsiju/" rel="noopener noreferrer" target="_blank" title="linkedin.com/in/changhsiju"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.44-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"></path></svg></a>
+</div>
+<div class="foot-credit" data-i18n="foot.credit">Designed by Ceci Chang · Made with Claude</div>
+</div>
 </footer>
-
 <script>
   const nav=document.getElementById('nav');
   window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>10));
@@ -511,7 +578,6 @@
     apply();
   });
 </script>
-
 <script>
   /* nav 下拉選單 */
   document.querySelectorAll('.has-drop').forEach(function(d){

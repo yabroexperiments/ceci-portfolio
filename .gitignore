@@ -24,3 +24,7 @@ __pycache__/
 !.claude/commands/**
 !.claude/skills/
 !.claude/skills/**
+
+# 2026-09 drop: folded into '2026 portfolio/' (the only committed copy)
+202609_portfolio.zip
+202609_portfolio/
