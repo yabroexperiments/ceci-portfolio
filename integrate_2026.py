@@ -32,6 +32,9 @@ import shutil
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent / "patches"))
+from imgsize import image_size  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent
 SRC = ROOT / "2026 portfolio"
 SITE = ROOT / "site"
@@ -40,6 +43,28 @@ FAVICON = "assets/img/dd_e0xA19up9208Tv6odcjHEw6z4cKAA6fTgjZ9ynkKoSnr5R4vFxI7gZp
 
 # image file types Ceci ships; site/images is MIRRORED against these globs
 IMAGE_GLOBS = ("*.png", "*.webp")
+
+# 2026-09-08 (AC): serve the WebP twin wherever Ceci shipped one. Measured on
+# her set: 49 usable twins, pixel dimensions identical to the PNG, SSIM 0.93-0.999
+# / PSNR 37-52 dB, and indistinguishable from the PNG at 3x magnification — far
+# beyond any size these are displayed at. Cuts what a visitor downloads across
+# the case-study pages from 33.2 MB to 15.4 MB.
+# The swap is conditional per image and gated below: a twin is used ONLY if it
+# decodes and its dimensions match the PNG. bnct-app-05.webp arrived as a
+# ZERO-BYTE file in her export (her conversion failed on that one), which is
+# exactly what the gate exists to catch — it stays PNG.
+# The PNGs stay deployed: og:image must remain PNG for chat-app scrapers, and
+# they are the originals.
+PREFER_WEBP = True
+
+# Twins we KNOW are unusable, so they keep serving the PNG. Listed rather than
+# silently skipped: an unlisted bad twin FAILS the build, and an entry here that
+# has become healthy also fails, so this list cannot rot.
+# Tell Ceci about these — they are bugs in her export, not in the site.
+WEBP_SKIP = {
+    "bnct-app-05.png": "her bnct-app-05.webp is a ZERO-BYTE file — the WebP "
+                       "conversion failed for this one image",
+}
 
 PAGES = {
     "index.html": {
@@ -203,6 +228,42 @@ I18N_KEY_REMAP = {
 }
 
 
+def swap_in_webp(page, site_dir):
+    """Point <img src> at the WebP twin where one is usable. Returns
+    (page, swapped, skipped) — skipped lists (name, why) so a bad twin is
+    reported rather than silently left as PNG."""
+    swapped, skipped = [], []
+
+    def sub(m):
+        ref = m.group(1)
+        png, webp = site_dir / "images" / ref, site_dir / "images" / (ref[:-4] + ".webp")
+        if not webp.exists():
+            return m.group(0)
+        why = None
+        if webp.stat().st_size == 0:
+            why = "WebP twin is a ZERO-BYTE file"
+        else:
+            dw, dp = image_size(webp), image_size(png)
+            if dw is None:
+                why = "WebP twin does not decode"
+            elif dp is not None and dw != dp:
+                why = (f"WebP twin is {dw[0]}x{dw[1]} but the PNG is "
+                       f"{dp[0]}x{dp[1]} — not the same image")
+        if why:
+            skipped.append((ref, why))
+            return m.group(0)
+        if ref in WEBP_SKIP:
+            skipped.append((ref, "listed in WEBP_SKIP but the twin is now HEALTHY "
+                                 "— delete the entry so the WebP gets served"))
+            return m.group(0)
+        swapped.append(ref)
+        return f'src="images/{ref[:-4]}.webp"'
+
+    # src= only: og:image / twitter:image use content= and must stay PNG.
+    page = re.sub(r'src="images/([^"]+\.png)"', sub, page)
+    return page, swapped, skipped
+
+
 def rebuild_wrapper(page, canonical_nav, wrapper_js):
     """Give legacy-project.html the same nav + i18n wiring as every other page,
     and swap in the fixed wrapper script. Returns (page, errors)."""
@@ -334,6 +395,7 @@ def main():
     wrapper_js = (PATCH_DIR / "legacy-wrapper.js").read_text(encoding="utf-8").strip()
 
     patch_hits = {p["name"]: 0 for p in PATCHES}
+    webp_swapped = {}
     for name, info in PAGES.items():
         page = (SRC / name).read_text(encoding="utf-8")
 
@@ -350,6 +412,15 @@ def main():
         if n != 1:
             errors.append(f"{name}: could not inject meta after <title>")
 
+        if PREFER_WEBP:
+            page, sw, sk = swap_in_webp(page, SITE)
+            webp_swapped[name] = sw
+            for ref, why in sk:
+                if ref in WEBP_SKIP and "now HEALTHY" not in why:
+                    print(f"{name}: {ref} kept as PNG — {WEBP_SKIP[ref]}")
+                else:
+                    errors.append(f"{name}: {ref} — {why}")
+
         for p in PATCHES:
             if name not in p["pages"]:
                 continue
@@ -360,6 +431,19 @@ def main():
 
         (SITE / name).write_text(page, encoding="utf-8")
         print(f"{name}: written")
+
+    if PREFER_WEBP:
+        total = sorted({r for v in webp_swapped.values() for r in v})
+        before = sum((SITE / "images" / r).stat().st_size for r in total)
+        after = sum((SITE / "images" / (r[:-4] + ".webp")).stat().st_size for r in total)
+        if total:
+            print(f"webp: serving {len(total)} image(s) as WebP instead of PNG "
+                  f"({before // 1024} KB -> {after // 1024} KB, "
+                  f"-{100 - after * 100 // before}% for those files)")
+        for ref in WEBP_SKIP:
+            if not (SITE / "images" / ref).exists():
+                errors.append(f"WEBP_SKIP lists {ref} but that PNG is gone — "
+                              "delete the entry")
 
     # --- retire pages that left her export ---
     stale_pages = sorted(
