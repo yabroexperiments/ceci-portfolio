@@ -144,9 +144,20 @@ PAGES = {
 # 2026-09-08: a proposed replacement for the preserved IM Creator /about-me/,
 # rebuilt on the v2026 shell. The OLD page stays live and untouched until Ceci
 # approves; nothing in the nav links here yet.
+# Pages WE author (not from Ceci's export). Source lives in patches/ so
+# "2026 portfolio/" stays purely her export. They get the identical font + meta
+# treatment, the identical PATCHES, and pass the identical gates.
+#
+# 2026-09-08: Ceci approved the rebuilt About Me, so it now REPLACES the
+# preserved IM Creator page AT ITS OWN URL, /about-me/. Keeping the URL means
+# every existing link, bookmark and the homepage's About Me pill keep working
+# with no redirect. The old IM Creator markup is replaced in place and remains
+# in git history. Because the page is served one directory deep, every relative
+# reference in it is rewritten to ../ on the way out (see to_subdir).
 PROPOSALS = {
     "about-me-2026.html": {
-        "url": f"{DOMAIN}/about-me-2026.html",
+        "out": "about-me/index.html",
+        "url": f"{DOMAIN}/about-me/",
         "desc": ("About Ceci Chang — UI/UX designer from Taiwan with 10+ years "
                  "across FinTech, cryptocurrency and mobile OS, most recently "
                  "Senior Product Designer at Binance."),
@@ -354,6 +365,18 @@ def swap_in_webp(page, site_dir):
     return page, swapped, skipped
 
 
+def to_subdir(page):
+    """Shift every RELATIVE href/src up one level, for a page written into a
+    subdirectory. Absolute URLs, mailto:, #anchors and already-../ paths are
+    left alone."""
+    def fix(m):
+        attr, val = m.group(1), m.group(2)
+        if re.match(r'(https?:|mailto:|tel:|#|/|\.\./|data:)', val):
+            return m.group(0)
+        return f'{attr}="../{val}"'
+    return re.sub(r'\b(href|src)="([^"]+)"', fix, page)
+
+
 def rebuild_wrapper(page, canonical_nav, wrapper_js):
     """Give legacy-project.html the same nav + i18n wiring as every other page,
     and swap in the fixed wrapper script. Returns (page, errors)."""
@@ -417,6 +440,12 @@ def meta_block(page, info):
 <meta name="twitter:image" content="{info['og_image']}">
 <link href="{FAVICON}" rel="icon" type="image/png">
 <link href="{FAVICON}" rel="apple-touch-icon">"""
+
+
+def deployed():
+    """(source name, path relative to site/) for every page we deploy."""
+    return ([(n, n) for n in PAGES] +
+            [(n, PROPOSALS[n]["out"]) for n in PROPOSALS])
 
 
 def main():
@@ -519,8 +548,13 @@ def main():
         page, n = re.subn(r"</head>", CANVAS_CSS + "</head>", page, count=1)
         if n != 1:
             errors.append(f"{name}: could not inject the canvas background before </head>")
-        (SITE / name).write_text(page, encoding="utf-8")
-        print(f"{name}: written (REVIEW PAGE — not linked from the nav)")
+        out = info["out"]
+        if "/" in out:
+            page = to_subdir(page)
+        dest = SITE / out
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_text(page, encoding="utf-8")
+        print(f"{name}: written -> site/{out}")
     for name, info in PAGES.items():
         page = (SRC / name).read_text(encoding="utf-8")
 
@@ -603,8 +637,8 @@ def main():
         if f.exists():
             dict_keys |= set(re.findall(r"""['"]([\w.]+)['"]\s*:\s*\{\s*en:""",
                                         f.read_text(encoding="utf-8")))
-    for name in list(PAGES) + list(PROPOSALS):
-        page = (SITE / name).read_text(encoding="utf-8")
+    for name, rel in deployed():
+        page = (SITE / rel).read_text(encoding="utf-8")
         used = set(re.findall(r'data-i18n(?:-html)?="([^"]+)"', page))
         for k in sorted(used - dict_keys):
             errors.append(f"{name}: data-i18n key '{k}' has no entry in i18n.js "
@@ -613,11 +647,13 @@ def main():
     # --- verify: every referenced local image exists ---
     referenced = set()
     missing = []
-    for name in list(PAGES) + list(PROPOSALS):
-        page = (SITE / name).read_text(encoding="utf-8")
-        for ref in sorted(set(re.findall(r'(?:src|href|srcset)="(images/[^"]+)"', page))):
-            referenced.add(ref.split("/", 1)[1])
-            if not (SITE / ref).exists():
+    for name, rel in deployed():
+        page = (SITE / rel).read_text(encoding="utf-8")
+        base = (SITE / rel).parent
+        for ref in sorted(set(re.findall(
+                r'(?:src|href|srcset)="((?:\.\./)*images/[^"]+)"', page))):
+            referenced.add(ref.rsplit("images/", 1)[1])
+            if not (base / ref).resolve().exists():
                 missing.append(f"{name}: {ref}")
     if missing:
         errors.extend("missing image: " + m for m in missing)
@@ -628,13 +664,14 @@ def main():
               f"{', '.join(unreferenced[:6])}{' …' if len(unreferenced) > 6 else ''}")
 
     # --- verify: every same-site link resolves to something we deploy ---
-    for name in list(PAGES) + list(PROPOSALS):
-        page = (SITE / name).read_text(encoding="utf-8")
-        for href in sorted(set(re.findall(r'href="(?!https?:|mailto:|#)([^"]+)"', page))):
+    for name, rel in deployed():
+        page = (SITE / rel).read_text(encoding="utf-8")
+        base = (SITE / rel).parent
+        for href in sorted(set(re.findall(r'href="(?!https?:|mailto:|tel:|#)([^"]+)"', page))):
             target = href.split("#")[0].split("?")[0]
-            if not target or target.startswith("images/") or target.startswith("assets/"):
+            if not target:
                 continue
-            p = SITE / target
+            p = (base / target).resolve()
             if not (p.exists() or (p / "index.html").exists()):
                 errors.append(f"{name}: dead internal link -> {href}")
 
@@ -662,8 +699,8 @@ def main():
     # --- verify: the canvas colour still matches the footer colour ---
     # If Ceci restyles the footer, a hardcoded canvas colour would silently stop
     # matching and the strip would come back in a new colour.
-    for name in list(PAGES) + list(PROPOSALS):
-        page = (SITE / name).read_text(encoding="utf-8")
+    for name, rel in deployed():
+        page = (SITE / rel).read_text(encoding="utf-8")
         css = " ".join(re.findall(r"<style[^>]*>([\s\S]*?)</style>", page))
         css = re.sub(r"\s+", " ", css)
         foot = set()
@@ -680,8 +717,8 @@ def main():
             errors.append(f"{name}: canvas background missing")
 
     # --- verify: no external requests left (fonts/CDNs) ---
-    for name in list(PAGES) + list(PROPOSALS):
-        page = (SITE / name).read_text(encoding="utf-8")
+    for name, rel in deployed():
+        page = (SITE / rel).read_text(encoding="utf-8")
         ext = re.findall(r'(?:src|href)="(https?://[^"]+)"', page)
         bad = [u for u in ext if not (
             u.startswith(DOMAIN) or any(h in u for h in EXTERNAL_ALLOW))]
