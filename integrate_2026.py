@@ -216,11 +216,20 @@ PATCHES = [
                   "binance-leaderboard.html", "traderwagon.html", "ui-design.html"],
         "re": re.compile(r"document\.querySelectorAll\('\.reveal'\)"
                          r"\.forEach\(el=>io\.observe\(el\)\);"),
+        # Runs at DOMContentLoaded (immediately — a block already on screen has
+        # nothing to animate INTO, so revealing it at once is also the correct
+        # behaviour), again on rAF, and again after load. Gating this only on
+        # 'load' was not enough: this page waits on 17 images, so the backstop
+        # could arrive seconds late on a phone.
         "sub": lambda m: m.group(0) + (
-            "addEventListener('load',function(){setTimeout(function(){"
+            "var __reveal=function(){"
             "document.querySelectorAll('.reveal:not(.in)').forEach(function(el){"
             "var r=el.getBoundingClientRect();"
-            "if(r.top<innerHeight&&r.bottom>0)el.classList.add('in');});},400);});"),
+            "if(r.top<innerHeight&&r.bottom>0)el.classList.add('in');});};"
+            "__reveal();"
+            "requestAnimationFrame(__reveal);"
+            "addEventListener('DOMContentLoaded',__reveal);"
+            "addEventListener('load',function(){__reveal();setTimeout(__reveal,400);});"),
         "expect": lambda before, after: True,
     },
     {
