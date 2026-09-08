@@ -180,6 +180,24 @@ LOCAL_FONT_LINK = '<link href="assets/fonts/inter/inter.css" rel="stylesheet">'
 # hosts a page may legitimately reference besides our own domain
 EXTERNAL_ALLOW = ("linkedin.com", "apollox.finance", "hoyabit.com", "binance.com")
 
+# BUGFIX 2026-09-08 (AC, reproduced on his iPhone): a white strip shows below
+# the black footer at the bottom of the page on iOS.
+# The area outside the document — the rubber-band overscroll region and the
+# bottom safe-area — is painted with the CANVAS background, never with the
+# footer's. The canvas takes its colour from <html>, or, when <html> has none,
+# from <body>. No page sets one on <html>, so body's light colour (#fff, or
+# #eef1fb on ui-design / about-me) was showing under the dark footer.
+# Every deployed page sets its own body background (verified), and body's box
+# spans the whole document, so giving <html> the footer's colour changes nothing
+# inside the page and only repaints the region beyond it.
+# Trade-off worth knowing: the same canvas is what shows when you overscroll at
+# the TOP, so pulling down above the nav now reveals dark rather than light.
+# A single canvas colour cannot be light at one end and dark at the other.
+CANVAS_CSS = ('<style>/* canvas = footer colour, so iOS overscroll and the '
+              'bottom safe-area do not show a light strip under the footer */'
+              'html{background:#0b0b0f}</style>')
+FOOTER_BG = "#0b0b0f"
+
 # Regex patches. Each MUST match at least once across the pages listed in
 # `pages`, or its cause is gone and the entry has to be deleted — a
 # re.sub() whose target vanished is a SILENT no-op.
@@ -498,6 +516,9 @@ def main():
             for ref, why in sk:
                 if ref not in WEBP_SKIP:
                     errors.append(f"{name}: {ref} — {why}")
+        page, n = re.subn(r"</head>", CANVAS_CSS + "</head>", page, count=1)
+        if n != 1:
+            errors.append(f"{name}: could not inject the canvas background before </head>")
         (SITE / name).write_text(page, encoding="utf-8")
         print(f"{name}: written (REVIEW PAGE — not linked from the nav)")
     for name, info in PAGES.items():
@@ -533,6 +554,9 @@ def main():
             if p["expect"](before, page) and before != page:
                 patch_hits[p["name"]] += 1
 
+        page, n = re.subn(r"</head>", CANVAS_CSS + "</head>", page, count=1)
+        if n != 1:
+            errors.append(f"{name}: could not inject the canvas background before </head>")
         (SITE / name).write_text(page, encoding="utf-8")
         print(f"{name}: written")
 
@@ -634,6 +658,26 @@ def main():
             elif not (SITE / known[key] / "index.html").exists():
                 errors.append(f"{WRAPPER_PAGE}: project '{key}' points at "
                               f"/{known[key]}/ which is not deployed")
+
+    # --- verify: the canvas colour still matches the footer colour ---
+    # If Ceci restyles the footer, a hardcoded canvas colour would silently stop
+    # matching and the strip would come back in a new colour.
+    for name in list(PAGES) + list(PROPOSALS):
+        page = (SITE / name).read_text(encoding="utf-8")
+        css = " ".join(re.findall(r"<style[^>]*>([\s\S]*?)</style>", page))
+        css = re.sub(r"\s+", " ", css)
+        foot = set()
+        for m in re.finditer(r"([^{}]{0,120})\{([^}]*)\}", css):
+            sel = m.group(1).strip().split("}")[-1].split("*/")[-1].strip()
+            if sel.startswith("footer") and "background" in m.group(2):
+                for d in m.group(2).split(";"):
+                    if re.match(r"\s*background(-color)?\s*:", d):
+                        foot.add(d.split(":", 1)[1].strip())
+        if foot and FOOTER_BG not in foot:
+            errors.append(f"{name}: footer background is {sorted(foot)} but the "
+                          f"canvas is pinned to {FOOTER_BG} — update CANVAS_CSS")
+        if f"html{{background:{FOOTER_BG}}}" not in page:
+            errors.append(f"{name}: canvas background missing")
 
     # --- verify: no external requests left (fonts/CDNs) ---
     for name in list(PAGES) + list(PROPOSALS):
