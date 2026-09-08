@@ -217,7 +217,7 @@ PATCHES = [
         "name": "reveal observer threshold .1 -> 0 (unsatisfiable on tall blocks)",
         "pages": ["index.html", "drift-earn.html", "drift-growth.html",
                   "binance-copytrading.html", "binance-futures.html",
-                  "binance-leaderboard.html", "traderwagon.html", "ui-design.html"],
+                  "binance-leaderboard.html", "traderwagon.html", "ui-design.html", "about-me-2026.html"],
         "re": re.compile(r"\{threshold:\s*\.1\}"),
         "sub": lambda m: "{threshold:0}",
         "expect": lambda before, after: True,
@@ -230,7 +230,7 @@ PATCHES = [
         "name": "reveal failsafe (content can never stay invisible)",
         "pages": ["index.html", "drift-earn.html", "drift-growth.html",
                   "binance-copytrading.html", "binance-futures.html",
-                  "binance-leaderboard.html", "traderwagon.html", "ui-design.html"],
+                  "binance-leaderboard.html", "traderwagon.html", "ui-design.html", "about-me-2026.html"],
         "re": re.compile(r"document\.querySelectorAll\('\.reveal'\)"
                          r"\.forEach\(el=>io\.observe\(el\)\);"),
         # Runs at DOMContentLoaded (immediately — a block already on screen has
@@ -482,6 +482,22 @@ def main():
         page, n = re.subn(r"(</title>)", r"\1" + meta_block(page, info), page, count=1)
         if n != 1:
             errors.append(f"{name}: could not inject meta after <title>")
+        # A proposal is sliced from her shell, so it inherits her UNFIXED code —
+        # it must go through the same patch pipeline as a real page or it ships
+        # the very bugs the patches exist to remove (caught 2026-09-08: the
+        # About Me draft had the .1 reveal threshold and no failsafe).
+        for pt in PATCHES:
+            if name not in pt["pages"]:
+                continue
+            before = page
+            page, _ = pt["re"].subn(pt["sub"], page)
+            if pt["expect"](before, page) and before != page:
+                patch_hits[pt["name"]] += 1
+        if PREFER_WEBP:
+            page, sw, sk = swap_in_webp(page, SITE)
+            for ref, why in sk:
+                if ref not in WEBP_SKIP:
+                    errors.append(f"{name}: {ref} — {why}")
         (SITE / name).write_text(page, encoding="utf-8")
         print(f"{name}: written (REVIEW PAGE — not linked from the nav)")
     for name, info in PAGES.items():
