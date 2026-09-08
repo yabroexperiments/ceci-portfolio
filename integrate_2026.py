@@ -138,6 +138,23 @@ PAGES = {
     },
 }
 
+# Pages WE author (not from Ceci's export) that are deployed for review at their
+# own URL. Source lives in patches/ so "2026 portfolio/" stays purely her export.
+# They get the identical font + meta treatment and pass the identical gates.
+# 2026-09-08: a proposed replacement for the preserved IM Creator /about-me/,
+# rebuilt on the v2026 shell. The OLD page stays live and untouched until Ceci
+# approves; nothing in the nav links here yet.
+PROPOSALS = {
+    "about-me-2026.html": {
+        "url": f"{DOMAIN}/about-me-2026.html",
+        "desc": ("About Ceci Chang — UI/UX designer from Taiwan with 10+ years "
+                 "across FinTech, cryptocurrency and mobile OS, most recently "
+                 "Senior Product Designer at Binance."),
+        "og_image": f"{DOMAIN}/images/hero.png",
+    },
+}
+
+
 # Files in her export that are deliberately NOT deployed.
 #
 # coinful.html is a one-off wrapper for a single archive page. legacy-project.html
@@ -451,6 +468,22 @@ def main():
 
     patch_hits = {p["name"]: 0 for p in PATCHES}
     webp_swapped = {}
+
+    # proposals are authored by us and live in patches/, not in her export
+    for name, info in PROPOSALS.items():
+        src = PATCH_DIR / name
+        if not src.exists():
+            errors.append(f"PROPOSALS lists {name} but patches/{name} is missing")
+            continue
+        page = src.read_text(encoding="utf-8")
+        page, n = FONT_LINKS_RE.subn(LOCAL_FONT_LINK, page)
+        if n != 1 and LOCAL_FONT_LINK not in page:
+            errors.append(f"{name}: no Google-Fonts block to localise")
+        page, n = re.subn(r"(</title>)", r"\1" + meta_block(page, info), page, count=1)
+        if n != 1:
+            errors.append(f"{name}: could not inject meta after <title>")
+        (SITE / name).write_text(page, encoding="utf-8")
+        print(f"{name}: written (REVIEW PAGE — not linked from the nav)")
     for name, info in PAGES.items():
         page = (SRC / name).read_text(encoding="utf-8")
 
@@ -530,7 +563,7 @@ def main():
         if f.exists():
             dict_keys |= set(re.findall(r"""['"]([\w.]+)['"]\s*:\s*\{\s*en:""",
                                         f.read_text(encoding="utf-8")))
-    for name in PAGES:
+    for name in list(PAGES) + list(PROPOSALS):
         page = (SITE / name).read_text(encoding="utf-8")
         used = set(re.findall(r'data-i18n(?:-html)?="([^"]+)"', page))
         for k in sorted(used - dict_keys):
@@ -540,7 +573,7 @@ def main():
     # --- verify: every referenced local image exists ---
     referenced = set()
     missing = []
-    for name in PAGES:
+    for name in list(PAGES) + list(PROPOSALS):
         page = (SITE / name).read_text(encoding="utf-8")
         for ref in sorted(set(re.findall(r'(?:src|href|srcset)="(images/[^"]+)"', page))):
             referenced.add(ref.split("/", 1)[1])
@@ -555,7 +588,7 @@ def main():
               f"{', '.join(unreferenced[:6])}{' …' if len(unreferenced) > 6 else ''}")
 
     # --- verify: every same-site link resolves to something we deploy ---
-    for name in PAGES:
+    for name in list(PAGES) + list(PROPOSALS):
         page = (SITE / name).read_text(encoding="utf-8")
         for href in sorted(set(re.findall(r'href="(?!https?:|mailto:|#)([^"]+)"', page))):
             target = href.split("#")[0].split("?")[0]
@@ -587,7 +620,7 @@ def main():
                               f"/{known[key]}/ which is not deployed")
 
     # --- verify: no external requests left (fonts/CDNs) ---
-    for name in PAGES:
+    for name in list(PAGES) + list(PROPOSALS):
         page = (SITE / name).read_text(encoding="utf-8")
         ext = re.findall(r'(?:src|href)="(https?://[^"]+)"', page)
         bad = [u for u in ext if not (
