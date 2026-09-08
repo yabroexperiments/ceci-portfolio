@@ -388,52 +388,38 @@ nav#nav{position:sticky!important;top:0!important;z-index:1000!important;}
 </div>
 </nav>
 <style>
-/* ===== About Me (2026) — same tokens + type scale as the rest of the site ===== */
+/* ===== About Me (2026) — same tokens + type scale as the rest of the site =====
+   Centred single column at every width, matching the live /about-me/ it replaces
+   (that page centres a 140px portrait and its heading at both 390px and 1440px). */
 body{background:var(--lightblue)}
 .about-main{padding-bottom:110px}
-.about-hero{display:grid;grid-template-columns:300px 1fr;gap:64px;align-items:center;
-  padding-top:88px;padding-bottom:64px}
-.about-portrait{width:300px;height:300px;border-radius:50%;overflow:hidden;background:#e3e8f7}
+.about-hero{text-align:center;padding-top:80px;padding-bottom:8px}
+.about-portrait{width:140px;height:140px;border-radius:50%;overflow:hidden;
+  background:#e3e8f7;margin:0 auto 28px}
 .about-portrait img{width:100%;height:100%;object-fit:cover;display:block}
-.about-hero .eyebrow{font-size:13px;font-weight:600;color:var(--accent);margin-bottom:14px}
-.about-hero h1{font-size:clamp(40px,4.6vw,62px);line-height:1.04;letter-spacing:-.045em;
-  margin:0 0 22px;font-weight:600}
-.about-hero .lede{font-size:20px;line-height:1.6;color:var(--ink-soft);margin:0;max-width:560px}
-.about-body{max-width:760px;padding-bottom:8px}
+/* sized so "Hello, I'm Ceci Chang" stays on ONE line down to a 320px phone */
+.about-hero h1{font-size:clamp(25px,7vw,52px);line-height:1.1;letter-spacing:-.035em;
+  font-weight:600;margin:0;white-space:nowrap}
+.about-divider{width:56px;height:1px;background:var(--ink-mute);opacity:.5;margin:30px auto 44px}
+.about-body{max-width:720px;margin:0 auto}
 .about-body p{font-size:17px;line-height:1.75;color:var(--ink-soft);margin:0 0 24px}
-.about-body p:last-of-type{margin-bottom:0}
-.about-divider{height:1px;background:var(--line);margin:8px 0 44px}
-.about-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:44px}
-.about-btn{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:999px;
-  border:1px solid var(--line);background:#fff;color:var(--ink);font-size:15px;font-weight:500;
-  transition:border-color .2s,transform .2s}
-.about-btn:hover{border-color:var(--ink);transform:translateY(-1px)}
-.about-btn svg{width:17px;height:17px}
+.about-body p:last-child{margin-bottom:0}
 @media(max-width:900px){
-  .about-hero{grid-template-columns:1fr;gap:34px;padding-top:56px;padding-bottom:48px}
-  .about-portrait{width:180px;height:180px}
-  .about-hero .lede{font-size:18px;max-width:none}
+  .about-hero{padding-top:52px}
   .about-body p{font-size:16.5px}
 }
 </style>
 <main class="wrap about-main">
 <section class="about-hero reveal">
 <div class="about-portrait"><img alt="Ceci Chang" src="assets/img/lmsGnLOBsoGok3dRoJDcmi6LxVgO5e4TYbBrVXEKget6qISHlTgp8Oy7BehP-942d1cd5af.png"/></div>
-<div class="about-intro">
-<div class="eyebrow">About</div>
 <h1>Hello, I'm Ceci Chang</h1>
-<p class="lede">I am a UI/UX designer from Taiwan with more than 10 years of experiences in FinTech, Cryptocurrency and Mobile OS industries.</p>
-</div>
+<div class="about-divider"></div>
 </section>
 <section class="about-body reveal">
-<div class="about-divider"></div>
+<p>I am a UI/UX designer from Taiwan with more than 10 years of experiences in FinTech, Cryptocurrency and Mobile OS industries.</p>
 <p>My most recent position is Senior Product Designer at Binance focused on the design of the cryptocurrency trading platform, and worked at Coinful Capital as UI/UX Lead prior. I graduated with a Master’s Degree in Fashion and Communication Design from Shih Chien University in Taiwan.</p>
 <p>I am skilled to translate abstract ideas into concrete actions. I am experienced in a fast paced iterative/agile work environment and strive to deliver highest quality design assets and user experiences. I have a huge passion for solving problems and simplifying designs to create intuitive user experiences that address customer needs. In my 10+ years of design journey, I had the opportunity to work in startup and enterprise environments on UI/UX, branding, graphic design projects related to FinTech, Cryptocurrency, Mobile OS (in Mozilla and HTC) and Fashion industries.</p>
 <p>In my spare time, I enjoy nature and sports such as diving, hiking and snowboarding. The outdoors always gives me inspiration and recharges my energy.</p>
-<div class="about-cta">
-<a class="about-btn" href="mailto:changhsiju@gmail.com" target="_blank"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><rect height="15" rx="2.5" width="20" x="2" y="4.5"></rect><path d="M2.8 6.3l8.1 5.3a2 2 0 0 0 2.2 0l8.1-5.3"></path></svg>changhsiju@gmail.com</a>
-<a class="about-btn" href="https://www.linkedin.com/in/changhsiju/" rel="noopener noreferrer" target="_blank"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.44-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"></path></svg>LinkedIn</a>
-</div>
 </section>
 </main><footer id="contact">
 <div class="wrap">
