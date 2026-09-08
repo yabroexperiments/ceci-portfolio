@@ -170,3 +170,73 @@ Cost real time this session; both are structural, not incidental.
   after a programmatic scroll. Use `setTimeout`, set `scroll-behavior: auto`
   before measuring scroll, prefer structural measurement over screenshots, and
   split long `await` loops across calls or the tool times out at 45s.
+
+---
+
+# Addendum — ui-design.html was blank on mobile (fixed `16f4596`, `6925d86`)
+
+AC opened the page on his phone after the wrap: blank. It renders on desktop.
+
+## Root cause: an IntersectionObserver threshold that cannot be satisfied
+Her shared reveal snippet uses `IntersectionObserver(…, {threshold: .1})` —
+"fire when 10% of this element is visible". **For an element more than ~10× the
+viewport height, 10% of it does not fit on screen, so the observer never fires at
+any scroll position** and the block stays at `.reveal{opacity:0}` forever.
+
+Measured on production at 375px wide:
+| | grid height | needs visible | viewport | result |
+|---|---|---|---|---|
+| desktop, 3 columns | ~3,400px | 340px | 900px | fires |
+| mobile, 1 column | **8,095px** | **810px** | ~660px usable | **can never fire** |
+
+Two things made this a *blank page* rather than a missing animation:
+`ui-design.html` collapses its 17 cards to one column under 620px (uniquely tall),
+and it is the only page where `.reveal` wraps **all** the content — every other
+page has an ungated hero, so a failed observer there costs a fade, not the page.
+
+Fix: `threshold: 0` on all 8 pages, plus a failsafe that reveals any on-screen
+`.reveal` immediately / on rAF / on DOMContentLoaded / after load. Gating the
+backstop on `load` alone was not enough — this page waits on 17 images, and the
+hero revealed while the grid stayed hidden.
+
+## GLOBAL CANDIDATE — a threshold expressed as a FRACTION of the observed element is unsatisfiable once that element outgrows the viewport
+
+`threshold: 0.1` reads like "a bit of it", but it means *a fraction of the
+element*, not of the screen. The moment the element exceeds 10× the viewport the
+condition becomes unreachable — silently, with no error, and only on the smaller
+screens where the element is tallest. Any percentage-of-target trigger
+(IntersectionObserver thresholds, "50% viewed" analytics, scroll-depth gates,
+lazy-load margins) needs the same sanity check: **compare the required pixels
+against the smallest viewport you support.** Prefer `threshold: 0` plus a
+`rootMargin` when you want "slightly after it enters" — that is expressed in
+pixels and cannot become unreachable.
+
+## GLOBAL CANDIDATE — an entrance animation must never be the only thing standing between a user and the content
+
+`.reveal{opacity:0}` with JS as the sole path to `opacity:1` means **every
+failure mode of that JS is a blank page** — an unmet threshold, an unsupported
+API, a throw earlier in the same script, a slow `load` event. Content should
+default to visible and be *hidden* by JS that has proven it will also unhide it,
+or carry an unconditional backstop. When reviewing a reveal-on-scroll pattern,
+the question is not "does it animate?" but "what does the user see if this
+script never runs?"
+
+## GLOBAL CANDIDATE — a near-blank render is EVIDENCE, not a rendering artifact, until proven otherwise
+
+I verified this page as working. My very first screenshot of it was almost blank
+— a faint ghost of the heading and nothing else — and I explained that away as
+"the hidden pane doesn't run CSS animations", then switched to structural
+measurement that confirmed 17 cards in the DOM with decoding images. Every one of
+those measurements was true. The page was still blank for the user.
+
+**A dismissed anomaly needs a positive explanation, not a plausible one.** The
+honest move was to ask *why* the animation state matched a broken-page state so
+exactly, and to note explicitly that appearance was unverified rather than let
+structural passes stand in for it. Two concrete rules for this environment:
+- **Structural checks (DOM present, images decode, links resolve) cannot see a
+  visibility bug.** `opacity: 0` passes all of them.
+- **The hidden pane cannot fire IntersectionObserver at all**, so any
+  reveal-on-scroll behaviour is simply *unverifiable* here — that must be stated
+  as an open item, not silently covered by adjacent green checks. The root cause
+  here was ultimately found by arithmetic (element height vs viewport), which is
+  environment-independent — reach for that when the loop cannot see.
