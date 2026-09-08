@@ -562,8 +562,8 @@ nav#nav{position:sticky!important;top:0!important;z-index:1000!important;}
   l.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>l.classList.remove('open')));
 
   // reveal
-  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:0});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));addEventListener('load',function(){setTimeout(function(){document.querySelectorAll('.reveal:not(.in)').forEach(function(el){var r=el.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)el.classList.add('in');});},400);});
 
   // TOC active state
   const links=[...document.querySelectorAll('.toc a')];

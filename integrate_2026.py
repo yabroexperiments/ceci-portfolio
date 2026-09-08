@@ -178,6 +178,52 @@ PATCHES = [
         "expect": lambda before, after: 'href="#about"' in before,
     },
     {
+        # BUGFIX 2026-09-08 (AC reported ui-design.html blank ON MOBILE; measured
+        # on a real 375x812 viewport against production):
+        # Her shared reveal snippet observes every .reveal block with
+        #   IntersectionObserver(..., {threshold: .1})
+        # i.e. "fire when 10% of this element is visible". That is unsatisfiable
+        # for any element more than 10x the viewport height — 10% of it simply
+        # does not fit on screen, so the observer NEVER fires at ANY scroll
+        # position and the block stays at .reveal{opacity:0} forever.
+        #   ui-design.html mobile grid = 8095px tall -> needs 810px visible
+        #   iPhone Safari usable viewport ~660px      -> CAN NEVER FIRE
+        #   desktop 3-column grid = ~3400px           -> needs 340px -> fine
+        # That asymmetry is exactly why it renders on desktop and is blank on a
+        # phone. ui-design.html is the first page to cross the line because its
+        # 17 cards collapse to ONE column under 620px; it is also the only page
+        # where .reveal wraps ALL the content, so the failure is a blank page
+        # rather than one section that does not animate.
+        # threshold:0 fires as soon as a single pixel is visible, which is
+        # correct for any element size. Applied to every page so a future tall
+        # section on a case study cannot hit this.
+        "name": "reveal observer threshold .1 -> 0 (unsatisfiable on tall blocks)",
+        "pages": ["index.html", "drift-earn.html", "drift-growth.html",
+                  "binance-copytrading.html", "binance-futures.html",
+                  "binance-leaderboard.html", "traderwagon.html", "ui-design.html"],
+        "re": re.compile(r"\{threshold:\s*\.1\}"),
+        "sub": lambda m: "{threshold:0}",
+        "expect": lambda before, after: True,
+    },
+    {
+        # Belt and braces for the same class of bug: an ENTRANCE animation must
+        # never be able to leave content permanently invisible. If the observer
+        # does not fire for any reason (unsupported, threshold maths, a throw
+        # earlier in the script), reveal anything that is actually on screen.
+        "name": "reveal failsafe (content can never stay invisible)",
+        "pages": ["index.html", "drift-earn.html", "drift-growth.html",
+                  "binance-copytrading.html", "binance-futures.html",
+                  "binance-leaderboard.html", "traderwagon.html", "ui-design.html"],
+        "re": re.compile(r"document\.querySelectorAll\('\.reveal'\)"
+                         r"\.forEach\(el=>io\.observe\(el\)\);"),
+        "sub": lambda m: m.group(0) + (
+            "addEventListener('load',function(){setTimeout(function(){"
+            "document.querySelectorAll('.reveal:not(.in)').forEach(function(el){"
+            "var r=el.getBoundingClientRect();"
+            "if(r.top<innerHeight&&r.bottom>0)el.classList.add('in');});},400);});"),
+        "expect": lambda before, after: True,
+    },
+    {
         # BUGFIX 2026-09-08 (measured, not guessed): her new
         #   html{scrollbar-gutter:stable;overflow-y:scroll}
         # combines with the pre-existing body{overflow-x:hidden} (which computes
