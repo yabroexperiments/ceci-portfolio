@@ -89,25 +89,15 @@
          b) the ancestor walk then hid it, and the "does it contain an <img>"
             guard could not save it because IM Creator renders those pages with
             CSS background-image, not <img>.
-       So: keep only LEAF-MOST matches (an element containing another match is
-       never the strip), refuse anything taller than a strip can plausibly be,
-       and never touch a known page container. Height is the honest signal here —
-       a footer strip is short, a page is not. */
+       So: refuse anything taller than a strip can plausibly be, never touch a
+       known page container, and hide the OUTERMOST surviving match. Height is
+       the honest signal here — a footer strip is short, a page is not. */
     var NEVER_HIDE = '.xprs-holder,.main-page,.light-box-wrapper,#content,.container,body,html';
     var STRIP_MAX_H = 400;
     var isStrip = function (el) {
       if (el.matches && el.matches(NEVER_HIDE)) return false;
       var h = el.getBoundingClientRect().height;
       return h > 0 && h <= STRIP_MAX_H;
-    };
-
-    var hideStrip = function (el) {
-      var node = el, best = el;
-      for (var i = 0; i < 5 && node && node !== d.body; i++, node = node.parentElement) {
-        if (!isStrip(node)) break;
-        best = node;
-      }
-      best.style.setProperty('display', 'none', 'important');
     };
 
     /* The pager reads "PREVIOUS NEXT" mid-sequence but "PREVIOUS HOME" on the
@@ -122,11 +112,25 @@
       if (!txt || txt.length >= 180) return false;
       return RE_STRIP.some(function (re) { return re.test(txt); });
     });
-    matched
+
+    /* Hide the OUTERMOST band that is still small enough to be chrome, not the
+       leaf. Hiding only the leaf (the first version) removed the words but left
+       the band's own container standing — its height and background survived,
+       so every wrapped page carried ~330px of dead space above our footer
+       (a 68px pager band, visibly BLUE on htc_dot-view, plus a 262px copyright
+       band). It passed an innerText check because innerText excludes hidden
+       descendants: the words were gone, the box was not.
+       The <=400px ceiling is what makes going outermost safe — on a sparse,
+       image-led page the whole document also matches the text test, but it is
+       thousands of pixels tall and is refused. */
+    var candidates = matched.filter(function (el) {
+      return isStrip(el) && el.offsetHeight > 0;
+    });
+    candidates
       .filter(function (el) {
-        return !matched.some(function (o) { return o !== el && el.contains(o); });
+        return !candidates.some(function (o) { return o !== el && o.contains(el); });
       })
-      .forEach(function (el) { if (isStrip(el)) hideStrip(el); });
+      .forEach(function (el) { el.style.setProperty('display', 'none', 'important'); });
 
     var resize = function () {
       d.documentElement.style.height = 'auto';
